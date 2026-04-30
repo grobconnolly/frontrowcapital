@@ -468,6 +468,24 @@
 </head>
 <body>
 
+<script>
+  (function(){
+    var PASSWORD = 'frontrow1';
+    if (sessionStorage.getItem('frcpSimUnlocked') === '1') return;
+    document.documentElement.style.visibility = 'hidden';
+    var entered = window.prompt('This page is password protected.\n\nPlease enter the password:');
+    while (entered !== null && entered !== PASSWORD) {
+      entered = window.prompt('Incorrect password. Try again, or cancel to leave.');
+    }
+    if (entered === PASSWORD) {
+      sessionStorage.setItem('frcpSimUnlocked', '1');
+      document.documentElement.style.visibility = '';
+    } else {
+      window.location.replace('index.html');
+    }
+  })();
+</script>
+
 <div class="frame">
 
   <header class="almanac">
