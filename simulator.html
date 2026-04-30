@@ -1,0 +1,820 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Front Row Capital Simulator</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@600;800;900&family=Oswald:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&family=Lora:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<style>
+  :root {
+    --field: #0a3d28;
+    --field-dim: #1a5d3a;
+    --field-bright: #2d8050;
+    --paper: #f4ecd8;
+    --paper-dim: #e8dec1;
+    --paper-shadow: #d4c79e;
+    --gold: #c4933e;
+    --gold-bright: #e6b04d;
+    --stitch: #8b1c2b;
+    --ink: #1a1815;
+    --ink-soft: #4a4239;
+  }
+  html, body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'Lora', Georgia, serif;
+  }
+  body {
+    background-image:
+      radial-gradient(circle at 20% 10%, rgba(196,147,62,0.08), transparent 50%),
+      radial-gradient(circle at 85% 85%, rgba(10,61,40,0.06), transparent 50%),
+      repeating-linear-gradient(45deg, transparent, transparent 2px, rgba(26,24,21,0.012) 2px, rgba(26,24,21,0.012) 4px);
+    min-height: 100vh;
+    padding: 24px 12px 60px;
+  }
+  @media (min-width: 768px) {
+    body { padding: 32px 20px 72px; }
+  }
+  .frame { max-width: 1280px; margin: 0 auto; }
+
+  /* HEADER */
+  header.almanac {
+    border: 3px double var(--field);
+    padding: 18px 20px;
+    background: var(--paper-dim);
+    position: relative;
+    margin-bottom: 18px;
+  }
+  @media (min-width: 768px) {
+    header.almanac { padding: 22px 32px; margin-bottom: 22px; }
+  }
+  header.almanac::before, header.almanac::after {
+    content: ''; position: absolute; width: 14px; height: 14px;
+    border: 2px solid var(--field); top: 6px;
+  }
+  header.almanac::before { left: 6px; }
+  header.almanac::after { right: 6px; }
+  .eyebrow {
+    font-family: 'Oswald', sans-serif; font-weight: 500;
+    font-size: 10px; letter-spacing: 0.32em; color: var(--field);
+    text-transform: uppercase; margin-bottom: 6px;
+  }
+  @media (min-width: 768px) { .eyebrow { font-size: 11px; } }
+  h1.bigtitle {
+    font-family: 'Big Shoulders Display', sans-serif;
+    font-weight: 900; font-size: clamp(34px, 8vw, 72px);
+    color: var(--field); line-height: 0.92;
+    letter-spacing: -0.01em; text-transform: uppercase;
+    margin: 0;
+  }
+  .h1-line2 { color: var(--gold); font-weight: 800; }
+  .deck {
+    font-family: 'Lora', serif; font-style: italic;
+    color: var(--ink-soft); font-size: 13px; margin-top: 8px;
+    max-width: 720px; line-height: 1.45;
+  }
+  @media (min-width: 768px) { .deck { font-size: 14px; } }
+  .terms-strip {
+    display: flex; flex-wrap: wrap; gap: 12px 24px; margin-top: 14px;
+    padding-top: 12px; border-top: 1px solid var(--paper-shadow);
+    font-family: 'JetBrains Mono', monospace; font-size: 10px;
+    color: var(--ink-soft); text-transform: uppercase; letter-spacing: 0.06em;
+  }
+  @media (min-width: 768px) { .terms-strip { font-size: 11px; gap: 12px 28px; } }
+  .terms-strip b { color: var(--field); font-weight: 700; }
+
+  /* CONTROLS */
+  .controls-panel {
+    background: var(--field); color: var(--paper);
+    padding: 18px 18px; margin-bottom: 18px;
+    border: 3px solid var(--field); position: relative;
+  }
+  @media (min-width: 768px) {
+    .controls-panel { padding: 22px 28px; margin-bottom: 22px; }
+  }
+  .controls-panel::after {
+    content: ''; position: absolute; inset: 4px;
+    border: 1px solid rgba(244,236,216,0.18); pointer-events: none;
+  }
+  .ctrl-label {
+    font-family: 'Oswald', sans-serif; font-size: 10px;
+    letter-spacing: 0.32em; text-transform: uppercase;
+    color: var(--gold-bright); margin-bottom: 10px; font-weight: 500;
+  }
+  .slider-row { display: flex; align-items: baseline; gap: 12px; margin-bottom: 8px; }
+  .commit-amount {
+    font-family: 'Big Shoulders Display', sans-serif;
+    font-weight: 800; font-size: 36px; color: var(--paper); line-height: 1;
+  }
+  @media (min-width: 768px) { .commit-amount { font-size: 38px; } }
+  .commit-suffix {
+    font-family: 'Oswald', sans-serif; font-size: 11px; letter-spacing: 0.18em;
+    color: rgba(244,236,216,0.6); text-transform: uppercase;
+  }
+  /* Custom range slider */
+  .form-range.field-slider {
+    height: 24px; background: transparent; padding: 0;
+  }
+  .form-range.field-slider::-webkit-slider-runnable-track {
+    height: 4px; background: rgba(244,236,216,0.25); border-radius: 2px; border: 0;
+  }
+  .form-range.field-slider::-moz-range-track {
+    height: 4px; background: rgba(244,236,216,0.25); border-radius: 2px; border: 0;
+  }
+  .form-range.field-slider::-webkit-slider-thumb {
+    height: 22px; width: 22px; background: var(--gold-bright);
+    border: 3px solid var(--paper); border-radius: 50%; margin-top: -9px;
+    cursor: grab; box-shadow: 0 2px 6px rgba(0,0,0,0.4); appearance: none;
+    transition: transform 0.12s;
+  }
+  .form-range.field-slider::-webkit-slider-thumb:hover { transform: scale(1.08); }
+  .form-range.field-slider::-moz-range-thumb {
+    height: 16px; width: 16px; background: var(--gold-bright);
+    border: 3px solid var(--paper); border-radius: 50%; cursor: grab;
+  }
+  .form-range.field-slider:focus { box-shadow: none; outline: none; }
+  .slider-ticks {
+    display: flex; justify-content: space-between; margin-top: 4px;
+    font-family: 'JetBrains Mono', monospace; font-size: 10px;
+    color: rgba(244,236,216,0.4);
+  }
+
+  /* Mode toggle as Bootstrap btn-group */
+  .mode-toggle.btn-group { width: 100%; }
+  .mode-toggle .btn {
+    background: rgba(244,236,216,0.08);
+    border: 1px solid rgba(244,236,216,0.25);
+    color: rgba(244,236,216,0.55);
+    font-family: 'Oswald', sans-serif; font-weight: 500; font-size: 11px;
+    letter-spacing: 0.14em; text-transform: uppercase;
+    padding: 12px 4px; border-radius: 0;
+    transition: all 0.18s; box-shadow: none;
+  }
+  .mode-toggle .btn small { white-space: nowrap; }
+  .mode-toggle .btn small { display: block; font-size: 9px; letter-spacing: 0.1em;
+    color: rgba(244,236,216,0.35); margin-top: 3px; font-weight: 400; }
+  .mode-toggle .btn.active {
+    background: var(--gold); color: var(--field);
+    border-color: var(--gold);
+  }
+  .mode-toggle .btn.active small { color: rgba(10,61,40,0.7); }
+  .mode-toggle .btn:not(.active):hover {
+    color: var(--paper); background: rgba(244,236,216,0.12);
+  }
+  .mode-toggle .btn:focus { box-shadow: none; outline: none; }
+
+  /* Roll button */
+  .roll-btn {
+    width: 100%; padding: 16px 24px; cursor: pointer;
+    background: var(--gold); color: var(--field); border: 0;
+    font-family: 'Big Shoulders Display', sans-serif; font-weight: 900;
+    font-size: 22px; letter-spacing: 0.14em; text-transform: uppercase;
+    transition: all 0.18s; border-radius: 0;
+    box-shadow: 0 0 0 0 rgba(196,147,62,0);
+    height: 100%; min-height: 56px;
+  }
+  .roll-btn:hover {
+    background: var(--gold-bright); color: var(--field);
+    box-shadow: 0 0 0 4px rgba(196,147,62,0.25);
+    transform: translateY(-1px);
+  }
+  .roll-btn:active { transform: translateY(0); }
+  .roll-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+  .roll-btn:focus { box-shadow: 0 0 0 4px rgba(196,147,62,0.25); outline: none; }
+  .roll-btn .arrow { display: inline-block; margin-left: 8px; transition: transform 0.18s; }
+  .roll-btn:hover .arrow { transform: translateX(4px); }
+
+  /* RESULTS */
+  .hero-panel {
+    background: var(--paper-dim); border: 2px solid var(--field);
+    padding: 22px 22px; position: relative; height: 100%;
+  }
+  @media (min-width: 768px) {
+    .hero-panel { padding: 28px 32px; }
+  }
+  .hero-panel::before {
+    content: ''; position: absolute; top: 8px; left: 8px; right: 8px; bottom: 8px;
+    border: 1px solid var(--paper-shadow); pointer-events: none;
+  }
+  .hero-label {
+    font-family: 'Oswald', sans-serif; font-size: 10px; letter-spacing: 0.34em;
+    color: var(--field); text-transform: uppercase; font-weight: 600; margin-bottom: 4px;
+  }
+  .hero-amount {
+    font-family: 'Big Shoulders Display', sans-serif; font-weight: 900;
+    font-size: clamp(48px, 11vw, 96px); color: var(--field); line-height: 0.92;
+    letter-spacing: -0.02em;
+  }
+  .hero-amount .currency {
+    font-size: 0.55em; vertical-align: top; line-height: 1;
+    color: var(--gold); margin-right: 4px;
+  }
+  .hero-meta {
+    margin-top: 14px; padding-top: 14px;
+    border-top: 1px solid var(--paper-shadow);
+  }
+  .meta-stat .meta-label {
+    font-family: 'Oswald', sans-serif; font-size: 10px; letter-spacing: 0.24em;
+    color: var(--ink-soft); text-transform: uppercase;
+  }
+  .meta-stat .meta-value {
+    font-family: 'Big Shoulders Display', sans-serif; font-weight: 800;
+    font-size: 32px; color: var(--field); line-height: 1; margin-top: 4px;
+  }
+  @media (min-width: 768px) { .meta-stat .meta-value { font-size: 36px; } }
+  .meta-stat .meta-value.gold { color: var(--gold); }
+
+  .breakdown-panel {
+    background: var(--field); color: var(--paper); padding: 20px 22px;
+    position: relative; height: 100%;
+  }
+  @media (min-width: 768px) {
+    .breakdown-panel { padding: 24px 26px; }
+  }
+  .breakdown-panel::after {
+    content: ''; position: absolute; inset: 4px;
+    border: 1px solid rgba(244,236,216,0.18); pointer-events: none;
+  }
+  .breakdown-title {
+    font-family: 'Big Shoulders Display', sans-serif; font-weight: 900;
+    font-size: 22px; letter-spacing: 0.04em; text-transform: uppercase;
+    margin-bottom: 16px; color: var(--gold-bright);
+  }
+  .br-row {
+    display: flex; justify-content: space-between; align-items: baseline;
+    padding: 8px 0; border-bottom: 1px dashed rgba(244,236,216,0.18);
+    font-family: 'JetBrains Mono', monospace; font-size: 12px;
+  }
+  @media (min-width: 768px) { .br-row { font-size: 13px; } }
+  .br-row:last-child { border-bottom: 0; padding-bottom: 0; }
+  .br-row .label {
+    font-family: 'Oswald', sans-serif; font-size: 11px; letter-spacing: 0.16em;
+    text-transform: uppercase; font-weight: 400; color: rgba(244,236,216,0.7);
+  }
+  .br-row .value { font-weight: 500; color: var(--paper); }
+  .br-row.total {
+    margin-top: 8px; padding-top: 14px;
+    border-top: 2px solid var(--gold); border-bottom: 0;
+  }
+  .br-row.total .label { color: var(--gold-bright); font-weight: 600; font-size: 12px; }
+  .br-row.total .value {
+    font-family: 'Big Shoulders Display', sans-serif; font-weight: 900;
+    font-size: 26px; color: var(--gold-bright); letter-spacing: -0.01em;
+  }
+  @media (min-width: 768px) {
+    .br-row.total .value { font-size: 28px; }
+  }
+
+  /* ROSTER */
+  .roster-section {
+    background: var(--paper-dim); border: 2px solid var(--field);
+    padding: 18px 18px;
+  }
+  @media (min-width: 768px) {
+    .roster-section { padding: 22px 24px; }
+  }
+  .roster-head {
+    display: flex; flex-wrap: wrap; justify-content: space-between;
+    align-items: baseline; gap: 8px;
+    margin-bottom: 14px; padding-bottom: 12px;
+    border-bottom: 2px solid var(--field);
+  }
+  .roster-title {
+    font-family: 'Big Shoulders Display', sans-serif; font-weight: 900;
+    font-size: 22px; color: var(--field); text-transform: uppercase;
+    letter-spacing: 0.02em;
+  }
+  @media (min-width: 768px) { .roster-title { font-size: 26px; } }
+  .roster-sub {
+    font-family: 'Oswald', sans-serif; font-size: 10px; letter-spacing: 0.16em;
+    color: var(--ink-soft); text-transform: uppercase;
+  }
+  @media (min-width: 768px) { .roster-sub { font-size: 11px; } }
+
+  .player-card {
+    background: var(--paper); border: 1px solid var(--field);
+    padding: 10px 12px; position: relative; overflow: hidden; height: 100%;
+    opacity: 0; transform: translateY(8px) scale(0.97);
+    animation: cardIn 0.45s cubic-bezier(.2,.7,.3,1.2) forwards;
+  }
+  @keyframes cardIn {
+    to { opacity: 1; transform: translateY(0) scale(1); }
+  }
+  .player-card::before {
+    content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 3px;
+    background: var(--gold);
+  }
+  .player-card.high::before { background: var(--field-bright); }
+  .player-card.bust::before { background: var(--stitch); opacity: 0.5; }
+  .pc-row1 { display: flex; justify-content: space-between; align-items: baseline; }
+  .pc-rank {
+    font-family: 'JetBrains Mono', monospace; font-size: 10px; font-weight: 700;
+    color: var(--gold); letter-spacing: 0.04em;
+  }
+  .pc-pos {
+    font-family: 'Oswald', sans-serif; font-size: 10px; font-weight: 600;
+    color: var(--field); letter-spacing: 0.1em; padding: 2px 6px;
+    background: rgba(45,128,80,0.12); border: 1px solid rgba(45,128,80,0.3);
+  }
+  .pc-name {
+    font-family: 'Big Shoulders Display', sans-serif; font-weight: 800;
+    font-size: 17px; color: var(--field); margin: 5px 0 2px;
+    letter-spacing: -0.01em; line-height: 1.05;
+  }
+  .pc-meta {
+    font-family: 'Lora', serif; font-style: italic; font-size: 11px;
+    color: var(--ink-soft); margin-bottom: 6px;
+  }
+  .pc-stat {
+    display: flex; justify-content: space-between; align-items: baseline;
+    padding-top: 6px; margin-top: 2px;
+    border-top: 1px dashed var(--paper-shadow);
+  }
+  .pc-stat-label {
+    font-family: 'Oswald', sans-serif; font-size: 9px; letter-spacing: 0.18em;
+    color: var(--ink-soft); text-transform: uppercase;
+  }
+  .pc-stat-val {
+    font-family: 'JetBrains Mono', monospace; font-size: 13px; font-weight: 700;
+    color: var(--field);
+  }
+  .pc-stat-val.bust { color: var(--stitch); opacity: 0.7; }
+
+  /* EMPTY STATE */
+  .empty-state {
+    grid-column: 1 / -1; padding: 50px 20px; text-align: center;
+    color: var(--ink-soft); font-style: italic;
+  }
+  .empty-state .big {
+    font-family: 'Big Shoulders Display', sans-serif; font-weight: 900;
+    font-size: 48px; color: var(--paper-shadow); text-transform: uppercase;
+    letter-spacing: -0.01em; margin-bottom: 8px; line-height: 1;
+  }
+  @media (min-width: 768px) { .empty-state .big { font-size: 56px; } }
+  .empty-state .small {
+    font-family: 'Oswald', sans-serif; font-size: 11px;
+    letter-spacing: 0.18em; text-transform: uppercase; color: var(--ink-soft);
+  }
+  @media (min-width: 768px) { .empty-state .small { font-size: 12px; } }
+
+  /* CTA STICKY BAR */
+  .cta-bar {
+    position: fixed; bottom: 0; left: 0; right: 0;
+    background: var(--field); color: var(--paper);
+    border-top: 3px solid var(--gold);
+    padding: 14px 18px; z-index: 1040;
+    box-shadow: 0 -6px 24px rgba(10,61,40,0.28);
+  }
+  .cta-bar::after {
+    content: ''; position: absolute; inset: 4px 4px 4px 4px;
+    border: 1px solid rgba(244,236,216,0.18); pointer-events: none;
+  }
+  .cta-bar-inner {
+    max-width: 1280px; margin: 0 auto;
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 16px; flex-wrap: wrap;
+    position: relative; z-index: 1;
+  }
+  .cta-bar-msg { display: flex; flex-direction: column; gap: 2px; }
+  .cta-eyebrow {
+    font-family: 'Oswald', sans-serif; font-weight: 500;
+    font-size: 9.5px; letter-spacing: 0.32em; text-transform: uppercase;
+    color: var(--gold-bright);
+  }
+  .cta-headline {
+    font-family: 'Big Shoulders Display', sans-serif; font-weight: 800;
+    font-size: 22px; color: var(--paper); letter-spacing: 0.01em;
+    line-height: 1.05;
+  }
+  .cta-bar-btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 12px 22px; cursor: pointer; text-decoration: none;
+    background: var(--gold); color: var(--field);
+    font-family: 'Big Shoulders Display', sans-serif; font-weight: 900;
+    font-size: 16px; letter-spacing: 0.14em; text-transform: uppercase;
+    border-radius: 0; border: 0;
+    transition: all 0.18s;
+    box-shadow: 0 0 0 0 rgba(196,147,62,0);
+  }
+  .cta-bar-btn:hover, .cta-bar-btn:focus {
+    background: var(--gold-bright); color: var(--field);
+    box-shadow: 0 0 0 4px rgba(196,147,62,0.28);
+    transform: translateY(-1px); outline: none;
+  }
+  .cta-bar-btn:active { transform: translateY(0); }
+  .cta-bar-btn .arrow { display: inline-block; transition: transform 0.18s; font-size: 18px; }
+  .cta-bar-btn:hover .arrow { transform: translateX(4px); }
+
+  /* Reserve space at the bottom of body so footer/content isn't hidden */
+  body { padding-bottom: 100px; }
+  @media (min-width: 768px) { body { padding-bottom: 88px; } }
+  @media (max-width: 575px) {
+    .cta-bar { padding: 10px 12px; }
+    .cta-headline { font-size: 17px; }
+    .cta-eyebrow { display: none; }
+    .cta-bar-btn { padding: 10px 14px; font-size: 13px; letter-spacing: 0.10em; }
+    body { padding-bottom: 90px; }
+  }
+
+  /* INFO TOOLTIP */
+  .info-tip {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 14px; height: 14px; margin-left: 6px;
+    background: var(--gold); color: var(--field);
+    font-family: 'Lora', serif; font-style: italic; font-weight: 700;
+    font-size: 10px; line-height: 1; border-radius: 50%;
+    cursor: help; transition: all 0.15s; vertical-align: 1px;
+    text-transform: lowercase;
+  }
+  .info-tip:hover, .info-tip:focus {
+    background: var(--gold-bright); transform: scale(1.12); outline: none;
+    box-shadow: 0 0 0 2px rgba(196,147,62,0.3);
+  }
+  /* Override Bootstrap tooltip defaults to match vintage palette */
+  .tooltip { font-family: 'Lora', serif; }
+  .tooltip-inner {
+    background: var(--field); color: var(--paper);
+    font-size: 12px; line-height: 1.5;
+    padding: 10px 14px; max-width: 320px;
+    text-align: left; border-radius: 0;
+    border: 1px solid var(--gold);
+    box-shadow: 0 6px 18px rgba(10,61,40,0.35);
+  }
+  .tooltip.bs-tooltip-top    .tooltip-arrow::before { border-top-color:    var(--field); }
+  .tooltip.bs-tooltip-bottom .tooltip-arrow::before { border-bottom-color: var(--field); }
+  .tooltip.bs-tooltip-start  .tooltip-arrow::before { border-left-color:   var(--field); }
+  .tooltip.bs-tooltip-end    .tooltip-arrow::before { border-right-color:  var(--field); }
+
+  /* FOOTER */
+  footer.almanac-foot {
+    margin-top: 26px; padding: 18px 18px;
+    background: transparent; border-top: 2px solid var(--field);
+    font-family: 'Lora', serif; font-size: 11px; line-height: 1.55;
+    color: var(--ink-soft);
+  }
+  @media (min-width: 768px) {
+    footer.almanac-foot { padding: 20px 24px; margin-top: 30px; }
+  }
+  footer.almanac-foot .meth {
+    font-family: 'Oswald', sans-serif; font-size: 10px; letter-spacing: 0.22em;
+    color: var(--field); text-transform: uppercase; font-weight: 600;
+    margin-bottom: 6px;
+  }
+  footer.almanac-foot i { color: var(--field); font-style: italic; }
+</style>
+</head>
+<body>
+
+<div class="frame">
+
+  <header class="almanac">
+    <div class="eyebrow">Baseball ISA Fund Backtest · 2012 Vintage</div>
+    <h1 class="bigtitle">Front Row Capital<br><span class="h1-line2">Simulator</span></h1>
+    <div class="deck">Pick a commitment. Pull 30 random prospects from the FanGraphs 2012 Top 100. This view models the <b>$8.5M ISA portfolio</b> of the $10M fund—your LP cut after fees and 20% carry on actual MLB earnings through 2042. The separate $1.5M Finlete equity allocation is documented elsewhere.</div>
+    <div class="terms-strip">
+      <span><b>TOTAL FUND</b> $10M</span>
+      <span><b>ISA PORTFOLIO (this view)</b> $8.5M</span>
+      <span><b>ISA DEAL</b> $283K / 5%<span class="info-tip" tabindex="0" role="button" aria-label="Pricing methodology" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="2012-dollar equivalent of today’s pricing (≈$403K for 5% in 2026 dollars). We CPI-deflate the current 2026 deal terms to 2012 dollars so the cost basis is on the same scale as the 2012-vintage MLB earnings data the simulator runs against.">i</span></span>
+      <span><b>FEES</b> 2% Y1-3 · 0.5% Y4-12</span>
+      <span><b>CARRY</b> 20%</span>
+    </div>
+  </header>
+
+  <div class="controls-panel">
+    <div class="row g-3 g-lg-4 align-items-end">
+
+      <div class="col-12 col-lg-4">
+        <div class="ctrl-label">Your LP Commitment</div>
+        <div class="slider-row">
+          <span class="commit-amount" id="commitAmount">$250K</span>
+          <span class="commit-suffix">into the fund</span>
+        </div>
+        <input type="range" class="form-range field-slider" id="commitSlider"
+               min="100000" max="1000000" step="25000" value="250000">
+        <div class="slider-ticks"><span>$100K</span><span>$500K</span><span>$1M</span></div>
+      </div>
+
+      <div class="col-12 col-md-7 col-lg-5">
+        <div class="ctrl-label">Player Pool</div>
+        <div class="btn-group mode-toggle" role="group" aria-label="Player pool">
+          <button type="button" class="btn active" data-mode="full">Full 100<small>Ranks 1–100</small></button>
+          <button type="button" class="btn" data-mode="p10_90">P10–P90<small>Ranks 10–90</small></button>
+          <button type="button" class="btn" data-mode="p25_75">P25–P75<small>Ranks 25–75</small></button>
+        </div>
+      </div>
+
+      <div class="col-12 col-md-5 col-lg-3">
+        <button class="roll-btn" id="rollBtn">Roll Roster<span class="arrow">→</span></button>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="row g-3 mb-3 mb-md-4">
+    <div class="col-12 col-lg-7">
+      <div class="hero-panel">
+        <div class="hero-label">Your Net Distribution · ISA Portfolio</div>
+        <div class="hero-amount"><span class="currency">$</span><span id="userReturn">—</span></div>
+        <div class="hero-meta">
+          <div class="row g-3">
+            <div class="col-6 meta-stat">
+              <div class="meta-label">Net LP MOIC</div>
+              <div class="meta-value gold" id="netMoic">—</div>
+            </div>
+            <div class="col-6 meta-stat">
+              <div class="meta-label">Net LP IRR</div>
+              <div class="meta-value gold" id="netIrr">—</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-12 col-lg-5">
+      <div class="breakdown-panel">
+        <div class="breakdown-title">ISA Portfolio Waterfall</div>
+        <div class="br-row"><span class="label">ISA Capital Deployed</span><span class="value">$8,500,000</span></div>
+        <div class="br-row"><span class="label">Gross Collections (5%)</span><span class="value" id="bGross">—</span></div>
+        <div class="br-row"><span class="label">Mgmt Fees (12 yrs)</span><span class="value" id="bFees">—</span></div>
+        <div class="br-row"><span class="label">GP Carry (20%)</span><span class="value" id="bCarry">—</span></div>
+        <div class="br-row total"><span class="label">Net to LPs</span><span class="value" id="bNetLp">—</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="roster-section">
+    <div class="roster-head">
+      <div class="roster-title">The Roster</div>
+      <div class="roster-sub" id="rosterSub">No players selected</div>
+    </div>
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-cols-xxl-5 g-2 g-md-3" id="rosterGrid">
+      <div class="col-12">
+        <div class="empty-state">
+          <div class="big">Spin Up</div>
+          <div class="small">Click "Roll Roster" To Begin</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer class="almanac-foot">
+    <div class="meth">Methodology</div>
+    <p>Player earnings data covers 2012–2042 (MLB salaries from baseball-reference / Spotrac). This simulator models the <b>$8.5M ISA portfolio</b> of the $10M total fund. The fund’s separate $1.5M Finlete equity allocation has its own return profile and is not included in this view—see the Finlete materials for that piece. 30 random players are drawn without replacement from the chosen pool. Each player is acquired for $283K in exchange for 5% of their MLB earnings; together they constitute the full $8.5M ISA portfolio. Each player contributes 5% of their annual MLB earnings to the ISA portfolio, year by year. Management fees ($170K/yr in years 1–3, $42.5K/yr in years 4–12) are charged on the $8.5M ISA portfolio basis and subtracted from collections each year. Distributions follow a European whole-fund waterfall on the ISA portfolio: 100% to LPs until $8.5M of ISA capital is returned, then 80% LP / 20% GP. Net IRR computed via bisection on the resulting LP cash flow stream. Backtest only — past performance is not indicative of future results. <i>Confidential. For accredited investor discussion only.</i></p>
+  </footer>
+
+</div>
+
+<aside class="cta-bar" role="complementary" aria-label="Investor interest call to action">
+  <div class="cta-bar-inner">
+    <div class="cta-bar-msg">
+      <span class="cta-eyebrow">Front Row Capital, Fund I</span>
+      <span class="cta-headline">Ready to talk?</span>
+    </div>
+    <a class="cta-bar-btn"
+       href="REPLACE_WITH_GOOGLE_FORM_URL"
+       target="_blank"
+       rel="noopener noreferrer">
+      Express LP Interest <span class="arrow">→</span>
+    </a>
+  </div>
+</aside>
+
+<script>
+const PLAYERS = [{"rank":1,"name":"Matt Moore","pos":"LHP","level":"MLB","war":8.3,"e":[1000000,1750000,1000000,1000000,5000000,7000000,9000000,2500000,0,3000000,2500000,7550000,9000000,2000000,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"total":52300000},{"rank":2,"name":"Bryce Harper","pos":"OF","level":"AA","war":54.1,"e":[1750000,2000000,2650000,2500000,5000000,13625000,21725000,30000000,9629629,26550000,26100000,26000000,26100000,26000000,26000000,26000000,26000000,22000000,22000000,22000000,0,0,0,0,0,0,0,0,0,0,0,0],"total":363629629},{"rank":3,"name":"Mike Trout","pos":"OF","level":"MLB","war":87.5,"e":[482500,510000,1000000,5250000,15250000,19250000,33250000,36000000,13433333,35500000,35550000,35450000,35450000,35450000,35450000,35450000,35450000,35450000,35450000,0,0,0,0,0,0,0,0,0,0,0,0,0],"total":479075833},{"rank":4,"name":"Julio Teher\u00e1n","pos":"RHP","level":"MLB","war":20.4,"e":[480000,490000,1800000,1000000,3300000,6300000,8000000,12000000,3333333,3000000,0,1500000,120968,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"total":41324301},{"rank":5,"name":"Shelby Miller","pos":"RHP","level":"AA","war":10.3,"e":[480000,490000,521000,535000,4350000,4700000,4900000,2000000,370370,361568,49998,1500000,3350000,1000000,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"total":24607936},{"rank":6,"name":"Manny Machado","pos":"3B","level":"A+","war":61.7,"e":[112786,520000,519000,548000,5000000,11500000,15999999,30000000,11111111,30000000,30000000,23000000,13000000,13000000,21000000,40000000,40000000,40000000,40000000,40000000,40000000,40000000,0,0,0,0,0,0,0,0,0,0],"total":485310896},{"rank":7,"name":"Jurickson Profar","pos":"OF","level":"A","war":9.3,"e":[86557,359530,505750,509500,605000,1005000,1050000,3600000,2111111,4500000,9000000,8012500,2500000,6193548,15000000,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"total":55038496},{"rank":8,"name":"Jameson Taillon","pos":"RHP","level":"A","war":14.8,"e":[0,0,0,0,302257,555500,571000,587500,833333,2250000,5800000,14000000,18000000,18000000,18000000,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"total":78899590},{"rank":9,"name":"Trevor Bauer","pos":"RHP","level":"AA","war":21.1,"e":[1183333,2175000,2425000,1940000,1697500,3550000,6525000,13000000,6481481,38000000,3868131,22537634,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"total":103383079},{"rank":10,"name":"Dylan Bundy","pos":"RHP","level":"other","war":7.5,"e":[1245000,1245000,1245000,1245000,1800000,1640000,1640000,2800000,1851852,8325000,5000000,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"total":28036852},{"rank":11,"name":"Gerrit Cole","pos":"RHP","level":"other","war":43.2,"e":[0,297213,512500,531000,548000,3750000,6750000,13500000,13333333,36000000,36000000,36000000,36000000,36000000,36000000,36000000,36000000,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"total":327222046},{"rank":12,"name":"Jes\u00fas Montero","pos":"C","level":"MLB","war":-0.4,"e":[414400,486900,503300,194125,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"total":1598725},{"rank":13,"name":"Manny Ba\u00f1uelos","pos":"LHP","level":"AAA","war":-0.9,"e":[0,0,0,263456,0,0,0,559000,476904,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"total":1299360},{"rank":14,"name":"Devin Mesoraco","pos":"C","level":"MLB","war":4.5,"e":[414000,480000,497500,525000,2900000,4900000,7200000,13125000,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"total":30041500},{"rank":15,"name":"Jacob Turner","pos":"RHP","level":"MLB","war":-2.6,"e":[2350000,1175000,1000000,1000000,1500000,535000,11720,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"total":7571720},{"rank":16,"name":"Danny Hultzen","pos":"LHP","level":"other","war":0.2,"e":[3400000,1700000,1700000,1700000,1700000,0,0,68632,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"total":10268632},{"rank":17,"name":"Bubba Starling","pos":"OF","level":"other","war":-1.8,"e":[0,0,0,0,0,108151,0,238720,210463,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"total":557334},{"rank":18,"name":"Taijuan Walker","pos":"RHP","level":"A","war":12.7,"e":[0,205800,304734,513100,485352,2250000,4825000,5025000,1111111,10000000,10000000,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"total":34720097},{"rank":19,"name":"Wil Myers","pos":"OF","level":"AA","war":13.2,"e":[0,278469,504200,519800,523900,17000000,2000000,3000000,7407407,20000000,21000000,7500000,1500000,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"total":81233776},{"rank":20,"name":"Archie Bradley","pos":"RHP","level":"CPX | DSL | R","war":5.6,"e":[0,0,0,391024,360490,544100,581900,1830000,1518519,6000000,3750000,69678,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"total":15045711},{"rank":21,"name":"Tyler Skaggs","pos":"LHP","level":"AA","war":3.6,"e":[480000,56229,502250,515000,515000,555000,1875000,3700000,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"total":8198479},{"rank":22,"name":"Nolan Arenado","pos":"3B","level":"A+","war":57.8,"e":[0,415027,500000,512500,5000000,11750000,17272850,26050000,12987963,15050000,29075000,291025000,29000000,26000000,21000000,15000000,2000000,2000000,2000000,2000000,3000000,3000000,3000000,3000000,3000000,3000000,3000000,3000000,3000000,3000000,0,0],"total":538638340},{"rank":23,"name":"Miguel San\u00f3","pos":"3B","level":"CPX | DSL | R","war":8.0,"e":[0,0,0,263456,547500,572500,463177,2650000,5111111,11000000,12000000,0,875000,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"total":33482744},{"rank":24,"name":"Drew Pomeranz","pos":"LHP","level":"MLB","war":13.3,"e":[350000,222240,369781,517500,2102460,4450000,8500000,1500000,3481481,8000000,10000000,10000000,64516,1282258,4000000,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"total":54840236},{"rank":25,"name":"Travis d\u2019Arnaud","pos":"C","level":"AA","war":8.2,"e":[0,117814,457707,525424,542604,1875000,3475000,1289058,2962963,8000000,8000000,8000000,8000000,6000000,6000000,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"total":55245570},{"rank":26,"name":"Jarrod Parker","pos":"RHP","level":"MLB","war":6.5,"e":[900000,495000,500000,850000,850000,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"total":3595000},{"rank":27,"name":"Anthony Rendon","pos":"3B","level":"other","war":34.2,"e":[3600000,1800000,2700000,2500000,2800000,5800000,12300000,18800000,13444444,27500000,36000000,37182796,38000000,38000000,38000000,12666666,12666666,12666666,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"total":316427238},{"rank":28,"name":"Zack Wheeler","pos":"RHP","level":"A+","war":40.2,"e":[0,262404,512375,546250,546250,800000,1900000,5975000,7962963,22500000,26000000,24500000,23500000,42000000,42000000,42000000,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"total":241005242},{"rank":29,"name":"Martin P\u00e9rez","pos":"LHP","level":"AAA","war":15.6,"e":[480000,384459,1750000,1000000,2900000,4400000,6000000,4750000,2922222,5000000,4000000,19650000,8000000,5000000,3300000,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"total":69536681},{"rank":30,"name":"Carlos Mart\u00ednez","pos":"RHP","level":"A+","war":13.8,"e":[0,195464,460846,520000,539000,4500000,11500000,11500000,4259259,12000000,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"total":45474569},{"rank":31,"name":"Mike Montgomery","pos":"LHP","level":"AAA","war":5.9,"e":[0,0,0,246816,515000,570500,611250,2440000,1148148,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"total":5531714},{"rank":32,"name":"Francisco Lindor","pos":"SS","level":"CPX | DSL | R","war":55.6,"e":[0,0,0,316147,540300,579300,623200,10550000,6481481,22300000,48000000,27000000,27050000,27050000,27050000,27000000,27000000,27000000,27000000,27000000,5000000,5000000,5000000,5000000,5000000,5000000,5000000,5000000,5000000,5000000,0,0],"total":382540428},{"rank":33,"name":"Brett Jackson","pos":"OF","level":"AAA","war":0.0,"e":[157377,0,46448,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"total":203825},{"rank":34,"name":"Billy Hamilton","pos":"SS","level":"A","war":9.8,"e":[0,77650,500000,545000,570000,2625000,4600000,5450000,281926,1250000,367049,231168,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"total":16497793},{"rank":35,"name":"Christian Yelich","pos":"OF","level":"A","war":45.1,"e":[0,180983,505000,570000,1000000,3500000,7000000,9750000,4629630,14000000,22000000,22000000,22050000,22000000,22000000,22000000,22000000,6500000,2333333,2333333,2333333,2333333,2333333,2333333,2333333,2333333,2333333,2333333,2333333,2333333,2333333,0],"total":211018945},{"rank":36,"name":"Arodys Vizca\u00edno","pos":"RHP","level":"MLB","war":3.7,"e":[480000,491000,73770,252363,897500,1550000,3400000,4800000,0,0,104405,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"total":12049038},{"rank":37,"name":"Anthony Rizzo","pos":"1B","level":"MLB","war":40.4,"e":[480000,2750000,1250000,5000000,5000000,7000000,7000000,11000000,6111111,33000000,16000000,17000000,23000000,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"total":134591111},{"rank":38,"name":"Matt Harvey","pos":"RHP","level":"AA","war":9.3,"e":[480000,498750,606625,614125,4325000,5040983,5625000,11000000,130339,1000000,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"total":29320822},{"rank":39,"name":"Yonder Alonso","pos":"1B","level":"MLB","war":8.6,"e":[4400000,1120000,980000,1650000,2650000,3800000,7000000,8000000,1000000,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"total":30600000},{"rank":40,"name":"Starling Marte","pos":"OF","level":"AA","war":39.3,"e":[183610,500000,2500000,1000000,3000000,2814207,7500000,10000000,3800000,12500000,17000000,22000000,19500000,19500000,1000000,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"total":122797817},{"rank":41,"name":"Dellin Betances","pos":"RHP","level":"MLB","war":11.1,"e":[414000,104426,502100,507500,507500,3000000,5100000,7250000,6411815,6000000,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"total":29797341},{"rank":42,"name":"Randall Delgado","pos":"RHP","level":"MLB","war":2.3,"e":[480000,292131,510000,526000,1275000,1775000,2293950,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"total":7152081},{"rank":43,"name":"Mike Olt","pos":"3B","level":"A+","war":-1.5,"e":[165245,0,384043,79562,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"total":628850},{"rank":44,"name":"Jon Singleton","pos":"1B","level":"A+","war":-1.2,"e":[0,0,1500000,2000000,2000000,2000000,936170,500000,250000,250000,0,263228,850000,300000,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"total":10849398},{"rank":45,"name":"Zach Lee","pos":"RHP","level":"A","war":-0.3,"e":[0,0,0,16639,8319,535000,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"total":559958},{"rank":46,"name":"Hak-Ju Lee","pos":"SS","level":"AA","war":0,"e":[0,0,500000,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"total":500000},{"rank":47,"name":"Jake Odorizzi","pos":"RHP","level":"AA","war":13.4,"e":[480000,66939,503100,522000,520700,4100000,6300000,9500000,6592593,8000000,7500000,14500000,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"total":58585332},{"rank":48,"name":"Gary Brown","pos":"OF","level":"A+","war":0.1,"e":[0,0,71038,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"total":71038},{"rank":49,"name":"Wily Peralta","pos":"RHP","level":"AAA","war":4.3,"e":[480000,490000,515000,525500,2800000,4275000,1500000,2275000,1000000,1500000,2311852,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"total":17672352},{"rank":50,"name":"Casey Kelly","pos":"RHP","level":"AA","war":-1.3,"e":[0,491400,501400,55464,507500,0,123060,19890,29000,0,0,0,19890,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"total":1747604},{"rank":51,"name":"Nicholas Castellanos","pos":"3B","level":"A","war":13.0,"e":[0,80327,500000,525000,536500,3000000,6050000,9950000,5925926,13924496,20000000,20000000,20000000,20000000,20000000,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"total":140492249},{"rank":52,"name":"Nick Franklin","pos":"SS","level":"AA","war":1.3,"e":[0,337377,845710,298722,191337,333222,427780,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"total":2434148},{"rank":53,"name":"Gary S\u00e1nchez","pos":"C","level":"A","war":14.3,"e":[0,0,0,58237,171926,557900,620400,669800,1851852,6350000,9000000,1500000,7000000,8500000,1750000,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"total":38030115},{"rank":54,"name":"Trevor May","pos":"RHP","level":"A+","war":3.7,"e":[0,0,139344,493278,545000,555000,650000,900000,816667,8000000,7750000,7125000,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"total":26974289},{"rank":55,"name":"Jean Segura","pos":"SS","level":"A+","war":26.3,"e":[170495,492000,534000,534000,2600000,6200000,12000000,15350000,5277777,14250000,15250000,6500000,10500000,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"total":89658272},{"rank":56,"name":"Will Middlebrooks","pos":"3B","level":"AAA","war":-0.6,"e":[480000,372819,540500,318983,1200000,90613,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"total":3002915},{"rank":57,"name":"Anthony Gose","pos":"OF","level":"AA","war":1.9,"e":[0,166010,297814,515000,525000,39871,702900,80000,0,0,0,0,69888,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"total":2396483},{"rank":58,"name":"Jake Marisnick","pos":"OF","level":"A","war":11.6,"e":[0,184782,500000,511200,519500,1100000,1900000,2212500,1268522,1400000,1330000,576890,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"total":11503394},{"rank":59,"name":"Michael Choice","pos":"OF","level":"A+","war":-2.0,"e":[0,80327,96010,5598,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"total":181935},{"rank":60,"name":"Rymer Liriano","pos":"OF","level":"A+","war":-0.4,"e":[0,0,133879,0,508500,87690,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"total":730069},{"rank":61,"name":"Jarred Cosart","pos":"RHP","level":"AA","war":4.2,"e":[0,187431,500000,354098,279465,566300,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"total":1887294},{"rank":62,"name":"Javier B\u00e1ez","pos":"SS","level":"CPX | DSL | R","war":27.4,"e":[0,0,150273,91516,521000,609000,657000,5200000,3703704,11650000,20000000,22000000,25000000,25050000,24000000,24000000,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"total":162632493},{"rank":63,"name":"Wilin Rosario","pos":"C","level":"MLB","war":1.6,"e":[480000,491000,502000,2800000,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"total":4273000},{"rank":64,"name":"Bryce Brentz","pos":"OF","level":"A+","war":0.0,"e":[0,0,30054,0,133104,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"total":163158},{"rank":65,"name":"Andrelton Simmons","pos":"SS","level":"A+","war":36.5,"e":[149508,491250,2000000,3000000,6000000,8000000,11000000,13000000,4757308,10500000,4000000,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"total":62898066},{"rank":66,"name":"Chad Bettis","pos":"RHP","level":"A+","war":2.6,"e":[0,163333,0,396571,512500,515194,2000000,3325000,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"total":6912598},{"rank":67,"name":"Garrett Richards","pos":"RHP","level":"MLB","war":8.3,"e":[894000,495000,520000,3200000,6425000,6850000,7300000,7000000,3889148,11000000,5500000,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"total":53073148},{"rank":68,"name":"Yasmani Grandal","pos":"C","level":"AAA","war":20.2,"e":[884000,490000,792000,693000,2800000,5500000,7900000,18250000,6759259,18250000,18250000,18250000,2500000,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"total":101318259},{"rank":69,"name":"Josh Bell","pos":"OF","level":"other","war":8.7,"e":[0,0,0,0,146969,549000,572500,587000,1777778,6350000,10000000,16500000,16500000,6000000,5750000,1250000,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"total":65983247},{"rank":70,"name":"Nathan Eovaldi","pos":"RHP","level":"MLB","war":24.9,"e":[480000,502000,517000,3300000,5600000,2000000,2000000,17000000,6296296,17000000,17000000,19600000,19000000,30000000,25000000,20000000,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"total":185295296},{"rank":71,"name":"Jedd Gyorko","pos":"3B","level":"AA","war":9.3,"e":[0,490000,510900,2000000,4000000,4500000,11500000,13999999,1370370,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"total":38371269},{"rank":72,"name":"Aaron Hicks","pos":"OF","level":"A+","war":13.2,"e":[0,332072,288415,408060,574000,1350000,2825000,8000000,3888888,10500000,10500000,10500000,9500000,10785714,1000000,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"total":70452149},{"rank":73,"name":"Mason Williams","pos":"OF","level":"CPX | DSL | R","war":-0.5,"e":[0,0,0,321693,52915,535000,196310,80568,52955,383375,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"total":1622816},{"rank":74,"name":"Chris Archer","pos":"RHP","level":"AAA","war":13.5,"e":[91805,326666,1500000,1000000,2750000,4750000,6250000,7500000,3583333,6500000,3500000,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"total":37751804},{"rank":75,"name":"Brad Peacock","pos":"RHP","level":"MLB","war":4.7,"e":[480000,270437,476742,515800,113693,541500,2440000,3110000,1444444,39871,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"total":9432487},{"rank":76,"name":"Xander Bogaerts","pos":"SS","level":"A","war":42.0,"e":[0,112459,517000,543000,650500,4500000,7050000,12000000,7407407,20000000,20000000,30000000,25000000,25000000,25000000,25000000,25000000,25000000,25000000,25000000,25000000,25000000,0,0,0,0,0,0,0,0,0,0],"total":352780366},{"rank":77,"name":"James Paxton","pos":"LHP","level":"AA","war":13.8,"e":[0,13230,74286,519000,507500,2350000,4900000,8575000,4629630,8500000,6000000,4000000,9000000,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"total":49068646},{"rank":78,"name":"Jesse Biddle","pos":"RHP","level":"A","war":-0.6,"e":[0,0,0,0,507500,0,486380,908870,108070,92010,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"total":2102830},{"rank":79,"name":"Allen Webster","pos":"RHP","level":"AA","war":-2.4,"e":[0,137814,315409,451296,486456,1136456,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"total":2527431},{"rank":80,"name":"Brody Colvin","pos":"RHP","level":"A+","war":0,"e":[0,0,0,0,0,0,0,0,100,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"total":100},{"rank":81,"name":"Cory Spangenberg","pos":"2B","level":"A","war":4.1,"e":[0,0,76502,508500,517700,545000,1700000,238724,0,0,15384,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"total":3601810},{"rank":82,"name":"Drew Smyly","pos":"LHP","level":"AA","war":11.8,"e":[390819,498000,520000,2650000,3750000,6850000,3000000,7211855,1574481,11000000,5250000,4250000,13000000,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"total":59945155},{"rank":83,"name":"Alex Meyer","pos":"RHP","level":"other","war":0.7,"e":[0,0,0,22185,108147,535000,551500,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"total":1216832},{"rank":84,"name":"George Springer","pos":"OF","level":"CPX | DSL | R","war":42.3,"e":[0,0,450819,512900,522400,3900000,12000000,12000000,7777778,32000000,28000000,22500000,22500000,22500000,22500000,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"total":187163897},{"rank":85,"name":"Sonny Gray","pos":"RHP","level":"AA","war":33.5,"e":[0,163333,502500,512500,527500,3575000,6500000,8300000,3999963,10700000,11700000,13300000,10000000,25000000,35000000,5000000,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"total":134780796},{"rank":86,"name":"Sammy Solis","pos":"RHP","level":"A+","war":0.2,"e":[0,0,0,146980,507500,480102,403608,137096,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"total":1675286},{"rank":87,"name":"Matt Dominguez","pos":"3B","level":"MLB","war":1.2,"e":[480000,491800,510100,0,507500,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"total":1989400},{"rank":88,"name":"A.J. Cole","pos":"RHP","level":"A","war":0.9,"e":[0,0,0,124795,122012,166611,546255,555000,208703,795648,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"total":2519024},{"rank":89,"name":"Leonys Martin","pos":"OF","level":"MLB","war":11.3,"e":[1250000,2250000,2750000,3750000,4150000,4850000,1750000,3000000,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"total":23750000},{"rank":90,"name":"Jeurys Familia","pos":"RHP","level":"AA","war":6.1,"e":[78690,491750,502550,523925,4100000,6816393,6135552,8000000,3703704,10000000,8119226,0,1500000,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"total":49971790},{"rank":91,"name":"Christian Bethancourt","pos":"C","level":"A+","war":1.1,"e":[0,58907,500000,310601,511200,541800,0,0,0,0,1026910,1350000,2069860,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"total":6369278},{"rank":92,"name":"Tim Beckham","pos":"SS","level":"AAA","war":3.9,"e":[0,34808,191333,410922,401973,885000,3350000,1047280,0,0,153860,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"total":6475176},{"rank":93,"name":"Ryan Lavarnway","pos":"C","level":"MLB","war":-1.1,"e":[480000,289426,253606,596611,0,35076,79110,29840,57222,58273,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"total":1879164},{"rank":94,"name":"Grant Green","pos":"OF","level":"AA","war":-1.6,"e":[0,190108,502250,148139,507500,26307,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"total":1374304},{"rank":95,"name":"Noah Syndergaard","pos":"RHP","level":"A","war":15.7,"e":[0,0,0,410437,535375,605500,2975000,6000000,3592592,9700000,21000000,13000000,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"total":57818904},{"rank":96,"name":"Mikie Mahtook","pos":"OF","level":"other","war":0.3,"e":[0,0,0,152527,349875,541300,292261,43246,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"total":1379209},{"rank":97,"name":"Jed Bradley","pos":"LHP","level":"other","war":0.0,"e":[0,0,0,0,88736,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"total":88736},{"rank":98,"name":"Francisco Peguero","pos":"OF","level":"AA","war":0.7,"e":[480000,123295,550000,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"total":1153295},{"rank":99,"name":"Taylor Guerrieri","pos":"RHP","level":"other","war":0.2,"e":[0,0,0,0,0,0,87900,226784,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"total":314684},{"rank":100,"name":"Addison Reed","pos":"RHP","level":"MLB","war":6.0,"e":[480000,520000,538500,4875000,5300000,7750000,8250000,8500000,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"total":36213500}];
+
+const FUND = 8_500_000;           // ISA portfolio capital base
+const PCT = 0.05;
+const CARRY = 0.20;
+const N_PLAYERS = 30;
+const N_YEARS = 31;            // 2012..2042
+const FEE_EARLY = 0.02 * FUND;
+const FEE_LATE  = 0.005 * FUND;
+
+const MGMT = new Array(N_YEARS).fill(0);
+for (let i = 0; i < 3; i++) MGMT[i] = FEE_EARLY;
+for (let i = 3; i < 12; i++) MGMT[i] = FEE_LATE;
+
+// Each player.e is a 32-element array (year-0 padded structure from earlier);
+// we only use the first N_YEARS values for 2012 vintage.
+
+function fmtMoney(n) {
+  if (!isFinite(n)) return '—';
+  const sign = n < 0 ? '-' : '';
+  const v = Math.abs(n);
+  if (v >= 1_000_000) return sign + '$' + (v/1_000_000).toFixed(2) + 'M';
+  if (v >= 1_000)     return sign + '$' + (v/1_000).toFixed(0) + 'K';
+  return sign + '$' + Math.round(v);
+}
+function fmtMoneyShort(n) {
+  if (!isFinite(n)) return '—';
+  const sign = n < 0 ? '-' : '';
+  const v = Math.abs(n);
+  if (v >= 1_000_000) return sign + '$' + (v/1_000_000).toFixed(1) + 'M';
+  if (v >= 1_000)     return sign + '$' + Math.round(v/1_000) + 'K';
+  return sign + '$' + Math.round(v);
+}
+function fmtCommit(n) {
+  if (n >= 1_000_000) return '$' + (n/1_000_000).toFixed(n%1_000_000===0?0:2).replace(/\.?0+$/,'') + 'M';
+  return '$' + Math.round(n/1000) + 'K';
+}
+function npv(rate, cfs) {
+  let s = 0;
+  for (let t = 0; t < cfs.length; t++) s += cfs[t] / Math.pow(1+rate, t);
+  return s;
+}
+function irr(cfs) {
+  let lo = -0.99, hi = 10.0;
+  let flo = npv(lo, cfs), fhi = npv(hi, cfs);
+  if (flo * fhi > 0) {
+    fhi = npv(50, cfs);
+    if (flo * fhi > 0) return NaN;
+    hi = 50;
+  }
+  for (let k = 0; k < 200; k++) {
+    const m = 0.5*(lo+hi);
+    const fm = npv(m, cfs);
+    if (Math.abs(fm) < 1e-6) return m;
+    if (flo * fm < 0) { hi = m; fhi = fm; }
+    else { lo = m; flo = fm; }
+  }
+  return 0.5*(lo+hi);
+}
+function pickRandom(pool, n) {
+  const arr = pool.slice();
+  for (let i = arr.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i+1));
+    [arr[i], arr[j]] = [arr[j], arr[i]];
+  }
+  return arr.slice(0, n);
+}
+function simulate(selected) {
+  const annual = new Array(N_YEARS).fill(0);
+  for (const p of selected) {
+    for (let i = 0; i < N_YEARS; i++) annual[i] += p.e[i] * PCT;
+  }
+  const grossTotal = annual.reduce((a,b) => a+b, 0);
+  const totalFees = MGMT.reduce((a,b) => a+b, 0);
+  const lpDist = new Array(N_YEARS).fill(0);
+  let cumLp = 0, totalGp = 0;
+  for (let i = 0; i < N_YEARS; i++) {
+    let cf = annual[i] - MGMT[i];
+    if (cf <= 0) { lpDist[i] = cf; cumLp += cf; continue; }
+    if (cumLp < FUND) {
+      const t = Math.min(cf, FUND - cumLp);
+      lpDist[i] += t; cumLp += t; cf -= t;
+    }
+    if (cf > 0) {
+      lpDist[i] += cf*(1-CARRY);
+      totalGp  += cf*CARRY;
+      cumLp    += cf*(1-CARRY);
+    }
+  }
+  const totalLp = lpDist.reduce((a,b) => a+b, 0);
+  const moic = totalLp / FUND;
+  const ir = irr([-FUND, ...lpDist]);
+  return { grossTotal, totalFees, totalGp, totalLp, moic, irr: ir };
+}
+
+// Mode definitions: rank inclusive bounds
+const MODES = {
+  full:    { lo: 1,  hi: 100, label: '1–100' },
+  p10_90:  { lo: 10, hi: 90,  label: '10–90' },
+  p25_75:  { lo: 25, hi: 75,  label: '25–75' },
+};
+
+let mode = 'full';
+let commit = 250000;
+let lastResult = null;
+
+const commitSlider = document.getElementById('commitSlider');
+const commitAmount = document.getElementById('commitAmount');
+const rollBtn = document.getElementById('rollBtn');
+const modeBtns = document.querySelectorAll('.mode-toggle .btn');
+const rosterGrid = document.getElementById('rosterGrid');
+const rosterSub = document.getElementById('rosterSub');
+
+function currentPool() {
+  const m = MODES[mode];
+  return PLAYERS.filter(p => p.rank >= m.lo && p.rank <= m.hi);
+}
+
+function updateUserReturn() {
+  if (!lastResult) {
+    document.getElementById('userReturn').textContent = '—';
+    return;
+  }
+  const userNet = lastResult.moic * commit;
+  document.getElementById('userReturn').textContent =
+    userNet >= 1_000_000
+      ? (userNet/1_000_000).toFixed(2) + 'M'
+      : Math.round(userNet/1000).toLocaleString() + 'K';
+}
+
+function resetResultDisplay() {
+  lastResult = null;
+  document.getElementById('userReturn').textContent = '—';
+  document.getElementById('netMoic').textContent = '—';
+  document.getElementById('netIrr').textContent  = '—';
+  document.getElementById('bGross').textContent  = '—';
+  document.getElementById('bFees').textContent   = '—';
+  document.getElementById('bCarry').textContent  = '—';
+  document.getElementById('bNetLp').textContent  = '—';
+  rosterSub.textContent = `${currentPool().length} players in pool`;
+  rosterGrid.innerHTML = `
+    <div class="col-12">
+      <div class="empty-state">
+        <div class="big">Spin Up</div>
+        <div class="small">Click "Roll Roster" To Begin</div>
+      </div>
+    </div>`;
+}
+
+function renderResult(r, selected) {
+  lastResult = r;
+  document.getElementById('netMoic').textContent = r.moic.toFixed(2) + 'x';
+  document.getElementById('netIrr').textContent  = (r.irr*100).toFixed(1) + '%';
+  document.getElementById('bGross').textContent  = fmtMoney(r.grossTotal);
+  document.getElementById('bFees').textContent   = '−' + fmtMoney(r.totalFees);
+  document.getElementById('bCarry').textContent  = '−' + fmtMoney(r.totalGp);
+  document.getElementById('bNetLp').textContent  = fmtMoney(r.totalLp);
+  updateUserReturn();
+
+  const pool = currentPool();
+  rosterSub.textContent = `${N_PLAYERS} of ${pool.length} drawn · ranks ${MODES[mode].label}`;
+
+  const sorted = selected.slice().sort((a,b) => b.total - a.total);
+  rosterGrid.innerHTML = '';
+  sorted.forEach((p, idx) => {
+    const isHigh = p.total >= 50_000_000;
+    const isBust = p.total === 0;
+    const cls = 'player-card' + (isHigh ? ' high' : isBust ? ' bust' : '');
+    const col = document.createElement('div');
+    col.className = 'col';
+    col.innerHTML = `
+      <div class="${cls}" style="animation-delay: ${idx * 18}ms">
+        <div class="pc-row1">
+          <span class="pc-rank">#${String(p.rank).padStart(2,'0')}</span>
+          <span class="pc-pos">${p.pos}</span>
+        </div>
+        <div class="pc-name">${p.name}</div>
+        ${p.war ? `<div class="pc-meta">${p.war.toFixed(1)} WAR</div>` : ''}
+        <div class="pc-stat">
+          <span class="pc-stat-label">Career Earnings</span>
+          <span class="pc-stat-val${isBust ? ' bust' : ''}">${fmtMoneyShort(p.total)}</span>
+        </div>
+        <div class="pc-stat">
+          <span class="pc-stat-label">5% Cut</span>
+          <span class="pc-stat-val${isBust ? ' bust' : ''}">${fmtMoneyShort(p.total * PCT)}</span>
+        </div>
+      </div>
+    `;
+    rosterGrid.appendChild(col);
+  });
+}
+
+function roll() {
+  const selected = pickRandom(currentPool(), N_PLAYERS);
+  const result = simulate(selected);
+  renderResult(result, selected);
+}
+
+commitSlider.addEventListener('input', e => {
+  commit = +e.target.value;
+  commitAmount.textContent = fmtCommit(commit);
+  updateUserReturn();
+});
+
+modeBtns.forEach(btn => {
+  btn.addEventListener('click', () => {
+    modeBtns.forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    mode = btn.dataset.mode;
+    if (lastResult) resetResultDisplay();
+  });
+});
+
+rollBtn.addEventListener('click', () => {
+  rollBtn.disabled = true;
+  rollBtn.style.transform = 'scale(0.96)';
+  setTimeout(() => {
+    roll();
+    rollBtn.disabled = false;
+    rollBtn.style.transform = '';
+  }, 150);
+});
+
+commitAmount.textContent = fmtCommit(commit);
+resetResultDisplay();
+</script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+  // Initialize tooltips after Bootstrap is loaded.
+  // Triggers: hover (desktop), focus (keyboard), click (touch + sticky on click).
+  document.querySelectorAll('[data-bs-toggle="tooltip"]').forEach(el =>
+    new bootstrap.Tooltip(el, { trigger: 'hover focus click' })
+  );
+</script>
+</body>
+</html>
