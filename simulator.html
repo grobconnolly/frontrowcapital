@@ -965,6 +965,7 @@ let vintage = '2012';
 let commit = 250000;
 let lastResult = null;
 let simHistory = []; // chronological list of completed simulations
+let simCounter = 0;   // monotonic — only resets on Clear
 const SIM_HISTORY_MAX = 25;
 
 const commitSlider = document.getElementById('commitSlider');
@@ -1122,8 +1123,9 @@ function roll() {
 
 function appendSimToLog(r) {
   const userNet = r.moic * commit;
+  simCounter++;
   simHistory.push({
-    n: simHistory.length + 1,
+    n: simCounter,
     vintage,
     mode,
     commit,
@@ -1175,6 +1177,7 @@ function renderSimLog() {
 
 function clearSimLog() {
   simHistory = [];
+  simCounter = 0;
   renderSimLog();
 }
 
