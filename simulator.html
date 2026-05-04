@@ -499,6 +499,92 @@
   }
   .vintage-toggle .btn:focus { box-shadow: none; outline: none; }
 
+  /* SIMULATION LOG */
+  .sim-log {
+    background: var(--paper-dim);
+    border: 2px solid var(--field);
+    padding: 16px 18px;
+    margin-bottom: 18px;
+    position: relative;
+  }
+  @media (min-width: 768px) {
+    .sim-log { padding: 18px 24px; margin-bottom: 22px; }
+  }
+  .sim-log-head {
+    display: flex; justify-content: space-between; align-items: baseline;
+    gap: 12px; flex-wrap: wrap;
+    margin-bottom: 10px; padding-bottom: 10px;
+    border-bottom: 2px solid var(--field);
+  }
+  .sim-log-title {
+    font-family: 'Big Shoulders Display', sans-serif; font-weight: 900;
+    font-size: 22px; color: var(--field); text-transform: uppercase;
+    letter-spacing: 0.02em;
+  }
+  @media (min-width: 768px) { .sim-log-title { font-size: 26px; } }
+  .sim-log-clear {
+    background: transparent; border: 1px solid var(--field);
+    color: var(--field); cursor: pointer;
+    font-family: 'Oswald', sans-serif; font-weight: 600; font-size: 10px;
+    letter-spacing: 0.18em; text-transform: uppercase;
+    padding: 6px 12px; border-radius: 0;
+    transition: all 0.18s;
+  }
+  .sim-log-clear:hover {
+    background: var(--field); color: var(--paper);
+  }
+  .sim-log-clear:focus { outline: none; box-shadow: 0 0 0 3px rgba(196,147,62,0.28); }
+  .sim-log-list {
+    display: grid;
+    gap: 8px;
+  }
+  .sim-row {
+    background: var(--paper); border: 1px solid var(--field);
+    padding: 10px 12px;
+    display: grid;
+    grid-template-columns: auto 1fr auto auto auto auto;
+    gap: 10px 18px;
+    align-items: baseline;
+    position: relative;
+    overflow: hidden;
+    animation: simRowIn 0.32s cubic-bezier(.2,.7,.3,1.2);
+  }
+  @keyframes simRowIn {
+    from { opacity: 0; transform: translateY(-6px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .sim-row::before {
+    content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 3px;
+    background: var(--gold);
+  }
+  .sim-row .sim-n {
+    font-family: 'Oswald', sans-serif; font-weight: 700; font-size: 11px;
+    letter-spacing: 0.16em; color: var(--field); text-transform: uppercase;
+    white-space: nowrap;
+  }
+  .sim-row .sim-tag {
+    font-family: 'Oswald', sans-serif; font-weight: 500; font-size: 10px;
+    letter-spacing: 0.18em; color: var(--ink-soft); text-transform: uppercase;
+  }
+  .sim-row .sim-stat { display: flex; flex-direction: column; gap: 2px; }
+  .sim-row .sim-stat-label {
+    font-family: 'Oswald', sans-serif; font-size: 9px;
+    letter-spacing: 0.18em; color: var(--ink-soft); text-transform: uppercase;
+  }
+  .sim-row .sim-stat-val {
+    font-family: 'Big Shoulders Display', sans-serif; font-weight: 800;
+    font-size: 18px; color: var(--field); line-height: 1; letter-spacing: -0.01em;
+  }
+  .sim-row .sim-stat-val.gold { color: var(--gold); }
+  @media (max-width: 700px) {
+    .sim-row {
+      grid-template-columns: auto auto;
+      gap: 6px 12px;
+    }
+    .sim-row .sim-stat-val { font-size: 16px; }
+    .sim-row .sim-tag { grid-column: 1 / -1; }
+  }
+
   /* Vintage tag on roster cards (3-year mode only) */
   .pc-vintage {
     display: inline-block; margin-left: 6px;
@@ -617,6 +703,14 @@
       </div>
     </div>
   </div>
+
+  <section class="sim-log" id="simLog" hidden>
+    <div class="sim-log-head">
+      <div class="sim-log-title">Simulation Log</div>
+      <button type="button" class="sim-log-clear" id="simLogClear" aria-label="Clear simulation log">Clear</button>
+    </div>
+    <div class="sim-log-list" id="simLogList"></div>
+  </section>
 
   <div class="roster-section">
     <div class="roster-head">
@@ -747,6 +841,7 @@ function draw3YearRoster(lo, hi) {
 }
 
 const FUND = 8_500_000;          // ISA portfolio capital base
+const PER_PICK_CAPITAL = FUND / N_PLAYERS; // ~$283,333 per slot
 const FEE_EARLY = FEE_EARLY_RATE * FUND;
 const FEE_LATE  = FEE_LATE_RATE  * FUND;
 
@@ -815,11 +910,10 @@ function pickRandom(pool, n) {
 function simulate(selected, fundStart, timelineLen) {
   const annual = new Array(timelineLen).fill(0);
   const calls  = new Array(timelineLen).fill(0);
-  const perPickCapital = FUND / N_PLAYERS;
   for (const p of selected) {
     const off = p.vintage - fundStart;
     if (off < 0 || off >= timelineLen) continue;
-    calls[off] += perPickCapital;
+    calls[off] += PER_PICK_CAPITAL;
     const eLen = p.e.length;
     for (let i = 0; i < eLen; i++) {
       const t = i + off;
@@ -870,6 +964,8 @@ let mode = 'full';
 let vintage = '2012';
 let commit = 250000;
 let lastResult = null;
+let simHistory = []; // chronological list of completed simulations
+const SIM_HISTORY_MAX = 25;
 
 const commitSlider = document.getElementById('commitSlider');
 const commitAmount = document.getElementById('commitAmount');
@@ -878,6 +974,9 @@ const modeBtns = document.querySelectorAll('.mode-toggle .btn');
 const vintageBtns = document.querySelectorAll('.vintage-toggle .btn');
 const rosterGrid = document.getElementById('rosterGrid');
 const rosterSub = document.getElementById('rosterSub');
+const simLogEl = document.getElementById('simLog');
+const simLogList = document.getElementById('simLogList');
+const simLogClearBtn = document.getElementById('simLogClear');
 const eyebrowEl = document.querySelector('.almanac .eyebrow');
 const deckEl = document.querySelector('.almanac .deck');
 
@@ -991,7 +1090,6 @@ function renderResult(r, selected, cadence) {
           <span class="pc-pos">${p.pos || '—'}</span>
         </div>
         <div class="pc-name">${p.name}</div>
-        ${p.war ? `<div class="pc-meta">${p.war.toFixed(1)} WAR</div>` : ''}
         <div class="pc-stat">
           <span class="pc-stat-label">Career Earnings</span>
           <span class="pc-stat-val${isBust ? ' bust' : ''}">${fmtMoneyShort(p.total)}</span>
@@ -1019,6 +1117,65 @@ function roll() {
   const tl = timelineForVintage(vintage, selected);
   const result = simulate(selected, tl.fundStart, tl.len);
   renderResult(result, selected, cadence);
+  appendSimToLog(result);
+}
+
+function appendSimToLog(r) {
+  const userNet = r.moic * commit;
+  simHistory.push({
+    n: simHistory.length + 1,
+    vintage,
+    mode,
+    commit,
+    netDist: userNet,
+    moic: r.moic,
+    irr: r.irr,
+  });
+  if (simHistory.length > SIM_HISTORY_MAX) simHistory = simHistory.slice(-SIM_HISTORY_MAX);
+  renderSimLog();
+}
+
+function renderSimLog() {
+  if (simHistory.length === 0) {
+    simLogEl.hidden = true;
+    simLogList.innerHTML = '';
+    return;
+  }
+  simLogEl.hidden = false;
+  // Newest first
+  const ordered = simHistory.slice().reverse();
+  simLogList.innerHTML = ordered.map(s => {
+    const cfg = VINTAGES[s.vintage];
+    const tag = `${cfg.label} · ${MODES[s.mode].label}`;
+    const irrTxt = isFinite(s.irr) ? (s.irr * 100).toFixed(1) + '%' : '—';
+    return `
+      <div class="sim-row">
+        <span class="sim-n">Sim #${String(s.n).padStart(2,'0')}</span>
+        <span class="sim-tag">${tag}</span>
+        <div class="sim-stat">
+          <span class="sim-stat-label">Commit</span>
+          <span class="sim-stat-val">${fmtCommit(s.commit)}</span>
+        </div>
+        <div class="sim-stat">
+          <span class="sim-stat-label">Net Distribution</span>
+          <span class="sim-stat-val">${fmtMoneyShort(s.netDist)}</span>
+        </div>
+        <div class="sim-stat">
+          <span class="sim-stat-label">Net LP MOIC</span>
+          <span class="sim-stat-val gold">${s.moic.toFixed(2)}x</span>
+        </div>
+        <div class="sim-stat">
+          <span class="sim-stat-label">Net LP IRR</span>
+          <span class="sim-stat-val gold">${irrTxt}</span>
+        </div>
+      </div>
+    `;
+  }).join('');
+}
+
+function clearSimLog() {
+  simHistory = [];
+  renderSimLog();
 }
 
 commitSlider.addEventListener('input', e => {
@@ -1045,6 +1202,8 @@ vintageBtns.forEach(btn => {
     resetResultDisplay();
   });
 });
+
+simLogClearBtn.addEventListener('click', clearSimLog);
 
 rollBtn.addEventListener('click', () => {
   rollBtn.disabled = true;
