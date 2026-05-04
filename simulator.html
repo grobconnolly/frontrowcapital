@@ -548,12 +548,12 @@
   </header>
 
   <div class="vintage-strip">
-    <div class="vintage-label">Vintage Period</div>
+    <div class="vintage-label">Vintage</div>
     <div class="btn-group vintage-toggle" role="group" aria-label="Vintage">
       <button type="button" class="btn active" data-vintage="2012">2012</button>
       <button type="button" class="btn" data-vintage="2013">2013</button>
       <button type="button" class="btn" data-vintage="2014">2014</button>
-      <button type="button" class="btn" data-vintage="3yr">3-Year</button>
+      <button type="button" class="btn" data-vintage="3yr">3-Year Deploy</button>
     </div>
   </div>
 
@@ -635,7 +635,7 @@
 
   <footer class="almanac-foot">
     <div class="meth">Methodology</div>
-    <p>Player earnings data covers 2012–2044 (FanGraphs Top 100 prospect lists from 2012, 2013, and 2014; MLB salaries from baseball-reference / Spotrac). Pick a single-vintage (2012, 2013, or 2014) to draw 30 random prospects from that year's Top 100, or pick <b>3-Year</b> to model a 2012-vintage fund deploying across a 3-year investment period (2012–2014). In 3-year mode the eligible pool combines all three Top 100s with duplicates removed: each unique player enters the pool exactly once, attributed to the earliest year in which their rank fits the selected pool filter. 30 random picks are then drawn from that eligible pool. Each pick costs $283K for 5% of their MLB career earnings; capital is called in the year each player is signed (their attribution vintage), so 3-year mode's capital calls are staggered across 2012–2014. The 30 picks together total the $8.5M ISA portfolio. Fund life is a 12-year base term plus three 1-year extensions (15 years total). Management fees ($170K/yr in years 1–3, $42.5K/yr in years 4–15) are charged on the $8.5M ISA portfolio basis from fund inception (2012). Distributions follow a European whole-fund waterfall on the ISA portfolio: 100% to LPs until $8.5M of ISA capital is returned, then 80% LP / 20% GP. Net LP IRR is computed via bisection on the LP's actual cash-flow stream (capital calls less distributions in each fund-year). Backtest only — past performance is not indicative of future results. <i>Confidential. For accredited investor discussion only.</i></p>
+    <p>Player earnings data covers 2012–2044 (FanGraphs Top 100 prospect lists from 2012, 2013, and 2014; MLB salaries from baseball-reference / Spotrac). Pick a single-vintage (2012, 2013, or 2014) to draw 30 random prospects from that year's Top 100, or pick <b>3-Year</b> to model a 2012-vintage fund deploying across a 3-year investment period (2012–2014). In 3-year mode each year is treated as an independent draft. The per-year cadence is randomized each roll: three integers in [3, 18] summing to 30. For each year the rank filter (Full 100 / P10–P90 / P25–P75) is applied to that year's Top 100, then the per-year batch is drawn at random from that year's eligible pool. After all three drafts, the simulator scans for cross-year duplicates (same player on two or more lists). For each duplicate the earlier year's slot is replaced with a fresh random pick from that year's eligible pool — excluding everyone already on the combined roster — and the dedupe scan repeats until clean. Each pick costs $283K for 5% of their MLB career earnings; capital is called in the year each player is signed, so 3-year mode's capital calls are staggered across 2012–2014. The 30 picks together total the $8.5M ISA portfolio. Fund life is a 12-year base term plus three 1-year extensions (15 years total). Management fees ($170K/yr in years 1–3, $42.5K/yr in years 4–15) are charged on the $8.5M ISA portfolio basis from fund inception (2012). Distributions follow a European whole-fund waterfall on the ISA portfolio: 100% to LPs until $8.5M of ISA capital is returned, then 80% LP / 20% GP. Net LP IRR is computed via bisection on the LP's actual cash-flow stream (capital calls less distributions in each fund-year). Backtest only — past performance is not indicative of future results. <i>Confidential. For accredited investor discussion only.</i></p>
   </footer>
 
 </div>
@@ -686,32 +686,64 @@ function nameKey(s) {
   return s.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase().replace(/\s+/g, ' ').trim();
 }
 
-// Build name -> {vintage: player} index for the 3-year pool's rank-filter logic.
-const PLAYER_BY_NAME_VINTAGE = {};
-for (const v of ['2012', '2013', '2014']) {
-  for (const p of PLAYERS_BY_VINTAGE[v]) {
-    const k = nameKey(p.name);
-    if (!PLAYER_BY_NAME_VINTAGE[k]) PLAYER_BY_NAME_VINTAGE[k] = {};
-    PLAYER_BY_NAME_VINTAGE[k][v] = p;
-  }
+// Helpers for 3-year mode
+const YEARS = ['2012', '2013', '2014'];
+function poolForYear(yr, lo, hi) {
+  return PLAYERS_BY_VINTAGE[yr].filter(p => p.rank >= lo && p.rank <= hi);
 }
 
-// 3-year combined eligible pool with rank filter applied per-vintage:
-// for each unique player, include them as their earliest vintage where rank ∈ [lo, hi].
-// Player A who is rank 7 in 2012 and rank 44 in 2013 with P25-P75 filter -> attributed to 2013.
-function combinedPoolFiltered(lo, hi) {
-  const out = [];
-  for (const k of Object.keys(PLAYER_BY_NAME_VINTAGE)) {
-    const byV = PLAYER_BY_NAME_VINTAGE[k];
-    for (const v of ['2012', '2013', '2014']) {
-      const p = byV[v];
-      if (p && p.rank >= lo && p.rank <= hi) {
-        out.push(p);
-        break; // earliest qualifying vintage wins (we'd sign them as soon as eligible)
+// Random cadence: three integers in [3, 18] summing to 30. Rejection sampled.
+function randomCadence() {
+  for (let attempt = 0; attempt < 1000; attempt++) {
+    const a = 3 + Math.floor(Math.random() * 16);
+    const b = 3 + Math.floor(Math.random() * 16);
+    const c = 30 - a - b;
+    if (c >= 3 && c <= 18) return { '2012': a, '2013': b, '2014': c };
+  }
+  return { '2012': 10, '2013': 10, '2014': 10 };
+}
+
+// Draw the 3-year roster: independent random draws per year, then iterative dedupe
+// (replace each cross-year duplicate in the earlier year with a fresh random pick).
+function draw3YearRoster(lo, hi) {
+  const cadence = randomCadence();
+  const picks = { '2012': [], '2013': [], '2014': [] };
+  for (const y of YEARS) {
+    picks[y] = pickRandom(poolForYear(y, lo, hi), cadence[y]);
+  }
+  for (let iter = 0; iter < 200; iter++) {
+    // Find first cross-year duplicate
+    const seen = new Map(); // nameKey -> earliest year it appears in
+    let dupeKey = null, replaceYear = null;
+    outer: for (const y of YEARS) {
+      for (const p of picks[y]) {
+        const k = nameKey(p.name);
+        if (seen.has(k)) {
+          dupeKey = k;
+          replaceYear = seen.get(k);
+          break outer;
+        }
+        seen.set(k, y);
       }
     }
+    if (!dupeKey) break;
+    // Build the exclusion set: every currently-selected player across all years
+    const excluded = new Set();
+    for (const y of YEARS) for (const p of picks[y]) excluded.add(nameKey(p.name));
+    // Eligible replacements in the earlier year, excluding everyone on the roster
+    const replacementPool = poolForYear(replaceYear, lo, hi).filter(p => !excluded.has(nameKey(p.name)));
+    // Drop the dupe from the earlier year
+    picks[replaceYear] = picks[replaceYear].filter(p => nameKey(p.name) !== dupeKey);
+    if (replacementPool.length > 0) {
+      const r = replacementPool[Math.floor(Math.random() * replacementPool.length)];
+      picks[replaceYear].push(r);
+    }
+    // (If pool is exhausted, slot is dropped; cadence may end up <30. Extremely rare.)
   }
-  return out;
+  // Flatten
+  const flat = [];
+  for (const y of YEARS) for (const p of picks[y]) flat.push(p);
+  return { selected: flat, cadence };
 }
 
 const FUND = 8_500_000;          // ISA portfolio capital base
@@ -855,12 +887,23 @@ function deckTextFor(v) {
   if (cfg.single) {
     return `Pick a commitment. Pull 30 random prospects from the FanGraphs ${cfg.label} Top 100. This view models the <b>$8.5M ISA portfolio</b> of the $10M fund—your LP cut after fees and 20% carry on actual MLB career earnings. The separate $1.5M Finlete equity allocation is documented elsewhere.`;
   }
-  return `Pick a commitment. A 2012-vintage fund deploys across the ${cfg.deckYears} FanGraphs Top 100s — each unique player can only be signed once, in the earliest year they fit the selected pool filter. 30 random picks are drawn; capital is called as each deal closes. Your LP cut shown after fees and 20% carry on actual MLB career earnings.`;
+  return `Pick a commitment. A 2012-vintage fund deploys across the ${cfg.deckYears} FanGraphs Top 100s. Each year, an independent random batch is drawn from that year's filtered pool — the per-year cadence is randomized in <b>3-18</b> per year and totals 30. Cross-year duplicates are auto-replaced from the earlier year's eligible pool. Your LP cut shown after fees and 20% carry on actual MLB career earnings.`;
 }
 
+// For 3-year mode, "pool size" displayed is the sum of unique-eligible players across all 3 years.
 function currentPool() {
   const m = MODES[mode];
-  if (vintage === '3yr') return combinedPoolFiltered(m.lo, m.hi);
+  if (vintage === '3yr') {
+    const seen = new Set();
+    const out = [];
+    for (const y of YEARS) {
+      for (const p of poolForYear(y, m.lo, m.hi)) {
+        const k = nameKey(p.name);
+        if (!seen.has(k)) { seen.add(k); out.push(p); }
+      }
+    }
+    return out;
+  }
   return PLAYERS_BY_VINTAGE[vintage].filter(p => p.rank >= m.lo && p.rank <= m.hi);
 }
 
@@ -912,7 +955,7 @@ function resetResultDisplay() {
     </div>`;
 }
 
-function renderResult(r, selected) {
+function renderResult(r, selected, cadence) {
   lastResult = r;
   document.getElementById('netMoic').textContent = r.moic.toFixed(2) + 'x';
   document.getElementById('netIrr').textContent  = (r.irr*100).toFixed(1) + '%';
@@ -925,10 +968,8 @@ function renderResult(r, selected) {
   const pool = currentPool();
   const showVintageTags = !VINTAGES[vintage].single;
   let subText = `${selected.length} of ${pool.length} drawn · ranks ${MODES[mode].label}`;
-  if (showVintageTags) {
-    const counts = { 2012: 0, 2013: 0, 2014: 0 };
-    for (const p of selected) counts[p.vintage]++;
-    subText += ` · ${counts[2012]}/'12 · ${counts[2013]}/'13 · ${counts[2014]}/'14`;
+  if (showVintageTags && cadence) {
+    subText += ` · cadence ${cadence['2012']}/${cadence['2013']}/${cadence['2014']}`;
   }
   rosterSub.textContent = subText;
 
@@ -966,11 +1007,18 @@ function renderResult(r, selected) {
 }
 
 function roll() {
-  const pool = currentPool();
-  const selected = pickRandom(pool, N_PLAYERS);
+  let selected, cadence = null;
+  if (vintage === '3yr') {
+    const m = MODES[mode];
+    const drawn = draw3YearRoster(m.lo, m.hi);
+    selected = drawn.selected;
+    cadence = drawn.cadence;
+  } else {
+    selected = pickRandom(currentPool(), N_PLAYERS);
+  }
   const tl = timelineForVintage(vintage, selected);
   const result = simulate(selected, tl.fundStart, tl.len);
-  renderResult(result, selected);
+  renderResult(result, selected, cadence);
 }
 
 commitSlider.addEventListener('input', e => {
