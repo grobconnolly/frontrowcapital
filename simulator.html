@@ -6,21 +6,23 @@
 <title>Front Row Capital Simulator</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@600;800;900&family=Oswald:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&family=Lora:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,400;1,9..144,500&family=Big+Shoulders+Display:wght@600;800;900&family=Oswald:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&family=Lora:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 <style>
   :root {
-    --field: #0a3d28;
-    --field-dim: #1a5d3a;
-    --field-bright: #2d8050;
-    --paper: #f4ecd8;
-    --paper-dim: #e8dec1;
-    --paper-shadow: #d4c79e;
-    --gold: #c4933e;
-    --gold-bright: #e6b04d;
-    --stitch: #8b1c2b;
-    --ink: #1a1815;
-    --ink-soft: #4a4239;
+    /* Token names retained for backward compatibility; values rebranded
+       to navy + white per the Front Row Capital wordmark identity. */
+    --field: #122A4F;        /* navy primary */
+    --field-dim: #1E3A5F;
+    --field-bright: #2A4D7A;
+    --paper: #FFFFFF;
+    --paper-dim: #F5F3EE;
+    --paper-shadow: #E8E4DA;
+    --gold: #FFFFFF;         /* "accent" highlights now resolve to white */
+    --gold-bright: #FFFFFF;
+    --stitch: #122A4F;
+    --ink: #122A4F;
+    --ink-soft: #4A5878;
   }
   html, body {
     background: var(--paper);
@@ -28,10 +30,6 @@
     font-family: 'Lora', Georgia, serif;
   }
   body {
-    background-image:
-      radial-gradient(circle at 20% 10%, rgba(196,147,62,0.08), transparent 50%),
-      radial-gradient(circle at 85% 85%, rgba(10,61,40,0.06), transparent 50%),
-      repeating-linear-gradient(45deg, transparent, transparent 2px, rgba(26,24,21,0.012) 2px, rgba(26,24,21,0.012) 4px);
     min-height: 100vh;
     padding: 24px 12px 60px;
   }
@@ -42,21 +40,16 @@
 
   /* HEADER */
   header.almanac {
-    border: 3px double var(--field);
-    padding: 18px 20px;
-    background: var(--paper-dim);
+    border: 1px solid var(--paper-shadow);
+    padding: 28px 24px;
+    background: var(--paper);
     position: relative;
     margin-bottom: 18px;
   }
   @media (min-width: 768px) {
-    header.almanac { padding: 22px 32px; margin-bottom: 22px; }
+    header.almanac { padding: 40px 40px; margin-bottom: 22px; }
   }
-  header.almanac::before, header.almanac::after {
-    content: ''; position: absolute; width: 14px; height: 14px;
-    border: 2px solid var(--field); top: 6px;
-  }
-  header.almanac::before { left: 6px; }
-  header.almanac::after { right: 6px; }
+  header.almanac::before, header.almanac::after { content: none; }
   .eyebrow {
     font-family: 'Oswald', sans-serif; font-weight: 500;
     font-size: 10px; letter-spacing: 0.32em; color: var(--field);
@@ -64,13 +57,14 @@
   }
   @media (min-width: 768px) { .eyebrow { font-size: 11px; } }
   h1.bigtitle {
-    font-family: 'Big Shoulders Display', sans-serif;
-    font-weight: 900; font-size: clamp(34px, 8vw, 72px);
-    color: var(--field); line-height: 0.92;
-    letter-spacing: -0.01em; text-transform: uppercase;
+    font-family: 'Fraunces', Georgia, serif;
+    font-weight: 600; font-size: clamp(36px, 8vw, 72px);
+    color: var(--field); line-height: 0.98;
+    letter-spacing: -0.015em; text-transform: none;
     margin: 0;
+    font-variation-settings: 'opsz' 144;
   }
-  .h1-line2 { color: var(--gold); font-weight: 800; }
+  .h1-line2 { color: var(--field); font-weight: 400; font-style: italic; }
   .deck {
     font-family: 'Lora', serif; font-style: italic;
     color: var(--ink-soft); font-size: 13px; margin-top: 8px;
@@ -97,7 +91,7 @@
   }
   .controls-panel::after {
     content: ''; position: absolute; inset: 4px;
-    border: 1px solid rgba(244,236,216,0.18); pointer-events: none;
+    border: 1px solid rgba(255,255,255,0.18); pointer-events: none;
   }
   .ctrl-label {
     font-family: 'Oswald', sans-serif; font-size: 10px;
@@ -112,17 +106,17 @@
   @media (min-width: 768px) { .commit-amount { font-size: 38px; } }
   .commit-suffix {
     font-family: 'Oswald', sans-serif; font-size: 11px; letter-spacing: 0.18em;
-    color: rgba(244,236,216,0.6); text-transform: uppercase;
+    color: rgba(255,255,255,0.6); text-transform: uppercase;
   }
   /* Custom range slider */
   .form-range.field-slider {
     height: 24px; background: transparent; padding: 0;
   }
   .form-range.field-slider::-webkit-slider-runnable-track {
-    height: 4px; background: rgba(244,236,216,0.25); border-radius: 2px; border: 0;
+    height: 4px; background: rgba(255,255,255,0.25); border-radius: 2px; border: 0;
   }
   .form-range.field-slider::-moz-range-track {
-    height: 4px; background: rgba(244,236,216,0.25); border-radius: 2px; border: 0;
+    height: 4px; background: rgba(255,255,255,0.25); border-radius: 2px; border: 0;
   }
   .form-range.field-slider::-webkit-slider-thumb {
     height: 22px; width: 22px; background: var(--gold-bright);
@@ -139,15 +133,15 @@
   .slider-ticks {
     display: flex; justify-content: space-between; margin-top: 4px;
     font-family: 'JetBrains Mono', monospace; font-size: 10px;
-    color: rgba(244,236,216,0.4);
+    color: rgba(255,255,255,0.4);
   }
 
   /* Mode toggle as Bootstrap btn-group */
   .mode-toggle.btn-group { width: 100%; }
   .mode-toggle .btn {
-    background: rgba(244,236,216,0.08);
-    border: 1px solid rgba(244,236,216,0.25);
-    color: rgba(244,236,216,0.55);
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.25);
+    color: rgba(255,255,255,0.55);
     font-family: 'Oswald', sans-serif; font-weight: 500; font-size: 11px;
     letter-spacing: 0.14em; text-transform: uppercase;
     padding: 12px 4px; border-radius: 0;
@@ -155,14 +149,14 @@
   }
   .mode-toggle .btn small { white-space: nowrap; }
   .mode-toggle .btn small { display: block; font-size: 9px; letter-spacing: 0.1em;
-    color: rgba(244,236,216,0.35); margin-top: 3px; font-weight: 400; }
+    color: rgba(255,255,255,0.35); margin-top: 3px; font-weight: 400; }
   .mode-toggle .btn.active {
     background: var(--gold); color: var(--field);
     border-color: var(--gold);
   }
-  .mode-toggle .btn.active small { color: rgba(10,61,40,0.7); }
+  .mode-toggle .btn.active small { color: rgba(18,42,79,0.7); }
   .mode-toggle .btn:not(.active):hover {
-    color: var(--paper); background: rgba(244,236,216,0.12);
+    color: var(--paper); background: rgba(255,255,255,0.12);
   }
   .mode-toggle .btn:focus { box-shadow: none; outline: none; }
 
@@ -173,17 +167,17 @@
     font-family: 'Big Shoulders Display', sans-serif; font-weight: 900;
     font-size: 22px; letter-spacing: 0.14em; text-transform: uppercase;
     transition: all 0.18s; border-radius: 0;
-    box-shadow: 0 0 0 0 rgba(196,147,62,0);
+    box-shadow: 0 0 0 0 rgba(255,255,255,0);
     height: 100%; min-height: 56px;
   }
   .roll-btn:hover {
     background: var(--gold-bright); color: var(--field);
-    box-shadow: 0 0 0 4px rgba(196,147,62,0.25);
+    box-shadow: 0 0 0 4px rgba(255,255,255,0.25);
     transform: translateY(-1px);
   }
   .roll-btn:active { transform: translateY(0); }
   .roll-btn:disabled { opacity: 0.5; cursor: not-allowed; }
-  .roll-btn:focus { box-shadow: 0 0 0 4px rgba(196,147,62,0.25); outline: none; }
+  .roll-btn:focus { box-shadow: 0 0 0 4px rgba(255,255,255,0.25); outline: none; }
   .roll-btn .arrow { display: inline-block; margin-left: 8px; transition: transform 0.18s; }
   .roll-btn:hover .arrow { transform: translateX(4px); }
 
@@ -210,7 +204,7 @@
   }
   .hero-amount .currency {
     font-size: 0.55em; vertical-align: top; line-height: 1;
-    color: var(--gold); margin-right: 4px;
+    color: var(--ink-soft); margin-right: 4px;
   }
   .hero-meta {
     margin-top: 14px; padding-top: 14px;
@@ -225,7 +219,7 @@
     font-size: 32px; color: var(--field); line-height: 1; margin-top: 4px;
   }
   @media (min-width: 768px) { .meta-stat .meta-value { font-size: 36px; } }
-  .meta-stat .meta-value.gold { color: var(--gold); }
+  .meta-stat .meta-value.gold { color: var(--field); }
 
   .breakdown-panel {
     background: var(--field); color: var(--paper); padding: 20px 22px;
@@ -236,7 +230,7 @@
   }
   .breakdown-panel::after {
     content: ''; position: absolute; inset: 4px;
-    border: 1px solid rgba(244,236,216,0.18); pointer-events: none;
+    border: 1px solid rgba(255,255,255,0.18); pointer-events: none;
   }
   .breakdown-title {
     font-family: 'Big Shoulders Display', sans-serif; font-weight: 900;
@@ -245,14 +239,14 @@
   }
   .br-row {
     display: flex; justify-content: space-between; align-items: baseline;
-    padding: 8px 0; border-bottom: 1px dashed rgba(244,236,216,0.18);
+    padding: 8px 0; border-bottom: 1px dashed rgba(255,255,255,0.18);
     font-family: 'JetBrains Mono', monospace; font-size: 12px;
   }
   @media (min-width: 768px) { .br-row { font-size: 13px; } }
   .br-row:last-child { border-bottom: 0; padding-bottom: 0; }
   .br-row .label {
     font-family: 'Oswald', sans-serif; font-size: 11px; letter-spacing: 0.16em;
-    text-transform: uppercase; font-weight: 400; color: rgba(244,236,216,0.7);
+    text-transform: uppercase; font-weight: 400; color: rgba(255,255,255,0.7);
   }
   .br-row .value { font-weight: 500; color: var(--paper); }
   .br-row.total {
@@ -305,19 +299,19 @@
   }
   .player-card::before {
     content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 3px;
-    background: var(--gold);
+    background: var(--field);
   }
   .player-card.high::before { background: var(--field-bright); }
-  .player-card.bust::before { background: var(--stitch); opacity: 0.5; }
+  .player-card.bust::before { background: var(--ink-soft); opacity: 0.4; }
   .pc-row1 { display: flex; justify-content: space-between; align-items: baseline; }
   .pc-rank {
     font-family: 'JetBrains Mono', monospace; font-size: 10px; font-weight: 700;
-    color: var(--gold); letter-spacing: 0.04em;
+    color: var(--ink-soft); letter-spacing: 0.04em;
   }
   .pc-pos {
     font-family: 'Oswald', sans-serif; font-size: 10px; font-weight: 600;
     color: var(--field); letter-spacing: 0.1em; padding: 2px 6px;
-    background: rgba(45,128,80,0.12); border: 1px solid rgba(45,128,80,0.3);
+    background: rgba(18,42,79,0.08); border: 1px solid rgba(18,42,79,0.25);
   }
   .pc-name {
     font-family: 'Big Shoulders Display', sans-serif; font-weight: 800;
@@ -341,7 +335,7 @@
     font-family: 'JetBrains Mono', monospace; font-size: 13px; font-weight: 700;
     color: var(--field);
   }
-  .pc-stat-val.bust { color: var(--stitch); opacity: 0.7; }
+  .pc-stat-val.bust { color: var(--ink-soft); opacity: 0.75; }
 
   /* EMPTY STATE */
   .empty-state {
@@ -366,11 +360,11 @@
     background: var(--field); color: var(--paper);
     border-top: 3px solid var(--gold);
     padding: 14px 18px; z-index: 1040;
-    box-shadow: 0 -6px 24px rgba(10,61,40,0.28);
+    box-shadow: 0 -6px 24px rgba(18,42,79,0.28);
   }
   .cta-bar::after {
     content: ''; position: absolute; inset: 4px 4px 4px 4px;
-    border: 1px solid rgba(244,236,216,0.18); pointer-events: none;
+    border: 1px solid rgba(255,255,255,0.18); pointer-events: none;
   }
   .cta-bar-inner {
     max-width: 1280px; margin: 0 auto;
@@ -397,11 +391,11 @@
     font-size: 16px; letter-spacing: 0.14em; text-transform: uppercase;
     border-radius: 0; border: 0;
     transition: all 0.18s;
-    box-shadow: 0 0 0 0 rgba(196,147,62,0);
+    box-shadow: 0 0 0 0 rgba(255,255,255,0);
   }
   .cta-bar-btn:hover, .cta-bar-btn:focus {
     background: var(--gold-bright); color: var(--field);
-    box-shadow: 0 0 0 4px rgba(196,147,62,0.28);
+    box-shadow: 0 0 0 4px rgba(255,255,255,0.28);
     transform: translateY(-1px); outline: none;
   }
   .cta-bar-btn:active { transform: translateY(0); }
@@ -423,15 +417,15 @@
   .info-tip {
     display: inline-flex; align-items: center; justify-content: center;
     width: 14px; height: 14px; margin-left: 6px;
-    background: var(--gold); color: var(--field);
+    background: var(--field); color: var(--paper);
     font-family: 'Lora', serif; font-style: italic; font-weight: 700;
     font-size: 10px; line-height: 1; border-radius: 50%;
     cursor: help; transition: all 0.15s; vertical-align: 1px;
     text-transform: lowercase;
   }
   .info-tip:hover, .info-tip:focus {
-    background: var(--gold-bright); transform: scale(1.12); outline: none;
-    box-shadow: 0 0 0 2px rgba(196,147,62,0.3);
+    background: var(--field-bright); transform: scale(1.12); outline: none;
+    box-shadow: 0 0 0 2px rgba(18,42,79,0.25);
   }
   /* Override Bootstrap tooltip defaults to match vintage palette */
   .tooltip { font-family: 'Lora', serif; }
@@ -441,7 +435,7 @@
     padding: 10px 14px; max-width: 320px;
     text-align: left; border-radius: 0;
     border: 1px solid var(--gold);
-    box-shadow: 0 6px 18px rgba(10,61,40,0.35);
+    box-shadow: 0 6px 18px rgba(18,42,79,0.35);
   }
   .tooltip.bs-tooltip-top    .tooltip-arrow::before { border-top-color:    var(--field); }
   .tooltip.bs-tooltip-bottom .tooltip-arrow::before { border-bottom-color: var(--field); }
@@ -495,7 +489,7 @@
     background: var(--field); color: var(--paper);
   }
   .vintage-toggle .btn:not(.active):hover {
-    background: rgba(10,61,40,0.08);
+    background: rgba(18,42,79,0.08);
   }
   .vintage-toggle .btn:focus { box-shadow: none; outline: none; }
 
@@ -533,7 +527,7 @@
   .sim-log-clear:hover {
     background: var(--field); color: var(--paper);
   }
-  .sim-log-clear:focus { outline: none; box-shadow: 0 0 0 3px rgba(196,147,62,0.28); }
+  .sim-log-clear:focus { outline: none; box-shadow: 0 0 0 3px rgba(255,255,255,0.28); }
   .sim-log-list {
     display: grid;
     gap: 8px;
@@ -555,7 +549,7 @@
   }
   .sim-row::before {
     content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 3px;
-    background: var(--gold);
+    background: var(--field);
   }
   .sim-row .sim-n {
     font-family: 'Oswald', sans-serif; font-weight: 700; font-size: 11px;
@@ -575,7 +569,7 @@
     font-family: 'Big Shoulders Display', sans-serif; font-weight: 800;
     font-size: 18px; color: var(--field); line-height: 1; letter-spacing: -0.01em;
   }
-  .sim-row .sim-stat-val.gold { color: var(--gold); }
+  .sim-row .sim-stat-val.gold { color: var(--field); }
   @media (max-width: 700px) {
     .sim-row {
       grid-template-columns: auto auto;
@@ -590,8 +584,8 @@
     display: inline-block; margin-left: 6px;
     font-family: 'Oswald', sans-serif; font-size: 9px; font-weight: 600;
     letter-spacing: 0.1em; color: var(--field);
-    background: rgba(196,147,62,0.18);
-    border: 1px solid var(--gold);
+    background: transparent;
+    border: 1px solid var(--field);
     padding: 1px 4px;
     vertical-align: 1px;
   }
@@ -621,9 +615,9 @@
 <div class="frame">
 
   <header class="almanac">
-    <div class="eyebrow">Baseball ISA Fund Backtest · 2012 Vintage</div>
+    <div class="eyebrow">Baseball ISA Fund Backtest · 2012–2014 · 3-Year Investment Period</div>
     <h1 class="bigtitle">Front Row Capital<br><span class="h1-line2">Simulator</span></h1>
-    <div class="deck">Pick a commitment. Pull 30 random prospects from the FanGraphs 2012 Top 100. This view models the <b>$8.5M ISA portfolio</b> of the $10M fund—your LP cut after fees and 20% carry on actual MLB career earnings. The separate $1.5M Finlete equity allocation is documented elsewhere.</div>
+    <div class="deck">Pick a commitment. A 2012-vintage fund deploys across the 2012–2014 FanGraphs Top 100s. Each year, an independent random batch is drawn from that year's filtered pool — the per-year cadence is randomized in <b>3-18</b> per year and totals 30. Cross-year duplicates are auto-replaced from the earlier year's eligible pool. Your LP cut shown after fees and 20% carry on actual MLB career earnings.</div>
     <div class="terms-strip">
       <span><b>TOTAL FUND</b> $10M</span>
       <span><b>ISA PORTFOLIO (this view)</b> $8.5M</span>
@@ -636,10 +630,10 @@
   <div class="vintage-strip">
     <div class="vintage-label">Vintage</div>
     <div class="btn-group vintage-toggle" role="group" aria-label="Vintage">
-      <button type="button" class="btn active" data-vintage="2012">2012</button>
+      <button type="button" class="btn" data-vintage="2012">2012</button>
       <button type="button" class="btn" data-vintage="2013">2013</button>
       <button type="button" class="btn" data-vintage="2014">2014</button>
-      <button type="button" class="btn" data-vintage="3yr">3-Year Deploy</button>
+      <button type="button" class="btn active" data-vintage="3yr">3-Year Deploy</button>
     </div>
   </div>
 
@@ -649,20 +643,20 @@
       <div class="col-12 col-lg-4">
         <div class="ctrl-label">Your LP Commitment</div>
         <div class="slider-row">
-          <span class="commit-amount" id="commitAmount">$250K</span>
+          <span class="commit-amount" id="commitAmount">$1M</span>
           <span class="commit-suffix">into the fund</span>
         </div>
         <input type="range" class="form-range field-slider" id="commitSlider"
-               min="100000" max="1000000" step="25000" value="250000">
+               min="100000" max="1000000" step="25000" value="1000000">
         <div class="slider-ticks"><span>$100K</span><span>$500K</span><span>$1M</span></div>
       </div>
 
       <div class="col-12 col-md-7 col-lg-5">
         <div class="ctrl-label">Player Pool</div>
         <div class="btn-group mode-toggle" role="group" aria-label="Player pool">
-          <button type="button" class="btn active" data-mode="full">Full 100<small>Ranks 1–100</small></button>
+          <button type="button" class="btn" data-mode="full">Full 100<small>Ranks 1–100</small></button>
           <button type="button" class="btn" data-mode="p10_90">P10–P90<small>Ranks 10–90</small></button>
-          <button type="button" class="btn" data-mode="p25_75">P25–P75<small>Ranks 25–75</small></button>
+          <button type="button" class="btn active" data-mode="p25_75">P25–P75<small>Ranks 25–75</small></button>
         </div>
       </div>
 
@@ -960,9 +954,9 @@ const MODES = {
   p25_75:  { lo: 25, hi: 75,  label: '25–75' },
 };
 
-let mode = 'full';
-let vintage = '2012';
-let commit = 250000;
+let mode = 'p25_75';
+let vintage = '3yr';
+let commit = 1000000;
 let lastResult = null;
 let simHistory = []; // chronological list of completed simulations
 let simCounter = 0;   // monotonic — only resets on Clear

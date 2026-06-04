@@ -1,18 +1,16 @@
 /* ========================================
-   FRONT ROW CAPITAL — ALMANAC DESIGN SYSTEM
+   FRONT ROW CAPITAL — DESIGN SYSTEM
    ======================================== */
 :root{
-  --field: #0a3d28;
-  --field-dim: #1a5d3a;
-  --field-bright: #2d8050;
-  --paper: #f4ecd8;
-  --paper-dim: #e8dec1;
-  --paper-shadow: #d4c79e;
-  --gold: #c4933e;
-  --gold-bright: #e6b04d;
-  --stitch: #8b1c2b;
-  --ink: #1a1815;
-  --ink-soft: #4a4239;
+  --navy: #122A4F;
+  --navy-dim: #1E3A5F;
+  --navy-bright: #2A4D7A;
+  --paper: #FFFFFF;
+  --paper-dim: #F5F3EE;
+  --paper-shadow: #E8E4DA;
+  --ink: #122A4F;
+  --ink-soft: #4A5878;
+  --rule: #D9D5C8;
 }
 
 *{ box-sizing:border-box; }
@@ -31,38 +29,16 @@ html, body { height: 100%; }
 }
 
 /* ========================================
-   BACKGROUND LAYERS
+   BACKGROUND
    ======================================== */
 .bg-layer{
   position: fixed;
   inset: 0;
   z-index: -3;
-  background:
-    radial-gradient(900px 650px at 20% 10%, rgba(196,147,62,0.10), transparent 55%),
-    radial-gradient(800px 600px at 85% 85%, rgba(10,61,40,0.08), transparent 60%),
-    var(--paper);
+  background: var(--paper);
 }
-.bg-dots{
-  position: fixed;
-  inset: 0;
-  z-index: -2;
-  opacity: 1;
-  background-image: repeating-linear-gradient(
-    45deg,
-    transparent,
-    transparent 2px,
-    rgba(26,24,21,0.018) 2px,
-    rgba(26,24,21,0.018) 4px
-  );
-  pointer-events: none;
-}
-.bg-vignette{
-  position: fixed;
-  inset: 0;
-  z-index: -1;
-  background: radial-gradient(ellipse at center, transparent 55%, rgba(10,61,40,0.10) 100%);
-  pointer-events: none;
-}
+.bg-dots,
+.bg-vignette{ display: none; }
 
 /* ========================================
    HEADER + BRAND
@@ -70,34 +46,35 @@ html, body { height: 100%; }
 header {
   position: relative;
   z-index: 1000;
-  border-bottom: 2px solid var(--field);
-  background: var(--paper-dim);
+  border-bottom: 1px solid var(--rule);
+  background: var(--paper);
 }
 
 .brand-link{
   text-decoration: none;
-  color: var(--field);
+  color: var(--navy);
   display: inline-flex;
   align-items: center;
   gap: 12px;
 }
-.brand-link:hover{ color: var(--field); opacity: 0.85; }
+.brand-link:hover{ color: var(--navy); opacity: 0.85; }
 
 .brand-mark{
-  width: 14px;
-  height: 14px;
-  background: var(--gold);
-  border: 2px solid var(--field);
+  width: 10px;
+  height: 10px;
+  background: var(--navy);
+  border: 0;
   display: inline-block;
 }
 .brand-text{
-  font-family: 'Big Shoulders Display', sans-serif;
-  font-weight: 900;
+  font-family: 'Fraunces', 'Big Shoulders Display', serif;
+  font-weight: 600;
   text-transform: uppercase;
-  letter-spacing: 0.02em;
-  font-size: 20px;
-  color: var(--field);
+  letter-spacing: 0.04em;
+  font-size: 18px;
+  color: var(--navy);
   line-height: 1;
+  font-variation-settings: 'opsz' 144;
 }
 
 /* ========================================
@@ -121,7 +98,7 @@ header {
   display: block;
   width: 100%;
   height: 2px;
-  background: var(--field);
+  background: var(--navy);
   border-radius: 0;
   transition: all 0.3s ease;
   transform-origin: center;
@@ -144,13 +121,13 @@ header {
   left: 0;
   right: 0;
   bottom: 0;
-  background: var(--paper-dim);
+  background: var(--paper);
   padding: 80px 0 2rem 0;
   transform: translateY(-100%);
   transition: transform 0.3s ease;
   z-index: 999;
   overflow-y: auto;
-  border-bottom: 3px double var(--field);
+  border-bottom: 1px solid var(--rule);
 }
 
 .mobile-nav.active {
@@ -182,32 +159,32 @@ header {
 }
 
 .btn-fr-solid{
-  background: var(--gold);
-  border: 2px solid var(--gold);
-  color: var(--field);
-  box-shadow: 0 0 0 0 rgba(196,147,62,0);
+  background: var(--navy);
+  border: 1px solid var(--navy);
+  color: var(--paper);
+  box-shadow: 0 0 0 0 rgba(18,42,79,0);
 }
 .btn-fr-solid:hover{
-  background: var(--gold-bright);
-  border-color: var(--gold-bright);
-  color: var(--field);
-  box-shadow: 0 0 0 4px rgba(196,147,62,0.25);
+  background: var(--navy-bright);
+  border-color: var(--navy-bright);
+  color: var(--paper);
+  box-shadow: 0 0 0 4px rgba(18,42,79,0.18);
   transform: translateY(-1px);
 }
 
 .btn-fr-outline{
   background: transparent;
-  border: 2px solid var(--field);
-  color: var(--field);
+  border: 1px solid var(--navy);
+  color: var(--navy);
 }
 .btn-fr-outline:hover{
-  background: var(--field);
+  background: var(--navy);
   color: var(--paper);
   transform: translateY(-1px);
 }
 
 .btn:focus{
-  box-shadow: 0 0 0 .25rem rgba(196,147,62,0.28) !important;
+  box-shadow: 0 0 0 .25rem rgba(18,42,79,0.22) !important;
   outline: none;
 }
 @media (prefers-reduced-motion: reduce){
@@ -220,56 +197,48 @@ header {
    ======================================== */
 .hero-min{
   max-width: 900px;
-  border: 3px double var(--field);
-  background: var(--paper-dim);
-  padding: 36px 28px;
+  border: 1px solid var(--rule);
+  background: var(--paper);
+  padding: 48px 28px;
   position: relative;
 }
 @media (min-width: 768px){
-  .hero-min{ padding: 56px 48px; }
+  .hero-min{ padding: 72px 56px; }
 }
-.hero-min::before, .hero-min::after{
-  content: '';
-  position: absolute;
-  width: 14px;
-  height: 14px;
-  border: 2px solid var(--field);
-  top: 8px;
-}
-.hero-min::before{ left: 8px; }
-.hero-min::after{ right: 8px; }
 
 .hero-eyebrow{
   font-family: 'Oswald', sans-serif;
   font-weight: 500;
   font-size: 11px;
   letter-spacing: 0.32em;
-  color: var(--field);
+  color: var(--ink-soft);
   text-transform: uppercase;
-  margin-bottom: 10px;
+  margin-bottom: 14px;
 }
 @media (min-width: 768px) { .hero-eyebrow { font-size: 12px; } }
 
 .accent-line{
-  width: min(220px, 60%);
-  height: 3px;
-  background: var(--gold);
-  margin-bottom: 18px;
+  width: min(180px, 50%);
+  height: 1px;
+  background: var(--navy);
+  margin-bottom: 22px;
 }
 
 .hero-title{
-  font-family: 'Big Shoulders Display', sans-serif;
-  font-weight: 900;
-  letter-spacing: -0.01em;
-  font-size: clamp(40px, 8vw, 72px);
-  line-height: 0.92;
-  color: var(--field);
-  text-transform: uppercase;
+  font-family: 'Fraunces', Georgia, serif;
+  font-weight: 600;
+  letter-spacing: -0.015em;
+  font-size: clamp(40px, 8vw, 76px);
+  line-height: 0.98;
+  color: var(--navy);
+  text-transform: none;
   margin: 0;
+  font-variation-settings: 'opsz' 144;
 }
 .hero-title-line2{
-  color: var(--gold);
-  font-weight: 800;
+  color: var(--navy);
+  font-weight: 400;
+  font-style: italic;
 }
 
 .hero-subtitle{
@@ -278,7 +247,7 @@ header {
   font-weight: 400;
   color: var(--ink-soft);
   font-size: clamp(15px, 2vw, 18px);
-  margin: 14px auto 0;
+  margin: 18px auto 0;
   max-width: 52ch;
   line-height: 1.5;
 }
@@ -287,9 +256,9 @@ header {
   display: flex;
   flex-wrap: wrap;
   gap: 10px 24px;
-  margin-top: 22px;
-  padding-top: 16px;
-  border-top: 1px solid var(--paper-shadow);
+  margin-top: 28px;
+  padding-top: 18px;
+  border-top: 1px solid var(--rule);
   font-family: 'JetBrains Mono', monospace;
   font-size: 10px;
   color: var(--ink-soft);
@@ -298,7 +267,7 @@ header {
   justify-content: center;
 }
 @media (min-width: 768px) { .terms-strip { font-size: 11px; gap: 12px 28px; } }
-.terms-strip b { color: var(--field); font-weight: 700; }
+.terms-strip b { color: var(--navy); font-weight: 700; }
 
 /* ========================================
    ABOUT PAGE — TITLE + TEAM CARDS
@@ -308,44 +277,41 @@ header {
   font-weight: 500;
   font-size: 11px;
   letter-spacing: 0.32em;
-  color: var(--field);
+  color: var(--ink-soft);
   text-transform: uppercase;
-  margin-bottom: 8px;
+  margin-bottom: 10px;
   text-align: center;
 }
 @media (min-width: 768px) { .page-eyebrow { font-size: 12px; } }
 
 .page-title{
-  font-family: 'Big Shoulders Display', sans-serif;
-  font-weight: 900;
-  letter-spacing: -0.01em;
-  color: var(--field);
-  text-transform: uppercase;
-  font-size: clamp(36px, 6vw, 56px);
-  line-height: 0.95;
+  font-family: 'Fraunces', Georgia, serif;
+  font-weight: 600;
+  letter-spacing: -0.015em;
+  color: var(--navy);
+  text-transform: none;
+  font-size: clamp(36px, 6vw, 60px);
+  line-height: 0.98;
+  font-variation-settings: 'opsz' 144;
 }
 
-/* Baseball-card team cards */
+/* Team cards */
 .team-card{
   background: var(--paper);
-  border: 2px solid var(--field);
+  border: 1px solid var(--rule);
   border-radius: 0;
   padding: 12px;
   position: relative;
   transition: transform .18s ease, box-shadow .18s ease;
-  box-shadow: 0 4px 0 var(--paper-shadow);
+  box-shadow: 0 2px 0 var(--paper-shadow);
 }
 .team-card::before{
-  content: '';
-  position: absolute;
-  inset: 4px;
-  border: 1px solid var(--paper-shadow);
-  pointer-events: none;
-  z-index: 1;
+  content: none;
 }
 .team-card:hover{
   transform: translateY(-2px);
-  box-shadow: 0 6px 0 var(--paper-shadow), 0 12px 24px rgba(10,61,40,0.18);
+  border-color: var(--navy);
+  box-shadow: 0 4px 0 var(--paper-shadow), 0 12px 24px rgba(18,42,79,0.12);
 }
 @media (prefers-reduced-motion: reduce){
   .team-card{ transition: none; }
@@ -353,7 +319,7 @@ header {
 }
 
 .team-card__imgwrap{
-  border: 1px solid var(--field);
+  border: 0;
   padding: 0;
   background: var(--paper-dim);
   position: relative;
@@ -372,18 +338,19 @@ header {
 .img-pos-higher{ object-position: center 8%; }
 
 .team-card__body{
-  padding: 14px 8px 6px 8px;
+  padding: 16px 8px 8px 8px;
   position: relative;
   z-index: 2;
 }
 .team-card__name{
-  font-family: 'Big Shoulders Display', sans-serif;
-  font-weight: 900;
-  text-transform: uppercase;
-  letter-spacing: 0.01em;
+  font-family: 'Fraunces', Georgia, serif;
+  font-weight: 600;
+  text-transform: none;
+  letter-spacing: -0.01em;
   font-size: 1.4rem;
-  color: var(--field);
-  line-height: 1.05;
+  color: var(--navy);
+  line-height: 1.1;
+  font-variation-settings: 'opsz' 144;
 }
 .team-card__role{
   font-family: 'Oswald', sans-serif;
@@ -391,12 +358,12 @@ header {
   font-size: 10px;
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: var(--field);
-  background: rgba(196,147,62,0.18);
-  border: 1px solid var(--gold);
+  color: var(--navy);
+  background: transparent;
+  border: 1px solid var(--navy);
   padding: 3px 8px;
   display: inline-block;
-  margin-top: 8px;
+  margin-top: 10px;
 }
 
 /* ========================================
@@ -410,7 +377,7 @@ header {
 .team-hover__overlay{
   position: absolute;
   inset: 0;
-  background: var(--field);
+  background: var(--navy);
   color: var(--paper);
   padding: 18px;
   display: flex;
@@ -422,18 +389,14 @@ header {
   transition: opacity .22s ease, transform .22s ease;
 }
 .team-hover__overlay::after{
-  content: '';
-  position: absolute;
-  inset: 6px;
-  border: 1px solid rgba(244,236,216,0.22);
-  pointer-events: none;
+  content: none;
 }
 
 .team-hover__overlay p{
   font-family: 'Lora', serif;
   font-size: 0.95rem;
   line-height: 1.5;
-  color: rgba(244,236,216,0.92);
+  color: rgba(255,255,255,0.92);
   margin: 0;
 }
 
@@ -456,11 +419,10 @@ header {
     opacity: 1;
     position: static;
     transform: none;
-    background: var(--field);
+    background: var(--navy);
     margin-top: 0;
     border-radius: 0;
   }
-  .team-hover__overlay::after{ display: none; }
   .team-hover img{
     filter: none;
   }
@@ -480,12 +442,14 @@ header {
 }
 
 .overlay-icons a{
-  color: var(--gold-bright);
+  color: var(--paper);
   font-size: 1.15rem;
   transition: color .15s ease, transform .15s ease;
+  opacity: 0.85;
 }
 .overlay-icons a:hover{
   color: var(--paper);
+  opacity: 1;
   transform: translateY(-1px);
 }
 @media (prefers-reduced-motion: reduce){
@@ -496,8 +460,8 @@ header {
    FOOTER
    ======================================== */
 footer{
-  border-top: 2px solid var(--field);
-  background: var(--paper-dim);
+  border-top: 1px solid var(--rule);
+  background: var(--paper);
   margin-top: 30px;
 }
 .footer-text{
@@ -513,8 +477,8 @@ footer{
    MOBILE OPTIMIZATIONS
    ======================================== */
 @media (max-width: 767px) {
-  .hero-min{ padding: 28px 20px; }
-  .hero-title { font-size: clamp(34px, 11vw, 52px); }
+  .hero-min{ padding: 40px 24px; }
+  .hero-title { font-size: clamp(36px, 11vw, 56px); }
   .mobile-nav .btn {
     min-height: 52px;
     display: flex;
