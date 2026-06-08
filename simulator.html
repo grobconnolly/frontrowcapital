@@ -484,6 +484,42 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     margin-bottom: 6px;
   }
   footer.almanac-foot i { color: var(--field); font-style: italic; }
+  /* SIM MODE TOGGLE */
+  .sim-mode-strip {
+    display: flex; align-items: center; gap: 14px; flex-wrap: wrap;
+    padding: 14px 16px; margin-bottom: 6px;
+    background: var(--paper-dim); border: 2px solid var(--field);
+    border-bottom: 1px solid var(--field);
+  }
+  @media (min-width: 768px) { .sim-mode-strip { padding: 16px 22px; margin-bottom: 0; } }
+  .sim-mode-label {
+    font-family: 'Oswald', sans-serif; font-weight: 500;
+    font-size: 10px; letter-spacing: 0.32em; color: var(--field); text-transform: uppercase;
+  }
+  @media (min-width: 768px) { .sim-mode-label { font-size: 11px; } }
+  .sim-mode-toggle.btn-group { flex: 0 0 auto; }
+  .sim-mode-toggle .btn {
+    background: transparent; border: 1px solid var(--field); color: var(--field);
+    font-family: 'Oswald', sans-serif; font-weight: 600; font-size: 12px;
+    letter-spacing: 0.16em; text-transform: uppercase;
+    padding: 10px 20px; border-radius: 0; transition: all 0.18s; box-shadow: none;
+  }
+  .sim-mode-toggle .btn.active { background: var(--field); color: var(--paper); }
+  .sim-mode-toggle .btn:not(.active):hover { background: rgba(18,42,79,0.08); }
+  .sim-mode-toggle .btn:focus { box-shadow: none; outline: none; }
+  .mc-mode-note {
+    font-family: 'JetBrains Mono', monospace; font-size: 10px;
+    letter-spacing: 0.08em; text-transform: uppercase;
+    color: var(--field); opacity: 0.55; margin-left: 4px;
+  }
+  /* When mode strip sits on top of vintage strip, merge their borders */
+  .sim-mode-strip + .vintage-strip {
+    margin-top: 0; border-top: none; margin-bottom: 18px;
+  }
+  @media (min-width: 768px) {
+    .sim-mode-strip + .vintage-strip { margin-bottom: 22px; }
+  }
+
   /* VINTAGE SELECTOR */
   .vintage-strip {
     display: flex; align-items: center; gap: 14px; flex-wrap: wrap;
@@ -722,6 +758,15 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     </div>
   </header>
 
+  <div class="sim-mode-strip">
+    <div class="sim-mode-label">Mode</div>
+    <div class="btn-group sim-mode-toggle" role="group" aria-label="Simulation mode">
+      <button type="button" class="btn active" data-simmode="single">Single Roll</button>
+      <button type="button" class="btn" data-simmode="monte">Monte Carlo</button>
+    </div>
+    <span class="mc-mode-note" id="mcModeNote" hidden>10,000 run simulation</span>
+  </div>
+
   <div class="vintage-strip">
     <div class="vintage-label">Vintage</div>
     <div class="btn-group vintage-toggle" role="group" aria-label="Vintage">
@@ -756,16 +801,13 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       </div>
 
       <div class="col-12 col-md-5 col-lg-3">
-        <div class="d-flex flex-column gap-2">
-          <button class="roll-btn" id="rollBtn">Roll Roster<span class="arrow">→</span></button>
-          <button class="mc-btn" id="mcBtn">Monte Carlo 10K<span class="arrow">→</span></button>
-        </div>
+        <button class="roll-btn" id="rollBtn">Roll Roster<span class="arrow">→</span></button>
       </div>
 
     </div>
   </div>
 
-  <div class="row g-3 mb-3 mb-md-4">
+  <div id="singleRollResults" class="row g-3 mb-3 mb-md-4">
     <div class="col-12 col-lg-7">
       <div class="hero-panel">
         <div class="hero-label">Your Net Distribution · ISA Portfolio</div>
@@ -822,7 +864,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <div class="sim-log-list" id="simLogList"></div>
   </section>
 
-  <div class="roster-section">
+  <div class="roster-section" id="rosterSection">
     <div class="roster-head">
       <div class="roster-title">The Roster</div>
       <div class="roster-sub" id="rosterSub">No players selected</div>
@@ -1291,11 +1333,39 @@ function clearSimLog() {
   renderSimLog();
 }
 
+// ── Sim mode toggle ──────────────────────────────────────────────────────────
+let simMode = 'single'; // 'single' | 'monte'
+const simModeBtns         = document.querySelectorAll('.sim-mode-toggle .btn');
+const mcModeNoteEl        = document.getElementById('mcModeNote');
+const singleRollResultsEl = document.getElementById('singleRollResults');
+const rosterSectionEl     = document.getElementById('rosterSection');
+
+simModeBtns.forEach(btn => {
+  btn.addEventListener('click', () => {
+    simModeBtns.forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    simMode = btn.dataset.simmode;
+    if (simMode === 'monte') {
+      mcModeNoteEl.hidden = false;
+      rollBtn.innerHTML = 'Run Monte Carlo<span class="arrow">→</span>';
+      singleRollResultsEl.hidden = true;
+      simLogEl.hidden = true;
+      rosterSectionEl.hidden = true;
+    } else {
+      mcModeNoteEl.hidden = true;
+      rollBtn.innerHTML = 'Roll Roster<span class="arrow">→</span>';
+      singleRollResultsEl.hidden = false;
+      rosterSectionEl.hidden = false;
+      renderSimLog(); // restore sim log state
+      mcPanel.hidden = true;
+    }
+  });
+});
+
 // ── Monte Carlo ──────────────────────────────────────────────────────────────
 const MC_RUNS  = 10_000;
 const MC_CHUNK = 500;
 
-const mcBtn          = document.getElementById('mcBtn');
 const mcPanel        = document.getElementById('mcPanel');
 const mcProgress     = document.getElementById('mcProgress');
 const mcProgressBar  = document.getElementById('mcProgressBar');
@@ -1340,7 +1410,6 @@ function renderMCCard(r, label, cls) {
 }
 
 async function runMonteCarlo() {
-  mcBtn.disabled  = true;
   rollBtn.disabled = true;
 
   // Show panel + progress, hide previous results
@@ -1409,13 +1478,10 @@ async function runMonteCarlo() {
       <span class="mc-sum-val">${results[Math.floor(MC_RUNS * 0.75)].moic.toFixed(2)}x</span>
     </div>`;
 
-  mcProgress.hidden   = true;
-  mcResultsEl.hidden  = false;
-  mcBtn.disabled      = false;
-  rollBtn.disabled    = false;
+  mcProgress.hidden  = true;
+  mcResultsEl.hidden = false;
+  rollBtn.disabled   = false;
 }
-
-mcBtn.addEventListener('click', runMonteCarlo);
 
 commitSlider.addEventListener('input', e => {
   commit = +e.target.value;
@@ -1445,13 +1511,17 @@ vintageBtns.forEach(btn => {
 simLogClearBtn.addEventListener('click', clearSimLog);
 
 rollBtn.addEventListener('click', () => {
-  rollBtn.disabled = true;
-  rollBtn.style.transform = 'scale(0.96)';
-  setTimeout(() => {
-    roll();
-    rollBtn.disabled = false;
-    rollBtn.style.transform = '';
-  }, 150);
+  if (simMode === 'monte') {
+    runMonteCarlo();
+  } else {
+    rollBtn.disabled = true;
+    rollBtn.style.transform = 'scale(0.96)';
+    setTimeout(() => {
+      roll();
+      rollBtn.disabled = false;
+      rollBtn.style.transform = '';
+    }, 150);
+  }
 });
 
 // Init
