@@ -526,6 +526,28 @@ header .btn-fr-solid:hover{
 }
 .fr-input::placeholder{ color: var(--ink-soft); opacity: 0.7; }
 
+.access-success{
+  background: rgba(13,29,53,0.06);
+  border: 1px solid var(--navy);
+  padding: 16px 20px;
+  font-family: 'Lora', serif;
+  font-style: italic;
+  color: var(--navy);
+  font-size: 15px;
+}
+.access-error{
+  color: #b91c1c;
+  font-family: 'Lora', serif;
+  font-size: 13px;
+}
+.fr-field-error{
+  display: block;
+  color: #b91c1c;
+  font-family: 'Lora', serif;
+  font-size: 12px;
+  margin-top: 4px;
+}
+
 /* ========================================
    FOOTER
    ======================================== */
