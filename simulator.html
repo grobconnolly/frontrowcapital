@@ -659,6 +659,25 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   .mc-sum-val { font-weight: 700; font-size: 13px; }
   .mc-sum-val.loss { color: #fca5a5; }
   .mc-sum-val.gain { color: #86efac; }
+
+  .mc-title-row {
+    display: flex; justify-content: space-between; align-items: baseline;
+    margin-bottom: 4px;
+  }
+  .mc-run { padding-top: 24px; margin-top: 24px; border-top: 2px solid var(--field); }
+  .mc-run:first-child { padding-top: 0; margin-top: 0; border-top: none; }
+  .mc-run-head {
+    display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap; margin-bottom: 14px;
+  }
+  .mc-run-n {
+    font-family: 'Oswald', sans-serif; font-weight: 600;
+    font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--field);
+  }
+  .mc-run-tag {
+    font-family: 'JetBrains Mono', monospace; font-size: 10px;
+    letter-spacing: 0.06em; text-transform: uppercase; color: var(--field); opacity: 0.5;
+  }
+
   .sim-row {
     background: var(--paper); border: 1px solid var(--field);
     padding: 10px 12px;
@@ -841,8 +860,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <!-- Monte Carlo Panel -->
   <section class="mc-panel" id="mcPanel" hidden>
     <div class="mc-head">
-      <div class="mc-title">Monte Carlo · 10,000 Runs</div>
-      <div class="mc-settings" id="mcSettings"></div>
+      <div class="mc-title-row">
+        <div class="mc-title">Monte Carlo · 10,000 Runs</div>
+        <button class="sim-log-clear" id="mcClear" aria-label="Clear Monte Carlo history" hidden>Clear</button>
+      </div>
     </div>
     <div class="mc-progress" id="mcProgress">
       <div class="mc-progress-bar-wrap">
@@ -850,10 +871,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       </div>
       <div class="mc-progress-text" id="mcProgressText">0 / 10,000</div>
     </div>
-    <div id="mcResults" hidden>
-      <div class="row g-3" id="mcCards"></div>
-      <div class="mc-summary" id="mcSummary"></div>
-    </div>
+    <div id="mcHistory"></div>
   </section>
 
   <section class="sim-log" id="simLog" hidden>
@@ -1370,10 +1388,11 @@ const mcPanel        = document.getElementById('mcPanel');
 const mcProgress     = document.getElementById('mcProgress');
 const mcProgressBar  = document.getElementById('mcProgressBar');
 const mcProgressText = document.getElementById('mcProgressText');
-const mcResultsEl    = document.getElementById('mcResults');
-const mcSettingsEl   = document.getElementById('mcSettings');
-const mcCardsEl      = document.getElementById('mcCards');
-const mcSummaryEl    = document.getElementById('mcSummary');
+const mcHistoryEl    = document.getElementById('mcHistory');
+const mcClearBtn     = document.getElementById('mcClear');
+
+let mcRunHistory = [];
+let mcRunCounter = 0;
 
 // Run a single simulation without touching the UI
 function runOnce() {
@@ -1412,14 +1431,11 @@ function renderMCCard(r, label, cls) {
 async function runMonteCarlo() {
   rollBtn.disabled = true;
 
-  // Show panel + progress, hide previous results
-  mcPanel.hidden       = false;
-  mcProgress.hidden    = false;
-  mcResultsEl.hidden   = true;
+  // Show panel + progress bar
+  mcPanel.hidden            = false;
+  mcProgress.hidden         = false;
   mcProgressBar.style.width = '0%';
   mcProgressText.textContent = `0 / ${MC_RUNS.toLocaleString()}`;
-  mcSettingsEl.textContent =
-    `${VINTAGES[vintage].label} · Ranks ${MODES[mode].label} · Commit $${(commit/1000).toFixed(0)}K`;
 
   // Scroll panel into view
   mcPanel.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -1436,7 +1452,6 @@ async function runMonteCarlo() {
   // Sort ascending by MOIC
   results.sort((a, b) => a.moic - b.moic);
 
-  const worst  = results[0];
   const best   = results[MC_RUNS - 1];
   const median = results[Math.floor(MC_RUNS / 2)];
 
@@ -1445,40 +1460,84 @@ async function runMonteCarlo() {
   const losing  = results.filter(r => r.moic < 1.0).length;
   const pctLoss = ((losing / MC_RUNS) * 100).toFixed(1);
 
-  const avgResult = { moic: avgMoic, irr: avgIrr };
+  mcRunCounter++;
+  mcRunHistory.push({
+    n:        mcRunCounter,
+    vintage,
+    mode,
+    commit,
+    median,
+    avg:      { moic: avgMoic, irr: avgIrr },
+    best,
+    losing,
+    pctLoss,
+    avgIrr,
+  });
 
-  mcCardsEl.innerHTML =
-    renderMCCard(median,    'Median Simulation',   'median') +
-    renderMCCard(avgResult, 'Average Simulation',  'avg')    +
-    renderMCCard(best,      'Best Simulation',     'best');
-
-  mcSummaryEl.innerHTML = `
-    <div class="mc-sum-stat">
-      <span class="mc-sum-label">Total Runs</span>
-      <span class="mc-sum-val">${MC_RUNS.toLocaleString()}</span>
-    </div>
-    <div class="mc-sum-stat">
-      <span class="mc-sum-label">Losing Sims (MOIC &lt; 1×)</span>
-      <span class="mc-sum-val ${losing > 0 ? 'loss' : 'gain'}">${losing.toLocaleString()} (${pctLoss}%)</span>
-    </div>
-    <div class="mc-sum-stat">
-      <span class="mc-sum-label">Winning Sims (MOIC ≥ 1×)</span>
-      <span class="mc-sum-val gain">${(MC_RUNS - losing).toLocaleString()} (${(100 - +pctLoss).toFixed(1)}%)</span>
-    </div>
-    <div class="mc-sum-stat">
-      <span class="mc-sum-label">Median MOIC</span>
-      <span class="mc-sum-val">${median.moic.toFixed(2)}x</span>
-    </div>
-    <div class="mc-sum-stat">
-      <span class="mc-sum-label">Avg Net IRR</span>
-      <span class="mc-sum-val">${(avgIrr * 100).toFixed(1)}%</span>
-    </div>
-    `;
-
-  mcProgress.hidden  = true;
-  mcResultsEl.hidden = false;
-  rollBtn.disabled   = false;
+  mcProgress.hidden = true;
+  renderMCHistory();
+  rollBtn.disabled  = false;
 }
+
+function renderMCHistory() {
+  if (mcRunHistory.length === 0) {
+    mcHistoryEl.innerHTML = '';
+    mcClearBtn.hidden = true;
+    return;
+  }
+  mcClearBtn.hidden = false;
+  // Newest first
+  const ordered = mcRunHistory.slice().reverse();
+  mcHistoryEl.innerHTML = ordered.map(run => {
+    const vLabel  = VINTAGES[run.vintage].label;
+    const mLabel  = MODES[run.mode].label;
+    const tag     = `${vLabel} · Ranks ${mLabel} · Commit $${(run.commit/1000).toFixed(0)}K`;
+    const pctWin  = (100 - +run.pctLoss).toFixed(1);
+    const winning = MC_RUNS - run.losing;
+    return `
+      <div class="mc-run">
+        <div class="mc-run-head">
+          <span class="mc-run-n">Run #${String(run.n).padStart(2,'0')}</span>
+          <span class="mc-run-tag">${tag}</span>
+        </div>
+        <div class="row g-3">
+          ${renderMCCard(run.median, 'Median Simulation',  'median')}
+          ${renderMCCard(run.avg,    'Average Simulation', 'avg')}
+          ${renderMCCard(run.best,   'Best Simulation',    'best')}
+        </div>
+        <div class="mc-summary">
+          <div class="mc-sum-stat">
+            <span class="mc-sum-label">Total Runs</span>
+            <span class="mc-sum-val">${MC_RUNS.toLocaleString()}</span>
+          </div>
+          <div class="mc-sum-stat">
+            <span class="mc-sum-label">Losing Sims (MOIC &lt; 1×)</span>
+            <span class="mc-sum-val ${run.losing > 0 ? 'loss' : 'gain'}">${run.losing.toLocaleString()} (${run.pctLoss}%)</span>
+          </div>
+          <div class="mc-sum-stat">
+            <span class="mc-sum-label">Winning Sims (MOIC ≥ 1×)</span>
+            <span class="mc-sum-val gain">${winning.toLocaleString()} (${pctWin}%)</span>
+          </div>
+          <div class="mc-sum-stat">
+            <span class="mc-sum-label">Median MOIC</span>
+            <span class="mc-sum-val">${run.median.moic.toFixed(2)}x</span>
+          </div>
+          <div class="mc-sum-stat">
+            <span class="mc-sum-label">Avg Net IRR</span>
+            <span class="mc-sum-val">${(run.avgIrr * 100).toFixed(1)}%</span>
+          </div>
+        </div>
+      </div>`;
+  }).join('');
+}
+
+function clearMCHistory() {
+  mcRunHistory = [];
+  mcRunCounter = 0;
+  renderMCHistory();
+}
+
+mcClearBtn.addEventListener('click', clearMCHistory);
 
 commitSlider.addEventListener('input', e => {
   commit = +e.target.value;
