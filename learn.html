@@ -13,7 +13,7 @@
     <title>Baseball Fund 1 | Front Row Capital</title>
 
     <!-- Meta Tags -->
-    <meta name="description" content="Front Row Capital Baseball Fund 1 — a $10M fund acquiring a share of the future earnings of Top 100 MLB prospects. Target 24–27% IRR and 6–9x MOIC with low loss probability. Now accepting Limited Partners.">
+    <meta name="description" content="Front Row Capital Baseball Fund 1 — a $10M fund acquiring a share of the future earnings of Top 100 MLB prospects, targeting venture-caliber returns with low loss probability. Now accepting a select group of Limited Partners.">
     <meta property="og:title" content="Baseball Fund 1 | Front Row Capital">
     <meta property="og:description" content="Invest in the careers of baseball's top prospects as an asset class. Now accepting Limited Partners.">
     <meta name="theme-color" content="#0d1d35">
@@ -202,6 +202,34 @@
         color: var(--ink-soft);
         line-height: 1.6;
         margin-top: 16px;
+      }
+
+      /* "Request to unlock" callout */
+      .lp-callout{
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-between;
+        gap: 18px;
+        margin-top: 8px;
+        padding: 22px 24px;
+        background: var(--paper-dim);
+        border: 1px solid var(--rule);
+      }
+      .lp-callout__k{
+        font-family: 'Oswald', sans-serif;
+        font-weight: 600;
+        font-size: 11px;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: var(--ink-soft);
+        margin-bottom: 4px;
+      }
+      .lp-callout__v{
+        font-family: 'Lora', serif;
+        font-size: 16px;
+        color: var(--navy);
+        line-height: 1.4;
       }
 
       /* Comparison table ----------------------------------- */
@@ -478,9 +506,9 @@
 
             <div class="terms-strip" style="justify-content:flex-start;">
               <span><b>FUND</b> $10M</span>
-              <span><b>TARGET IRR</b> 24–27%</span>
-              <span><b>TARGET MOIC</b> 6–9x</span>
+              <span><b>STRATEGY</b> Baseball ISA</span>
               <span><b>MINIMUM</b> $100K</span>
+              <span><b>ACCESS</b> By invitation</span>
             </div>
           </div>
         </div>
@@ -531,54 +559,24 @@
             <div class="lp-head">
               <div class="lp-eyebrow">Why It Works</div>
               <div class="lp-accent"></div>
-              <h2 class="lp-h2">Elite venture-capital returns, with <span class="it">far lower loss probability.</span></h2>
+              <h2 class="lp-h2">Venture-capital-caliber returns, with <span class="it">far lower loss probability.</span></h2>
               <p class="lp-lead">
-                Had the fund invested in <b>all</b> Top 100 MLB prospects from 2012–2016, the return so far
-                would have been <b>7x median MOIC</b> and a <b>26% median IRR</b> — on par with top-decile
-                (top 10%) venture-capital fund performance, but with a fraction of the downside.
+                We backtested the strategy across every Top 100 prospect cohort from 2012–2016. The result:
+                returns in line with top-decile venture funds — but with a small fraction of the downside,
+                because the underlying cohort is so remarkably reliable.
+              </p>
+              <p class="lp-lead">
+                The full analysis — cohort-by-cohort multiples, IRRs, and modeled loss rates — lives in our fund materials.
               </p>
             </div>
 
-            <div class="lp-grid lp-grid--3 mb-4">
-              <div class="lp-cell">
-                <div class="lp-cell__num">24–27%</div>
-                <div class="lp-cell__label">Median IRR (modeled)</div>
+            <div class="lp-callout">
+              <div>
+                <div class="lp-callout__k">The full picture</div>
+                <div class="lp-callout__v">See the cohort-by-cohort returns and the complete backtest.</div>
               </div>
-              <div class="lp-cell">
-                <div class="lp-cell__num">6–9x</div>
-                <div class="lp-cell__label">Median MOIC (modeled)</div>
-              </div>
-              <div class="lp-cell">
-                <div class="lp-cell__num">0.001–0.12%</div>
-                <div class="lp-cell__label">Loss probability (modeled)</div>
-              </div>
+              <a href="#request" class="btn btn-fr-solid btn-lg px-4">Request the analysis</a>
             </div>
-
-            <div class="table-responsive">
-              <table class="lp-table">
-                <thead>
-                  <tr>
-                    <th>Cohort</th>
-                    <th>Median MOIC</th>
-                    <th>Median IRR</th>
-                    <th>P25–P75 MOIC</th>
-                    <th>P25–P75 IRR</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr><td>2012 <span class="muted">(13 yrs)</span></td><td>9.49x</td><td>26.96%</td><td class="muted">8.66x</td><td class="muted">25.69%</td></tr>
-                  <tr><td>2013 <span class="muted">(12 yrs)</span></td><td>7.56x</td><td>23.70%</td><td class="muted">5.18x</td><td class="muted">19.39%</td></tr>
-                  <tr><td>2014 <span class="muted">(11 yrs)</span></td><td>7.05x</td><td>26.06%</td><td class="muted">4.76x</td><td class="muted">22.89%</td></tr>
-                  <tr><td>2015 <span class="muted">(10 yrs)</span></td><td>6.84x</td><td>25.88%</td><td class="muted">4.81x</td><td class="muted">22.98%</td></tr>
-                  <tr><td>2016 <span class="muted">(9 yrs)</span></td><td>7.54x</td><td>24.27%</td><td class="muted">5.93x</td><td class="muted">21.99%</td></tr>
-                </tbody>
-              </table>
-            </div>
-            <p class="lp-foot">
-              Assumptions: $5M deployed across 20 athletes; 3% of future earnings acquired for $250K (2025 dollars);
-              gross returns; 100,000 simulations. P25–P75 reflects players 25–75 within each cohort's Top 100 (removes
-              top and bottom performers). Backtested and modeled figures are hypothetical and not a guarantee of future results.
-            </p>
           </div>
         </div>
       </section>
@@ -870,38 +868,25 @@
             <div class="lp-head">
               <div class="lp-eyebrow">Fund Terms</div>
               <div class="lp-accent"></div>
-              <h2 class="lp-h2">The terms.</h2>
+              <h2 class="lp-h2">Built for <span class="it">serious LPs.</span></h2>
+              <p class="lp-lead">
+                A focused $10M fund, open to accredited investors at a $100K minimum. The complete
+                terms — fund life, fees, carry, and structure — are shared in the fund materials and on a call.
+              </p>
             </div>
 
-            <div class="lp-terms">
-              <div class="lp-term">
-                <span class="lp-term__k">Fund Size</span>
-                <span class="lp-term__v"><span class="big">$10M</span></span>
+            <div class="lp-grid lp-grid--3 mb-4">
+              <div class="lp-cell"><div class="lp-cell__num">$10M</div><div class="lp-cell__label">Target fund size</div></div>
+              <div class="lp-cell"><div class="lp-cell__num">$100K</div><div class="lp-cell__label">Minimum investment</div></div>
+              <div class="lp-cell"><div class="lp-cell__num">Accredited</div><div class="lp-cell__label">Investors only</div></div>
+            </div>
+
+            <div class="lp-callout">
+              <div>
+                <div class="lp-callout__k">Full terms</div>
+                <div class="lp-callout__v">Fund life, management fee, carry, and structure — in the materials.</div>
               </div>
-              <div class="lp-term">
-                <span class="lp-term__k">Minimum Investment</span>
-                <span class="lp-term__v"><span class="big">$100K</span></span>
-              </div>
-              <div class="lp-term">
-                <span class="lp-term__k">Term</span>
-                <span class="lp-term__v">12 years + three one-year extensions with Manager approval; additional extensions with approval of a majority of Members.</span>
-              </div>
-              <div class="lp-term">
-                <span class="lp-term__k">Management Fee</span>
-                <span class="lp-term__v">2% per year in years 1–3; 0.5% per year thereafter.</span>
-              </div>
-              <div class="lp-term">
-                <span class="lp-term__k">Carried Interest</span>
-                <span class="lp-term__v">20% after full return of capital.</span>
-              </div>
-              <div class="lp-term">
-                <span class="lp-term__k">Entity</span>
-                <span class="lp-term__v">Call Up Fund 1, LLC</span>
-              </div>
-              <div class="lp-term">
-                <span class="lp-term__k">Legal</span>
-                <span class="lp-term__v">Anthony, Linder &amp; Cacomanolis, PLLC</span>
-              </div>
+              <a href="#request" class="btn btn-fr-solid btn-lg px-4">Request full terms</a>
             </div>
           </div>
         </div>
