@@ -1462,6 +1462,10 @@ async function runMonteCarlo() {
       <span class="mc-sum-val ${losing > 0 ? 'loss' : 'gain'}">${losing.toLocaleString()} (${pctLoss}%)</span>
     </div>
     <div class="mc-sum-stat">
+      <span class="mc-sum-label">Winning Sims (MOIC ≥ 1×)</span>
+      <span class="mc-sum-val gain">${(MC_RUNS - losing).toLocaleString()} (${(100 - +pctLoss).toFixed(1)}%)</span>
+    </div>
+    <div class="mc-sum-stat">
       <span class="mc-sum-label">Median MOIC</span>
       <span class="mc-sum-val">${median.moic.toFixed(2)}x</span>
     </div>
