@@ -571,6 +571,16 @@ footer{
 @media (max-width: 767px) {
   .hero-min{ padding: 40px 24px; }
   .hero-title { font-size: clamp(36px, 11vw, 56px); }
+  /* Don't pin the hero to full viewport height on mobile — the centered
+     card leaves a large dead-space gap above it and before the next
+     section. Let it size to its content with even, modest padding. */
+  main.min-vh-100 {
+    min-height: 0 !important;
+    padding-top: 2.5rem !important;
+    padding-bottom: 2.5rem !important;
+  }
+  /* Avoid doubling the gap before the next section */
+  #request-access { padding-top: 0 !important; }
   .mobile-nav .btn {
     min-height: 52px;
     display: flex;
