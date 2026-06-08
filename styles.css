@@ -469,6 +469,64 @@ header .btn-fr-solid:hover{
 }
 
 /* ========================================
+   REQUEST ACCESS FORM
+   ======================================== */
+.access-card{
+  max-width: 700px;
+  background: var(--paper);
+  border: 1px solid var(--rule);
+  padding: 48px 28px;
+}
+@media (min-width: 768px){
+  .access-card{ padding: 56px 56px; }
+}
+
+.access-title{
+  font-family: 'Fraunces', Georgia, serif;
+  font-weight: 600;
+  font-size: clamp(28px, 4vw, 42px);
+  color: var(--navy);
+  letter-spacing: -0.015em;
+  font-variation-settings: 'opsz' 144;
+  line-height: 1;
+}
+
+.access-subtitle{
+  font-family: 'Lora', serif;
+  font-style: italic;
+  color: var(--ink-soft);
+  font-size: 15px;
+}
+
+.fr-label{
+  display: block;
+  font-family: 'Oswald', sans-serif;
+  font-weight: 600;
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--navy);
+  margin-bottom: 6px;
+}
+
+.fr-input{
+  border-radius: 0;
+  border: 1px solid var(--navy);
+  color: var(--navy);
+  font-family: 'Lora', serif;
+  font-size: 14px;
+  padding: 10px 12px;
+  background: var(--paper);
+  width: 100%;
+}
+.fr-input:focus{
+  border-color: var(--navy);
+  box-shadow: 0 0 0 3px rgba(13,29,53,0.12);
+  outline: none;
+}
+.fr-input::placeholder{ color: var(--ink-soft); opacity: 0.7; }
+
+/* ========================================
    FOOTER
    ======================================== */
 footer{

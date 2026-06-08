@@ -55,6 +55,7 @@
         <nav class="desktop-nav d-none d-md-flex gap-2">
           <a href="about.html" class="btn btn-fr-outline btn-sm px-3">Who we are</a>
           <a href="simulator.html" class="btn btn-fr-outline btn-sm px-3">Simulator</a>
+          <a href="#request-access" class="btn btn-fr-outline btn-sm px-3">Request Access</a>
           <a
             href="https://calendar.app.google/NRANbThRLkDjKuPi8"
             target="_blank"
@@ -78,6 +79,7 @@
         <div class="container frcp-container">
           <a href="about.html" class="btn btn-fr-outline btn-lg w-100 mb-3">Who we are</a>
           <a href="simulator.html" class="btn btn-fr-outline btn-lg w-100 mb-3">Simulator</a>
+          <a href="#request-access" class="btn btn-fr-outline btn-lg w-100 mb-3">Request Access</a>
           <a
             href="https://calendar.app.google/NRANbThRLkDjKuPi8"
             target="_blank"
@@ -124,6 +126,51 @@
         </div>
       </div>
     </main>
+
+    <!-- Request Access -->
+    <section id="request-access" class="py-5">
+      <div class="container frcp-container">
+        <div class="access-card mx-auto">
+          <div class="hero-eyebrow mb-3">Investment Materials</div>
+          <div class="accent-line"></div>
+          <h2 class="access-title mb-2">Request Access</h2>
+          <p class="access-subtitle">Tell us a bit about yourself and we'll follow up with our fund materials.</p>
+          <form action="https://formsubmit.co/rob@frontrow.capital" method="POST" class="mt-4">
+            <input type="hidden" name="_subject" value="Investment Materials Request — Front Row Capital">
+            <input type="hidden" name="_captcha" value="false">
+            <input type="hidden" name="_next" value="https://frontrow.capital">
+            <div class="row g-3">
+              <div class="col-12 col-md-6">
+                <label class="fr-label">Full Name</label>
+                <input type="text" name="name" class="form-control fr-input" placeholder="Jane Smith" required>
+              </div>
+              <div class="col-12 col-md-6">
+                <label class="fr-label">Email</label>
+                <input type="email" name="email" class="form-control fr-input" placeholder="jane@example.com" required>
+              </div>
+              <div class="col-12 col-md-6">
+                <label class="fr-label">Organization</label>
+                <input type="text" name="organization" class="form-control fr-input" placeholder="Firm or family office">
+              </div>
+              <div class="col-12 col-md-6">
+                <label class="fr-label">Investor Type</label>
+                <select name="investor_type" class="form-select fr-input">
+                  <option value="" disabled selected>Select…</option>
+                  <option>Family Office</option>
+                  <option>RIA / Wealth Manager</option>
+                  <option>Institutional Investor</option>
+                  <option>Accredited Individual</option>
+                  <option>Other</option>
+                </select>
+              </div>
+              <div class="col-12 mt-2">
+                <button type="submit" class="btn btn-fr-solid btn-lg px-5">Request Access</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </section>
 
     <!-- Footer -->
     <footer class="py-3 text-center footer-text">
