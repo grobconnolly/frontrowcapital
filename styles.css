@@ -2,13 +2,13 @@
    FRONT ROW CAPITAL — DESIGN SYSTEM
    ======================================== */
 :root{
-  --navy: #122A4F;
-  --navy-dim: #1E3A5F;
-  --navy-bright: #2A4D7A;
+  --navy: #0d1d35;
+  --navy-dim: #162840;
+  --navy-bright: #1e3757;
   --paper: #FFFFFF;
   --paper-dim: #F5F3EE;
   --paper-shadow: #E8E4DA;
-  --ink: #122A4F;
+  --ink: #0d1d35;
   --ink-soft: #4A5878;
   --rule: #D9D5C8;
 }
@@ -59,22 +59,10 @@ header {
 }
 .brand-link:hover{ color: var(--navy); opacity: 0.85; }
 
-.brand-mark{
-  width: 10px;
-  height: 10px;
-  background: var(--navy);
-  border: 0;
-  display: inline-block;
-}
-.brand-text{
-  font-family: 'Fraunces', 'Big Shoulders Display', serif;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
-  font-size: 18px;
-  color: var(--navy);
-  line-height: 1;
-  font-variation-settings: 'opsz' 144;
+.brand-logo{
+  height: 40px;
+  width: auto;
+  display: block;
 }
 
 /* ========================================
