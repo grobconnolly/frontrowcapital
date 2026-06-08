@@ -629,9 +629,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase;
     margin-bottom: 10px; color: var(--field); opacity: 0.5;
   }
-  .mc-card-badge.worst { color: #b91c1c; opacity: 1; }
-  .mc-card-badge.best  { color: #15803d; opacity: 1; }
-  .mc-card-badge.avg   { color: var(--field); opacity: 1; }
+  .mc-card-badge.median { color: var(--field); opacity: 1; }
+  .mc-card-badge.best   { color: #15803d; opacity: 1; }
+  .mc-card-badge.avg    { color: var(--field); opacity: 1; }
   .mc-card-moic {
     font-family: 'Big Shoulders Display', sans-serif; font-weight: 900;
     font-size: clamp(28px, 5vw, 42px); letter-spacing: 0.02em;
@@ -1448,8 +1448,8 @@ async function runMonteCarlo() {
   const avgResult = { moic: avgMoic, irr: avgIrr };
 
   mcCardsEl.innerHTML =
-    renderMCCard(worst,     'Worst Simulation',   'worst') +
-    renderMCCard(avgResult, 'Average Simulation',  'avg')  +
+    renderMCCard(median,    'Median Simulation',   'median') +
+    renderMCCard(avgResult, 'Average Simulation',  'avg')    +
     renderMCCard(best,      'Best Simulation',     'best');
 
   mcSummaryEl.innerHTML = `
