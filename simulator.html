@@ -1416,14 +1416,13 @@ function fmtMCDist(moic) {
 
 function renderMCCard(r, label, cls) {
   const irrTxt = isFinite(r.irr) ? (r.irr * 100).toFixed(1) + '%' : '—';
-  const commitK = (commit / 1000).toFixed(0);
   return `
     <div class="col-12 col-md-4">
       <div class="mc-card">
         <div class="mc-card-badge ${cls}">${label}</div>
         <div class="mc-card-moic">${r.moic.toFixed(2)}x</div>
         <div class="mc-card-irr">${irrTxt} Net IRR</div>
-        <div class="mc-card-dist">Your $${commitK}K commitment →<strong>${fmtMCDist(r.moic)}</strong></div>
+        <div class="mc-card-dist">Your ${fmtCommit(commit)} commitment →<strong>${fmtMCDist(r.moic)}</strong></div>
       </div>
     </div>`;
 }
@@ -1491,7 +1490,7 @@ function renderMCHistory() {
   mcHistoryEl.innerHTML = ordered.map(run => {
     const vLabel  = VINTAGES[run.vintage].label;
     const mLabel  = MODES[run.mode].label;
-    const tag     = `${vLabel} · Ranks ${mLabel} · Commit $${(run.commit/1000).toFixed(0)}K`;
+    const tag     = `${vLabel} · Ranks ${mLabel} · Commit ${fmtCommit(run.commit)}`;
     const pctWin  = (100 - +run.pctLoss).toFixed(1);
     const winning = MC_RUNS - run.losing;
     return `
