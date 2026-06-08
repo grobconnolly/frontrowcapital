@@ -1473,14 +1473,7 @@ async function runMonteCarlo() {
       <span class="mc-sum-label">Avg Net IRR</span>
       <span class="mc-sum-val">${(avgIrr * 100).toFixed(1)}%</span>
     </div>
-    <div class="mc-sum-stat">
-      <span class="mc-sum-label">P25 MOIC</span>
-      <span class="mc-sum-val">${results[Math.floor(MC_RUNS * 0.25)].moic.toFixed(2)}x</span>
-    </div>
-    <div class="mc-sum-stat">
-      <span class="mc-sum-label">P75 MOIC</span>
-      <span class="mc-sum-val">${results[Math.floor(MC_RUNS * 0.75)].moic.toFixed(2)}x</span>
-    </div>`;
+    `;
 
   mcProgress.hidden  = true;
   mcResultsEl.hidden = false;
