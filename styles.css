@@ -24,6 +24,17 @@ html, body { height: 100%; }
   overflow-x: hidden;
 }
 
+/* ========================================
+   READABLE SANS-SERIF (site-wide)
+   One plain, highly legible typeface for a clean,
+   "boring financial" read. Palette/layout unchanged.
+   Bootstrap Icons excluded so their glyphs still render.
+   ======================================== */
+body,
+body *:not(.bi):not([class*="bi-"]){
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif !important;
+}
+
 .container.frcp-container{
   max-width: 1120px;
 }
@@ -480,6 +491,8 @@ header .btn-fr-solid:hover{
 @media (min-width: 768px){
   .access-card{ padding: 56px 56px; }
 }
+/* index.html: match the Investment Materials card to the hero box width */
+#request-access .access-card{ max-width: 900px; }
 
 .access-title{
   font-family: 'Fraunces', Georgia, serif;
