@@ -32,6 +32,11 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     --ink: #0d1d35;
     --ink-soft: #4A5878;
   }
+  /* Readable sans-serif site-wide (matches the rest of Front Row Capital). */
+  body,
+  body *:not(.bi):not([class*="bi-"]){
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif !important;
+  }
   html, body {
     background: var(--paper);
     color: var(--ink);
@@ -812,24 +817,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-N85J6S9J"
 height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- End Google Tag Manager (noscript) -->
-
-<script>
-  (function(){
-    var PASSWORD = 'frontrow1';
-    if (sessionStorage.getItem('frcpSimUnlocked') === '1') return;
-    document.documentElement.style.visibility = 'hidden';
-    var entered = window.prompt('This page is password protected.\n\nPlease enter the password:');
-    while (entered !== null && entered !== PASSWORD) {
-      entered = window.prompt('Incorrect password. Try again, or cancel to leave.');
-    }
-    if (entered === PASSWORD) {
-      sessionStorage.setItem('frcpSimUnlocked', '1');
-      document.documentElement.style.visibility = '';
-    } else {
-      window.location.replace('index.html');
-    }
-  })();
-</script>
 
 <div class="frame">
 
