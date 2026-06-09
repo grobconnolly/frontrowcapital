@@ -13,9 +13,9 @@
     <title>Baseball Fund 1 | Front Row Capital</title>
 
     <!-- Meta Tags -->
-    <meta name="description" content="Front Row Capital Baseball Fund 1 — a $10M fund acquiring a share of the future earnings of Top 100 MLB prospects, targeting venture-caliber returns with low loss probability. Now accepting a select group of Limited Partners.">
+    <meta name="description" content="Front Row Capital Baseball Fund 1 — a $10M fund acquiring a share of the future earnings of Top 100 MLB prospects, targeting venture-caliber returns diversified across dozens of careers. Now accepting a select group of Limited Partners.">
     <meta property="og:title" content="Baseball Fund 1 | Front Row Capital">
-    <meta property="og:description" content="Most venture bets fail. 95% of Top 100 MLB prospects reach the majors. Own a share of their careers — venture-caliber upside, a fraction of the failure rate.">
+    <meta property="og:description" content="Most venture bets fail. 95% of Top 100 MLB prospects reach the majors. Front Row Capital invests in a share of their future earnings — venture-caliber upside, a fraction of the failure rate.">
     <meta name="theme-color" content="#0d1d35">
     <link rel="icon" href="favicon.ico">
 
@@ -53,6 +53,8 @@
         padding: 36px 22px;
       }
       @media (min-width: 768px){ .lp-panel{ padding: 56px 56px; } }
+      /* Request Access fills the panel width like every other section */
+      #request .access-card{ max-width: none; }
 
       .lp-panel--dark{
         background: var(--navy-dim);
@@ -196,6 +198,28 @@
       }
       .lp-table tbody tr:nth-child(even) td{ background: var(--paper-dim); }
       .lp-table .muted{ color: var(--ink-soft); }
+      /* Progress roster — reuse lp-table chrome, but left-align + wrap for prose */
+      table.lp-roster td, table.lp-roster thead th{ text-align: left; white-space: normal; }
+      table.lp-roster tbody td{ font-family: 'Lora', serif; font-size: 14px; color: var(--navy); vertical-align: top; }
+      table.lp-roster tbody td:first-child{ font-family: 'Fraunces', Georgia, serif; font-weight: 600; font-size: 1.05rem; }
+      table.lp-roster .rank{ font-family: 'Big Shoulders Display', sans-serif; font-weight: 800; font-size: 1.4rem; }
+      /* Roster → stacked cards on phones (desktop table untouched) */
+      @media (max-width: 767.98px){
+        table.lp-roster thead{ display: none; }
+        table.lp-roster, table.lp-roster tbody{ display: block; }
+        table.lp-roster tbody tr{ display: block; padding: 20px 0; border-bottom: 1px solid var(--rule); }
+        table.lp-roster tbody tr:last-child{ border-bottom: 0; }
+        table.lp-roster tbody td{ display: block; width: 100%; padding: 0; border: 0; }
+        table.lp-roster tbody tr:nth-child(even) td{ background: transparent; }
+        table.lp-roster tbody td:first-child{ font-size: 1.35rem; line-height: 1.1; }
+        table.lp-roster tbody td:nth-child(2){ color: var(--ink-soft); font-size: 13px; margin-top: 4px; }
+        table.lp-roster tbody td[data-label]{ margin-top: 14px; }
+        table.lp-roster tbody td[data-label]::before{
+          content: attr(data-label); display: block;
+          font-family: 'Oswald', sans-serif; font-weight: 500; font-size: 10px;
+          letter-spacing: 0.16em; text-transform: uppercase; color: var(--ink-soft); margin-bottom: 4px;
+        }
+      }
       .lp-foot{
         font-family: 'JetBrains Mono', monospace;
         font-size: 11px;
@@ -359,6 +383,12 @@
         margin-top: 8px;
       }
 
+      /* Team photo card (learn) */
+      .lp-person{ background: var(--paper); border: 1px solid var(--rule); height: 100%; }
+      .lp-person img{ width: 100%; height: 240px; object-fit: cover; object-position: top center; display: block; border-bottom: 1px solid var(--rule); }
+      .lp-person__body{ padding: 22px 24px 26px; }
+      html{ scroll-behavior: smooth; }
+
       /* Terms list ----------------------------------------- */
       .lp-terms{ display: grid; grid-template-columns: 1fr; gap: 0; }
       .lp-term{
@@ -476,7 +506,7 @@
           <a href="index.html" class="btn btn-fr-outline btn-sm px-3">Home</a>
           <a href="about.html" class="btn btn-fr-outline btn-sm px-3">Who we are</a>
           <a href="simulator.html" class="btn btn-fr-outline btn-sm px-3">Simulator</a>
-          <a href="#request" class="btn btn-fr-solid btn-sm px-3">Request Access</a>
+          <a href="https://calendar.app.google/NRANbThRLkDjKuPi8" target="_blank" rel="noopener" class="btn btn-fr-solid btn-sm px-3">Book a Call</a>
         </nav>
 
         <!-- Mobile Menu Toggle -->
@@ -493,7 +523,7 @@
           <a href="index.html" class="btn btn-fr-outline btn-lg w-100 mb-3">Home</a>
           <a href="about.html" class="btn btn-fr-outline btn-lg w-100 mb-3">Who we are</a>
           <a href="simulator.html" class="btn btn-fr-outline btn-lg w-100 mb-3">Simulator</a>
-          <a href="#request" class="btn btn-fr-solid btn-lg w-100">Request Access</a>
+          <a href="https://calendar.app.google/NRANbThRLkDjKuPi8" target="_blank" rel="noopener" class="btn btn-fr-solid btn-lg w-100">Book a Call</a>
         </div>
       </div>
     </header>
@@ -504,509 +534,294 @@
         <div class="container frcp-container">
           <div class="lp-panel">
             <div class="lp-pill">Front Row Capital · Baseball Fund 1</div>
-            <h1 class="hero-title">Baseball's best prospects,<br><span class="hero-title-line2">as an asset class.</span></h1>
-            <p class="lp-hero-hook">Most venture bets fail.<br><b>95 of the Top&nbsp;100 reach the majors.</b></p>
+            <h1 class="hero-title">Own a slice<br><span class="hero-title-line2">of the top 100.</span></h1>
             <p class="hero-subtitle" style="margin-left:0;text-align:left;">
-              Front Row Capital backs the game's most promising young players with capital today — in exchange
-              for a small share of their future Major League earnings. The average Top&nbsp;100 prospect goes on to
-              earn <b>$58M</b> in the big leagues, yet this is still one of the most overlooked, mispriced asset
-              classes in sports. We're opening Fund&nbsp;1 to a select group of Limited Partners.
+              We provide capital to top MLB prospects today — and share in their earnings throughout their careers.
             </p>
-
             <div class="lp-hero-cta">
-              <a href="#request" class="btn btn-fr-solid btn-lg px-4">Request Fund Materials</a>
-              <a href="https://calendar.app.google/NRANbThRLkDjKuPi8" target="_blank" rel="noopener" class="btn btn-fr-outline btn-lg px-4">Book a Meeting</a>
+              <a href="https://calendar.app.google/NRANbThRLkDjKuPi8" target="_blank" rel="noopener" class="btn btn-fr-solid btn-lg px-4">Book a Call</a>
+              <a href="#talk" class="btn btn-fr-outline btn-lg px-4">Ask a Question</a>
             </div>
-
             <div class="terms-strip" style="justify-content:flex-start;">
               <span><b>FUND</b> $10M</span>
-              <span><b>STRATEGY</b> Baseball ISA</span>
               <span><b>MINIMUM</b> $100K</span>
-              <span><b>ACCESS</b> By invitation</span>
+              <span><b>ACCESS</b> Accredited only</span>
             </div>
           </div>
         </div>
       </section>
 
-      <!-- ============ THE OPPORTUNITY ============ -->
+      <!-- ============ THE CONTEXT ============ -->
       <section class="lp-section">
         <div class="container frcp-container">
           <div class="lp-panel">
-            <div class="lp-head">
-              <div class="lp-eyebrow">The Opportunity</div>
+            <div class="lp-head" style="margin-bottom:0;">
+              <div class="lp-eyebrow">The Context</div>
               <div class="lp-accent"></div>
-              <h2 class="lp-h2">The most reliable asset class <span class="it">you've never been able to own.</span></h2>
+              <h2 class="lp-h2">Minor leaguers earn minimum wage. <span class="it">Even the best ones.</span></h2>
               <p class="lp-lead">
-                The fund provides capital today to the game's most promising young players in exchange for
-                a small percentage of their future Major League earnings. The Top 100 prospects are a
-                remarkably reliable cohort — and historically a deeply mispriced one.
+                We give them capital so they can focus on baseball year-round — nutrition, training, family.
+                Better focus means better careers. And better careers mean better returns for us.
               </p>
-              <p class="lp-lead">
-                This isn't a theory. The firm that pioneered the model has already deployed
-                <b>$190M+ across 700+ players</b> — proof, at institutional scale, that future-earnings
-                contracts on elite prospects work. Front Row Capital brings that thesis to a focused,
-                LP-friendly fund, powered by our own proprietary signing platform.
-              </p>
-            </div>
-
-            <div class="lp-grid lp-grid--3">
-              <div class="lp-bigstat">
-                <div class="lp-bigstat__num">95%</div>
-                <div class="lp-bigstat__label">of Top 100 prospects<br>reach the Major Leagues</div>
-              </div>
-              <div class="lp-bigstat">
-                <div class="lp-bigstat__num">$58M</div>
-                <div class="lp-bigstat__label">average career earnings<br>for a Top 100 prospect</div>
-              </div>
-              <div class="lp-bigstat">
-                <div class="lp-bigstat__num">Top 100</div>
-                <div class="lp-bigstat__label">ranked MLB prospects<br>are the fund's universe</div>
-              </div>
             </div>
           </div>
         </div>
       </section>
 
-      <!-- ============ THE RETURNS ============ -->
+      <!-- ============ THE DEAL ============ -->
       <section class="lp-section">
         <div class="container frcp-container">
           <div class="lp-panel">
-            <div class="lp-head">
-              <div class="lp-eyebrow">Return Potential</div>
+            <div class="lp-head" style="margin-bottom:24px;">
+              <div class="lp-eyebrow">The Deal</div>
               <div class="lp-accent"></div>
-              <h2 class="lp-h2">Venture-scale upside, <span class="it">a floor almost nothing else offers.</span></h2>
+              <h2 class="lp-h2">They pay us back <span class="it">from future earnings.</span></h2>
               <p class="lp-lead">
-                We backtested the strategy across every Top 100 prospect cohort from 2012–2016, then modeled it
-                forward across 100,000 simulations. The result is the asymmetry every allocator is hunting for:
-                multiples that rival top-decile venture — built on a cohort so reliable that losing principal is,
-                statistically, almost impossible.
+                We receive a percentage of their MLB salary — so we're literally invested in their success.
+                It's an investment, not a loan.
               </p>
             </div>
-
-            <div class="lp-grid lp-grid--3 mb-4">
-              <div class="lp-cell">
-                <div class="lp-cell__num">6–9x</div>
-                <div class="lp-cell__label">Target net multiple<br>(MOIC, modeled)</div>
-              </div>
-              <div class="lp-cell">
-                <div class="lp-cell__num">24–27%</div>
-                <div class="lp-cell__label">Target IRR<br>(modeled)</div>
-              </div>
-              <div class="lp-cell">
-                <div class="lp-cell__num">&lt;0.12%</div>
-                <div class="lp-cell__label">Modeled probability<br>of losing principal</div>
-              </div>
-            </div>
-
-            <p class="lp-lead">
-              In plain terms: a <b>$1M commitment</b>, modeled at the strategy's historical multiple, targets a
-              <b>$6–9M</b> position — while the odds of losing principal round to a rounding error. A handful of
-              major-league careers can return the entire fund; a single franchise talent can return it several times over.
-            </p>
-
             <div class="lp-callout">
               <div>
-                <div class="lp-callout__k">The full model</div>
-                <div class="lp-callout__v">Cohort-by-cohort multiples, IRRs, loss rates, and every assumption — in the data room.</div>
+                <div class="lp-callout__k">Example</div>
+                <div class="lp-callout__v"><b>$150K today</b> for <b>3% of future earnings</b> — breakeven at $5M in career earnings.</div>
               </div>
-              <a href="#request" class="btn btn-fr-solid btn-lg px-4">Request the full model</a>
             </div>
-
-            <p class="lp-foot mt-3">
-              Backtested and modeled figures are hypothetical, illustrative, and not a guarantee of future results.
-              Full methodology and assumptions are provided in the data room.
-            </p>
           </div>
         </div>
       </section>
 
-      <!-- ============ HOW IT WORKS ============ -->
+      <!-- ============ THE PLAY ============ -->
+      <section class="lp-section">
+        <div class="container frcp-container">
+          <div class="lp-panel">
+            <div class="lp-head" style="margin-bottom:0;">
+              <div class="lp-eyebrow">The Play</div>
+              <div class="lp-accent"></div>
+              <h2 class="lp-h2">20 top-100 prospects, <span class="it">over three years.</span></h2>
+              <p class="lp-lead">
+                Risk is spread across many athletes from multiple cohorts. This is a portfolio — not a bet on
+                any one player.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ THE PROGRESS ============ -->
       <section class="lp-section">
         <div class="container frcp-container">
           <div class="lp-panel">
             <div class="lp-head">
-              <div class="lp-eyebrow">How It Works</div>
+              <div class="lp-eyebrow">The Progress</div>
               <div class="lp-accent"></div>
-              <h2 class="lp-h2">Future-earnings contracts on <span class="it">the game's best prospects.</span></h2>
-              <p class="lp-lead">
-                The fund writes a check to a prospect today and, in return, holds a small percentage of that
-                player's future MLB earnings. Diversified across 20–40 athletes, a handful of major-league
-                careers can return the entire fund.
-              </p>
+              <h2 class="lp-h2">Three athletes <span class="it">backed so far.</span></h2>
             </div>
-
-            <div class="lp-grid lp-grid--5">
-              <div class="lp-cell">
-                <div class="lp-cell__num">$100–500K</div>
-                <div class="lp-cell__label">Target check size per athlete</div>
-              </div>
-              <div class="lp-cell">
-                <div class="lp-cell__num">1–10%</div>
-                <div class="lp-cell__label">Future earnings acquired per athlete</div>
-              </div>
-              <div class="lp-cell">
-                <div class="lp-cell__num">20–40</div>
-                <div class="lp-cell__label">Athletes in Fund 1</div>
-              </div>
-              <div class="lp-cell">
-                <div class="lp-cell__num">$8.5M</div>
-                <div class="lp-cell__label">Up to, invested in athletes</div>
-              </div>
-              <div class="lp-cell">
-                <div class="lp-cell__num">18–24</div>
-                <div class="lp-cell__label">Month investment period</div>
-              </div>
+            <div class="table-responsive">
+              <table class="lp-table lp-roster">
+                <thead>
+                  <tr><th>Athlete</th><th>Position · Org</th><th>Peak rank</th><th>Highlight</th></tr>
+                </thead>
+                <tbody>
+                  <tr><td>Carlos Lagrange</td><td>Pitcher · NY Yankees</td><td data-label="Peak rank"><span class="rank">59</span></td><td data-label="Highlight">103 MPH fastball · 0.66 ERA in Spring Training</td></tr>
+                  <tr><td>Jhostynxon Garcia</td><td>Outfield · Pittsburgh Pirates</td><td data-label="Peak rank"><span class="rank">85</span></td><td data-label="Highlight">Double-A to Triple-A to the Majors in one season</td></tr>
+                  <tr><td>Esteban Mejia</td><td>Pitcher · Baltimore Orioles</td><td data-label="Peak rank"><span class="rank">84</span></td><td data-label="Highlight">102 MPH fastball at just 18 years old</td></tr>
+                </tbody>
+              </table>
             </div>
           </div>
         </div>
       </section>
 
-      <!-- ============ FUND COMPOSITION ============ -->
+      <!-- ============ THE ODDS ============ -->
       <section class="lp-section">
         <div class="container frcp-container">
           <div class="lp-panel lp-panel--dark">
-            <div class="lp-head lp-head--center">
-              <div class="lp-eyebrow lp-eyebrow--light">Fund Composition</div>
+            <div class="lp-head lp-head--center" style="margin-bottom:0;">
+              <div class="lp-eyebrow lp-eyebrow--light">The Odds</div>
               <div class="lp-accent lp-accent--center"></div>
-              <h2 class="lp-h2 lp-h2--light">Two ways to win.</h2>
-            </div>
-
-            <div class="lp-split">
-              <div class="lp-split__col">
-                <div class="lp-split__pct">85%</div>
-                <div class="lp-split__h">Athletes</div>
-                <p class="lp-split__p">
-                  85% of the fund provides capital to Top 100 ranked MLB prospects in exchange for a
-                  percentage of their future earnings — the core asset class.
-                </p>
-              </div>
-              <div class="lp-split__col">
-                <div class="lp-split__pct">15%</div>
-                <div class="lp-split__h">Finlete</div>
-                <p class="lp-split__p">
-                  15% is invested into Finlete — our market-leading sports investment platform — at
-                  preferred terms, giving LPs an equity stake in the engine that sources the deals.
-                </p>
-              </div>
+              <h2 class="lp-h2 lp-h2--light">95% of top-100 prospects <span class="it">reach the Majors.</span></h2>
+              <p class="lp-lead" style="margin:14px auto 0;">And they earn <b>$58M</b> on average in career earnings.</p>
             </div>
           </div>
         </div>
       </section>
 
-      <!-- ============ THE FINLETE EDGE ============ -->
+      <!-- ============ THE UPSIDE ============ -->
       <section class="lp-section">
         <div class="container frcp-container">
           <div class="lp-panel">
             <div class="lp-head">
-              <div class="lp-eyebrow">The Unfair Advantage</div>
+              <div class="lp-eyebrow">The Upside</div>
               <div class="lp-accent"></div>
-              <h2 class="lp-h2">We don't outbid the competition. <span class="it">We out-offer them.</span></h2>
-              <p class="lp-lead">
-                Hedge funds and family offices have noticed this asset class — and they show up with bigger
-                checkbooks. We still win the signings. Not by paying more, but by giving athletes what capital
-                alone can't: a public platform, a fan community, and real promotion that builds their brand and
-                their earning power. That's a moat money can't buy — and it compounds with every athlete we sign.
-              </p>
+              <h2 class="lp-h2">MLB salaries have <span class="it">never been higher.</span></h2>
             </div>
-
-            <div class="row g-4 align-items-start">
-              <!-- Comparison -->
-              <div class="col-12 col-lg-6">
-                <div class="table-responsive">
-                  <table class="lp-compare">
-                    <thead>
-                      <tr>
-                        <th style="text-align:left;">&nbsp;</th>
-                        <th class="col-fr">Finlete</th>
-                        <th>Hedge Funds</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr><th scope="row">Cash</th><td class="col-fr"><i class="bi bi-check-circle-fill yes"></i></td><td><i class="bi bi-check-circle-fill yes"></i></td></tr>
-                      <tr><th scope="row">Community</th><td class="col-fr"><i class="bi bi-check-circle-fill yes"></i></td><td><i class="bi bi-dash-circle no"></i></td></tr>
-                      <tr><th scope="row">Promotion</th><td class="col-fr"><i class="bi bi-check-circle-fill yes"></i></td><td><i class="bi bi-dash-circle no"></i></td></tr>
-                      <tr><th scope="row">Engagement</th><td class="col-fr"><i class="bi bi-check-circle-fill yes"></i></td><td><i class="bi bi-dash-circle no"></i></td></tr>
-                    </tbody>
-                  </table>
-                </div>
-                <p class="lp-foot">A shared-success model: athletes win · the fund wins · fans win.</p>
-              </div>
-
-              <!-- Traction -->
-              <div class="col-12 col-lg-6">
-                <div class="lp-grid lp-grid--2">
-                  <div class="lp-cell">
-                    <div class="lp-cell__num">13</div>
-                    <div class="lp-cell__label">Athletes signed<br>(4 in the Top 100)</div>
-                  </div>
-                  <div class="lp-cell">
-                    <div class="lp-cell__num">$800K</div>
-                    <div class="lp-cell__label">Raised from fans<br>on finlete.com</div>
-                  </div>
-                  <div class="lp-cell">
-                    <div class="lp-cell__num">1,000+</div>
-                    <div class="lp-cell__label">Investments<br>placed to date</div>
-                  </div>
-                  <div class="lp-cell">
-                    <div class="lp-cell__num">20%</div>
-                    <div class="lp-cell__label">Rebuy rate<br>from investors</div>
-                  </div>
-                </div>
-              </div>
+            <div class="lp-grid lp-grid--2">
+              <div class="lp-cell"><div class="lp-cell__num">$5.34M</div><div class="lp-cell__label">Average MLB salary (2026)</div></div>
+              <div class="lp-cell"><div class="lp-cell__num">150+</div><div class="lp-cell__label">All-time $100M+ career earners</div></div>
             </div>
-
-            <!-- Proven signings -->
-            <div class="lp-eyebrow mt-5 mb-3">Proven Top 100 signings</div>
-            <div class="row g-3">
-              <div class="col-6 col-md-3">
-                <div class="lp-signing">
-                  <div class="lp-signing__name">Leonardo Bernal</div>
-                  <div class="lp-signing__team">St. Louis Cardinals</div>
-                </div>
-              </div>
-              <div class="col-6 col-md-3">
-                <div class="lp-signing">
-                  <div class="lp-signing__name">Jhostynxon García</div>
-                  <div class="lp-signing__team">Pittsburgh Pirates</div>
-                </div>
-              </div>
-              <div class="col-6 col-md-3">
-                <div class="lp-signing">
-                  <div class="lp-signing__name">Aroon Escobar</div>
-                  <div class="lp-signing__team">Philadelphia Phillies</div>
-                </div>
-              </div>
-              <div class="col-6 col-md-3">
-                <div class="lp-signing">
-                  <div class="lp-signing__name">Carlos Lagrange</div>
-                  <div class="lp-signing__team">New York Yankees</div>
-                </div>
-              </div>
-            </div>
-            <p class="lp-lead mt-3" style="font-style:italic;">…and in active negotiations with several more.</p>
+            <p class="lp-foot">Many players earn $20M+ a year — and the high end has recently reached $70M per season.</p>
           </div>
         </div>
       </section>
 
-      <!-- ============ TRACTION / PRESS ============ -->
+      <!-- ============ THE DISTRIBUTIONS ============ -->
       <section class="lp-section">
         <div class="container frcp-container">
           <div class="lp-panel">
-            <div class="row g-4 g-lg-5">
-              <div class="col-12 col-lg-5">
-                <div class="lp-eyebrow">Traction</div>
-                <div class="lp-accent"></div>
-                <h2 class="lp-h2">Momentum you can <span class="it">point to.</span></h2>
-                <p class="lp-lead mb-4">
-                  In under two years, the platform has signed its first cohort, closed a $1M angel round,
-                  and earned national coverage — while four signed athletes have already reached the Majors.
-                </p>
-                <div class="lp-eyebrow">As featured in</div>
-                <div class="lp-press mt-2">
-                  <span class="name">LA Times</span>
-                  <span class="name">Fox Business</span>
-                  <span class="name">Wall Street Journal</span>
-                  <span class="name">MLB Players Association</span>
-                </div>
-              </div>
-
-              <div class="col-12 col-lg-7">
-                <ul class="lp-timeline">
-                  <li><span class="date">FEB 2024</span><span class="evt">Launched <b>first athlete</b> on the platform</span></li>
-                  <li><span class="date">JUN 2024</span><span class="evt">Met with the <b>MLB Players Association</b></span></li>
-                  <li><span class="date">MAR 2025</span><span class="evt">Launched <b>10th athlete</b></span></li>
-                  <li><span class="date">MAY 2025</span><span class="evt">First prospect to reach the <b>Top 100</b></span></li>
-                  <li><span class="date">JUN 2025</span><span class="evt">Closed <b>$1M angel round</b></span></li>
-                  <li><span class="date">AUG 2025</span><span class="evt"><b>4th athlete reaches MLB</b>; featured in the <b>Wall Street Journal</b></span></li>
-                </ul>
-              </div>
+            <div class="lp-head" style="margin-bottom:0;">
+              <div class="lp-eyebrow">The Distributions</div>
+              <div class="lp-accent"></div>
+              <h2 class="lp-h2">You get paid <span class="it">when the athletes get paid.</span></h2>
+              <p class="lp-lead">
+                No 7–10 year lockups like most alternative funds. Distributions come straight from the athletes'
+                paychecks, facilitated by MLB team payroll departments.
+              </p>
             </div>
           </div>
         </div>
       </section>
 
-      <!-- ============ TEAM ============ -->
+      <!-- ============ THE DATA ============ -->
+      <section class="lp-section">
+        <div class="container frcp-container">
+          <div class="lp-panel">
+            <div class="lp-head">
+              <div class="lp-eyebrow">The Data</div>
+              <div class="lp-accent"></div>
+              <h2 class="lp-h2">The 2012–2016 top-100 cohort, <span class="it">backtested.</span></h2>
+            </div>
+            <div class="lp-grid lp-grid--3">
+              <div class="lp-cell"><div class="lp-cell__num">7×</div><div class="lp-cell__label">MOIC · backtested</div></div>
+              <div class="lp-cell"><div class="lp-cell__num">26%</div><div class="lp-cell__label">IRR · backtested</div></div>
+              <div class="lp-cell"><div class="lp-cell__num">&lt;0.12%</div><div class="lp-cell__label">Loss probability · backtested</div></div>
+            </div>
+            <div class="lp-callout">
+              <div>
+                <div class="lp-callout__k">The research</div>
+                <div class="lp-callout__v">On par with top-decile (10%) VC performance, across 100,000 simulations. Ask us for the full model.</div>
+              </div>
+              <a href="/simulator.html" class="btn btn-fr-solid btn-lg px-4">Try the simulator</a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ THE TEAM ============ -->
       <section class="lp-section">
         <div class="container frcp-container">
           <div class="lp-panel">
             <div class="lp-head">
               <div class="lp-eyebrow">The Team</div>
               <div class="lp-accent"></div>
-              <h2 class="lp-h2">The team that changed the game — <span class="it">for fans and players alike.</span></h2>
-              <p class="lp-lead">
-                Together, Rob and Max are changing baseball — and the way <b>athlete income share agreements</b>
-                work in sports. Their platform, Finlete, took a strategy once reserved for institutions — capital
-                today in exchange for a share of a player's future earnings — and opened it up: something everyday
-                fans can own, and something top prospects actually want. The work has earned national coverage in
-                the <b>Wall Street Journal</b>, <b>LA Times</b>, and <b>Fox Business</b> — and a seat across the
-                table from the <b>MLB Players Association</b>.
-              </p>
-              <p class="lp-lead">
-                And they're not first-timers. Between them, Rob and Max have founded and sold multiple startups and
-                built a sports-media venture that partnered with the <b>MLB, NFL, FOX, and ESPN</b>. When you commit
-                to Fund 1, this is the duo sourcing, underwriting, and closing every deal.
-              </p>
+              <h2 class="lp-h2">Two founders. <span class="it">Multiple exits.</span></h2>
             </div>
-
             <div class="row g-4">
-              <!-- Rob -->
               <div class="col-12 col-md-6">
-                <div class="team-card h-100">
-                  <div class="team-card__imgwrap">
-                    <img src="rob-cropped.jpg" alt="G. Rob Connolly" loading="lazy" class="img-pos-center" />
-                  </div>
-                  <div class="team-card__body">
-                    <div class="team-card__name">G. Rob Connolly</div>
-                    <div class="team-card__role">Managing Partner</div>
-                    <p class="lp-lead mt-3" style="font-size:14px;">
-                      A relationship builder and storyteller with a software-development background and a
-                      deep love of baseball data. As Finlete's co-founder &amp; CEO, Rob has built deep ties
-                      across the MLBPA, agents, academies, and top prospects — with especially strong roots
-                      in the Dominican Republic. A two-time founder (AgentBuzz and HeroDogBox, both acquired)
-                      and proud father of two girls.
+                <div class="lp-person">
+                  <img src="https://framerusercontent.com/images/bXlM6ZcAFAe3ykGyUvSFH4IDKfI.jpeg?scale-down-to=512" alt="Max Eisenberg" loading="lazy">
+                  <div class="lp-person__body">
+                    <div class="lp-signing__name">Max Eisenberg</div>
+                    <div class="lp-signing__team">Managing Partner</div>
+                    <p class="lp-lead" style="font-size:15px;margin-top:12px;">
+                      Co-founded a sports-tech startup serving the MLB, NFL, FOX, and ESPN. First employee at a
+                      startup acquired by a Fortune 500. Family-office allocator.
                     </p>
                   </div>
                 </div>
               </div>
-
-              <!-- Max -->
               <div class="col-12 col-md-6">
-                <div class="team-card h-100">
-                  <div class="team-card__imgwrap">
-                    <img src="https://framerusercontent.com/images/bXlM6ZcAFAe3ykGyUvSFH4IDKfI.jpeg?scale-down-to=512&width=800&height=800" alt="Max Eisenberg" loading="lazy" class="img-pos-top" />
-                  </div>
-                  <div class="team-card__body">
-                    <div class="team-card__name">Max Eisenberg</div>
-                    <div class="team-card__role">Managing Partner</div>
-                    <p class="lp-lead mt-3" style="font-size:14px;">
-                      The operator who turns vision into signed deals. As Finlete's co-founder &amp; COO and a
-                      VP at LSE Investments, Max is a Venture For America inaugural-class alum who co-founded
-                      ActionStreamer — a sports-media venture that partnered with the MLB, NFL, FOX, and ESPN —
-                      and led business development at Ilesfay through its acquisition by Autodesk.
+                <div class="lp-person">
+                  <img src="rob-cropped.jpg" alt="Rob Connolly" loading="lazy">
+                  <div class="lp-person__body">
+                    <div class="lp-signing__name">Rob Connolly</div>
+                    <div class="lp-signing__team">Managing Partner</div>
+                    <p class="lp-lead" style="font-size:15px;margin-top:12px;">
+                      Two-time founder and CEO — both companies acquired. Entrenched in baseball, with deep ties to
+                      players, agents, and the MLB Players Association.
                     </p>
                   </div>
                 </div>
               </div>
-            </div>
-
-            <div class="lp-eyebrow mt-5 mb-3">Advisors</div>
-            <div class="lp-grid lp-grid--2">
-              <div class="lp-cell">
-                <div class="team-card__name" style="font-size:1.1rem;">Michael Bryan</div>
-                <div class="lp-cell__label" style="margin-top:6px;">Ex — athlete future-earnings fund</div>
-              </div>
-              <div class="lp-cell">
-                <div class="team-card__name" style="font-size:1.1rem;">Paul Anderson</div>
-                <div class="lp-cell__label" style="margin-top:6px;">SVP — Barstool Sports</div>
-              </div>
-              <div class="lp-cell">
-                <div class="team-card__name" style="font-size:1.1rem;">Barry Hott</div>
-                <div class="lp-cell__label" style="margin-top:6px;">Growth Advisor</div>
-              </div>
-              <div class="lp-cell">
-                <div class="team-card__name" style="font-size:1.1rem;">Eric Urhausen</div>
-                <div class="lp-cell__label" style="margin-top:6px;">Ex — Trust &amp; Will</div>
-              </div>
-            </div>
-            <div class="mt-4">
-              <a href="about.html" class="btn btn-fr-outline btn-sm px-3">Full team &amp; bios →</a>
             </div>
           </div>
         </div>
       </section>
 
-      <!-- ============ FUND TERMS ============ -->
+      <!-- ============ THE TERMS ============ -->
       <section class="lp-section">
         <div class="container frcp-container">
           <div class="lp-panel">
             <div class="lp-head">
-              <div class="lp-eyebrow">Fund Terms</div>
+              <div class="lp-eyebrow">The Terms</div>
               <div class="lp-accent"></div>
-              <h2 class="lp-h2">Built for <span class="it">serious LPs.</span></h2>
-              <p class="lp-lead">
-                A focused $10M fund, open to accredited investors at a $100K minimum. The complete
-                terms — fund life, fees, carry, and structure — are shared in the fund materials and on a call.
-              </p>
+              <h2 class="lp-h2">Open to <span class="it">accredited investors.</span></h2>
             </div>
-
-            <div class="lp-grid lp-grid--3 mb-4">
+            <div class="lp-grid lp-grid--2">
               <div class="lp-cell"><div class="lp-cell__num">$10M</div><div class="lp-cell__label">Target fund size</div></div>
               <div class="lp-cell"><div class="lp-cell__num">$100K</div><div class="lp-cell__label">Minimum investment</div></div>
-              <div class="lp-cell"><div class="lp-cell__num">Accredited</div><div class="lp-cell__label">Investors only</div></div>
-            </div>
-
-            <div class="lp-callout">
-              <div>
-                <div class="lp-callout__k">Full terms</div>
-                <div class="lp-callout__v">Fund life, management fee, carry, and structure — in the materials.</div>
-              </div>
-              <a href="#request" class="btn btn-fr-solid btn-lg px-4">Request full terms</a>
+              <div class="lp-cell"><div class="lp-cell__num">2%</div><div class="lp-cell__label">Management fee — drops to 0.5% after year 3</div></div>
+              <div class="lp-cell"><div class="lp-cell__num">20%</div><div class="lp-cell__label">Carried interest</div></div>
             </div>
           </div>
         </div>
       </section>
 
-      <!-- ============ REQUEST ACCESS / FORM ============ -->
-      <section id="request" class="lp-section">
+      <!-- ============ LET'S TALK ============ -->
+      <section class="lp-section" id="talk">
         <div class="container frcp-container">
-          <div class="access-card mx-auto">
-            <div class="hero-eyebrow mb-3">Request Access</div>
-            <div class="accent-line"></div>
-            <h2 class="access-title mb-2">We invite you to join us.</h2>
-            <p class="access-subtitle">Tell us a bit about yourself and we'll follow up with the full deck, data room, and fund documents.</p>
-
-            <div id="lpFormWrap">
-              <form id="lpForm" action="https://formspree.io/f/xeewgbyr" method="POST" class="mt-4 lp-form" novalidate>
-                <input type="hidden" name="_subject" value="New LP interest — Baseball Fund 1 landing page">
-                <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px;" aria-hidden="true">
-                <div class="row g-3">
-                  <div class="col-12 col-md-6">
-                    <label class="fr-label" for="lp-name">Full Name</label>
-                    <input id="lp-name" type="text" name="name" class="form-control fr-input" placeholder="Jane Smith" required>
-                  </div>
-                  <div class="col-12 col-md-6">
-                    <label class="fr-label" for="lp-email">Email</label>
-                    <input id="lp-email" type="email" name="email" class="form-control fr-input" placeholder="jane@example.com" required>
-                  </div>
-                  <div class="col-12 col-md-6">
-                    <label class="fr-label" for="lp-org">Organization</label>
-                    <input id="lp-org" type="text" name="organization" class="form-control fr-input" placeholder="Firm or family office">
-                  </div>
-                  <div class="col-12 col-md-6">
-                    <label class="fr-label" for="lp-type">Investor Type</label>
-                    <select id="lp-type" name="investor_type" class="form-select fr-input">
-                      <option value="" disabled selected>Select…</option>
-                      <option>Family Office</option>
-                      <option>RIA / Wealth Manager</option>
-                      <option>Institutional Investor</option>
-                      <option>Accredited Individual</option>
-                      <option>Other</option>
-                    </select>
-                  </div>
-                  <div class="col-12">
-                    <label class="fr-label" for="lp-commit">Indicative Commitment</label>
-                    <select id="lp-commit" name="indicative_commitment" class="form-select fr-input">
-                      <option value="" disabled selected>Select…</option>
-                      <option>$100K – $250K</option>
-                      <option>$250K – $500K</option>
-                      <option>$500K – $1M</option>
-                      <option>$1M+</option>
-                      <option>Still exploring</option>
-                    </select>
-                  </div>
-                  <div class="col-12 mt-2 d-flex flex-wrap align-items-center gap-3">
-                    <button type="submit" class="btn btn-fr-solid btn-lg px-5">Request Access</button>
-                    <a href="https://calendar.app.google/NRANbThRLkDjKuPi8" target="_blank" rel="noopener" class="btn btn-fr-outline btn-lg px-4">Or book a meeting</a>
-                  </div>
-                  <div class="col-12">
-                    <div id="lpError" class="access-error" style="display:none;"></div>
+          <div class="lp-panel">
+            <div class="lp-head">
+              <div class="lp-eyebrow">Let's Talk</div>
+              <div class="lp-accent"></div>
+              <h2 class="lp-h2">Book a call, <span class="it">or send a question.</span></h2>
+              <p class="lp-lead">No commitment needed — we'll walk you through the fund, the model, and the data room.</p>
+            </div>
+            <div class="row g-4">
+              <!-- Call -->
+              <div class="col-12 col-lg-5">
+                <div class="lp-panel lp-panel--dark" style="height:100%;display:flex;flex-direction:column;justify-content:center;text-align:center;">
+                  <p class="lp-lead" style="color:rgba(255,255,255,0.82);margin:0 0 20px;">Thirty minutes with Rob or Max.</p>
+                  <div>
+                    <a href="https://calendar.app.google/NRANbThRLkDjKuPi8" target="_blank" rel="noopener" class="btn btn-fr-solid btn-lg px-4">Book a Call</a>
                   </div>
                 </div>
-              </form>
-            </div>
-
-            <div id="lpSuccess" class="access-success mt-4" style="display:none;">
-              Thank you — we've received your request. We'll be in touch shortly with the full fund materials.
+              </div>
+              <!-- Question form -->
+              <div class="col-12 col-lg-7">
+                <div id="lpFormWrap">
+                  <form id="lpForm" action="https://formspree.io/f/xeewgbyr" method="POST" class="lp-form" novalidate>
+                    <input type="hidden" name="_subject" value="New question — Baseball Fund 1 landing page">
+                    <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px;" aria-hidden="true">
+                    <div class="row g-3">
+                      <div class="col-12 col-md-6">
+                        <label class="fr-label" for="lp-name">Name</label>
+                        <input id="lp-name" type="text" name="name" class="form-control fr-input" placeholder="Jane Smith" required>
+                      </div>
+                      <div class="col-12 col-md-6">
+                        <label class="fr-label" for="lp-email">Email</label>
+                        <input id="lp-email" type="email" name="email" class="form-control fr-input" placeholder="jane@example.com" required>
+                      </div>
+                      <div class="col-12">
+                        <label class="fr-label" for="lp-msg">Your question</label>
+                        <textarea id="lp-msg" name="message" rows="3" class="form-control fr-input" placeholder="What would you like to know?" required></textarea>
+                      </div>
+                      <div class="col-12">
+                        <button type="submit" class="btn btn-fr-solid btn-lg px-5">Send Question</button>
+                        <p id="lpError" class="lp-foot" style="display:none;color:#b3261e;margin-top:10px;"></p>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+                <div id="lpSuccess" style="display:none;">
+                  <div class="lp-callout" style="margin:0;">
+                    <div>
+                      <div class="lp-callout__k">Got it</div>
+                      <div class="lp-callout__v">Thanks — we'll be in touch shortly.</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -1016,12 +831,11 @@
       <section class="pb-5">
         <div class="container frcp-container">
           <p class="lp-disclaimer">
-            Confidential. Provided to accredited investors for discussion purposes only. This page is for
-            informational purposes and does not constitute an offer to sell or a solicitation of an offer to
-            buy any security. Any offering is made solely to qualified, accredited investors pursuant to
-            definitive fund documents. Investments of this type are speculative, illiquid, and involve a high
-            degree of risk, including the possible loss of principal. Backtested, hypothetical, and modeled
-            performance figures are not indicative of future results.
+            Confidential. For accredited investors only. This page is informational and is not an offer to sell or
+            a solicitation of an offer to buy any security; any offering is made solely through definitive fund
+            documents. Investments of this type are speculative, illiquid, and involve a high degree of risk,
+            including the possible loss of principal. Backtested and modeled figures are hypothetical and are not
+            indicative of future results.
           </p>
         </div>
       </section>
@@ -1081,7 +895,7 @@
       const lpSuccess = document.getElementById('lpSuccess');
       const lpError = document.getElementById('lpError');
 
-      lpForm.addEventListener('submit', async function(e){
+      if (lpForm) lpForm.addEventListener('submit', async function(e){
         e.preventDefault();
         lpError.style.display = 'none';
 
