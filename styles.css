@@ -275,6 +275,26 @@ header .btn-fr-solid:hover{
   line-height: 1.5;
 }
 
+/* Hero CTA button row — keep all four on a single line when there's room
+   (desktop + iPad), and wrap/stack gracefully on narrower screens. The
+   buttons are slimmed slightly so the row fits inside the hero card. */
+.hero-cta .btn{
+  font-size: 1rem;
+  padding: 0.62rem 1.1rem;
+}
+@media (min-width: 768px){
+  .hero-cta .btn{ flex: 0 0 auto; }
+}
+/* iPad portrait / narrow tablets (768–991px): the hero card is narrower, so
+   tighten the buttons a touch to keep all four on one row instead of wrapping. */
+@media (min-width: 768px) and (max-width: 991.98px){
+  .hero-cta .btn{
+    font-size: 0.9rem;
+    padding: 0.55rem 0.7rem;
+    letter-spacing: 0.10em;
+  }
+}
+
 .terms-strip{
   display: flex;
   flex-wrap: wrap;
