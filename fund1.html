@@ -71,14 +71,14 @@
         font-size: 11px;
         letter-spacing: 0.32em;
         text-transform: uppercase;
-        color: var(--ink-soft);
-        margin-bottom: 12px;
+        color: var(--navy);
+        margin-bottom: 22px;
       }
       @media (min-width: 768px){ .lp-eyebrow{ font-size: 12px; } }
       .lp-panel--dark .lp-eyebrow,
       .lp-eyebrow--light{ color: rgba(255,255,255,0.6); }
 
-      .lp-accent{ width: 64px; height: 2px; background: var(--navy); margin-bottom: 22px; }
+      .lp-accent{ display: none; }
       .lp-accent--center{ margin-left: auto; margin-right: auto; }
       .lp-panel--dark .lp-accent{ background: #fff; }
 
@@ -470,6 +470,15 @@
       .lp-hero{ padding-top: 44px; padding-bottom: 28px; }
       @media (min-width: 768px){ .lp-hero{ padding-top: 64px; padding-bottom: 40px; } }
       .lp-hero .hero-title{ margin-bottom: 0; }
+      .lp-stadium-bg{
+        background-image:
+          linear-gradient(rgba(13,29,53,0.05), rgba(13,29,53,0.05)),
+          linear-gradient(rgba(255,255,255,0.93), rgba(255,255,255,0.93)),
+          url('stadium-bw.jpg');
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+      }
       .lp-hero-hook{
         font-family: 'Fraunces', Georgia, serif;
         font-weight: 500;
@@ -502,6 +511,9 @@
         font-size: 12px;
         line-height: 1.65;
         color: rgba(255,255,255,0.5);
+        max-width: 900px;
+        margin-left: auto;
+        margin-right: auto;
       }
 
       /* Indicative-commitment + investor selects share fr-input */
@@ -563,7 +575,7 @@
       <!-- ============ HERO ============ -->
       <section class="lp-section lp-hero">
         <div class="container frcp-container">
-          <div class="lp-panel">
+          <div class="lp-panel lp-stadium-bg">
             <div class="lp-pill">Front Row Capital · Baseball Fund 1</div>
             <h1 class="hero-title">Own a slice<br><span class="hero-title-line2">of the top 100.</span></h1>
             <p class="hero-subtitle" style="margin-left:0;text-align:left;">
@@ -673,7 +685,7 @@
               </div>
               <div class="lp-progress__row">
                 <div class="lp-progress__person">
-                  <img class="lp-progress__avatar" src="player-mejia.jpg" alt="Esteban Mejia" loading="lazy">
+                  <img class="lp-progress__avatar" src="player-mejia.jpg" alt="Esteban Mejia" loading="lazy" style="object-position: center 42%;">
                   <div>
                     <div class="lp-progress__name">Esteban Mejia</div>
                     <div class="lp-progress__meta">Pitcher · Baltimore Orioles</div>
@@ -728,9 +740,9 @@
             <div class="lp-head" style="margin-bottom:0;">
               <div class="lp-eyebrow">The Distributions</div>
               <div class="lp-accent"></div>
-              <h2 class="lp-h2">You get paid <span class="it">when the athletes get paid.</span></h2>
+              <h2 class="lp-h2">You get paid <span class="it">when the athletes do.</span></h2>
               <p class="lp-lead">
-                No 7–10 year holds like many alternative investment funds. Our distributions come directly from
+                No 7-10 year holds like many alternative investment funds. Our distributions come directly from
                 the athletes' paychecks, facilitated by MLB team payroll departments.
               </p>
             </div>
@@ -745,7 +757,7 @@
             <div class="lp-head">
               <div class="lp-eyebrow">The Data</div>
               <div class="lp-accent"></div>
-              <h2 class="lp-h2">What if we'd invested in the <span class="it">2012-2016 top 100 cohort?</span></h2>
+              <h2 class="lp-h2">What if we had invested in the <span class="it">2012-2016 top 100 cohort?</span></h2>
             </div>
             <div class="lp-grid lp-grid--3">
               <div class="lp-cell"><div class="lp-cell__num">7×</div><div class="lp-cell__label">MOIC (backtested)</div></div>
@@ -827,7 +839,7 @@
       <!-- ============ NEXT STEPS ============ -->
       <section class="lp-section" id="talk">
         <div class="container frcp-container">
-          <div class="lp-panel">
+          <div class="lp-panel lp-stadium-bg">
             <div class="lp-head">
               <div class="lp-eyebrow">Next Steps</div>
               <div class="lp-accent"></div>
@@ -836,7 +848,7 @@
             <div class="row g-4">
               <div class="col-12 col-lg-6">
                 <div class="lp-panel lp-panel--dark" style="height:100%;display:flex;flex-direction:column;justify-content:center;text-align:center;">
-                  <h3 class="lp-h2" style="font-size:1.6rem;margin:0 0 10px;">Let's meet.</h3>
+                  <h3 class="lp-h2" style="font-size:1.6rem;margin:0 0 10px;">Let's talk.</h3>
                   <p class="lp-lead" style="color:rgba(255,255,255,0.82);margin:0 0 20px;">We'll walk you through everything in 30 min.</p>
                   <div>
                     <a href="https://calendar.app.google/NRANbThRLkDjKuPi8" target="_blank" rel="noopener" class="btn btn-fr-solid px-4">Book a Call →</a>
@@ -845,8 +857,8 @@
               </div>
               <div class="col-12 col-lg-6">
                 <div class="lp-panel" style="height:100%;display:flex;flex-direction:column;justify-content:center;text-align:center;border:1px solid var(--navy);">
-                  <h3 class="lp-h2" style="font-size:1.6rem;margin:0 0 10px;">Have a question?</h3>
-                  <p class="lp-lead" style="margin:0 0 20px;">Ask away, and a member of our team will respond.</p>
+                  <h3 class="lp-h2" style="font-size:1.6rem;margin:0 0 10px;">Let's email.</h3>
+                  <p class="lp-lead" style="margin:0 0 20px;">Type away, and a member<br>of our team will respond.</p>
                   <div>
                     <a href="contact.html" class="btn btn-fr-solid px-4">Contact Us →</a>
                   </div>
