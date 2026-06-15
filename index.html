@@ -53,16 +53,16 @@
 
         <!-- Desktop Navigation -->
         <nav class="desktop-nav d-none d-md-flex gap-2">
-          <a href="learn.html" class="btn btn-fr-outline btn-sm px-3">The Fund</a>
-          <a href="about.html" class="btn btn-fr-outline btn-sm px-3">Team</a>
-          <a href="simulator.html" class="btn btn-fr-outline btn-sm px-3">Simulator</a>
+          <a href="fund1.html" class="btn btn-fr-outline btn-sm px-3">Fund 1</a>
+          <a href="team.html" class="btn btn-fr-outline btn-sm px-3">Team</a>
+          <a href="index.html#request-access" class="btn btn-fr-outline btn-sm px-3">Contact</a>
           <a
             href="https://calendar.app.google/NRANbThRLkDjKuPi8"
             target="_blank"
             rel="noopener"
             class="btn btn-fr-solid btn-sm px-3"
           >
-            Book a meeting
+            Book a Call
           </a>
         </nav>
 
@@ -77,16 +77,16 @@
       <!-- Mobile Navigation -->
       <div class="mobile-nav">
         <div class="container frcp-container">
-          <a href="learn.html" class="btn btn-fr-outline btn-lg w-100 mb-3">The Fund</a>
-          <a href="about.html" class="btn btn-fr-outline btn-lg w-100 mb-3">Team</a>
-          <a href="simulator.html" class="btn btn-fr-outline btn-lg w-100 mb-3">Simulator</a>
+          <a href="fund1.html" class="btn btn-fr-outline btn-lg w-100 mb-3">Fund 1</a>
+          <a href="team.html" class="btn btn-fr-outline btn-lg w-100 mb-3">Team</a>
+          <a href="index.html#request-access" class="btn btn-fr-outline btn-lg w-100 mb-3">Contact</a>
           <a
             href="https://calendar.app.google/NRANbThRLkDjKuPi8"
             target="_blank"
             rel="noopener"
             class="btn btn-fr-solid btn-lg w-100"
           >
-            Book a meeting
+            Book a Call
           </a>
         </div>
       </div>
@@ -102,10 +102,10 @@
           <p class="hero-subtitle">Investing in the future of sports.</p>
 
           <div class="hero-cta d-grid gap-3 d-md-flex flex-md-wrap justify-content-md-center mt-4">
-            <a href="learn.html" class="btn btn-fr-solid btn-lg text-nowrap">
-              The Fund
+            <a href="fund1.html" class="btn btn-fr-solid btn-lg text-nowrap">
+              Fund 1
             </a>
-            <a href="about.html" class="btn btn-fr-outline btn-lg text-nowrap">
+            <a href="team.html" class="btn btn-fr-outline btn-lg text-nowrap">
               Team
             </a>
             <a href="simulator.html" class="btn btn-fr-outline btn-lg text-nowrap">
@@ -117,7 +117,7 @@
               rel="noopener"
               class="btn btn-fr-outline btn-lg text-nowrap"
             >
-              Book a meeting
+              Book a Call
             </a>
           </div>
 
@@ -134,21 +134,28 @@
     <section id="request-access" class="py-5">
       <div class="container frcp-container">
         <div class="access-card mx-auto">
-          <div class="hero-eyebrow mb-3">Investment Materials</div>
+          <div class="hero-eyebrow mb-3">Contact Us</div>
           <div class="accent-line"></div>
-          <h2 class="access-title mb-2">Request Access</h2>
-          <p class="access-subtitle">Tell us a bit about yourself and we'll follow up with our fund materials.</p>
+          <h2 class="access-title mb-2">Say hello</h2>
+          <p class="access-subtitle">Tell us a bit about yourself. Someone from our team will reach out.</p>
 
-          <form action="https://formspree.io/f/mrevqjpp" method="POST" class="mt-4">
-            <input type="hidden" name="_next" value="https://frontrow.capital/success.html">
+          <form id="contact-form" class="mt-4">
             <div class="row g-3">
               <div class="col-12 col-md-6">
-                <label class="fr-label">Full Name</label>
-                <input type="text" name="name" class="form-control fr-input" placeholder="Jane Smith" required>
+                <label class="fr-label">First Name</label>
+                <input type="text" name="first_name" class="form-control fr-input" placeholder="Jane" required>
+              </div>
+              <div class="col-12 col-md-6">
+                <label class="fr-label">Last Name</label>
+                <input type="text" name="last_name" class="form-control fr-input" placeholder="Smith" required>
               </div>
               <div class="col-12 col-md-6">
                 <label class="fr-label">Email</label>
                 <input type="email" name="email" class="form-control fr-input" placeholder="jane@example.com" required>
+              </div>
+              <div class="col-12 col-md-6">
+                <label class="fr-label">Phone</label>
+                <input type="tel" name="phone" class="form-control fr-input" placeholder="(555) 555-5555">
               </div>
               <div class="col-12 col-md-6">
                 <label class="fr-label">Organization</label>
@@ -165,8 +172,12 @@
                   <option>Other</option>
                 </select>
               </div>
-              <div class="col-12 mt-2">
-                <button type="submit" class="btn btn-fr-solid btn-lg px-5">Request Access</button>
+              <div class="col-12">
+                <label class="fr-label">Message</label>
+                <textarea name="message" class="form-control fr-input" rows="4" placeholder="How can we help?"></textarea>
+              </div>
+              <div class="col-12 mt-5">
+                <button type="submit" class="btn btn-fr-solid btn-lg px-5">Submit</button>
               </div>
             </div>
           </form>
@@ -215,6 +226,30 @@
           document.body.style.overflow = '';
         }
       });
+
+      // Contact form -> Google Sheet (Apps Script web app)
+      (function () {
+        const SHEET_ENDPOINT = "https://script.google.com/a/macros/frontrow.capital/s/AKfycbz1QL3PTK3PPmT9z_0D2yZOPWtCQjbziqOTvnOhCDEx_uFv1zEOgmc92QKTJ3qMfXT6/exec";
+        const form = document.getElementById('contact-form');
+        if (!form) return;
+        form.addEventListener('submit', function (e) {
+          e.preventDefault();
+          if (!form.reportValidity()) return;
+          const btn = form.querySelector('button[type="submit"]');
+          const original = btn ? btn.textContent : '';
+          if (btn) { btn.disabled = true; btn.textContent = 'Submitting…'; }
+          fetch(SHEET_ENDPOINT, {
+            method: 'POST',
+            mode: 'no-cors',
+            body: new URLSearchParams(new FormData(form))
+          }).then(function () {
+            window.location.href = 'success.html';
+          }).catch(function () {
+            if (btn) { btn.disabled = false; btn.textContent = original; }
+            alert('Sorry, something went wrong submitting the form. Please try again or email us directly.');
+          });
+        });
+      })();
     </script>
   </body>
 </html>

@@ -559,6 +559,17 @@ header .btn-fr-solid:hover{
 }
 .fr-input::placeholder{ color: var(--ink-soft); opacity: 0.7; }
 
+select.fr-input{
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  padding-right: 36px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='%230d1d35' stroke-width='1.5'%3E%3Cpath d='M4 6l4 4 4-4'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  background-size: 14px;
+}
+
 .access-success{
   background: rgba(13,29,53,0.06);
   border: 1px solid var(--navy);

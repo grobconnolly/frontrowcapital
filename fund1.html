@@ -1,0 +1,942 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-N85J6S9J');</script>
+    <!-- End Google Tag Manager -->
+    <title>Baseball Fund 1 | Front Row Capital</title>
+
+    <!-- Meta Tags -->
+    <meta name="description" content="Front Row Capital Baseball Fund 1 — a $10M fund acquiring a share of the future earnings of Top 100 MLB prospects, targeting venture-caliber returns diversified across dozens of careers. Now accepting a select group of Limited Partners.">
+    <meta property="og:title" content="Baseball Fund 1 | Front Row Capital">
+    <meta property="og:description" content="Most venture bets fail. 95% of Top 100 MLB prospects reach the majors. Front Row Capital invests in a share of their future earnings — venture-caliber upside, a fraction of the failure rate.">
+    <meta name="theme-color" content="#0d1d35">
+    <link rel="icon" href="favicon.ico">
+
+    <!-- Bootstrap -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+
+    <!-- Bootstrap Icons -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css"
+      rel="stylesheet"
+    />
+
+    <!-- Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,400;1,9..144,500&family=Big+Shoulders+Display:wght@600;800;900&family=Oswald:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&family=Lora:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+
+    <!-- Custom -->
+    <link rel="stylesheet" href="styles.css" />
+
+    <style>
+      /* ========================================
+         LP LANDING PAGE — built on the shared
+         navy/white design system (styles.css)
+         ======================================== */
+      .lp-section{ padding: 52px 0; }
+      @media (min-width: 768px){ .lp-section{ padding: 76px 0; } }
+
+      .lp-panel{
+        background: var(--paper);
+        border: 1px solid var(--rule);
+        padding: 36px 22px;
+      }
+      @media (min-width: 768px){ .lp-panel{ padding: 56px 56px; } }
+      /* Request Access fills the panel width like every other section */
+      #request .access-card{ max-width: none; }
+
+      .lp-panel--dark{
+        background: var(--navy-dim);
+        border: 1px solid rgba(255,255,255,0.12);
+        color: var(--paper);
+      }
+
+      .lp-eyebrow{
+        font-family: 'Oswald', sans-serif;
+        font-weight: 500;
+        font-size: 11px;
+        letter-spacing: 0.32em;
+        text-transform: uppercase;
+        color: var(--ink-soft);
+        margin-bottom: 12px;
+      }
+      @media (min-width: 768px){ .lp-eyebrow{ font-size: 12px; } }
+      .lp-panel--dark .lp-eyebrow,
+      .lp-eyebrow--light{ color: rgba(255,255,255,0.6); }
+
+      .lp-accent{ width: 64px; height: 2px; background: var(--navy); margin-bottom: 22px; }
+      .lp-accent--center{ margin-left: auto; margin-right: auto; }
+      .lp-panel--dark .lp-accent{ background: #fff; }
+
+      .lp-h2{
+        font-family: 'Fraunces', Georgia, serif;
+        font-weight: 600;
+        font-size: clamp(28px, 4.4vw, 46px);
+        line-height: 1.03;
+        letter-spacing: -0.015em;
+        color: var(--navy);
+        margin: 0 0 16px;
+        font-variation-settings: 'opsz' 144;
+      }
+      .lp-h2 .it{ font-style: italic; font-weight: 400; }
+      .lp-panel--dark .lp-h2,
+      .lp-h2--light{ color: #fff; }
+
+      .lp-lead{
+        font-family: 'Lora', serif;
+        font-size: clamp(15px, 1.8vw, 18px);
+        line-height: 1.62;
+        color: var(--ink-soft);
+        max-width: 62ch;
+        margin: 0;
+      }
+      .lp-lead + .lp-lead{ margin-top: 16px; }
+      .lp-panel--dark .lp-lead{ color: rgba(255,255,255,0.82); }
+      .lp-lead b, .lp-lead strong{ color: var(--navy); font-weight: 600; }
+      .lp-panel--dark .lp-lead b{ color: #fff; }
+
+      /* Stat / data grids ---------------------------------- */
+      .lp-grid{
+        display: grid;
+        gap: 1px;
+        background: var(--rule);
+        border: 1px solid var(--rule);
+      }
+      .lp-grid--2{ grid-template-columns: 1fr; }
+      .lp-grid--3{ grid-template-columns: 1fr; }
+      .lp-grid--5{ grid-template-columns: 1fr 1fr; }
+      @media (min-width: 600px){
+        .lp-grid--2{ grid-template-columns: repeat(2, 1fr); }
+        .lp-grid--3{ grid-template-columns: repeat(3, 1fr); }
+      }
+      @media (min-width: 900px){
+        .lp-grid--5{ grid-template-columns: repeat(5, 1fr); }
+      }
+
+      .lp-cell{ background: var(--paper); padding: 26px 20px; }
+      .lp-cell__num{
+        font-family: 'Big Shoulders Display', sans-serif;
+        font-weight: 800;
+        font-size: clamp(34px, 4.6vw, 52px);
+        line-height: 0.92;
+        color: var(--navy);
+        letter-spacing: 0.005em;
+      }
+      .lp-cell__label{
+        font-family: 'Oswald', sans-serif;
+        font-weight: 500;
+        font-size: 11px;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        color: var(--ink-soft);
+        margin-top: 10px;
+        line-height: 1.4;
+      }
+
+      /* Big centered stat trio (the opportunity) */
+      .lp-bigstat{ background: var(--paper); padding: 30px 18px; text-align: center; }
+      .lp-bigstat__num{
+        font-family: 'Big Shoulders Display', sans-serif;
+        font-weight: 900;
+        font-size: clamp(48px, 8vw, 84px);
+        line-height: 0.9;
+        color: var(--navy);
+      }
+      .lp-bigstat__label{
+        font-family: 'Oswald', sans-serif;
+        font-weight: 500;
+        font-size: 12px;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: var(--ink-soft);
+        margin-top: 12px;
+      }
+
+      /* Data table ----------------------------------------- */
+      .lp-table{
+        width: 100%;
+        border-collapse: collapse;
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 13px;
+      }
+      .lp-table thead th{
+        background: var(--navy);
+        color: #fff;
+        font-family: 'Oswald', sans-serif;
+        font-weight: 500;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        font-size: 11px;
+        padding: 12px 14px;
+        text-align: right;
+        white-space: nowrap;
+      }
+      .lp-table thead th:first-child{ text-align: left; }
+      .lp-table td{
+        padding: 11px 14px;
+        border-bottom: 1px solid var(--rule);
+        text-align: right;
+        color: var(--navy);
+        white-space: nowrap;
+      }
+      .lp-table td:first-child{
+        text-align: left;
+        font-family: 'Oswald', sans-serif;
+        font-weight: 500;
+        letter-spacing: 0.04em;
+      }
+      .lp-table tbody tr:nth-child(even) td{ background: var(--paper-dim); }
+      .lp-table .muted{ color: var(--ink-soft); }
+      /* Progress roster — reuse lp-table chrome, but left-align + wrap for prose */
+      table.lp-roster td, table.lp-roster thead th{ text-align: left; white-space: normal; }
+      table.lp-roster tbody td{ font-family: 'Lora', serif; font-size: 14px; color: var(--navy); vertical-align: top; }
+      table.lp-roster tbody td:first-child{ font-family: 'Fraunces', Georgia, serif; font-weight: 600; font-size: 1.05rem; }
+      table.lp-roster .rank{ font-family: 'Big Shoulders Display', sans-serif; font-weight: 800; font-size: 1.4rem; }
+      /* Roster → stacked cards on phones (desktop table untouched) */
+      @media (max-width: 767.98px){
+        table.lp-roster thead{ display: none; }
+        table.lp-roster, table.lp-roster tbody{ display: block; }
+        table.lp-roster tbody tr{ display: block; padding: 20px 0; border-bottom: 1px solid var(--rule); }
+        table.lp-roster tbody tr:last-child{ border-bottom: 0; }
+        table.lp-roster tbody td{ display: block; width: 100%; padding: 0; border: 0; }
+        table.lp-roster tbody tr:nth-child(even) td{ background: transparent; }
+        table.lp-roster tbody td:first-child{ font-size: 1.35rem; line-height: 1.1; }
+        table.lp-roster tbody td:nth-child(2){ color: var(--ink-soft); font-size: 13px; margin-top: 4px; }
+        table.lp-roster tbody td[data-label]{ margin-top: 14px; }
+        table.lp-roster tbody td[data-label]::before{
+          content: attr(data-label); display: block;
+          font-family: 'Oswald', sans-serif; font-weight: 500; font-size: 10px;
+          letter-spacing: 0.16em; text-transform: uppercase; color: var(--ink-soft); margin-bottom: 4px;
+        }
+      }
+      .lp-foot{
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 11px;
+        color: var(--ink-soft);
+        line-height: 1.6;
+        margin-top: 16px;
+      }
+
+      /* "Request to unlock" callout */
+      .lp-callout{
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-between;
+        gap: 18px;
+        margin-top: 8px;
+        padding: 22px 24px;
+        background: var(--paper-dim);
+        border: 1px solid var(--rule);
+      }
+      .lp-callout__k{
+        font-family: 'Oswald', sans-serif;
+        font-weight: 600;
+        font-size: 11px;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: var(--ink-soft);
+        margin-bottom: 4px;
+      }
+      .lp-callout__v{
+        font-family: 'Lora', serif;
+        font-size: 16px;
+        color: var(--navy);
+        line-height: 1.4;
+      }
+
+      /* Comparison table ----------------------------------- */
+      .lp-compare{ width: 100%; border-collapse: collapse; }
+      .lp-compare th, .lp-compare td{
+        padding: 14px 12px;
+        border-bottom: 1px solid var(--rule);
+        text-align: center;
+      }
+      .lp-compare thead th{
+        font-family: 'Oswald', sans-serif;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.12em;
+        font-size: 11px;
+        color: var(--navy);
+      }
+      .lp-compare tbody th{
+        text-align: left;
+        font-family: 'Oswald', sans-serif;
+        font-weight: 500;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        font-size: 12px;
+        color: var(--navy);
+      }
+      .lp-compare .yes{ color: var(--navy); font-size: 1.25rem; }
+      .lp-compare .no{ color: var(--ink-soft); opacity: 0.55; font-size: 1.25rem; }
+      .lp-compare thead th.col-fr{ color: var(--navy); }
+      .lp-compare .col-fr{ background: var(--paper-dim); }
+
+      /* Two-up composition split ---------------------------- */
+      .lp-split{ display: grid; grid-template-columns: 1fr; gap: 1px; background: rgba(255,255,255,0.12); }
+      @media (min-width: 768px){ .lp-split{ grid-template-columns: 1fr 1fr; } }
+      .lp-split__col{ background: var(--navy-dim); padding: 36px 28px; }
+      .lp-split__pct{
+        font-family: 'Big Shoulders Display', sans-serif;
+        font-weight: 900;
+        font-size: clamp(52px, 9vw, 92px);
+        line-height: 0.9;
+        color: #fff;
+      }
+      .lp-split__h{
+        font-family: 'Fraunces', Georgia, serif;
+        font-weight: 600;
+        font-size: clamp(22px, 3vw, 30px);
+        color: #fff;
+        margin: 6px 0 12px;
+        font-variation-settings: 'opsz' 144;
+      }
+      .lp-split__h .arrow{ color: rgba(255,255,255,0.5); margin: 0 8px; }
+      .lp-split__p{
+        font-family: 'Lora', serif;
+        font-size: 15px;
+        line-height: 1.6;
+        color: rgba(255,255,255,0.82);
+        margin: 0;
+      }
+
+      /* Timeline ------------------------------------------- */
+      .lp-timeline{ list-style: none; padding: 0; margin: 0; }
+      .lp-timeline li{
+        display: flex;
+        gap: 18px;
+        padding: 13px 0;
+        border-bottom: 1px solid var(--rule);
+        align-items: baseline;
+      }
+      .lp-timeline li:last-child{ border-bottom: 0; }
+      .lp-timeline .date{
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 12px;
+        color: var(--ink-soft);
+        min-width: 92px;
+        flex: 0 0 92px;
+        letter-spacing: 0.02em;
+      }
+      .lp-timeline .evt{
+        font-family: 'Lora', serif;
+        font-size: 15px;
+        color: var(--navy);
+        line-height: 1.45;
+      }
+      .lp-timeline .evt b{ font-weight: 600; }
+
+      /* Press row ------------------------------------------ */
+      .lp-press{
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px 14px;
+        align-items: center;
+        font-family: 'Oswald', sans-serif;
+        text-transform: uppercase;
+        letter-spacing: 0.12em;
+        font-size: 12px;
+        color: var(--ink-soft);
+      }
+      .lp-press .name{
+        border: 1px solid var(--rule);
+        padding: 7px 13px;
+        color: var(--navy);
+        font-weight: 500;
+      }
+
+      /* Proven signings ------------------------------------ */
+      .lp-signing{
+        background: var(--paper);
+        border: 1px solid var(--rule);
+        padding: 18px 18px;
+        height: 100%;
+      }
+      .lp-signing__name{
+        font-family: 'Fraunces', Georgia, serif;
+        font-weight: 600;
+        font-size: 1.15rem;
+        color: var(--navy);
+        line-height: 1.1;
+        font-variation-settings: 'opsz' 144;
+      }
+      .lp-signing__team{
+        font-family: 'Oswald', sans-serif;
+        font-weight: 500;
+        font-size: 10px;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        color: var(--ink-soft);
+        margin-top: 8px;
+      }
+
+      /* Team photo card (learn) */
+      .lp-person{ background: var(--paper); border: 1px solid var(--rule); height: 100%; }
+      .lp-person img{ width: 100%; aspect-ratio: 1 / 1; height: auto; object-fit: cover; object-position: center; display: block; border-bottom: 1px solid var(--rule); }
+      .lp-person__body{ padding: 22px 24px 26px; }
+      html{ scroll-behavior: smooth; }
+
+      /* Terms list ----------------------------------------- */
+      .lp-terms{ display: grid; grid-template-columns: 1fr; gap: 0; }
+      .lp-term{
+        display: flex;
+        flex-wrap: wrap;
+        align-items: baseline;
+        justify-content: space-between;
+        gap: 6px 18px;
+        padding: 16px 0;
+        border-bottom: 1px solid var(--rule);
+      }
+      .lp-term:last-child{ border-bottom: 0; }
+      .lp-term__k{
+        font-family: 'Oswald', sans-serif;
+        font-weight: 500;
+        font-size: 12px;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: var(--ink-soft);
+        flex: 0 0 auto;
+      }
+      .lp-term__v{
+        font-family: 'Lora', serif;
+        font-size: 15px;
+        color: var(--navy);
+        text-align: right;
+        max-width: 62ch;
+      }
+      .lp-term__v .big{
+        font-family: 'Big Shoulders Display', sans-serif;
+        font-weight: 800;
+        font-size: 1.5rem;
+        letter-spacing: 0.01em;
+      }
+
+      /* Section heading helper */
+      .lp-head{ max-width: none; margin-bottom: 36px; }
+      .lp-head--center{ margin-left: auto; margin-right: auto; text-align: center; }
+      .lp-head--center .lp-accent{ margin-left: auto; margin-right: auto; }
+
+      /* Dark-panel button inversion (matches header behavior) */
+      .lp-panel--dark .btn-fr-solid{ background:#fff; border-color:#fff; color:var(--navy); }
+      .lp-panel--dark .btn-fr-solid:hover{ background:rgba(255,255,255,0.88); border-color:rgba(255,255,255,0.88); color:var(--navy); box-shadow:0 0 0 4px rgba(255,255,255,0.18); }
+      .lp-panel--dark .btn-fr-outline{ border-color:rgba(255,255,255,0.55); color:#fff; }
+      .lp-panel--dark .btn-fr-outline:hover{ background:#fff; color:var(--navy); border-color:#fff; }
+
+      /* Hero specifics */
+      .lp-hero{ padding-top: 44px; padding-bottom: 52px; }
+      @media (min-width: 768px){ .lp-hero{ padding-top: 64px; padding-bottom: 76px; } }
+      .lp-hero .hero-title{ margin-bottom: 0; }
+      .lp-hero-hook{
+        font-family: 'Fraunces', Georgia, serif;
+        font-weight: 500;
+        font-size: clamp(22px, 3.6vw, 33px);
+        line-height: 1.16;
+        letter-spacing: -0.01em;
+        color: var(--ink-soft);
+        margin: 18px 0 0;
+        max-width: 28ch;
+      }
+      .lp-hero-hook b{ color: var(--navy); font-weight: 700; }
+      .lp-hero-cta{ display: flex; flex-wrap: wrap; gap: 14px; margin-top: 28px; }
+      .lp-hero-cta .btn{ flex: 0 1 auto; text-align: center; }
+      .lp-pill{
+        display: inline-block;
+        font-family: 'Oswald', sans-serif;
+        font-weight: 500;
+        font-size: 11px;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: var(--navy);
+        border: 1px solid var(--navy);
+        padding: 5px 12px;
+        margin-bottom: 18px;
+      }
+
+      /* Disclaimer */
+      .lp-disclaimer{
+        font-family: 'Lora', serif;
+        font-size: 12px;
+        line-height: 1.65;
+        color: rgba(255,255,255,0.5);
+      }
+
+      /* Indicative-commitment + investor selects share fr-input */
+      .lp-form .form-select.fr-input{ appearance: auto; }
+
+      @media (max-width: 767px){
+        .lp-term{ flex-direction: column; }
+        .lp-term__v{ text-align: left; }
+        .lp-timeline li{ flex-direction: column; gap: 4px; }
+        .lp-timeline .date{ min-width: 0; flex: none; }
+      }
+    </style>
+  </head>
+
+  <body class="frcp-body">
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-N85J6S9J"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+
+    <!-- Background -->
+    <div class="bg-layer"></div>
+
+    <!-- Header -->
+    <header class="py-3">
+      <div class="container frcp-container d-flex align-items-center justify-content-between">
+        <a href="/" class="brand-link">
+          <img src="fr-bigger.png" alt="Front Row Capital" class="brand-logo">
+        </a>
+
+        <!-- Desktop Navigation -->
+        <nav class="desktop-nav d-none d-md-flex gap-2">
+          <a href="fund1.html" class="btn btn-fr-outline btn-sm px-3">Fund 1</a>
+          <a href="team.html" class="btn btn-fr-outline btn-sm px-3">Team</a>
+          <a href="index.html#request-access" class="btn btn-fr-outline btn-sm px-3">Contact</a>
+          <a href="https://calendar.app.google/NRANbThRLkDjKuPi8" target="_blank" rel="noopener" class="btn btn-fr-solid btn-sm px-3">Book a Call</a>
+        </nav>
+
+        <!-- Mobile Menu Toggle -->
+        <button class="mobile-menu-toggle d-md-none" aria-label="Toggle menu" aria-expanded="false">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+
+      <!-- Mobile Navigation -->
+      <div class="mobile-nav">
+        <div class="container frcp-container">
+          <a href="fund1.html" class="btn btn-fr-outline btn-lg w-100 mb-3">Fund 1</a>
+          <a href="team.html" class="btn btn-fr-outline btn-lg w-100 mb-3">Team</a>
+          <a href="index.html#request-access" class="btn btn-fr-outline btn-lg w-100 mb-3">Contact</a>
+          <a href="https://calendar.app.google/NRANbThRLkDjKuPi8" target="_blank" rel="noopener" class="btn btn-fr-solid btn-lg w-100">Book a Call</a>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <!-- ============ HERO ============ -->
+      <section class="lp-section lp-hero">
+        <div class="container frcp-container">
+          <div class="lp-panel">
+            <div class="lp-pill">Front Row Capital · Baseball Fund 1</div>
+            <h1 class="hero-title">Own a slice<br><span class="hero-title-line2">of the top 100.</span></h1>
+            <p class="hero-subtitle" style="margin-left:0;text-align:left;">
+              Invest in the future MLB earnings of top-ranked prospects. A non-correlated alternative asset
+              unlike anything in your portfolio today.
+            </p>
+            <div class="lp-hero-cta">
+              <a href="https://calendar.app.google/NRANbThRLkDjKuPi8" target="_blank" rel="noopener" class="btn btn-fr-solid px-4">Book a Call</a>
+              <a href="#talk" class="btn btn-fr-outline px-4">Ask a Question</a>
+              <a href="simulator.html" class="btn btn-fr-outline px-4">ROI Simulator</a>
+            </div>
+            <div class="terms-strip" style="justify-content:flex-start;">
+              <span><b>FUND</b> $10M</span>
+              <span><b>MINIMUM</b> $100K</span>
+              <span><b>ACCESS</b> Accredited only</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ THE CONTEXT ============ -->
+      <section class="lp-section">
+        <div class="container frcp-container">
+          <div class="lp-panel">
+            <div class="lp-head" style="margin-bottom:0;">
+              <div class="lp-eyebrow">The Context</div>
+              <div class="lp-accent"></div>
+              <h2 class="lp-h2">Minor leaguers earn minimum wage. <span class="it">Even the best ones.</span></h2>
+              <p class="lp-lead">
+                We give them money so they can focus on baseball year-round — nutrition, training, family
+                expenses. Better focus means better careers. Better careers means better returns for us.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ THE DEAL ============ -->
+      <section class="lp-section">
+        <div class="container frcp-container">
+          <div class="lp-panel">
+            <div class="lp-head" style="margin-bottom:24px;">
+              <div class="lp-eyebrow">The Deal</div>
+              <div class="lp-accent"></div>
+              <h2 class="lp-h2">We cut them a check today. <span class="it">They pay us back from future earnings.</span></h2>
+              <p class="lp-lead">
+                We get a percentage of their MLB salary. We're literally invested in their success.
+                It's an investment, not a loan.
+              </p>
+            </div>
+            <div class="lp-callout">
+              <div>
+                <div class="lp-callout__k">Example</div>
+                <div class="lp-callout__v"><b>$150K</b> for <b>3% of future earnings.</b> Breakeven at $5M in career earnings.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ THE PLAY ============ -->
+      <section class="lp-section">
+        <div class="container frcp-container">
+          <div class="lp-panel">
+            <div class="lp-head" style="margin-bottom:0;">
+              <div class="lp-eyebrow">The Play</div>
+              <div class="lp-accent"></div>
+              <h2 class="lp-h2">We will back 20–30 top 100 prospects <span class="it">over three years.</span></h2>
+              <p class="lp-lead">
+                We spread the risk across multiple athletes from multiple cohorts. Not a bet on one player.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ THE PROGRESS ============ -->
+      <section class="lp-section">
+        <div class="container frcp-container">
+          <div class="lp-panel">
+            <div class="lp-head">
+              <div class="lp-eyebrow">The Progress</div>
+              <div class="lp-accent"></div>
+              <h2 class="lp-h2">We have invested in <span class="it">three so far.</span></h2>
+            </div>
+            <div class="table-responsive">
+              <table class="lp-table lp-roster">
+                <thead>
+                  <tr><th>Athlete</th><th>Position · Org</th><th>Highest ranking</th><th>Highlight</th></tr>
+                </thead>
+                <tbody>
+                  <tr><td>Carlos Lagrange</td><td>Pitcher · New York Yankees</td><td data-label="Highest ranking"><span class="rank">59</span></td><td data-label="Highlight">103 MPH fastball · 0.66 ERA in Spring Training</td></tr>
+                  <tr><td>Jhostynxon Garcia</td><td>Outfield · Pittsburgh Pirates</td><td data-label="Highest ranking"><span class="rank">85</span></td><td data-label="Highlight">Double-A → Triple-A → Majors in one season</td></tr>
+                  <tr><td>Esteban Mejia</td><td>Pitcher · Baltimore Orioles</td><td data-label="Highest ranking"><span class="rank">84</span></td><td data-label="Highlight">102 MPH fastball · 18 years old</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ THE ODDS ============ -->
+      <section class="lp-section">
+        <div class="container frcp-container">
+          <div class="lp-panel lp-panel--dark">
+            <div class="lp-head lp-head--center" style="margin-bottom:0;">
+              <div class="lp-eyebrow lp-eyebrow--light">The Odds</div>
+              <div class="lp-accent lp-accent--center"></div>
+              <h2 class="lp-h2 lp-h2--light">95% of top 100 prospects <span class="it">reach the Majors.</span></h2>
+              <p class="lp-lead" style="margin:14px auto 0;">And they earn <b>$58M</b> on average in career earnings.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ THE UPSIDE ============ -->
+      <section class="lp-section">
+        <div class="container frcp-container">
+          <div class="lp-panel">
+            <div class="lp-head">
+              <div class="lp-eyebrow">The Upside</div>
+              <div class="lp-accent"></div>
+              <h2 class="lp-h2">MLB salaries have <span class="it">never been higher.</span></h2>
+            </div>
+            <div class="lp-grid lp-grid--2">
+              <div class="lp-cell"><div class="lp-cell__num">$5.34M</div><div class="lp-cell__label" style="font-size:13.2px;">Average MLB salary (2026)</div></div>
+              <div class="lp-cell"><div class="lp-cell__num">150+</div><div class="lp-cell__label" style="font-size:13.2px;">All-time $100M+ career earners</div></div>
+            </div>
+            <p class="lp-foot" style="font-size:13.2px;">Many players earn $20M+ annually, with several earning $40M+ annually, and the high end recently hitting $70M per season.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ THE DISTRIBUTIONS ============ -->
+      <section class="lp-section">
+        <div class="container frcp-container">
+          <div class="lp-panel">
+            <div class="lp-head" style="margin-bottom:0;">
+              <div class="lp-eyebrow">The Distributions</div>
+              <div class="lp-accent"></div>
+              <h2 class="lp-h2">You get paid <span class="it">when the athletes get paid.</span></h2>
+              <p class="lp-lead">
+                No 7–10 year holds like many alternative investment funds. Our distributions come directly from
+                the athletes' paychecks, facilitated by MLB team payroll departments.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ THE DATA ============ -->
+      <section class="lp-section">
+        <div class="container frcp-container">
+          <div class="lp-panel">
+            <div class="lp-head">
+              <div class="lp-eyebrow">The Data</div>
+              <div class="lp-accent"></div>
+              <h2 class="lp-h2">What if we'd invested in the <span class="it">2012–2016 top 100 cohort?</span></h2>
+            </div>
+            <div class="lp-grid lp-grid--3">
+              <div class="lp-cell"><div class="lp-cell__num">7×</div><div class="lp-cell__label">MOIC (backtested)</div></div>
+              <div class="lp-cell"><div class="lp-cell__num">26%</div><div class="lp-cell__label">IRR (backtested)</div></div>
+              <div class="lp-cell"><div class="lp-cell__num">&lt;0.12%</div><div class="lp-cell__label">Loss Prob. (backtested)</div></div>
+            </div>
+            <div class="lp-callout">
+              <div>
+                <div class="lp-callout__k">The research</div>
+                <div class="lp-callout__v">Ask us about this research — it'll blow you away. It's on par with top-decile (10%) VC fund performance.</div>
+              </div>
+              <a href="/simulator.html" class="btn btn-fr-solid btn-sm px-3">Try the simulator</a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ THE TEAM ============ -->
+      <section class="lp-section">
+        <div class="container frcp-container">
+          <div class="lp-panel">
+            <div class="lp-head">
+              <div class="lp-eyebrow">The Team</div>
+              <div class="lp-accent"></div>
+              <h2 class="lp-h2">Two founders. <span class="it">Multiple exits.</span></h2>
+            </div>
+            <div class="row g-4">
+              <div class="col-12 col-md-6">
+                <div class="lp-person">
+                  <img src="max-final.jpeg" alt="Max Eisenberg" loading="lazy">
+                  <div class="lp-person__body">
+                    <div class="lp-signing__name">Max Eisenberg</div>
+                    <div class="lp-signing__team">Managing Partner</div>
+                    <p class="lp-lead" style="font-size:15px;margin-top:12px;">
+                      Co-founded sports-tech startup (clients: MLB, NFL, FOX, ESPN). First employee at a startup
+                      acquired by a Fortune 500 co. Family office allocator.
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div class="col-12 col-md-6">
+                <div class="lp-person">
+                  <img src="rob-final.png" alt="Rob Connolly" loading="lazy">
+                  <div class="lp-person__body">
+                    <div class="lp-signing__name">Rob Connolly</div>
+                    <div class="lp-signing__team">Managing Partner</div>
+                    <p class="lp-lead" style="font-size:15px;margin-top:12px;">
+                      Two-time startup founder and CEO, both acquired. Entrenched in baseball, deep ties with
+                      players, agents, and the Players Association.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ THE TERMS ============ -->
+      <section class="lp-section">
+        <div class="container frcp-container">
+          <div class="lp-panel">
+            <div class="lp-head">
+              <div class="lp-eyebrow">The Terms</div>
+              <div class="lp-accent"></div>
+              <h2 class="lp-h2">Open to <span class="it">accredited investors.</span></h2>
+            </div>
+            <div class="lp-grid lp-grid--2">
+              <div class="lp-cell"><div class="lp-cell__num">$10M</div><div class="lp-cell__label">Fund size</div></div>
+              <div class="lp-cell"><div class="lp-cell__num">$100K</div><div class="lp-cell__label">Minimum</div></div>
+              <div class="lp-cell"><div class="lp-cell__num">2%</div><div class="lp-cell__label">Management fee</div></div>
+              <div class="lp-cell"><div class="lp-cell__num">20%</div><div class="lp-cell__label">Carry</div></div>
+            </div>
+            <p class="lp-foot">$500K Managing Partner commit. Management fee drops to 0.5% after year 3.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ NEXT STEPS ============ -->
+      <section class="lp-section" id="talk">
+        <div class="container frcp-container">
+          <div class="lp-panel">
+            <div class="lp-head">
+              <div class="lp-eyebrow">Next Steps</div>
+              <div class="lp-accent"></div>
+              <h2 class="lp-h2">Get in touch.</h2>
+            </div>
+            <div class="row g-4">
+              <div class="col-12 col-lg-5">
+                <div class="lp-panel lp-panel--dark" style="height:100%;display:flex;flex-direction:column;justify-content:center;text-align:center;">
+                  <h3 class="lp-h2" style="font-size:1.6rem;margin:0 0 10px;">Let's talk.</h3>
+                  <p class="lp-lead" style="color:rgba(255,255,255,0.82);margin:0 0 20px;">30 minutes with Rob or Max. We'll walk you through everything.</p>
+                  <div>
+                    <a href="https://calendar.app.google/NRANbThRLkDjKuPi8" target="_blank" rel="noopener" class="btn btn-fr-solid btn-lg px-4">Book a Call →</a>
+                  </div>
+                </div>
+              </div>
+              <div class="col-12 col-lg-7">
+                <div id="lpFormWrap">
+                  <h3 class="lp-h2" style="font-size:1.6rem;margin:0 0 16px;">Send a question.</h3>
+                  <form id="lpForm" action="https://formspree.io/f/xeewgbyr" method="POST" class="lp-form" novalidate>
+                    <input type="hidden" name="_subject" value="New question — Baseball Fund 1 landing page">
+                    <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px;" aria-hidden="true">
+                    <div class="row g-3">
+                      <div class="col-12 col-md-6">
+                        <label class="fr-label" for="lp-name">Name</label>
+                        <input id="lp-name" type="text" name="name" class="form-control fr-input" placeholder="Your name" required>
+                      </div>
+                      <div class="col-12 col-md-6">
+                        <label class="fr-label" for="lp-email">Email</label>
+                        <input id="lp-email" type="email" name="email" class="form-control fr-input" placeholder="Email address" required>
+                      </div>
+                      <div class="col-12">
+                        <label class="fr-label" for="lp-msg">Your question</label>
+                        <textarea id="lp-msg" name="message" rows="3" class="form-control fr-input" placeholder="Your question..." required></textarea>
+                      </div>
+                      <div class="col-12">
+                        <button type="submit" class="btn btn-fr-solid btn-lg px-5">Submit</button>
+                        <p id="lpError" class="lp-foot" style="display:none;color:#b3261e;margin-top:10px;"></p>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+                <div id="lpSuccess" style="display:none;">
+                  <div class="lp-callout" style="margin:0;">
+                    <div>
+                      <div class="lp-callout__k">Got it</div>
+                      <div class="lp-callout__v">Thanks — we'll be in touch shortly.</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ DISCLAIMER ============ -->
+      <section class="pb-5">
+        <div class="container frcp-container">
+          <p class="lp-disclaimer">
+            Confidential. For accredited investors only. This page is informational and is not an offer to sell or
+            a solicitation of an offer to buy any security; any offering is made solely through definitive fund
+            documents. Investments of this type are speculative, illiquid, and involve a high degree of risk,
+            including the possible loss of principal. Backtested and modeled figures are hypothetical and are not
+            indicative of future results.
+          </p>
+        </div>
+      </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="py-3 text-center footer-text">
+      <div class="container frcp-container">
+        <small>&copy; 2026 Front Row Capital. All rights reserved.</small>
+      </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+      // Mobile menu toggle
+      const menuToggle = document.querySelector('.mobile-menu-toggle');
+      const mobileNav = document.querySelector('.mobile-nav');
+
+      menuToggle.addEventListener('click', function() {
+        const isOpen = this.classList.toggle('active');
+        mobileNav.classList.toggle('active');
+        this.setAttribute('aria-expanded', isOpen);
+        document.body.style.overflow = isOpen ? 'hidden' : '';
+      });
+
+      document.addEventListener('click', function(e) {
+        if (!e.target.closest('header')) {
+          menuToggle.classList.remove('active');
+          mobileNav.classList.remove('active');
+          menuToggle.setAttribute('aria-expanded', 'false');
+          document.body.style.overflow = '';
+        }
+      });
+
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && mobileNav.classList.contains('active')) {
+          menuToggle.classList.remove('active');
+          mobileNav.classList.remove('active');
+          menuToggle.setAttribute('aria-expanded', 'false');
+          document.body.style.overflow = '';
+        }
+      });
+
+      // Close mobile nav when an in-page anchor is tapped
+      mobileNav.querySelectorAll('a[href^="#"]').forEach(function(a){
+        a.addEventListener('click', function(){
+          menuToggle.classList.remove('active');
+          mobileNav.classList.remove('active');
+          menuToggle.setAttribute('aria-expanded', 'false');
+          document.body.style.overflow = '';
+        });
+      });
+
+      // AJAX form submission (Formspree) with inline success state
+      const lpForm = document.getElementById('lpForm');
+      const lpFormWrap = document.getElementById('lpFormWrap');
+      const lpSuccess = document.getElementById('lpSuccess');
+      const lpError = document.getElementById('lpError');
+
+      if (lpForm) lpForm.addEventListener('submit', async function(e){
+        e.preventDefault();
+        lpError.style.display = 'none';
+
+        if (!lpForm.checkValidity()) {
+          lpForm.reportValidity();
+          return;
+        }
+
+        const btn = lpForm.querySelector('button[type="submit"]');
+        const original = btn.textContent;
+        btn.disabled = true;
+        btn.textContent = 'Sending…';
+
+        try {
+          const res = await fetch(lpForm.action, {
+            method: 'POST',
+            body: new FormData(lpForm),
+            headers: { 'Accept': 'application/json' }
+          });
+
+          if (res.ok) {
+            lpFormWrap.style.display = 'none';
+            lpSuccess.style.display = 'block';
+            lpSuccess.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          } else {
+            const data = await res.json().catch(function(){ return null; });
+            lpError.textContent = (data && data.errors && data.errors.length)
+              ? data.errors.map(function(x){ return x.message; }).join(', ')
+              : 'Something went wrong. Please try again or email rob@frontrow.capital.';
+            lpError.style.display = 'block';
+            btn.disabled = false;
+            btn.textContent = original;
+          }
+        } catch (err) {
+          lpError.textContent = 'Network error. Please try again or email rob@frontrow.capital.';
+          lpError.style.display = 'block';
+          btn.disabled = false;
+          btn.textContent = original;
+        }
+      });
+    </script>
+  </body>
+</html>
