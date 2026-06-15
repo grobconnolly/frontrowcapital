@@ -411,9 +411,9 @@
       }
 
       /* Team photo card (learn) */
-      .lp-person{ background: var(--paper); border: 1px solid var(--rule); height: 100%; }
-      .lp-person img{ width: 100%; aspect-ratio: 1 / 1; height: auto; object-fit: cover; object-position: center; display: block; border-bottom: 1px solid var(--rule); }
-      .lp-person__body{ padding: 22px 24px 26px; }
+      .lp-person{ background: var(--paper); border: 1px solid var(--rule); height: 100%; display: flex; align-items: center; gap: 20px; padding: 24px; }
+      .lp-person img{ width: 120px; height: 120px; aspect-ratio: 1 / 1; object-fit: cover; object-position: center; display: block; border-radius: 8px; flex: 0 0 auto; }
+      .lp-person__body{ padding: 0; min-width: 0; }
       html{ scroll-behavior: smooth; }
 
       /* Terms list ----------------------------------------- */
@@ -769,9 +769,9 @@
               <h2 class="lp-h2">Two founders. <span class="it">Multiple exits.</span></h2>
             </div>
             <div class="row g-4">
-              <div class="col-12 col-md-6">
+              <div class="col-12">
                 <div class="lp-person">
-                  <img src="max-final.jpeg" alt="Max Eisenberg" loading="lazy">
+                  <img src="max-bw.jpg" alt="Max Eisenberg" loading="lazy">
                   <div class="lp-person__body">
                     <div class="lp-signing__name">Max Eisenberg</div>
                     <div class="lp-signing__team">Managing Partner</div>
@@ -782,9 +782,9 @@
                   </div>
                 </div>
               </div>
-              <div class="col-12 col-md-6">
+              <div class="col-12">
                 <div class="lp-person">
-                  <img src="rob-final.png" alt="Rob Connolly" loading="lazy">
+                  <img src="rob-final-bw.png" alt="Rob Connolly" loading="lazy">
                   <div class="lp-person__body">
                     <div class="lp-signing__name">Rob Connolly</div>
                     <div class="lp-signing__team">Managing Partner</div>
