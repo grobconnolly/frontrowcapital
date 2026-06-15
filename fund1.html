@@ -51,6 +51,9 @@
         background: var(--paper);
         border: 1px solid var(--rule);
         padding: 36px 22px;
+        max-width: 900px;
+        margin-left: auto;
+        margin-right: auto;
       }
       @media (min-width: 768px){ .lp-panel{ padding: 56px 56px; } }
       /* Request Access fills the panel width like every other section */
@@ -505,7 +508,7 @@
         <nav class="desktop-nav d-none d-md-flex gap-2">
           <a href="fund1.html" class="btn btn-fr-outline btn-sm px-3">Fund 1</a>
           <a href="team.html" class="btn btn-fr-outline btn-sm px-3">Team</a>
-          <a href="/#contact" class="btn btn-fr-outline btn-sm px-3">Contact</a>
+          <a href="contact.html" class="btn btn-fr-outline btn-sm px-3">Contact</a>
           <a href="https://calendar.app.google/NRANbThRLkDjKuPi8" target="_blank" rel="noopener" class="btn btn-fr-solid btn-sm px-3">Book a Call</a>
         </nav>
 
@@ -522,7 +525,7 @@
         <div class="container frcp-container">
           <a href="fund1.html" class="btn btn-fr-outline btn-lg w-100 mb-3">Fund 1</a>
           <a href="team.html" class="btn btn-fr-outline btn-lg w-100 mb-3">Team</a>
-          <a href="/#contact" class="btn btn-fr-outline btn-lg w-100 mb-3">Contact</a>
+          <a href="contact.html" class="btn btn-fr-outline btn-lg w-100 mb-3">Contact</a>
           <a href="https://calendar.app.google/NRANbThRLkDjKuPi8" target="_blank" rel="noopener" class="btn btn-fr-solid btn-lg w-100">Book a Call</a>
         </div>
       </div>
@@ -637,12 +640,12 @@
       <!-- ============ THE ODDS ============ -->
       <section class="lp-section">
         <div class="container frcp-container">
-          <div class="lp-panel lp-panel--dark">
-            <div class="lp-head lp-head--center" style="margin-bottom:0;">
-              <div class="lp-eyebrow lp-eyebrow--light">The Odds</div>
-              <div class="lp-accent lp-accent--center"></div>
-              <h2 class="lp-h2 lp-h2--light">95% of top 100 prospects <span class="it">reach the Majors.</span></h2>
-              <p class="lp-lead" style="margin:14px auto 0;">And they earn <b>$58M</b> on average in career earnings.</p>
+          <div class="lp-panel">
+            <div class="lp-head" style="margin-bottom:0;">
+              <div class="lp-eyebrow">The Odds</div>
+              <div class="lp-accent"></div>
+              <h2 class="lp-h2">95% of top 100 prospects <span class="it">reach the Majors.</span></h2>
+              <p class="lp-lead" style="margin:14px 0 0;">And they earn <b>$58M</b> on average in career earnings.</p>
             </div>
           </div>
         </div>
@@ -779,47 +782,21 @@
               <h2 class="lp-h2">Get in touch.</h2>
             </div>
             <div class="row g-4">
-              <div class="col-12 col-lg-5">
+              <div class="col-12 col-lg-6">
                 <div class="lp-panel lp-panel--dark" style="height:100%;display:flex;flex-direction:column;justify-content:center;text-align:center;">
                   <h3 class="lp-h2" style="font-size:1.6rem;margin:0 0 10px;">Let's talk.</h3>
                   <p class="lp-lead" style="color:rgba(255,255,255,0.82);margin:0 0 20px;">30 minutes with Rob or Max. We'll walk you through everything.</p>
                   <div>
-                    <a href="https://calendar.app.google/NRANbThRLkDjKuPi8" target="_blank" rel="noopener" class="btn btn-fr-solid btn-lg px-4">Book a Call →</a>
+                    <a href="https://calendar.app.google/NRANbThRLkDjKuPi8" target="_blank" rel="noopener" class="btn btn-fr-solid px-4">Book a Call →</a>
                   </div>
                 </div>
               </div>
-              <div class="col-12 col-lg-7">
-                <div id="lpFormWrap">
-                  <h3 class="lp-h2" style="font-size:1.6rem;margin:0 0 16px;">Send a question.</h3>
-                  <form id="lpForm" action="https://formspree.io/f/xeewgbyr" method="POST" class="lp-form" novalidate>
-                    <input type="hidden" name="_subject" value="New question — Baseball Fund 1 landing page">
-                    <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px;" aria-hidden="true">
-                    <div class="row g-3">
-                      <div class="col-12 col-md-6">
-                        <label class="fr-label" for="lp-name">Name</label>
-                        <input id="lp-name" type="text" name="name" class="form-control fr-input" placeholder="Your name" required>
-                      </div>
-                      <div class="col-12 col-md-6">
-                        <label class="fr-label" for="lp-email">Email</label>
-                        <input id="lp-email" type="email" name="email" class="form-control fr-input" placeholder="Email address" required>
-                      </div>
-                      <div class="col-12">
-                        <label class="fr-label" for="lp-msg">Your question</label>
-                        <textarea id="lp-msg" name="message" rows="3" class="form-control fr-input" placeholder="Your question..." required></textarea>
-                      </div>
-                      <div class="col-12">
-                        <button type="submit" class="btn btn-fr-solid btn-lg px-5">Submit</button>
-                        <p id="lpError" class="lp-foot" style="display:none;color:#b3261e;margin-top:10px;"></p>
-                      </div>
-                    </div>
-                  </form>
-                </div>
-                <div id="lpSuccess" style="display:none;">
-                  <div class="lp-callout" style="margin:0;">
-                    <div>
-                      <div class="lp-callout__k">Got it</div>
-                      <div class="lp-callout__v">Thanks — we'll be in touch shortly.</div>
-                    </div>
+              <div class="col-12 col-lg-6">
+                <div class="lp-panel" style="height:100%;display:flex;flex-direction:column;justify-content:center;text-align:center;border:1px solid var(--navy);">
+                  <h3 class="lp-h2" style="font-size:1.6rem;margin:0 0 10px;">Have a question?</h3>
+                  <p class="lp-lead" style="margin:0 0 20px;">Ask away, and a member of our team will respond.</p>
+                  <div>
+                    <a href="contact.html" class="btn btn-fr-solid px-4">Contact Us →</a>
                   </div>
                 </div>
               </div>
@@ -888,54 +865,6 @@
           menuToggle.setAttribute('aria-expanded', 'false');
           document.body.style.overflow = '';
         });
-      });
-
-      // AJAX form submission (Formspree) with inline success state
-      const lpForm = document.getElementById('lpForm');
-      const lpFormWrap = document.getElementById('lpFormWrap');
-      const lpSuccess = document.getElementById('lpSuccess');
-      const lpError = document.getElementById('lpError');
-
-      if (lpForm) lpForm.addEventListener('submit', async function(e){
-        e.preventDefault();
-        lpError.style.display = 'none';
-
-        if (!lpForm.checkValidity()) {
-          lpForm.reportValidity();
-          return;
-        }
-
-        const btn = lpForm.querySelector('button[type="submit"]');
-        const original = btn.textContent;
-        btn.disabled = true;
-        btn.textContent = 'Sending…';
-
-        try {
-          const res = await fetch(lpForm.action, {
-            method: 'POST',
-            body: new FormData(lpForm),
-            headers: { 'Accept': 'application/json' }
-          });
-
-          if (res.ok) {
-            lpFormWrap.style.display = 'none';
-            lpSuccess.style.display = 'block';
-            lpSuccess.scrollIntoView({ behavior: 'smooth', block: 'center' });
-          } else {
-            const data = await res.json().catch(function(){ return null; });
-            lpError.textContent = (data && data.errors && data.errors.length)
-              ? data.errors.map(function(x){ return x.message; }).join(', ')
-              : 'Something went wrong. Please try again or email rob@frontrow.capital.';
-            lpError.style.display = 'block';
-            btn.disabled = false;
-            btn.textContent = original;
-          }
-        } catch (err) {
-          lpError.textContent = 'Network error. Please try again or email rob@frontrow.capital.';
-          lpError.style.display = 'block';
-          btn.disabled = false;
-          btn.textContent = original;
-        }
       });
     </script>
   </body>
