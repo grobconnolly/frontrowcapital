@@ -113,8 +113,8 @@
       .lp-grid{
         display: grid;
         gap: 1px;
-        background: var(--rule);
-        border: 1px solid var(--rule);
+        background: rgba(13,29,53,0.12);
+        border: 1px solid rgba(13,29,53,0.12);
       }
       .lp-grid--2{ grid-template-columns: 1fr; }
       .lp-grid--3{ grid-template-columns: 1fr; }
@@ -127,7 +127,7 @@
         .lp-grid--5{ grid-template-columns: repeat(5, 1fr); }
       }
 
-      .lp-cell{ background: var(--paper); padding: 26px 20px; }
+      .lp-cell{ background: #eef2fa; padding: 26px 20px; }
       .lp-cell__num{
         font-family: 'Fraunces', Georgia, serif;
         font-weight: 600;
@@ -227,10 +227,10 @@
         }
       }
       /* Progress roster as card list */
-      .lp-progress{ border: 1px solid var(--rule); }
+      .lp-progress{ border: 1px solid rgba(13,29,53,0.12); background: #eef2fa; }
       .lp-progress__row{
         display: flex; align-items: center; justify-content: space-between;
-        gap: 16px; padding: 18px 22px; border-bottom: 1px solid var(--rule);
+        gap: 16px; padding: 18px 22px; border-bottom: 1px solid rgba(13,29,53,0.12);
       }
       .lp-progress__row:last-child{ border-bottom: 0; }
       .lp-progress__person{ display: flex; align-items: center; gap: 14px; min-width: 0; }
@@ -267,8 +267,8 @@
         gap: 18px;
         margin-top: 8px;
         padding: 22px 24px;
-        background: var(--paper-dim);
-        border: 1px solid var(--rule);
+        background: #eef2fa;
+        border: 1px solid rgba(13,29,53,0.12);
       }
       .lp-callout__k{
         font-family: 'Oswald', sans-serif;
@@ -414,7 +414,7 @@
       }
 
       /* Team photo card (learn) */
-      .lp-person{ background: var(--paper); border: 1px solid var(--rule); height: 100%; display: flex; align-items: center; gap: 20px; padding: 24px; }
+      .lp-person{ background: #eef2fa; border: 1px solid rgba(13,29,53,0.12); height: 100%; display: flex; align-items: center; gap: 20px; padding: 24px; }
       .lp-person img{ width: 120px; height: 120px; aspect-ratio: 1 / 1; object-fit: cover; object-position: center; display: block; flex: 0 0 auto; }
       .lp-person__body{ padding: 0; min-width: 0; }
       .lp-team-row > .col-12 + .col-12 .lp-person{ border-top: 0; }
@@ -666,8 +666,8 @@
                   </div>
                 </div>
                 <div class="lp-progress__right">
-                  <div class="lp-progress__rank">Highest Ranking: 59</div>
-                  <div class="lp-progress__hi">103 MPH fastball · 0.66 ERA in Spring Training</div>
+                  <div class="lp-progress__rank">Highest Top 100 Ranking: 59</div>
+                  <div class="lp-progress__hi">103 MPH · 0.66 ERA Spring Training</div>
                 </div>
               </div>
               <div class="lp-progress__row">
@@ -679,8 +679,8 @@
                   </div>
                 </div>
                 <div class="lp-progress__right">
-                  <div class="lp-progress__rank">Highest Ranking: 85</div>
-                  <div class="lp-progress__hi">Double-A → Triple-A → Majors in one season</div>
+                  <div class="lp-progress__rank">Highest Top 100 Ranking: 85</div>
+                  <div class="lp-progress__hi">AA to AAA to MLB in one season</div>
                 </div>
               </div>
               <div class="lp-progress__row">
@@ -692,8 +692,8 @@
                   </div>
                 </div>
                 <div class="lp-progress__right">
-                  <div class="lp-progress__rank">Highest Ranking: 84</div>
-                  <div class="lp-progress__hi">102 MPH fastball · 18 years old</div>
+                  <div class="lp-progress__rank">Highest Top 100 Ranking: 84</div>
+                  <div class="lp-progress__hi">102 MPH · FCL All-Star · 18 years old</div>
                 </div>
               </div>
             </div>
@@ -757,7 +757,7 @@
             <div class="lp-head">
               <div class="lp-eyebrow">The Data</div>
               <div class="lp-accent"></div>
-              <h2 class="lp-h2">What if we had invested in the <span class="it">2012-2016 top 100 cohort?</span></h2>
+              <h2 class="lp-h2">What if we had invested in all <span class="it">2012-2016 top 100 prospects?</span></h2>
             </div>
             <div class="lp-grid lp-grid--3">
               <div class="lp-cell"><div class="lp-cell__num">7×</div><div class="lp-cell__label">MOIC (backtested)</div></div>
@@ -792,7 +792,7 @@
                     <div class="lp-signing__team">Managing Partner</div>
                     <p class="lp-lead" style="font-size:15px;margin-top:12px;">
                       Co-founded sports-tech startup (clients: MLB, NFL, FOX, ESPN). First employee at a startup
-                      acquired by a Fortune 500 co. Family office allocator.
+                      acquired by a Fortune 500 company. Family office allocator.
                     </p>
                   </div>
                 </div>
@@ -805,7 +805,7 @@
                     <div class="lp-signing__team">Managing Partner</div>
                     <p class="lp-lead" style="font-size:15px;margin-top:12px;">
                       Two-time startup founder and CEO, both acquired. Entrenched in baseball, deep ties with
-                      players, agents, and the Players Association.
+                      players, agents, and the MLB Players Association.
                     </p>
                   </div>
                 </div>

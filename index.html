@@ -89,10 +89,36 @@
       }
       .home-hero__explore{
         text-transform: uppercase;
-        font-weight: 300;
+        font-weight: 600;
         letter-spacing: 0.16em;
         font-size: 14px;
         padding: 12px 28px;
+        transition: background-color .25s ease, color .25s ease;
+      }
+      .home-hero a.home-hero__explore{
+        background: rgba(255,255,255,0.75);
+        border-color: rgba(255,255,255,0.75);
+        color: var(--navy);
+      }
+      .home-hero a.home-hero__explore:hover{
+        background: #fff;
+        border-color: #fff;
+        color: var(--navy);
+        box-shadow: none;
+        transform: none;
+      }
+      .home-stage header .btn-fr-solid{
+        background: rgba(255,255,255,0.75);
+        border-color: rgba(255,255,255,0.75);
+        color: var(--navy);
+        transition: background-color .2s ease, border-color .2s ease;
+      }
+      .home-stage header .btn-fr-solid:hover{
+        background: #fff;
+        border-color: #fff;
+        color: var(--navy);
+        box-shadow: none;
+        transform: none;
       }
       @keyframes heroRise{
         from{ opacity: 0; transform: translateY(16px); }
@@ -108,7 +134,7 @@
       .home-hero .hero-eyebrow{ color: rgba(255,255,255,0.72); margin-bottom: 30px; }
       .home-hero .hero-title{ color: #fff; text-shadow: 0 2px 40px rgba(0,0,0,0.45); }
       .home-hero .hero-title-line2{ color: rgba(255,255,255,0.92); }
-      .home-hero .hero-subtitle{ color: rgba(255,255,255,0.88); margin-top: 32px; }
+      .home-hero .hero-subtitle{ color: rgba(255,255,255,0.88); margin-top: 32px; letter-spacing: 0.04em; }
       .home-hero .terms-strip{
         color: rgba(255,255,255,0.78);
         border-top-color: rgba(255,255,255,0.22);
@@ -190,7 +216,7 @@
           <p class="hero-subtitle">Investing in the careers of athletes.</p>
 
           <div class="d-none d-md-block mt-4">
-            <a href="fund1.html" class="btn btn-fr-outline text-nowrap home-hero__explore">Explore Fund 1 →</a>
+            <a href="fund1.html" class="btn btn-fr-solid text-nowrap home-hero__explore">Explore Fund 1 →</a>
           </div>
 
           <div class="hero-cta d-grid d-md-none gap-3 mt-4">
