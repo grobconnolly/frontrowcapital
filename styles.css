@@ -512,7 +512,7 @@ header .btn-fr-solid:hover{
   .access-card{ padding: 56px 56px; }
 }
 /* index.html: match the Investment Materials card to the hero box width */
-#request-access .access-card{ max-width: 900px; }
+#contact .access-card{ max-width: 900px; }
 
 .access-title{
   font-family: 'Fraunces', Georgia, serif;
@@ -624,7 +624,7 @@ footer{
     padding-bottom: 2.5rem !important;
   }
   /* Avoid doubling the gap before the next section */
-  #request-access { padding-top: 0 !important; }
+  #contact { padding-top: 0 !important; }
   /* Terms strip: stack the three stats evenly instead of an awkward 2 + 1 wrap */
   .terms-strip {
     flex-direction: column;
@@ -634,7 +634,7 @@ footer{
     padding-top: 20px;
   }
   /* Submit button spans the form like the inputs above it */
-  #request-access form .btn-fr-solid { width: 100%; }
+  #contact form .btn-fr-solid { width: 100%; }
   .mobile-nav .btn {
     min-height: 52px;
     display: flex;
