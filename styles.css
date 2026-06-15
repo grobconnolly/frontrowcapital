@@ -408,6 +408,20 @@ header .btn-fr-solid:hover{
   display: inline-block;
   margin-top: 10px;
 }
+.team-card__linkedin{
+  position: absolute;
+  right: 10px;
+  bottom: 6px;
+  width: 26px;
+  height: 26px;
+  color: var(--navy);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity .2s ease;
+}
+.team-card__linkedin svg{ width: 100%; height: 100%; display: block; }
+.team-card__linkedin:hover{ opacity: 0.6; }
 
 /* ========================================
    TEAM HOVER OVERLAY
