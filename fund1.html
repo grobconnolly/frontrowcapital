@@ -223,6 +223,30 @@
           letter-spacing: 0.16em; text-transform: uppercase; color: var(--ink-soft); margin-bottom: 4px;
         }
       }
+      /* Progress roster as card list */
+      .lp-progress{ border: 1px solid var(--rule); }
+      .lp-progress__row{
+        display: flex; align-items: center; justify-content: space-between;
+        gap: 16px; padding: 18px 22px; border-bottom: 1px solid var(--rule);
+      }
+      .lp-progress__row:last-child{ border-bottom: 0; }
+      .lp-progress__person{ display: flex; align-items: center; gap: 14px; min-width: 0; }
+      .lp-progress__avatar{
+        width: 52px; height: 52px; border-radius: 8px; object-fit: cover; object-position: center 22%;
+        flex: 0 0 auto; background: var(--paper-dim);
+        display: inline-flex; align-items: center; justify-content: center;
+        font-family: 'Oswald', sans-serif; font-weight: 600; font-size: 16px;
+        letter-spacing: 0.04em; color: var(--navy); text-transform: uppercase;
+      }
+      .lp-progress__name{ font-family: 'Fraunces', Georgia, serif; font-weight: 600; font-size: 1.15rem; color: var(--navy); line-height: 1.15; }
+      .lp-progress__meta{ font-family: 'Lora', serif; font-size: 0.92rem; color: var(--ink-soft); margin-top: 3px; }
+      .lp-progress__right{ text-align: right; flex: 0 0 auto; }
+      .lp-progress__rank{ font-family: 'Fraunces', Georgia, serif; font-weight: 600; font-size: 1.1rem; color: var(--navy); }
+      .lp-progress__hi{ font-family: 'Lora', serif; font-size: 0.92rem; color: var(--ink-soft); margin-top: 3px; }
+      @media (max-width: 600px){
+        .lp-progress__row{ flex-direction: column; align-items: flex-start; gap: 10px; }
+        .lp-progress__right{ text-align: left; }
+      }
       .lp-foot{
         font-family: 'JetBrains Mono', monospace;
         font-size: 11px;
@@ -542,11 +566,6 @@
               Invest in the future MLB earnings of top-ranked prospects. A non-correlated alternative asset
               unlike anything in your portfolio today.
             </p>
-            <div class="lp-hero-cta">
-              <a href="https://calendar.app.google/NRANbThRLkDjKuPi8" target="_blank" rel="noopener" class="btn btn-fr-solid px-4">Book a Call</a>
-              <a href="#talk" class="btn btn-fr-outline px-4">Ask a Question</a>
-              <a href="simulator.html" class="btn btn-fr-outline px-4">ROI Simulator</a>
-            </div>
             <div class="terms-strip" style="justify-content:flex-start;">
               <span><b>FUND</b> $10M</span>
               <span><b>MINIMUM</b> $100K</span>
@@ -621,17 +640,46 @@
               <div class="lp-accent"></div>
               <h2 class="lp-h2">We have invested in <span class="it">three so far.</span></h2>
             </div>
-            <div class="table-responsive">
-              <table class="lp-table lp-roster">
-                <thead>
-                  <tr><th>Athlete</th><th>Position · Org</th><th>Highest ranking</th><th>Highlight</th></tr>
-                </thead>
-                <tbody>
-                  <tr><td>Carlos Lagrange</td><td>Pitcher · New York Yankees</td><td data-label="Highest ranking"><span class="rank">59</span></td><td data-label="Highlight">103 MPH fastball · 0.66 ERA in Spring Training</td></tr>
-                  <tr><td>Jhostynxon Garcia</td><td>Outfield · Pittsburgh Pirates</td><td data-label="Highest ranking"><span class="rank">85</span></td><td data-label="Highlight">Double-A → Triple-A → Majors in one season</td></tr>
-                  <tr><td>Esteban Mejia</td><td>Pitcher · Baltimore Orioles</td><td data-label="Highest ranking"><span class="rank">84</span></td><td data-label="Highlight">102 MPH fastball · 18 years old</td></tr>
-                </tbody>
-              </table>
+            <div class="lp-progress">
+              <div class="lp-progress__row">
+                <div class="lp-progress__person">
+                  <img class="lp-progress__avatar" src="player-lagrange.jpg" alt="Carlos Lagrange" loading="lazy">
+                  <div>
+                    <div class="lp-progress__name">Carlos Lagrange</div>
+                    <div class="lp-progress__meta">Pitcher · New York Yankees</div>
+                  </div>
+                </div>
+                <div class="lp-progress__right">
+                  <div class="lp-progress__rank">Highest Ranking: 59</div>
+                  <div class="lp-progress__hi">103 MPH fastball · 0.66 ERA in Spring Training</div>
+                </div>
+              </div>
+              <div class="lp-progress__row">
+                <div class="lp-progress__person">
+                  <img class="lp-progress__avatar" src="player-garcia.jpg" alt="Jhostynxon Garcia" loading="lazy">
+                  <div>
+                    <div class="lp-progress__name">Jhostynxon Garcia</div>
+                    <div class="lp-progress__meta">Outfield · Pittsburgh Pirates</div>
+                  </div>
+                </div>
+                <div class="lp-progress__right">
+                  <div class="lp-progress__rank">Highest Ranking: 85</div>
+                  <div class="lp-progress__hi">Double-A → Triple-A → Majors in one season</div>
+                </div>
+              </div>
+              <div class="lp-progress__row">
+                <div class="lp-progress__person">
+                  <img class="lp-progress__avatar" src="player-mejia.jpg" alt="Esteban Mejia" loading="lazy">
+                  <div>
+                    <div class="lp-progress__name">Esteban Mejia</div>
+                    <div class="lp-progress__meta">Pitcher · Baltimore Orioles</div>
+                  </div>
+                </div>
+                <div class="lp-progress__right">
+                  <div class="lp-progress__rank">Highest Ranking: 84</div>
+                  <div class="lp-progress__hi">102 MPH fastball · 18 years old</div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
