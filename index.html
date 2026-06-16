@@ -45,7 +45,7 @@
       .home-stage{
         position: relative;
         min-height: 100vh;
-        min-height: 100dvh;
+        min-height: var(--app-height, 100dvh);
         display: flex;
         flex-direction: column;
         overflow: hidden;
@@ -137,6 +137,21 @@
       .home-hero .btn-fr-outline{ background: transparent; border-color: rgba(255,255,255,0.6); color: #fff; }
       .home-hero .btn-fr-outline:hover{ background: #fff; border-color: #fff; color: var(--navy); }
     </style>
+
+    <!-- iOS Chrome's bottom toolbar isn't reflected in CSS vh/svh/dvh units,
+         which leaves the full-screen hero taller than the visible area and lets
+         the page scroll past the footer. Drive the height from the real
+         viewport (window.innerHeight) instead, updating on resize. -->
+    <script>
+      (function () {
+        function setAppHeight() {
+          document.documentElement.style.setProperty('--app-height', window.innerHeight + 'px');
+        }
+        setAppHeight();
+        window.addEventListener('resize', setAppHeight);
+        window.addEventListener('orientationchange', setAppHeight);
+      })();
+    </script>
   </head>
 
   <body class="frcp-body">
