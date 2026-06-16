@@ -43,7 +43,7 @@ body *:not(.bi):not([class*="bi-"]){
    BACKGROUND
    ======================================== */
 .bg-layer{
-  position: fixed;
+  position: absolute; /* was fixed: iOS WebKit inflates scroll height for fixed full-viewport elements */
   inset: 0;
   z-index: -3;
   background: var(--navy);
