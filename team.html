@@ -12,7 +12,6 @@
     <!-- End Google Tag Manager -->
     <title>Team | Front Row Capital</title>
 
-    <!-- Meta Tags -->
     <meta name="description" content="Meet the team at Front Row Capital - Investing in the future of sports">
     <meta property="og:title" content="Team | Front Row Capital">
     <meta property="og:description" content="Meet our starting lineup">
@@ -25,12 +24,6 @@
       rel="stylesheet"
     />
 
-    <!-- Bootstrap Icons -->
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css"
-      rel="stylesheet"
-    />
-
     <!-- Font -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -38,6 +31,22 @@
 
     <!-- Custom -->
     <link rel="stylesheet" href="styles.css" />
+
+    <style>
+      .ta-grid{ display: grid; grid-template-columns: repeat(4, 1fr); gap: 28px; }
+      @media (max-width: 991px){ .ta-grid{ grid-template-columns: repeat(2, 1fr); gap: 32px 24px; } }
+      @media (max-width: 575px){ .ta-grid{ grid-template-columns: 1fr; } }
+      .ta-card{ border: 1px solid rgba(255,255,255,0.16); padding: 16px; }
+      .ta-card__imgwrap{ aspect-ratio: 1 / 1; overflow: hidden; background: var(--navy-dim); }
+      .ta-card__img{ width: 100%; height: 100%; object-fit: cover; object-position: center 30%; display: block; }
+      .ta-card__head{ display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-top: 16px; }
+      .ta-card__name{ font-size: 1.1rem; font-weight: 600; color: #fff; line-height: 1.15; }
+      .ta-card__role{ font-family: 'Oswald', sans-serif; font-weight: 500; font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: rgba(255,255,255,0.5); margin-top: 5px; }
+      .ta-card__bio{ font-size: 13.5px; line-height: 1.55; color: rgba(255,255,255,0.62); margin-top: 12px; }
+      .ta-card__li{ display: inline-flex; width: 22px; height: 22px; color: rgba(255,255,255,0.6); flex: 0 0 auto; transition: color .2s ease; }
+      .ta-card__li:hover{ color: #fff; }
+      .ta-card__li svg{ width: 100%; height: 100%; }
+    </style>
   </head>
 
   <body class="frcp-body">
@@ -47,8 +56,6 @@
     <!-- End Google Tag Manager (noscript) -->
     <!-- Background -->
     <div class="bg-layer"></div>
-    <div class="bg-dots"></div>
-    <div class="bg-vignette"></div>
 
     <!-- Header -->
     <header class="py-3">
@@ -56,11 +63,9 @@
         <a href="/" class="brand-link">
           <img src="fr-bigger.png" alt="Front Row Capital" class="brand-logo">
         </a>
-
-        <!-- Desktop Navigation -->
         <nav class="desktop-nav d-none d-md-flex gap-2">
           <a href="fund1.html" class="btn btn-fr-outline btn-sm px-3">Fund 1</a>
-          <a href="team.html" class="btn btn-fr-outline btn-sm px-3">Team</a>
+          <a href="team.html" class="btn btn-fr-outline btn-sm px-3" aria-current="page">Team</a>
           <a href="contact.html" class="btn btn-fr-outline btn-sm px-3">Contact</a>
           <a
             href="https://calendar.app.google/NRANbThRLkDjKuPi8"
@@ -71,16 +76,12 @@
             Book a Call
           </a>
         </nav>
-
-        <!-- Mobile Menu Toggle -->
         <button class="mobile-menu-toggle d-md-none" aria-label="Toggle menu" aria-expanded="false">
           <span></span>
           <span></span>
           <span></span>
         </button>
       </div>
-
-      <!-- Mobile Navigation -->
       <div class="mobile-nav">
         <div class="container frcp-container">
           <a href="fund1.html" class="btn btn-fr-outline btn-lg w-100 mb-3">Fund 1</a>
@@ -98,203 +99,106 @@
       </div>
     </header>
 
-    <!-- Title -->
-    <section class="pt-5 pb-4">
+    <!-- Team grid (alt format) -->
+    <section class="pt-5 pb-5">
       <div class="container frcp-container">
-        <div class="page-eyebrow">The Team · Front Row Capital</div>
-        <h1 class="page-title text-center mb-0">Our Starting Lineup</h1>
-      </div>
-    </section>
-
-    <!-- Cards -->
-    <section class="pb-5">
-      <div class="container frcp-container">
-
-        <!-- Row 1: Rob + Max -->
-        <div class="row g-4 justify-content-center mb-4">
-          <!-- Rob -->
-          <div class="col-12 col-md-6 col-lg-4">
-            <div class="team-card h-100">
-              <div class="team-card__imgwrap team-hover">
-                <img
-                  src="rob-final-bw.png"
-                  alt="Rob Connolly"
-                  loading="lazy"
-                  class="img-pos-center"
-                />
-
-                <div class="team-hover__overlay">
-                  <div class="overlay-content">
-                    <p>
-                      Rob is a two-time exited startup founder and CEO. Through his work at Finlete, he is
-                      entrenched in the baseball industry with deep ties to players, managers, agents, and the MLB
-                      Players Association.
-                    </p>
-                  </div>
-                </div>
-              </div>
-
-              <div class="team-card__body">
-                <div class="team-card__name">Rob Connolly</div>
-                <div class="team-card__role">Managing Partner</div>
-                <a class="team-card__linkedin" href="https://linkedin.com/in/grobconnolly" target="_blank" rel="noopener" aria-label="Rob Connolly on LinkedIn">
-                  <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                    <rect x="2" y="2" width="20" height="20" rx="4.5" fill="none" stroke="currentColor" stroke-width="1.0"/>
-                    <path transform="translate(6.4 5.6) scale(0.025)" fill="currentColor" d="M100.28 448H7.4V148.9h92.88zM53.79 108.1C24.09 108.1 0 83.5 0 53.8a53.79 53.79 0 0 1 107.58 0c0 29.7-24.1 54.3-53.79 54.3zM447.9 448h-92.68V302.4c0-34.7-.7-79.2-48.29-79.2-48.29 0-55.69 37.7-55.69 76.7V448h-92.78V148.9h89.08v40.8h1.3c12.4-23.5 42.69-48.3 87.88-48.3 94 0 111.28 61.9 111.28 142.3V448z"/>
-                  </svg>
-                </a>
-              </div>
-            </div>
-          </div>
+        <div class="ta-grid">
 
           <!-- Max -->
-          <div class="col-12 col-md-6 col-lg-4">
-            <div class="team-card h-100">
-              <div class="team-card__imgwrap team-hover">
-                <img
-                  src="max-bw.jpg"
-                  alt="Max Eisenberg"
-                  loading="lazy"
-                  class="img-pos-top"
-                />
-
-                <div class="team-hover__overlay">
-                  <div class="overlay-content">
-                    <p>
-                      Max has been in sports for 10+ years. His clients at his first sports-tech startup included
-                      MLB, NFL, FOX, and ESPN. Prior to that, he was the first employee at a startup acquired by a
-                      Fortune 500 company. He is also a family office allocator.
-                    </p>
-                  </div>
-                </div>
-              </div>
-
-              <div class="team-card__body">
-                <div class="team-card__name">Max Eisenberg</div>
-                <div class="team-card__role">Managing Partner</div>
-                <a class="team-card__linkedin" href="https://www.linkedin.com/in/maxeisenberg/" target="_blank" rel="noopener" aria-label="Max Eisenberg on LinkedIn">
-                  <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                    <rect x="2" y="2" width="20" height="20" rx="4.5" fill="none" stroke="currentColor" stroke-width="1.0"/>
-                    <path transform="translate(6.4 5.6) scale(0.025)" fill="currentColor" d="M100.28 448H7.4V148.9h92.88zM53.79 108.1C24.09 108.1 0 83.5 0 53.8a53.79 53.79 0 0 1 107.58 0c0 29.7-24.1 54.3-53.79 54.3zM447.9 448h-92.68V302.4c0-34.7-.7-79.2-48.29-79.2-48.29 0-55.69 37.7-55.69 76.7V448h-92.78V148.9h89.08v40.8h1.3c12.4-23.5 42.69-48.3 87.88-48.3 94 0 111.28 61.9 111.28 142.3V448z"/>
-                  </svg>
-                </a>
-              </div>
+          <div class="ta-card">
+            <div class="ta-card__imgwrap">
+              <img class="ta-card__img" src="max-bw.jpg" alt="Max Eisenberg" loading="lazy" style="object-position: center 18%;">
             </div>
+            <div class="ta-card__head">
+              <div class="ta-card__name">Max Eisenberg</div>
+              <a class="ta-card__li" href="https://www.linkedin.com/in/maxeisenberg/" target="_blank" rel="noopener" aria-label="Max Eisenberg on LinkedIn">
+                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <rect x="2" y="2" width="20" height="20" rx="4.5" fill="none" stroke="currentColor" stroke-width="1.0"/>
+                  <path transform="translate(6.4 5.6) scale(0.025)" fill="currentColor" d="M100.28 448H7.4V148.9h92.88zM53.79 108.1C24.09 108.1 0 83.5 0 53.8a53.79 53.79 0 0 1 107.58 0c0 29.7-24.1 54.3-53.79 54.3zM447.9 448h-92.68V302.4c0-34.7-.7-79.2-48.29-79.2-48.29 0-55.69 37.7-55.69 76.7V448h-92.78V148.9h89.08v40.8h1.3c12.4-23.5 42.69-48.3 87.88-48.3 94 0 111.28 61.9 111.28 142.3V448z"/>
+                </svg>
+              </a>
+            </div>
+            <div class="ta-card__role">Managing Partner</div>
+            <p class="ta-card__bio">Max has been in sports for 10+ years. His clients at his first sports-tech startup included MLB, NFL, FOX, and ESPN. Prior to that, he was the first employee at a startup acquired by a Fortune 500 company. He is also a family office allocator.</p>
           </div>
-        </div>
 
-        <!-- Row 2: Advisors -->
-        <div class="row g-4 justify-content-center">
-          <!-- Michael -->
-          <div class="col-12 col-md-6 col-lg-4">
-            <div class="team-card h-100">
-              <div class="team-card__imgwrap team-hover">
-                <img
-                  src="michael-bw.jpg"
-                  alt="Michael Bryan"
-                  loading="lazy"
-                  class="img-pos-center"
-                  style="transform: scale(1.5); transform-origin: center 38%;"
-                />
-
-                <div class="team-hover__overlay">
-                  <div class="overlay-content">
-                    <p>
-                      Michael spent 5 years as CFO at Big League Advantage (BLA), from which he has a wealth of
-                      knowledge of future earnings contract financings and the economics of baseball. Michael also
-                      serves as VP, Finance &amp; Operations at Moonshots Capital.
-                    </p>
-                  </div>
-                </div>
-              </div>
-
-              <div class="team-card__body">
-                <div class="team-card__name">Michael Bryan</div>
-                <div class="team-card__role">Advisor</div>
-                <a class="team-card__linkedin" href="https://www.linkedin.com/in/michael-bryan-02922625/" target="_blank" rel="noopener" aria-label="Michael Bryan on LinkedIn">
-                  <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                    <rect x="2" y="2" width="20" height="20" rx="4.5" fill="none" stroke="currentColor" stroke-width="1.0"/>
-                    <path transform="translate(6.4 5.6) scale(0.025)" fill="currentColor" d="M100.28 448H7.4V148.9h92.88zM53.79 108.1C24.09 108.1 0 83.5 0 53.8a53.79 53.79 0 0 1 107.58 0c0 29.7-24.1 54.3-53.79 54.3zM447.9 448h-92.68V302.4c0-34.7-.7-79.2-48.29-79.2-48.29 0-55.69 37.7-55.69 76.7V448h-92.78V148.9h89.08v40.8h1.3c12.4-23.5 42.69-48.3 87.88-48.3 94 0 111.28 61.9 111.28 142.3V448z"/>
-                  </svg>
-                </a>
-              </div>
+          <!-- Rob -->
+          <div class="ta-card">
+            <div class="ta-card__imgwrap">
+              <img class="ta-card__img" src="rob-final-bw.png" alt="Rob Connolly" loading="lazy" style="object-position: center 35%;">
             </div>
+            <div class="ta-card__head">
+              <div class="ta-card__name">Rob Connolly</div>
+              <a class="ta-card__li" href="https://linkedin.com/in/grobconnolly" target="_blank" rel="noopener" aria-label="Rob Connolly on LinkedIn">
+                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <rect x="2" y="2" width="20" height="20" rx="4.5" fill="none" stroke="currentColor" stroke-width="1.0"/>
+                  <path transform="translate(6.4 5.6) scale(0.025)" fill="currentColor" d="M100.28 448H7.4V148.9h92.88zM53.79 108.1C24.09 108.1 0 83.5 0 53.8a53.79 53.79 0 0 1 107.58 0c0 29.7-24.1 54.3-53.79 54.3zM447.9 448h-92.68V302.4c0-34.7-.7-79.2-48.29-79.2-48.29 0-55.69 37.7-55.69 76.7V448h-92.78V148.9h89.08v40.8h1.3c12.4-23.5 42.69-48.3 87.88-48.3 94 0 111.28 61.9 111.28 142.3V448z"/>
+                </svg>
+              </a>
+            </div>
+            <div class="ta-card__role">Managing Partner</div>
+            <p class="ta-card__bio">Rob is a two-time exited startup founder and chief executive. Through his work at Finlete, he is entrenched in the baseball industry with deep ties to and a strong reputation among players, managers, agents, and the MLB Players Association.</p>
+          </div>
+
+          <!-- Michael -->
+          <div class="ta-card">
+            <div class="ta-card__imgwrap">
+              <img class="ta-card__img" src="michael-bw.jpg" alt="Michael Bryan" loading="lazy" style="object-position: center; transform: scale(1.5); transform-origin: center 38%;">
+            </div>
+            <div class="ta-card__head">
+              <div class="ta-card__name">Michael Bryan</div>
+              <a class="ta-card__li" href="https://www.linkedin.com/in/michael-bryan-02922625/" target="_blank" rel="noopener" aria-label="Michael Bryan on LinkedIn">
+                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <rect x="2" y="2" width="20" height="20" rx="4.5" fill="none" stroke="currentColor" stroke-width="1.0"/>
+                  <path transform="translate(6.4 5.6) scale(0.025)" fill="currentColor" d="M100.28 448H7.4V148.9h92.88zM53.79 108.1C24.09 108.1 0 83.5 0 53.8a53.79 53.79 0 0 1 107.58 0c0 29.7-24.1 54.3-53.79 54.3zM447.9 448h-92.68V302.4c0-34.7-.7-79.2-48.29-79.2-48.29 0-55.69 37.7-55.69 76.7V448h-92.78V148.9h89.08v40.8h1.3c12.4-23.5 42.69-48.3 87.88-48.3 94 0 111.28 61.9 111.28 142.3V448z"/>
+                </svg>
+              </a>
+            </div>
+            <div class="ta-card__role">Advisor</div>
+            <p class="ta-card__bio">Michael spent 5 years as CFO at Big League Advantage (BLA), from which he has a wealth of knowledge of future earnings contract financings and the economics of baseball. Michael also serves as VP, Finance &amp; Operations at Moonshots Capital.</p>
           </div>
 
           <!-- Paul -->
-          <div class="col-12 col-md-6 col-lg-4">
-            <div class="team-card h-100">
-              <div class="team-card__imgwrap team-hover">
-                <img
-                  src="paul-bw.jpg"
-                  alt="Paul Anderson"
-                  loading="lazy"
-                  class="img-pos-top"
-                  style="filter: brightness(0.88);"
-                />
-
-                <div class="team-hover__overlay">
-                  <div class="overlay-content">
-                    <p>
-                      Paul is a Senior Vice President at Barstool Sports, one of the most influential lifestyle brands in the
-                      United States. He joined Barstool in 2021. He previously spent over 6 years at Forbes.
-                    </p>
-                  </div>
-                </div>
-              </div>
-
-              <div class="team-card__body">
-                <div class="team-card__name">Paul Anderson</div>
-                <div class="team-card__role">Advisor</div>
-                <a class="team-card__linkedin" href="https://www.linkedin.com/in/pganders515/" target="_blank" rel="noopener" aria-label="Paul Anderson on LinkedIn">
-                  <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                    <rect x="2" y="2" width="20" height="20" rx="4.5" fill="none" stroke="currentColor" stroke-width="1.0"/>
-                    <path transform="translate(6.4 5.6) scale(0.025)" fill="currentColor" d="M100.28 448H7.4V148.9h92.88zM53.79 108.1C24.09 108.1 0 83.5 0 53.8a53.79 53.79 0 0 1 107.58 0c0 29.7-24.1 54.3-53.79 54.3zM447.9 448h-92.68V302.4c0-34.7-.7-79.2-48.29-79.2-48.29 0-55.69 37.7-55.69 76.7V448h-92.78V148.9h89.08v40.8h1.3c12.4-23.5 42.69-48.3 87.88-48.3 94 0 111.28 61.9 111.28 142.3V448z"/>
-                  </svg>
-                </a>
-              </div>
+          <div class="ta-card">
+            <div class="ta-card__imgwrap">
+              <img class="ta-card__img" src="paul-bw.jpg" alt="Paul Anderson" loading="lazy" style="object-position: center 18%; filter: brightness(0.88);">
             </div>
+            <div class="ta-card__head">
+              <div class="ta-card__name">Paul Anderson</div>
+              <a class="ta-card__li" href="https://www.linkedin.com/in/pganders515/" target="_blank" rel="noopener" aria-label="Paul Anderson on LinkedIn">
+                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <rect x="2" y="2" width="20" height="20" rx="4.5" fill="none" stroke="currentColor" stroke-width="1.0"/>
+                  <path transform="translate(6.4 5.6) scale(0.025)" fill="currentColor" d="M100.28 448H7.4V148.9h92.88zM53.79 108.1C24.09 108.1 0 83.5 0 53.8a53.79 53.79 0 0 1 107.58 0c0 29.7-24.1 54.3-53.79 54.3zM447.9 448h-92.68V302.4c0-34.7-.7-79.2-48.29-79.2-48.29 0-55.69 37.7-55.69 76.7V448h-92.78V148.9h89.08v40.8h1.3c12.4-23.5 42.69-48.3 87.88-48.3 94 0 111.28 61.9 111.28 142.3V448z"/>
+                </svg>
+              </a>
+            </div>
+            <div class="ta-card__role">Advisor</div>
+            <p class="ta-card__bio">Paul is a Senior Vice President and General Counsel at Barstool Sports, one of the most influential sports lifestyle brands in the United States. He joined Barstool Sports in 2021 after spending over 6 years at Forbes as Associate General Counsel.</p>
           </div>
-        </div>
 
+        </div>
       </div>
     </section>
 
     <!-- Footer -->
     <footer class="py-3 text-center footer-text">
       <div class="container frcp-container">
-        <small>&copy; 2026 Front Row Capital. All rights reserved.</small>
+        <small>&copy; 2026 Front Row Capital &middot; All rights reserved &middot; <a href="privacy.html">Privacy Policy</a></small>
       </div>
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-      // Mobile menu toggle
       const menuToggle = document.querySelector('.mobile-menu-toggle');
       const mobileNav = document.querySelector('.mobile-nav');
-      
       menuToggle.addEventListener('click', function() {
         const isOpen = this.classList.toggle('active');
         mobileNav.classList.toggle('active');
         this.setAttribute('aria-expanded', isOpen);
-        
-        // Prevent body scroll when menu is open
         document.body.style.overflow = isOpen ? 'hidden' : '';
       });
-
-      // Close menu when clicking outside
       document.addEventListener('click', function(e) {
         if (!e.target.closest('header')) {
-          menuToggle.classList.remove('active');
-          mobileNav.classList.remove('active');
-          menuToggle.setAttribute('aria-expanded', 'false');
-          document.body.style.overflow = '';
-        }
-      });
-
-      // Close menu on escape key
-      document.addEventListener('keydown', function(e) {
-        if (e.key === 'Escape' && mobileNav.classList.contains('active')) {
           menuToggle.classList.remove('active');
           mobileNav.classList.remove('active');
           menuToggle.setAttribute('aria-expanded', 'false');

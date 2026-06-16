@@ -32,6 +32,29 @@
 
     <!-- Custom -->
     <link rel="stylesheet" href="styles.css" />
+
+    <style>
+      .req{ color: #b3261e; font-weight: 400; }
+      .field-err{ display: none; color: #b3261e; font-size: 12.5px; margin-top: 5px; }
+      .field-err.show{ display: block; }
+      .fr-input.invalid{ border-color: #b3261e; }
+      .fr-input.invalid:focus{ box-shadow: 0 0 0 3px rgba(179,38,30,0.15); }
+      .form-note{ font-size: 12.5px; color: var(--ink-soft); margin-top: 6px; }
+      .fr-select{ position: relative; }
+      .fr-select__btn{ width: 100%; display: flex; align-items: center; justify-content: space-between; text-align: left; cursor: pointer; }
+      .fr-select__btn:focus{ outline: none; box-shadow: 0 0 0 3px rgba(13,29,53,0.12); }
+      .fr-select__value.is-placeholder{ color: var(--ink-soft); opacity: 0.7; }
+      .fr-select__arrow{ margin-left: 12px; font-size: 16px; line-height: 1; color: var(--navy); transition: transform .2s ease; transform: scaleX(1.35); }
+      .fr-select.open .fr-select__arrow{ transform: scaleX(1.35) rotate(180deg); }
+      .fr-select__list{ position: absolute; top: calc(100% + 4px); left: 0; right: 0; z-index: 30; margin: 0; padding: 4px 0; list-style: none; background: var(--paper); border: 1px solid var(--navy); max-height: 240px; overflow-y: auto; display: none; }
+      .fr-select.open .fr-select__list{ display: block; }
+      .fr-select__list:focus{ outline: none; }
+      .fr-select__opt{ padding: 9px 12px; font-size: 14px; color: var(--navy); cursor: pointer; }
+      .fr-select__opt.active{ background: #eef2fa; }
+      .fr-select__opt[aria-selected="true"]{ font-weight: 600; }
+      .contact-main{ padding-top: 44px; padding-bottom: 48px; }
+      @media (min-width: 768px){ .contact-main{ padding-top: 64px; } }
+    </style>
   </head>
 
   <body class="frcp-body">
@@ -55,7 +78,7 @@
         <nav class="desktop-nav d-none d-md-flex gap-2">
           <a href="fund1.html" class="btn btn-fr-outline btn-sm px-3">Fund 1</a>
           <a href="team.html" class="btn btn-fr-outline btn-sm px-3">Team</a>
-          <a href="contact.html" class="btn btn-fr-outline btn-sm px-3">Contact</a>
+          <a href="contact.html" class="btn btn-fr-outline btn-sm px-3" aria-current="page">Contact</a>
           <a
             href="https://calendar.app.google/NRANbThRLkDjKuPi8"
             target="_blank"
@@ -93,52 +116,61 @@
     </header>
 
     <!-- Contact -->
-    <main class="min-vh-100 d-flex align-items-center py-5">
-      <section id="contact" class="w-100 py-5">
+    <main class="contact-main">
+      <section id="contact" class="w-100">
         <div class="container frcp-container">
           <div class="access-card mx-auto">
             <div class="hero-eyebrow mb-3">Contact Us</div>
             <h2 class="access-title mb-2">Say hello.</h2>
             <p class="access-subtitle">Tell us a bit about yourself and someone from our team will reach out.</p>
 
-            <form id="contact-form" class="mt-4">
+            <form id="contact-form" class="mt-4" novalidate>
               <div class="row g-3">
                 <div class="col-12 col-md-6">
-                  <label class="fr-label">First Name</label>
-                  <input type="text" name="first_name" class="form-control fr-input" placeholder="Jane" required>
+                  <label class="fr-label">First Name <span class="req">*</span></label>
+                  <input type="text" name="first_name" class="form-control fr-input" maxlength="40" required>
+                  <div class="field-err"></div>
                 </div>
                 <div class="col-12 col-md-6">
-                  <label class="fr-label">Last Name</label>
-                  <input type="text" name="last_name" class="form-control fr-input" placeholder="Smith" required>
+                  <label class="fr-label">Last Name <span class="req">*</span></label>
+                  <input type="text" name="last_name" class="form-control fr-input" maxlength="40" required>
+                  <div class="field-err"></div>
                 </div>
                 <div class="col-12 col-md-6">
-                  <label class="fr-label">Email</label>
-                  <input type="email" name="email" class="form-control fr-input" placeholder="jane@example.com" required>
+                  <label class="fr-label">Email <span class="req">*</span></label>
+                  <input type="email" name="email" class="form-control fr-input" maxlength="80" required>
+                  <div class="field-err"></div>
                 </div>
                 <div class="col-12 col-md-6">
                   <label class="fr-label">Phone</label>
-                  <input type="tel" name="phone" class="form-control fr-input" placeholder="(555) 555-5555">
+                  <input type="tel" name="phone" inputmode="tel" class="form-control fr-input">
                 </div>
                 <div class="col-12 col-md-6">
                   <label class="fr-label">Organization</label>
-                  <input type="text" name="organization" class="form-control fr-input" placeholder="Firm or family office">
+                  <input type="text" name="organization" class="form-control fr-input">
                 </div>
                 <div class="col-12 col-md-6">
-                  <label class="fr-label">Investor Type</label>
-                  <select name="investor_type" class="form-select fr-input">
-                    <option value="" disabled selected>Select…</option>
-                    <option>Family Office</option>
-                    <option>RIA / Wealth Manager</option>
-                    <option>Institutional Investor</option>
-                    <option>Accredited Individual</option>
-                    <option>Other</option>
-                  </select>
+                  <label class="fr-label" id="it-label">Investor Type</label>
+                  <div class="fr-select">
+                    <button type="button" class="fr-input fr-select__btn" aria-haspopup="listbox" aria-expanded="false" aria-labelledby="it-label it-value">
+                      <span class="fr-select__value is-placeholder" id="it-value">Select…</span>
+                      <span class="fr-select__arrow" aria-hidden="true">▾</span>
+                    </button>
+                    <ul class="fr-select__list" role="listbox" aria-labelledby="it-label" tabindex="-1">
+                      <li class="fr-select__opt" role="option" data-value="Accredited Individual">Accredited Individual</li>
+                      <li class="fr-select__opt" role="option" data-value="Family Office">Family Office</li>
+                      <li class="fr-select__opt" role="option" data-value="RIA / Wealth Manager">RIA / Wealth Manager</li>
+                      <li class="fr-select__opt" role="option" data-value="Institutional Investor">Institutional Investor</li>
+                      <li class="fr-select__opt" role="option" data-value="Other">Other</li>
+                    </ul>
+                    <input type="hidden" name="investor_type" value="">
+                  </div>
                 </div>
                 <div class="col-12">
                   <label class="fr-label">Message</label>
-                  <textarea name="message" class="form-control fr-input" rows="4" placeholder="How can we help?"></textarea>
+                  <textarea name="message" class="form-control fr-input" rows="4"></textarea>
                 </div>
-                <div class="col-12 mt-5">
+                <div class="col-12" style="margin-top: 36px;">
                   <button type="submit" class="btn btn-fr-solid px-4">Submit</button>
                 </div>
               </div>
@@ -151,7 +183,7 @@
     <!-- Footer -->
     <footer class="py-3 text-center footer-text">
       <div class="container frcp-container">
-        <small>&copy; 2026 Front Row Capital. All rights reserved.</small>
+        <small>&copy; 2026 Front Row Capital &middot; All rights reserved &middot; <a href="privacy.html">Privacy Policy</a></small>
       </div>
     </footer>
 
@@ -193,9 +225,53 @@
         const SHEET_ENDPOINT = "https://script.google.com/a/macros/frontrow.capital/s/AKfycbz1QL3PTK3PPmT9z_0D2yZOPWtCQjbziqOTvnOhCDEx_uFv1zEOgmc92QKTJ3qMfXT6/exec";
         const form = document.getElementById('contact-form');
         if (!form) return;
+
+        // Live phone formatting: (XXX) XXX-XXXX
+        const phone = form.querySelector('input[name="phone"]');
+        if (phone) phone.addEventListener('input', function () {
+          const d = phone.value.replace(/\D/g, '').slice(0, 10);
+          let out = d;
+          if (d.length > 6) out = '(' + d.slice(0, 3) + ') ' + d.slice(3, 6) + '-' + d.slice(6);
+          else if (d.length > 3) out = '(' + d.slice(0, 3) + ') ' + d.slice(3);
+          else if (d.length > 0) out = '(' + d;
+          phone.value = out;
+        });
+
+        // Inline validation for required fields
+        const required = Array.prototype.slice.call(form.querySelectorAll('[required]'));
+        function validateField(input) {
+          const err = input.parentNode.querySelector('.field-err');
+          let msg = '';
+          if (!input.value.trim()) {
+            msg = 'This field is required.';
+          } else if (input.type === 'email' && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(input.value.trim())) {
+            msg = 'Please enter a valid email address.';
+          }
+          if (msg) {
+            input.classList.add('invalid');
+            if (err) { err.textContent = msg; err.classList.add('show'); }
+            return false;
+          }
+          input.classList.remove('invalid');
+          if (err) { err.textContent = ''; err.classList.remove('show'); }
+          return true;
+        }
+        required.forEach(function (input) {
+          input.addEventListener('blur', function () { validateField(input); });
+          input.addEventListener('input', function () {
+            if (input.classList.contains('invalid')) validateField(input);
+          });
+        });
+
         form.addEventListener('submit', function (e) {
           e.preventDefault();
-          if (!form.reportValidity()) return;
+          let valid = true;
+          required.forEach(function (input) { if (!validateField(input)) valid = false; });
+          if (!valid) {
+            const firstInvalid = form.querySelector('.invalid');
+            if (firstInvalid) firstInvalid.focus();
+            return;
+          }
           const btn = form.querySelector('button[type="submit"]');
           const original = btn ? btn.textContent : '';
           if (btn) { btn.disabled = true; btn.textContent = 'Submitting…'; }
@@ -209,6 +285,70 @@
             if (btn) { btn.disabled = false; btn.textContent = original; }
             alert('Sorry, something went wrong submitting the form. Please try again or email us directly.');
           });
+        });
+      })();
+
+      // Custom Investor Type dropdown (always opens below; keyboard + ARIA)
+      (function () {
+        const root = document.querySelector('.fr-select');
+        if (!root) return;
+        const btn = root.querySelector('.fr-select__btn');
+        const list = root.querySelector('.fr-select__list');
+        const valueEl = root.querySelector('.fr-select__value');
+        const hidden = root.querySelector('input[type="hidden"]');
+        const opts = Array.prototype.slice.call(root.querySelectorAll('.fr-select__opt'));
+        let activeIndex = -1;
+
+        function setActive(i) {
+          if (i < 0 || i >= opts.length) return;
+          opts.forEach(function (o) { o.classList.remove('active'); });
+          activeIndex = i;
+          opts[i].classList.add('active');
+          opts[i].scrollIntoView({ block: 'nearest' });
+        }
+        function open() {
+          root.classList.add('open');
+          btn.setAttribute('aria-expanded', 'true');
+          let sel = opts.findIndex(function (o) { return o.getAttribute('aria-selected') === 'true'; });
+          setActive(sel >= 0 ? sel : 0);
+          list.focus();
+        }
+        function close() {
+          root.classList.remove('open');
+          btn.setAttribute('aria-expanded', 'false');
+        }
+        function choose(opt) {
+          opts.forEach(function (o) { o.removeAttribute('aria-selected'); });
+          opt.setAttribute('aria-selected', 'true');
+          valueEl.textContent = opt.getAttribute('data-value');
+          valueEl.classList.remove('is-placeholder');
+          hidden.value = opt.getAttribute('data-value');
+          close();
+          btn.focus();
+        }
+
+        btn.addEventListener('click', function () {
+          root.classList.contains('open') ? close() : open();
+        });
+        opts.forEach(function (opt, i) {
+          opt.addEventListener('click', function () { choose(opt); });
+          opt.addEventListener('mousemove', function () { setActive(i); });
+        });
+        document.addEventListener('click', function (e) {
+          if (!root.contains(e.target)) close();
+        });
+        root.addEventListener('keydown', function (e) {
+          const isOpen = root.classList.contains('open');
+          if (!isOpen) {
+            if (e.key === 'ArrowDown') { e.preventDefault(); open(); }
+            return;
+          }
+          if (e.key === 'Escape') { e.preventDefault(); close(); btn.focus(); }
+          else if (e.key === 'ArrowDown') { e.preventDefault(); setActive(Math.min(activeIndex + 1, opts.length - 1)); }
+          else if (e.key === 'ArrowUp') { e.preventDefault(); setActive(Math.max(activeIndex - 1, 0)); }
+          else if (e.key === 'Home') { e.preventDefault(); setActive(0); }
+          else if (e.key === 'End') { e.preventDefault(); setActive(opts.length - 1); }
+          else if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); if (activeIndex >= 0) choose(opts[activeIndex]); }
         });
       })();
     </script>
