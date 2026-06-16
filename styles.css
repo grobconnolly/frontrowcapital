@@ -20,7 +20,8 @@
   background: var(--navy);
   color: var(--ink);
   position: relative;
-  overflow-x: hidden;
+  overflow-x: hidden; /* fallback for older browsers */
+  overflow-x: clip;   /* avoids iOS WebKit phantom scroll-past-footer (hidden makes body a scroll container) */
 }
 
 /* ========================================
