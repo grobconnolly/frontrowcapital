@@ -20,8 +20,7 @@
   background: var(--navy);
   color: var(--ink);
   position: relative;
-  overflow-x: hidden; /* fallback for older browsers */
-  overflow-x: clip;   /* avoids iOS WebKit phantom scroll-past-footer (hidden makes body a scroll container) */
+  overflow-x: hidden;
 }
 
 /* ========================================
@@ -43,7 +42,7 @@ body *:not(.bi):not([class*="bi-"]){
    BACKGROUND
    ======================================== */
 .bg-layer{
-  position: absolute; /* was fixed: iOS WebKit inflates scroll height for fixed full-viewport elements */
+  position: fixed;
   inset: 0;
   z-index: -3;
   background: var(--navy);
