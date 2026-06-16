@@ -34,7 +34,7 @@
       .book-main{ padding-top: 44px; padding-bottom: 48px; }
       @media (min-width: 768px){ .book-main{ padding-top: 64px; } }
       .book-card{ max-width: 900px; margin: 0 auto; }
-      .book-frame{ margin-top: 0; border: 1px solid var(--rule); background: var(--paper); }
+      .book-frame{ margin-top: 0; background: transparent; }
       #cal-inline{ width: 100%; min-height: 560px; overflow: hidden; }
     </style>
   </head>
@@ -135,7 +135,23 @@
         config: { layout: "month_view" },
         calLink: "team/front-row-capital/30meeting",
       });
-      Cal.ns["30meeting"]("ui", { hideEventTypeDetails: false, layout: "month_view" });
+      Cal.ns["30meeting"]("ui", {
+        theme: "dark",
+        cssVarsPerTheme: {
+          dark: {
+            "cal-bg": "#0d1d35",
+            "cal-bg-emphasis": "#162840",
+            "cal-bg-subtle": "#162840",
+            "cal-bg-muted": "#0d1d35",
+            "cal-border": "rgba(255,255,255,0.14)",
+            "cal-border-emphasis": "rgba(255,255,255,0.28)",
+            "cal-border-subtle": "rgba(255,255,255,0.10)",
+            "cal-brand": "#ffffff"
+          }
+        },
+        hideEventTypeDetails: false,
+        layout: "month_view"
+      });
     </script>
   </body>
 </html>
