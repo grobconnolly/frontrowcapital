@@ -114,18 +114,24 @@ header {
 }
 
 .mobile-nav {
+  display: none; /* removed from layout when closed; a transform-hidden fixed
+                    panel inflates scroll height on iOS WebKit (scroll-past-footer) */
   position: fixed;
   inset: 0;
   background: var(--navy);
   padding: 64px 28px 36px;
-  transform: translateY(-100%);
-  transition: transform 0.3s ease;
   z-index: 999;
   overflow-y: auto;
 }
 
 .mobile-nav.active {
-  transform: translateY(0);
+  display: block;
+  animation: mobileNavIn 0.3s ease;
+}
+
+@keyframes mobileNavIn {
+  from { transform: translateY(-100%); }
+  to { transform: translateY(0); }
 }
 
 .mobile-nav__inner {
