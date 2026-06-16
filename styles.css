@@ -741,13 +741,25 @@ footer{
   }
   /* Avoid doubling the gap before the next section */
   #contact { padding-top: 0 !important; }
-  /* Terms strip: stack the three stats evenly instead of an awkward 2 + 1 wrap */
+  /* Terms strip: 3-column stat bar — label stacked over value, evenly spread */
   .terms-strip {
-    flex-direction: column;
-    align-items: center;
-    gap: 10px;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: flex-start;
+    justify-content: space-between !important;
+    gap: 8px;
     margin-top: 26px;
     padding-top: 20px;
+    font-size: 10px;
+  }
+  .terms-strip span {
+    flex: 1;
+    text-align: center;
+    line-height: 1.5;
+  }
+  .terms-strip b {
+    display: block;
+    margin-bottom: 3px;
   }
   /* Submit button spans the form like the inputs above it */
   #contact form .btn-fr-solid { width: 100%; }

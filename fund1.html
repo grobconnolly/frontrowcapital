@@ -249,6 +249,7 @@
       @media (max-width: 600px){
         .lp-progress__row{ flex-direction: column; align-items: flex-start; gap: 10px; }
         .lp-progress__right{ text-align: left; }
+        .lp-progress__rank{ font-weight: 400; }
       }
       .lp-foot{
         font-family: 'JetBrains Mono', monospace;
@@ -418,6 +419,9 @@
       .lp-person img{ width: 120px; height: 120px; aspect-ratio: 1 / 1; object-fit: cover; object-position: center; display: block; flex: 0 0 auto; }
       .lp-person__body{ padding: 0; min-width: 0; }
       .lp-team-row > .col-12 + .col-12 .lp-person{ border-top: 0; }
+      @media (max-width: 600px){
+        .lp-person{ align-items: flex-start; }
+      }
       html{ scroll-behavior: smooth; }
 
       /* Terms list ----------------------------------------- */
@@ -597,7 +601,7 @@
             <div class="terms-strip" style="justify-content:flex-start;">
               <span><b>FUND</b> $10M</span>
               <span><b>MINIMUM</b> $100K</span>
-              <span><b>ACCESS</b> Accredited only</span>
+              <span><b>ACCESS</b> Accredited</span>
             </div>
           </div>
         </div>
