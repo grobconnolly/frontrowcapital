@@ -553,7 +553,7 @@
           <a href="fund1.html" class="btn btn-fr-outline btn-sm px-3" aria-current="page">Fund 1</a>
           <a href="team.html" class="btn btn-fr-outline btn-sm px-3">Team</a>
           <a href="contact.html" class="btn btn-fr-outline btn-sm px-3">Contact</a>
-          <a href="https://cal.com/team/front-row-capital/frontrowintro30" target="_blank" rel="noopener" class="btn btn-fr-solid btn-sm px-3">Book a Call</a>
+          <a href="https://cal.com/team/front-row-capital/frontrowintro30" data-cal-link="team/front-row-capital/frontrowintro30" data-cal-namespace="frontrowintro30" data-cal-config='{"layout":"month_view","useSlotsViewOnSmallScreen":"true","theme":"light"}' target="_blank" rel="noopener" class="btn btn-fr-solid btn-sm px-3">Book a Call</a>
         </nav>
 
         <!-- Mobile Menu Toggle -->
@@ -574,7 +574,7 @@
             <a href="fund1.html">Explore Fund 1</a>
             <a href="team.html">Meet The Team</a>
             <a href="contact.html">Contact Us</a>
-            <a href="https://cal.com/team/front-row-capital/frontrowintro30" target="_blank" rel="noopener">Book a Call</a>
+            <a href="https://cal.com/team/front-row-capital/frontrowintro30" data-cal-link="team/front-row-capital/frontrowintro30" data-cal-namespace="frontrowintro30" data-cal-config='{"layout":"month_view","useSlotsViewOnSmallScreen":"true","theme":"light"}' target="_blank" rel="noopener">Book a Call</a>
           </nav>
           <a href="https://www.linkedin.com/company/front-row-capital-sports/" target="_blank" rel="noopener" class="mobile-nav__social" aria-label="Front Row Capital on LinkedIn">
             <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
@@ -867,7 +867,7 @@
                   <h3 class="lp-h2" style="font-size:1.6rem;margin:0 0 10px;">Let's talk.</h3>
                   <p class="lp-lead" style="color:rgba(255,255,255,0.82);margin:0 0 20px;">We'll walk you through everything in 30 min.</p>
                   <div>
-                    <a href="https://cal.com/team/front-row-capital/frontrowintro30" target="_blank" rel="noopener" class="btn btn-fr-solid px-4">Book a Call →</a>
+                    <a href="https://cal.com/team/front-row-capital/frontrowintro30" data-cal-link="team/front-row-capital/frontrowintro30" data-cal-namespace="frontrowintro30" data-cal-config='{"layout":"month_view","useSlotsViewOnSmallScreen":"true","theme":"light"}' target="_blank" rel="noopener" class="btn btn-fr-solid px-4">Book a Call →</a>
                   </div>
                 </div>
               </div>
@@ -954,14 +954,6 @@
       Cal.config = Cal.config || {};
       Cal.config.forwardQueryParams = true;
       Cal.ns.frontrowintro30("ui", { "theme": "light", "cssVarsPerTheme": { "light": { "cal-brand": "#0D1D35" }, "dark": { "cal-brand": "#ffffff" } }, "hideEventTypeDetails": false, "layout": "month_view" });
-      document.querySelectorAll('a[href*="front-row-capital/frontrowintro30"]').forEach(function (el) {
-        el.setAttribute('data-cal-link', 'team/front-row-capital/frontrowintro30');
-        el.setAttribute('data-cal-namespace', 'frontrowintro30');
-        el.setAttribute('data-cal-config', '{"layout":"month_view","useSlotsViewOnSmallScreen":"true","theme":"light"}');
-        el.removeAttribute('target');
-        el.removeAttribute('rel');
-      });
     </script>
-.
   </body>
 </html>
