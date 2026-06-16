@@ -136,14 +136,14 @@ header {
 
 .mobile-nav__logo {
   align-self: center;
-  width: 100%;
-  max-width: 380px;
+  width: 80%;
+  max-width: 304px;
   aspect-ratio: 1 / 1;
   border: 1px solid rgba(255,255,255,0.2);
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 48px;
+  padding: 38px;
   margin-bottom: 0;
 }
 .mobile-nav__logo img {
