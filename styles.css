@@ -117,7 +117,7 @@ header {
   position: fixed;
   inset: 0;
   background: var(--navy);
-  padding: 22px 28px 36px;
+  padding: 64px 28px 36px;
   transform: translateY(-100%);
   transition: transform 0.3s ease;
   z-index: 999;
