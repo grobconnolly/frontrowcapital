@@ -135,11 +135,11 @@ header {
 }
 
 .mobile-nav__logo {
-  display: inline-block;
-  margin-bottom: 34px;
+  align-self: center;
+  margin: auto 0;
 }
 .mobile-nav__logo img {
-  height: 38px;
+  height: 60px;
   width: auto;
   display: block;
 }
@@ -174,8 +174,8 @@ header {
 }
 
 .mobile-nav__social {
-  margin-top: auto;
-  padding-top: 36px;
+  align-self: center;
+  padding-top: 24px;
   display: inline-flex;
   align-items: center;
   gap: 10px;
