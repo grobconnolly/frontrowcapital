@@ -293,6 +293,94 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     .br-row.total .value { font-size: 28px; }
   }
 
+  /* PAYBACK SCHEDULE */
+  .payback-section {
+    background: var(--paper-dim); border: 2px solid var(--field);
+    padding: 20px 18px; margin-bottom: 18px; position: relative;
+  }
+  @media (min-width: 768px) {
+    .payback-section { padding: 24px 26px; margin-bottom: 22px; }
+  }
+  .payback-head {
+    display: flex; flex-wrap: wrap; justify-content: space-between;
+    align-items: baseline; gap: 8px;
+    margin-bottom: 14px; padding-bottom: 12px;
+    border-bottom: 2px solid var(--field);
+  }
+  .payback-title {
+    font-family: 'Big Shoulders Display', sans-serif; font-weight: 900;
+    font-size: 22px; color: var(--field); text-transform: uppercase;
+    letter-spacing: 0.02em;
+  }
+  @media (min-width: 768px) { .payback-title { font-size: 26px; } }
+  .payback-sub {
+    font-family: 'Oswald', sans-serif; font-size: 10px; letter-spacing: 0.16em;
+    color: var(--ink-soft); text-transform: uppercase;
+  }
+  @media (min-width: 768px) { .payback-sub { font-size: 11px; } }
+  .payback-callout {
+    font-family: 'Lora', Georgia, serif; font-size: 14px; line-height: 1.5;
+    color: var(--ink); background: var(--paper);
+    border-left: 4px solid var(--field); padding: 12px 16px; margin-bottom: 16px;
+  }
+  .payback-callout b {
+    font-family: 'Big Shoulders Display', sans-serif; font-weight: 900;
+    color: var(--field); letter-spacing: 0.01em;
+  }
+  .payback-callout.miss { border-left-color: var(--ink-soft); }
+  .payback-table-wrap { overflow-x: auto; }
+  .payback-table {
+    width: 100%; border-collapse: collapse;
+    font-family: 'JetBrains Mono', monospace; font-size: 12px;
+  }
+  @media (min-width: 768px) { .payback-table { font-size: 13px; } }
+  .payback-table thead th {
+    font-family: 'Oswald', sans-serif; font-size: 9.5px; font-weight: 600;
+    letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-soft);
+    text-align: left; padding: 6px 10px; border-bottom: 2px solid var(--field);
+    white-space: nowrap;
+  }
+  @media (min-width: 768px) { .payback-table thead th { font-size: 10px; } }
+  .payback-table th.num, .payback-table td.num { text-align: right; }
+  .payback-table tbody td {
+    padding: 7px 10px; border-bottom: 1px dashed var(--paper-shadow);
+    color: var(--ink); white-space: nowrap;
+  }
+  .payback-table tbody tr:last-child td { border-bottom: 0; }
+  .payback-table .yr {
+    font-family: 'Oswald', sans-serif; letter-spacing: 0.06em; color: var(--field);
+    font-weight: 600;
+  }
+  .payback-table .yr small {
+    font-family: 'JetBrains Mono', monospace; font-weight: 400;
+    color: var(--ink-soft); font-size: 0.82em; margin-left: 6px; letter-spacing: 0;
+  }
+  .payback-table td.neg { color: #b91c1c; }
+  .payback-table td.zero { color: var(--ink-soft); opacity: 0.5; }
+  .payback-table tbody tr.payback-row td {
+    background: rgba(13,29,53,0.06); font-weight: 700;
+    border-bottom: 1px solid var(--field);
+  }
+  .payback-table tbody tr.payback-row .yr::after {
+    content: 'PAID BACK'; display: inline-block; margin-left: 8px;
+    font-family: 'Oswald', sans-serif; font-size: 8.5px; font-weight: 600;
+    letter-spacing: 0.12em; color: var(--paper); background: var(--field);
+    padding: 1px 6px; vertical-align: 1px;
+  }
+  .payback-table tbody tr.total-row td {
+    border-top: 2px solid var(--field); border-bottom: 0;
+    padding-top: 11px; font-weight: 700;
+  }
+  .payback-table tbody tr.total-row .yr {
+    font-family: 'Big Shoulders Display', sans-serif; font-weight: 900;
+    font-size: 1.25em; letter-spacing: 0.01em;
+  }
+  .payback-note {
+    margin-top: 14px; padding-top: 12px; border-top: 1px solid var(--paper-shadow);
+    font-family: 'Lora', Georgia, serif; font-style: italic; font-size: 11.5px;
+    line-height: 1.5; color: var(--ink-soft);
+  }
+
   /* ROSTER */
   .roster-section {
     background: var(--paper-dim); border: 2px solid var(--field);
@@ -913,6 +1001,29 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     </div>
   </div>
 
+  <!-- Payback Schedule -->
+  <section class="payback-section" id="paybackSection" hidden>
+    <div class="payback-head">
+      <div class="payback-title">Payback Schedule</div>
+      <div class="payback-sub" id="paybackSub">Year-by-year LP cash flow</div>
+    </div>
+    <div class="payback-callout" id="paybackCallout"></div>
+    <div class="payback-table-wrap">
+      <table class="payback-table">
+        <thead>
+          <tr>
+            <th>Fund Year</th>
+            <th class="num">Capital Called</th>
+            <th class="num">Distribution</th>
+            <th class="num">Cumulative</th>
+          </tr>
+        </thead>
+        <tbody id="paybackBody"></tbody>
+      </table>
+    </div>
+    <div class="payback-note">Capital calls are your share of the fund's drawdowns; distributions are your net cash after management fees and 20% carry. Early-year negatives are fee drag before drafted players reach the majors. Scales linearly with your commitment. Backtest only — not a projection.</div>
+  </section>
+
   <!-- Monte Carlo Panel -->
   <section class="mc-panel" id="mcPanel" hidden>
     <div class="mc-head">
@@ -1174,7 +1285,7 @@ function simulate(selected, fundStart, timelineLen) {
   const lpCf = new Array(timelineLen);
   for (let i = 0; i < timelineLen; i++) lpCf[i] = lpDist[i] - calls[i];
   const ir = irr(lpCf);
-  return { grossTotal, totalFees, totalGp, totalLp, totalCalled, moic, irr: ir, calls };
+  return { grossTotal, totalFees, totalGp, totalLp, totalCalled, moic, irr: ir, calls, lpDist, fundStart };
 }
 
 // Rank-pool modes
@@ -1246,6 +1357,7 @@ function timelineForVintage(v, selected) {
 function updateUserReturn() {
   if (!lastResult) {
     document.getElementById('userReturn').textContent = '—';
+    if (paybackSectionEl) paybackSectionEl.hidden = true;
     return;
   }
   const userNet = lastResult.moic * commit;
@@ -1253,6 +1365,93 @@ function updateUserReturn() {
     userNet >= 1_000_000
       ? (userNet/1_000_000).toFixed(2) + 'M'
       : Math.round(userNet/1000).toLocaleString() + 'K';
+  renderPayback();
+}
+
+const paybackSectionEl = document.getElementById('paybackSection');
+const paybackBodyEl    = document.getElementById('paybackBody');
+const paybackSubEl     = document.getElementById('paybackSub');
+const paybackCalloutEl = document.getElementById('paybackCallout');
+
+// Signed money, always shown with sign and rounded to the nearest dollar-ish unit.
+function fmtSigned(n) {
+  if (Math.abs(n) < 0.5) return '$0';
+  return (n < 0 ? '−' : '+') + fmtMoneyShort(Math.abs(n));
+}
+
+// Year-by-year LP cash flow, scaled to the user's commitment. The fund-level
+// simulate() returns per-year capital calls and per-year net-to-LP distributions
+// on the $8.5M ISA basis; an LP's share scales linearly by commit / totalCalled.
+function renderPayback() {
+  if (!lastResult || !lastResult.lpDist || simMode !== 'single') {
+    paybackSectionEl.hidden = true;
+    return;
+  }
+  const r = lastResult;
+  const scale = commit / r.totalCalled;
+  const n = r.lpDist.length;
+
+  // Trim the trailing tail of years with no meaningful LP cash flow.
+  let lastIdx = 0;
+  for (let i = 0; i < n; i++) {
+    const net = (r.lpDist[i] - r.calls[i]) * scale;
+    if (Math.round(net) !== 0) lastIdx = i;
+  }
+
+  let cum = 0, paybackIdx = -1;
+  let rows = '';
+  for (let i = 0; i <= lastIdx; i++) {
+    const call = r.calls[i] * scale;
+    const dist = r.lpDist[i] * scale;
+    cum += dist - call;
+    if (paybackIdx < 0 && cum >= 0) paybackIdx = i;
+
+    const callCell = call > 0.5
+      ? `<td class="num neg">−${fmtMoneyShort(call)}</td>`
+      : `<td class="num zero">—</td>`;
+    const distCls = dist < -0.5 ? 'neg' : (Math.abs(dist) < 0.5 ? 'zero' : '');
+    const distCell = Math.abs(dist) < 0.5
+      ? `<td class="num zero">—</td>`
+      : `<td class="num ${distCls}">${fmtSigned(dist)}</td>`;
+    const cumCls = cum < -0.5 ? 'neg' : '';
+
+    rows += `<tr class="${i === paybackIdx ? 'payback-row' : ''}">
+      <td class="yr">Year ${i + 1}<small>${r.fundStart + i}</small></td>
+      ${callCell}
+      ${distCell}
+      <td class="num ${cumCls}">${fmtSigned(cum)}</td>
+    </tr>`;
+  }
+
+  // Totals row.
+  const totalIn   = r.totalCalled * scale;
+  const totalNet  = r.totalLp * scale;
+  const profit    = totalNet - totalIn;
+  rows += `<tr class="total-row">
+    <td class="yr">Total</td>
+    <td class="num neg">−${fmtMoneyShort(totalIn)}</td>
+    <td class="num">${fmtSigned(totalNet)}</td>
+    <td class="num ${profit < 0 ? 'neg' : ''}">${fmtSigned(profit)}</td>
+  </tr>`;
+  paybackBodyEl.innerHTML = rows;
+
+  paybackSubEl.textContent = `On a ${fmtCommit(commit)} commitment · ${VINTAGES[vintage].eyebrow}`;
+
+  if (paybackIdx >= 0) {
+    const yrsToPayback = paybackIdx; // years after the first capital call (Year 1)
+    paybackCalloutEl.className = 'payback-callout';
+    paybackCalloutEl.innerHTML =
+      `Your <b>${fmtCommit(commit)}</b> is fully returned in <b>${r.fundStart + paybackIdx}</b> ` +
+      `(fund Year ${paybackIdx + 1}, ~${yrsToPayback} ${yrsToPayback === 1 ? 'year' : 'years'} after your first call). ` +
+      `Everything after is profit — this draw nets <b>${fmtSigned(profit)}</b> on a <b>${r.moic.toFixed(2)}×</b> return.`;
+  } else {
+    paybackCalloutEl.className = 'payback-callout miss';
+    paybackCalloutEl.innerHTML =
+      `In this draw your <b>${fmtCommit(commit)}</b> is <b>not fully recovered</b> over the fund's life — ` +
+      `ending at <b>${fmtSigned(profit)}</b> (${r.moic.toFixed(2)}×). Roll again or widen the player pool.`;
+  }
+
+  paybackSectionEl.hidden = false;
 }
 
 function refreshHeaderCopy() {
@@ -1262,6 +1461,7 @@ function refreshHeaderCopy() {
 
 function resetResultDisplay() {
   lastResult = null;
+  paybackSectionEl.hidden = true;
   document.getElementById('userReturn').textContent = '—';
   document.getElementById('netMoic').textContent = '—';
   document.getElementById('netIrr').textContent  = '—';
@@ -1421,6 +1621,7 @@ simModeBtns.forEach(btn => {
       mcModeNoteEl.hidden = false;
       rollBtn.innerHTML = 'Run Monte Carlo<span class="arrow">→</span>';
       singleRollResultsEl.hidden = true;
+      paybackSectionEl.hidden = true;
       simLogEl.hidden = true;
       rosterSectionEl.hidden = true;
     } else {
@@ -1429,6 +1630,7 @@ simModeBtns.forEach(btn => {
       singleRollResultsEl.hidden = false;
       rosterSectionEl.hidden = false;
       renderSimLog(); // restore sim log state
+      renderPayback(); // restore payback schedule if a roll exists
       mcPanel.hidden = true;
     }
   });
