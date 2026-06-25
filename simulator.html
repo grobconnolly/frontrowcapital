@@ -293,6 +293,53 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     .br-row.total .value { font-size: 28px; }
   }
 
+  /* CHERRY-ON-TOP BAND ($1.5M Finlete equity, uncounted upside) */
+  .cherry-band {
+    display: flex; align-items: stretch; gap: 0;
+    background: var(--paper); border: 2px solid var(--field);
+    border-left: 6px solid var(--field);
+    margin-bottom: 18px; position: relative; overflow: hidden;
+  }
+  @media (min-width: 768px) { .cherry-band { margin-bottom: 22px; } }
+  .cherry-badge {
+    flex: 0 0 auto; align-self: stretch;
+    display: flex; flex-direction: column; justify-content: center; align-items: center;
+    background: var(--field); color: var(--paper);
+    padding: 14px 18px; text-align: center; min-width: 116px;
+  }
+  @media (min-width: 768px) { .cherry-badge { padding: 16px 24px; min-width: 140px; } }
+  .cherry-badge-amt {
+    font-family: 'Big Shoulders Display', sans-serif; font-weight: 900;
+    font-size: 30px; line-height: 0.95; letter-spacing: -0.01em;
+  }
+  @media (min-width: 768px) { .cherry-badge-amt { font-size: 38px; } }
+  .cherry-badge-label {
+    font-family: 'Oswald', sans-serif; font-size: 9px; font-weight: 500;
+    letter-spacing: 0.18em; text-transform: uppercase;
+    color: rgba(255,255,255,0.72); margin-top: 4px;
+  }
+  @media (min-width: 768px) { .cherry-badge-label { font-size: 10px; } }
+  .cherry-copy { padding: 13px 16px; align-self: center; }
+  @media (min-width: 768px) { .cherry-copy { padding: 16px 22px; } }
+  .cherry-eyebrow {
+    font-family: 'Oswald', sans-serif; font-weight: 600;
+    font-size: 9.5px; letter-spacing: 0.22em; text-transform: uppercase;
+    color: var(--field); opacity: 0.7; margin-bottom: 5px;
+  }
+  @media (min-width: 768px) { .cherry-eyebrow { font-size: 10.5px; } }
+  .cherry-text {
+    font-family: 'Lora', Georgia, serif; font-size: 13px; line-height: 1.5;
+    color: var(--ink); margin: 0;
+  }
+  @media (min-width: 768px) { .cherry-text { font-size: 14px; } }
+  .cherry-text b { color: var(--field); font-weight: 700; }
+  @media (max-width: 575px) {
+    .cherry-band { flex-direction: column; border-left-width: 2px; border-top: 6px solid var(--field); }
+    .cherry-badge { flex-direction: row; gap: 8px; min-width: 0; padding: 9px 14px; }
+    .cherry-badge-amt { font-size: 24px; }
+    .cherry-badge-label { margin-top: 0; }
+  }
+
   /* PAYBACK SCHEDULE */
   .payback-section {
     background: var(--paper-dim); border: 2px solid var(--field);
@@ -366,6 +413,17 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     font-family: 'Oswald', sans-serif; font-size: 8.5px; font-weight: 600;
     letter-spacing: 0.12em; color: var(--paper); background: var(--field);
     padding: 1px 6px; vertical-align: 1px;
+  }
+  .payback-table tbody tr.sale-row td {
+    background: rgba(13,29,53,0.045);
+    border-bottom: 1px solid var(--field);
+  }
+  .payback-table .sale-badge {
+    display: inline-block; margin-left: 8px;
+    font-family: 'Oswald', sans-serif; font-size: 8.5px; font-weight: 600;
+    letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--field); background: var(--paper);
+    border: 1px solid var(--field); padding: 1px 6px; vertical-align: 1px;
   }
   .payback-table tbody tr.total-row td {
     border-top: 2px solid var(--field); border-bottom: 0;
@@ -970,6 +1028,17 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     </div>
   </div>
 
+  <div class="cherry-band" id="cherryBand">
+    <div class="cherry-badge">
+      <span class="cherry-badge-amt">+$1.5M</span>
+      <span class="cherry-badge-label">Finlete equity</span>
+    </div>
+    <div class="cherry-copy">
+      <div class="cherry-eyebrow">Not counted in a single number below</div>
+      <p class="cherry-text">Everything on this page is the <b>$8.5M ISA sleeve</b> alone. The $10M fund also holds <b>$1.5M of equity in Finlete</b> — the platform that sources and services these deals. It earns nothing in this backtest and never touches your MOIC, IRR, or payback. Pure upside, sitting on top of every result you see. <b>The cherry.</b></p>
+    </div>
+  </div>
+
   <div id="singleRollResults" class="row g-3 mb-3 mb-md-4">
     <div class="col-12 col-lg-7">
       <div class="hero-panel">
@@ -993,8 +1062,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <div class="breakdown-panel">
         <div class="breakdown-title">ISA Portfolio Waterfall</div>
         <div class="br-row"><span class="label">ISA Capital Deployed</span><span class="value">$8,500,000</span></div>
-        <div class="br-row"><span class="label">Gross Collections (5%)</span><span class="value" id="bGross">—</span></div>
-        <div class="br-row"><span class="label">Mgmt Fees (12 yrs)</span><span class="value" id="bFees">—</span></div>
+        <div class="br-row"><span class="label">Live Collections (Yrs 1–15)</span><span class="value" id="bGross">—</span></div>
+        <div class="br-row"><span class="label">Secondary Sale, Yr 15 (PV)</span><span class="value" id="bSale">—</span></div>
+        <div class="br-row"><span class="label">Mgmt Fees (15 yrs)</span><span class="value" id="bFees">—</span></div>
         <div class="br-row"><span class="label">GP Carry (20%)</span><span class="value" id="bCarry">—</span></div>
         <div class="br-row total"><span class="label">Net to LPs</span><span class="value" id="bNetLp">—</span></div>
       </div>
@@ -1013,7 +1083,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <thead>
           <tr>
             <th>Fund Year</th>
-            <th class="num">Capital Called</th>
+            <th class="num">Capital Invested</th>
             <th class="num">Distribution</th>
             <th class="num">Cumulative</th>
           </tr>
@@ -1021,7 +1091,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <tbody id="paybackBody"></tbody>
       </table>
     </div>
-    <div class="payback-note">Capital calls are your share of the fund's drawdowns; distributions are your net cash after management fees and 20% carry. Early-year negatives are fee drag before drafted players reach the majors. Scales linearly with your commitment. Backtest only — not a projection.</div>
+    <div class="payback-note">Your full commitment is invested upfront in Year 1 — there are no capital calls. Distributions are your net cash after management fees and 20% carry. Early-year negatives are fee drag before drafted players reach the majors. The fund's 15-year life is a hard stop: positions still earning after the term are sold to a successor Front Row fund or private buyers, valued at the present value of their remaining collections at a 12% buyer's discount — so LPs are never asked to wait two decades for a single career to finish. Scales linearly with your commitment. Backtest only — not a projection.</div>
   </section>
 
   <!-- Monte Carlo Panel -->
@@ -1066,7 +1136,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
   <footer class="almanac-foot">
     <div class="meth">Methodology</div>
-    <p>Player earnings data covers 2012–2044 (FanGraphs Top 100 prospect lists from 2012, 2013, and 2014; MLB salaries from baseball-reference / Spotrac). Pick a single-vintage (2012, 2013, or 2014) to draw 30 random prospects from that year's Top 100, or pick <b>3-Year</b> to model a 2012-vintage fund deploying across a 3-year investment period (2012–2014). In 3-year mode each year is treated as an independent draft. The per-year cadence is randomized each roll: three integers in [3, 18] summing to 30. For each year the rank filter (Full 100 / P10–P90 / P25–P75) is applied to that year's Top 100, then the per-year batch is drawn at random from that year's eligible pool. After all three drafts, the simulator scans for cross-year duplicates (same player on two or more lists). For each duplicate the earlier year's slot is replaced with a fresh random pick from that year's eligible pool — excluding everyone already on the combined roster — and the dedupe scan repeats until clean. Each pick costs $283K for 5% of their MLB career earnings; capital is called in the year each player is signed, so 3-year mode's capital calls are staggered across 2012–2014. The 30 picks together total the $8.5M ISA portfolio. Fund life is a 12-year base term plus three 1-year extensions (15 years total). Management fees ($170K/yr in years 1–3, $42.5K/yr in years 4–15) are charged on the $8.5M ISA portfolio basis from fund inception (2012). Distributions follow a European whole-fund waterfall on the ISA portfolio: 100% to LPs until $8.5M of ISA capital is returned, then 80% LP / 20% GP. Net LP IRR is computed via bisection on the LP's actual cash-flow stream (capital calls less distributions in each fund-year). Backtest only — past performance is not indicative of future results. <i>Confidential. For accredited investor discussion only.</i></p>
+    <p>Player earnings data covers 2012–2044 (FanGraphs Top 100 prospect lists from 2012, 2013, and 2014; MLB salaries from baseball-reference / Spotrac). Pick a single-vintage (2012, 2013, or 2014) to draw 30 random prospects from that year's Top 100, or pick <b>3-Year</b> to model a 2012-vintage fund deploying across a 3-year investment period (2012–2014). In 3-year mode each year is treated as an independent draft. The per-year cadence is randomized each roll: three integers in [3, 18] summing to 30. For each year the rank filter (Full 100 / P10–P90 / P25–P75) is applied to that year's Top 100, then the per-year batch is drawn at random from that year's eligible pool. After all three drafts, the simulator scans for cross-year duplicates (same player on two or more lists). For each duplicate the earlier year's slot is replaced with a fresh random pick from that year's eligible pool — excluding everyone already on the combined roster — and the dedupe scan repeats until clean. Each pick costs $283K for 5% of their MLB career earnings; the 30 picks together total the $8.5M ISA portfolio. The full $8.5M is invested upfront at fund inception (2012) — there are no capital calls, even in 3-year mode where players are signed across 2012–2014. Fund life is a 12-year base term plus three 1-year extensions (15 years total). Management fees ($170K/yr in years 1–3, $42.5K/yr in years 4–15) are charged on the $8.5M ISA portfolio basis from fund inception (2012). The 15-year term is a hard stop on the schedule: ISA collections in years 1–15 are realized live, and every position still earning after the term (a player's career can run to 2044) is sold at the end of year 15 — to a successor Front Row fund or to private investors — for the present value of its remaining collections, discounted at a 12% secondary-buyer required return. Those sale proceeds are realized in year 15 and run through the same waterfall, so no LP cash flow falls outside the fund's life. Distributions follow a European whole-fund waterfall on the ISA portfolio: 100% to LPs until $8.5M of ISA capital is returned, then 80% LP / 20% GP. Net LP IRR is computed via bisection on the LP's actual cash-flow stream (the full upfront investment in Year 1, then distributions in each fund-year through year 15). Backtest only — past performance is not indicative of future results. <i>Confidential. For accredited investor discussion only.</i></p>
   </footer>
 
 </div>
@@ -1095,6 +1165,8 @@ const FEE_LATE_RATE  = 0.005;
 const FEE_EARLY_YEARS = 3;
 const FEE_LATE_YEARS  = 12; // years 4..15 inclusive (12-yr base + 3 extensions)
 const FEE_TOTAL_YEARS = FEE_EARLY_YEARS + FEE_LATE_YEARS; // 15
+const TERM_YEARS = FEE_TOTAL_YEARS; // fund life = 15 yrs; positions are sold at term end
+const SECONDARY_DISCOUNT = 0.12;    // buyer's required return on residual future earnings
 
 // Vintage configs: each vintage has its own player list whose `e` array is
 // indexed 0..30 = vintage_year .. vintage_year+30.
@@ -1235,38 +1307,20 @@ function pickRandom(pool, n) {
 // timelineLen is the total number of fund-years to compute.
 //
 // Model:
-//   - LP capital is called as each player is signed (in that player's attribution year).
-//     30 picks * (FUND / 30) = FUND, called over the 1- or 3-year deployment period.
+//   - LP capital is invested in full at fund inception (year 0). No capital calls —
+//     the entire $8.5M ISA commitment is wired upfront, regardless of when players sign.
 //   - Player earnings begin in their attribution year.
 //   - Mgmt fees (2% Y1-3, 0.5% Y4-15) charged from fund inception on $8.5M ISA basis.
 //   - European whole-fund waterfall: 100% to LPs until $8.5M of capital is returned, then 80/20.
-//   - LP IRR is computed on the LP's actual cash-flow stream (capital calls negative,
-//     distributions positive) — so deferred calls in 3-year mode boost IRR realistically.
-function simulate(selected, fundStart, timelineLen) {
-  const annual = new Array(timelineLen).fill(0);
-  const calls  = new Array(timelineLen).fill(0);
-  for (const p of selected) {
-    const off = p.vintage - fundStart;
-    if (off < 0 || off >= timelineLen) continue;
-    calls[off] += PER_PICK_CAPITAL;
-    const eLen = p.e.length;
-    for (let i = 0; i < eLen; i++) {
-      const t = i + off;
-      if (t >= timelineLen) break;
-      annual[t] += p.e[i] * PCT;
-    }
-  }
-  // Mgmt fees: 15-year clock from fund inception (12-yr base + 3 extensions)
-  const mgmt = new Array(timelineLen).fill(0);
-  for (let i = 0; i < FEE_EARLY_YEARS && i < timelineLen; i++) mgmt[i] = FEE_EARLY;
-  for (let i = FEE_EARLY_YEARS; i < FEE_TOTAL_YEARS && i < timelineLen; i++) mgmt[i] = FEE_LATE;
-
-  const grossTotal = annual.reduce((a,b) => a+b, 0);
-  const totalFees = mgmt.reduce((a,b) => a+b, 0);
-  const totalCalled = calls.reduce((a,b) => a+b, 0);
-  const lpDist = new Array(timelineLen).fill(0);
+//   - LP IRR is computed on the LP's actual cash-flow stream (full investment negative at
+//     year 0, distributions positive) — an honest, conservative read with no call deferral.
+// European whole-fund waterfall over a per-year collection stream net of fees:
+// 100% to LPs until $8.5M of capital is returned, then 80% LP / 20% GP.
+function runWaterfall(annual, mgmt) {
+  const n = annual.length;
+  const lpDist = new Array(n).fill(0);
   let cumLp = 0, totalGp = 0;
-  for (let i = 0; i < timelineLen; i++) {
+  for (let i = 0; i < n; i++) {
     let cf = annual[i] - mgmt[i];
     if (cf <= 0) { lpDist[i] = cf; cumLp += cf; continue; }
     if (cumLp < FUND) {
@@ -1280,12 +1334,70 @@ function simulate(selected, fundStart, timelineLen) {
     }
   }
   const totalLp = lpDist.reduce((a,b) => a+b, 0);
+  return { lpDist, totalLp, totalGp };
+}
+
+function simulate(selected, fundStart, timelineLen) {
+  // Full earnings stream — we compute beyond the fund term only to value the
+  // residual that gets sold at term end.
+  const annualFull = new Array(timelineLen).fill(0);
+  for (const p of selected) {
+    const off = p.vintage - fundStart;
+    if (off < 0 || off >= timelineLen) continue;
+    const eLen = p.e.length;
+    for (let i = 0; i < eLen; i++) {
+      const t = i + off;
+      if (t >= timelineLen) break;
+      annualFull[t] += p.e[i] * PCT;
+    }
+  }
+
+  // Cap at the fund's life. Collections in years 1..15 are realized live; every
+  // position still earning after the term is SOLD at the end of year 15 — to a
+  // successor Front Row fund or private buyers — for the present value of those
+  // future collections at a secondary buyer's required return.
+  const horizon = Math.min(TERM_YEARS, timelineLen);
+  const liveCollections = new Array(horizon);
+  for (let i = 0; i < horizon; i++) liveCollections[i] = annualFull[i];
+  let terminalValue = 0;
+  for (let k = horizon; k < timelineLen; k++) {
+    terminalValue += annualFull[k] / Math.pow(1 + SECONDARY_DISCOUNT, k - (horizon - 1));
+  }
+
+  // The sale proceeds land in the final in-term year and flow through the waterfall.
+  const annual = liveCollections.slice();
+  annual[horizon - 1] += terminalValue;
+
+  // Capital: entire commitment invested upfront at fund inception (year 0). No calls.
+  const calls = new Array(horizon).fill(0);
+  calls[0] = PER_PICK_CAPITAL * selected.length;
+
+  // Mgmt fees: 2% Y1-3, 0.5% Y4-15, on the $8.5M ISA basis.
+  const mgmt = new Array(horizon).fill(0);
+  for (let i = 0; i < FEE_EARLY_YEARS && i < horizon; i++) mgmt[i] = FEE_EARLY;
+  for (let i = FEE_EARLY_YEARS; i < FEE_TOTAL_YEARS && i < horizon; i++) mgmt[i] = FEE_LATE;
+
+  const grossLive  = liveCollections.reduce((a,b) => a+b, 0);
+  const grossTotal = grossLive + terminalValue;
+  const totalFees  = mgmt.reduce((a,b) => a+b, 0);
+  const totalCalled = calls.reduce((a,b) => a+b, 0);
+
+  const wf = runWaterfall(annual, mgmt);
+  const lpDist = wf.lpDist, totalGp = wf.totalGp, totalLp = wf.totalLp;
+
+  // LP value attributable purely to the secondary sale (vs. abandoning the residual):
+  // re-run the waterfall with the sale stripped out of the final year.
+  const annualNoSale = annual.slice();
+  annualNoSale[horizon - 1] -= terminalValue;
+  const lpNetFromSale = totalLp - runWaterfall(annualNoSale, mgmt).totalLp;
+
   const moic = totalLp / totalCalled;
-  // LP cash flow stream = distributions minus capital calls each year
-  const lpCf = new Array(timelineLen);
-  for (let i = 0; i < timelineLen; i++) lpCf[i] = lpDist[i] - calls[i];
+  // LP cash flow stream = distributions minus capital invested each year
+  const lpCf = new Array(horizon);
+  for (let i = 0; i < horizon; i++) lpCf[i] = lpDist[i] - calls[i];
   const ir = irr(lpCf);
-  return { grossTotal, totalFees, totalGp, totalLp, totalCalled, moic, irr: ir, calls, lpDist, fundStart };
+  return { grossTotal, grossLive, terminalValue, lpNetFromSale, saleYearIndex: horizon - 1,
+           totalFees, totalGp, totalLp, totalCalled, moic, irr: ir, calls, lpDist, fundStart };
 }
 
 // Rank-pool modes
@@ -1316,11 +1428,11 @@ const simLogClearBtn = document.getElementById('simLogClear');
 const eyebrowEl = document.querySelector('.almanac .eyebrow');
 const deckEl = document.querySelector('.almanac .deck');
 
-const DECK_BASE_2012 = 'Pick a commitment. Pull 30 random prospects from the FanGraphs 2012 Top 100. This view models the <b>$8.5M ISA portfolio</b> of the $10M fund—your LP cut after fees and 20% carry on actual MLB career earnings. The separate $1.5M Finlete equity allocation is documented elsewhere.';
+const DECK_BASE_2012 = 'Pick a commitment. Pull 30 random prospects from the FanGraphs 2012 Top 100. This view models the <b>$8.5M ISA portfolio</b> of the $10M fund—your LP cut after fees and 20% carry on actual MLB career earnings. The fund\'s separate $1.5M Finlete equity stake rides on top of these numbers, uncounted.';
 function deckTextFor(v) {
   const cfg = VINTAGES[v];
   if (cfg.single) {
-    return `Pick a commitment. Pull 30 random prospects from the FanGraphs ${cfg.label} Top 100. This view models the <b>$8.5M ISA portfolio</b> of the $10M fund—your LP cut after fees and 20% carry on actual MLB career earnings. The separate $1.5M Finlete equity allocation is documented elsewhere.`;
+    return `Pick a commitment. Pull 30 random prospects from the FanGraphs ${cfg.label} Top 100. This view models the <b>$8.5M ISA portfolio</b> of the $10M fund—your LP cut after fees and 20% carry on actual MLB career earnings. The fund's separate $1.5M Finlete equity stake rides on top of these numbers, uncounted.`;
   }
   return `Pick a commitment. A 2012-vintage fund deploys across the ${cfg.deckYears} FanGraphs Top 100s. Each year, an independent random batch is drawn from that year's filtered pool — the per-year cadence is randomized in <b>3-18</b> per year and totals 30. Cross-year duplicates are auto-replaced from the earlier year's eligible pool. Your LP cut shown after fees and 20% carry on actual MLB career earnings.`;
 }
@@ -1380,8 +1492,8 @@ function fmtSigned(n) {
 }
 
 // Year-by-year LP cash flow, scaled to the user's commitment. The fund-level
-// simulate() returns per-year capital calls and per-year net-to-LP distributions
-// on the $8.5M ISA basis; an LP's share scales linearly by commit / totalCalled.
+// simulate() returns the upfront capital (all in year 0) and per-year net-to-LP
+// distributions on the $8.5M ISA basis; an LP's share scales linearly by commit / totalCalled.
 function renderPayback() {
   if (!lastResult || !lastResult.lpDist || simMode !== 'single') {
     paybackSectionEl.hidden = true;
@@ -1414,9 +1526,12 @@ function renderPayback() {
       ? `<td class="num zero">—</td>`
       : `<td class="num ${distCls}">${fmtSigned(dist)}</td>`;
     const cumCls = cum < -0.5 ? 'neg' : '';
+    const isSale = i === r.saleYearIndex && (r.terminalValue * scale) > 0.5;
+    const rowCls = [i === paybackIdx ? 'payback-row' : '', isSale ? 'sale-row' : ''].join(' ').trim();
+    const saleBadge = isSale ? ' <span class="sale-badge">Secondary Sale</span>' : '';
 
-    rows += `<tr class="${i === paybackIdx ? 'payback-row' : ''}">
-      <td class="yr">Year ${i + 1}<small>${r.fundStart + i}</small></td>
+    rows += `<tr class="${rowCls}">
+      <td class="yr">Year ${i + 1}<small>${r.fundStart + i}</small>${saleBadge}</td>
       ${callCell}
       ${distCell}
       <td class="num ${cumCls}">${fmtSigned(cum)}</td>
@@ -1437,13 +1552,20 @@ function renderPayback() {
 
   paybackSubEl.textContent = `On a ${fmtCommit(commit)} commitment · ${VINTAGES[vintage].eyebrow}`;
 
+  const saleYr = r.fundStart + r.saleYearIndex;
+  const saleToLp = r.lpNetFromSale * scale;
+  const saleSentence = (r.terminalValue * scale) > 0.5
+    ? ` The fund closes in <b>${saleYr}</b> (Year ${r.saleYearIndex + 1}): any positions still earning are sold to a successor fund or private buyers, adding <b>${fmtSigned(saleToLp)}</b> to your final-year distribution. That's why the schedule stops at Year ${r.saleYearIndex + 1} instead of running to 2044.`
+    : '';
+
   if (paybackIdx >= 0) {
-    const yrsToPayback = paybackIdx; // years after the first capital call (Year 1)
+    const yrsToPayback = paybackIdx; // years after the upfront investment (Year 1)
     paybackCalloutEl.className = 'payback-callout';
     paybackCalloutEl.innerHTML =
-      `Your <b>${fmtCommit(commit)}</b> is fully returned in <b>${r.fundStart + paybackIdx}</b> ` +
-      `(fund Year ${paybackIdx + 1}, ~${yrsToPayback} ${yrsToPayback === 1 ? 'year' : 'years'} after your first call). ` +
-      `Everything after is profit — this draw nets <b>${fmtSigned(profit)}</b> on a <b>${r.moic.toFixed(2)}×</b> return.`;
+      `You invest <b>${fmtCommit(commit)}</b> upfront and have it fully back by <b>${r.fundStart + paybackIdx}</b> ` +
+      `(fund Year ${paybackIdx + 1}${yrsToPayback === 0 ? '' : `, ~${yrsToPayback} ${yrsToPayback === 1 ? 'year' : 'years'} in`}). ` +
+      `Everything after is profit — this draw nets <b>${fmtSigned(profit)}</b> on a <b>${r.moic.toFixed(2)}×</b> return.` +
+      saleSentence;
   } else {
     paybackCalloutEl.className = 'payback-callout miss';
     paybackCalloutEl.innerHTML =
@@ -1466,6 +1588,7 @@ function resetResultDisplay() {
   document.getElementById('netMoic').textContent = '—';
   document.getElementById('netIrr').textContent  = '—';
   document.getElementById('bGross').textContent  = '—';
+  document.getElementById('bSale').textContent   = '—';
   document.getElementById('bFees').textContent   = '—';
   document.getElementById('bCarry').textContent  = '—';
   document.getElementById('bNetLp').textContent  = '—';
@@ -1483,7 +1606,8 @@ function renderResult(r, selected, cadence) {
   lastResult = r;
   document.getElementById('netMoic').textContent = r.moic.toFixed(2) + 'x';
   document.getElementById('netIrr').textContent  = (r.irr*100).toFixed(1) + '%';
-  document.getElementById('bGross').textContent  = fmtMoney(r.grossTotal);
+  document.getElementById('bGross').textContent  = fmtMoney(r.grossLive);
+  document.getElementById('bSale').textContent   = '+' + fmtMoney(r.terminalValue);
   document.getElementById('bFees').textContent   = '−' + fmtMoney(r.totalFees);
   document.getElementById('bCarry').textContent  = '−' + fmtMoney(r.totalGp);
   document.getElementById('bNetLp').textContent  = fmtMoney(r.totalLp);
