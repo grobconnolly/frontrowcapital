@@ -1058,8 +1058,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <div class="col-12 col-md-7 col-lg-5">
         <div class="ctrl-label">Player Pool</div>
         <div class="btn-group mode-toggle" role="group" aria-label="Player pool">
-          <button type="button" class="btn" data-mode="full">Full 100<small>Ranks 1–100</small></button>
-          <button type="button" class="btn active" data-mode="p25_75">P25–P75<small>Ranks 25–75</small></button>
+          <button type="button" class="btn active" data-mode="full">Full 100<small>Ranks 1–100</small></button>
+          <button type="button" class="btn" data-mode="p25_75">P25–P75<small>Ranks 25–75</small></button>
           <button type="button" class="btn" data-mode="p50_100">P50–P100<small>Ranks 50–100</small></button>
         </div>
       </div>
@@ -1500,7 +1500,7 @@ const MODES = {
   p50_100: { lo: 50, hi: 100, label: '50–100' },
 };
 
-let mode = 'p25_75';
+let mode = 'full';
 let vintage = 'deploy';   // a year string ('2005'..'2016') when single, or 'deploy'
 let vmode = 'deploy';     // 'single' | 'deploy'
 let singleYear = '2012';  // last-selected single vintage year
