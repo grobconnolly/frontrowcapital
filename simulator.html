@@ -117,6 +117,13 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     font-weight: 800; font-size: 36px; color: var(--paper); line-height: 1;
   }
   @media (min-width: 768px) { .commit-amount { font-size: 38px; } }
+  .commit-amount.offer-amount { font-size: 28px; }
+  @media (min-width: 768px) { .commit-amount.offer-amount { font-size: 30px; } }
+  .offer-note {
+    font-family: 'Oswald', sans-serif; font-size: 11px; letter-spacing: 0.06em;
+    line-height: 1.7; color: rgba(255,255,255,0.55); text-transform: none;
+  }
+  .offer-note b { color: rgba(255,255,255,0.85); }
   .commit-suffix {
     font-family: 'Oswald', sans-serif; font-size: 11px; letter-spacing: 0.18em;
     color: rgba(255,255,255,0.6); text-transform: uppercase;
@@ -1003,7 +1010,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <div class="terms-strip">
       <span><b>TOTAL FUND</b> $10M</span>
       <span><b>ISA PORTFOLIO (this view)</b> $8.5M</span>
-      <span><b>ISA DEAL</b> $300K / 4%<span class="info-tip" tabindex="0" role="button" aria-label="Pricing methodology" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Each signing costs ≈$304K — the $8.5M ISA sleeve spread across 28 picks — for 4% of that player's MLB career earnings (2026 deal terms). All player earnings are inflation-adjusted to constant 2026 dollars, so every vintage is on the same scale.">i</span></span>
+      <span><b>ISA DEAL</b> <span id="dealStat">≈$304K / 4%</span><span class="info-tip" tabindex="0" role="button" aria-label="Pricing methodology" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Each signing costs ≈$304K — the $8.5M ISA sleeve spread across 28 picks — for 4% of that player's MLB career earnings (2026 deal terms). All player earnings are inflation-adjusted to constant 2026 dollars, so every vintage is on the same scale.">i</span></span>
       <span><b>FEES</b> 2% Y1-3 · 0.5% Y4-15</span>
       <span><b>CARRY</b> 20%</span>
     </div>
@@ -1059,6 +1066,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <div class="ctrl-label">Player Pool</div>
         <div class="btn-group mode-toggle" role="group" aria-label="Player pool">
           <button type="button" class="btn active" data-mode="full">Full 100<small>Ranks 1–100</small></button>
+          <button type="button" class="btn" data-mode="p1_10">P1–P10<small>Ranks 1–10</small></button>
           <button type="button" class="btn" data-mode="p25_75">P25–P75<small>Ranks 25–75</small></button>
           <button type="button" class="btn" data-mode="p50_100">P50–P100<small>Ranks 50–100</small></button>
         </div>
@@ -1066,6 +1074,36 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
       <div class="col-12 col-md-5 col-lg-3">
         <button class="roll-btn" id="rollBtn">Roll Roster<span class="arrow">→</span></button>
+      </div>
+
+    </div>
+
+    <div class="row g-3 g-lg-4 align-items-end" style="margin-top: 2px;">
+
+      <div class="col-12 col-md-6 col-lg-4">
+        <div class="ctrl-label">The Offer — Price Per Signing</div>
+        <div class="slider-row">
+          <span class="commit-amount offer-amount" id="offerPriceAmount">≈$304K</span>
+          <span class="commit-suffix">per player</span>
+        </div>
+        <input type="range" class="form-range field-slider" id="offerPriceSlider"
+               min="50000" max="1000000" step="10000" value="300000">
+        <div class="slider-ticks"><span>$50K</span><span>$500K</span><span>$1M</span></div>
+      </div>
+
+      <div class="col-12 col-md-6 col-lg-4">
+        <div class="ctrl-label">For % of MLB Career Earnings</div>
+        <div class="slider-row">
+          <span class="commit-amount offer-amount" id="offerPctAmount">4%</span>
+          <span class="commit-suffix">of career earnings</span>
+        </div>
+        <input type="range" class="form-range field-slider" id="offerPctSlider"
+               min="1" max="20" step="0.5" value="4">
+        <div class="slider-ticks"><span>1%</span><span>10%</span><span>20%</span></div>
+      </div>
+
+      <div class="col-12 col-lg-4">
+        <div class="offer-note">Default 2026 deal terms: <b>≈$304K for 4%</b> — the $8.5M ISA sleeve across 28 picks. The fund sizes itself to picks × price; fees and the return hurdle scale with it. Adjusting the offer re-prices the current roster live.</div>
       </div>
 
     </div>
@@ -1179,7 +1217,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
   <footer class="almanac-foot">
     <div class="meth">Methodology</div>
-    <p>Player earnings data covers the 2005–2016 FanGraphs Top 100 prospect lists (MLB salaries from baseball-reference / Spotrac), with each player's earnings aligned to his prospect year. Every salary is converted to <b>constant 2026 dollars</b> using the Front Row CPI index (2026 = 100; the year each dollar was earned sets its deflator, so all vintages are comparable in today's money). Pick any single vintage (2005–2016) to draw 28 random prospects from that year's Top 100, or switch to <b>3-Year Deploy</b> and pick a start year to model a fund deploying across three consecutive lists (start year through start+2; start years run 2005–2014). In 3-year mode each year is treated as an independent draft. The per-year cadence is randomized each roll: three integers in [3, 18] summing to 28. For each year the rank filter (Full 100 / P25–P75 / P50–P100) is applied to that year's Top 100, then the per-year batch is drawn at random from that year's eligible pool. After all three drafts, the simulator scans for cross-year duplicates (same player on two or more lists). For each duplicate the earlier year's slot is replaced with a fresh random pick from that year's eligible pool — excluding everyone already on the combined roster — and the dedupe scan repeats until clean. Each pick costs ≈$304K — the $8.5M ISA portfolio spread evenly across 28 signings — for 4% of that player’s MLB career earnings, priced at 2026 deal terms. The full $8.5M is invested upfront at fund inception (the selected start year) — there are no capital calls, even in 3-year mode where players are signed across the three deploy years. Fund life is a 12-year base term plus three 1-year extensions (15 years total). Management fees ($170K/yr in years 1–3, $42.5K/yr in years 4–15) are charged on the $8.5M ISA portfolio basis from fund inception. The 15-year term is a hard stop on the schedule: ISA collections in years 1–15 are realized live, and every position still earning after the term (a player's career can run to 2044) is sold at the end of year 15 — to a successor Front Row fund or to private investors — for the present value of its remaining collections, discounted at a 12% secondary-buyer required return. Those sale proceeds are realized in year 15 and run through the same waterfall, so no LP cash flow falls outside the fund's life. Distributions follow a European whole-fund waterfall on the ISA portfolio: 100% to LPs until $8.5M of ISA capital is returned, then 80% LP / 20% GP. Net LP IRR is computed via bisection on the LP's actual cash-flow stream (the full upfront investment in Year 1, then distributions in each fund-year through year 15). Backtest only — past performance is not indicative of future results. <i>Confidential. For accredited investor discussion only.</i></p>
+    <p>Player earnings data covers the 2005–2016 FanGraphs Top 100 prospect lists (MLB salaries from baseball-reference / Spotrac), with each player's earnings aligned to his prospect year. Every salary is converted to <b>constant 2026 dollars</b> using the Front Row CPI index (2026 = 100; the year each dollar was earned sets its deflator, so all vintages are comparable in today's money). Pick any single vintage (2005–2016) to draw 28 random prospects from that year's Top 100, or switch to <b>3-Year Deploy</b> and pick a start year to model a fund deploying across three consecutive lists (start year through start+2; start years run 2005–2014). In 3-year mode each year is treated as an independent draft. The per-year cadence is randomized each roll: three integers in [3, 18] summing to 28, with each year additionally capped at its eligible pool size. For each year the rank filter (Full 100 / P1–P10 / P25–P75 / P50–P100) is applied to that year's Top 100, then the per-year batch is drawn at random from that year's eligible pool. After all three drafts, the simulator scans for cross-year duplicates (same player on two or more lists). For each duplicate the earlier year's slot is replaced with a fresh random pick from that year's eligible pool — excluding everyone already on the combined roster — and the dedupe scan repeats until clean. Each pick costs ≈$304K — the $8.5M ISA portfolio spread evenly across 28 signings — for 4% of that player’s MLB career earnings, priced at 2026 deal terms. Both sides of the offer are adjustable in the controls (price per signing $50K–$1M; earnings share 1–20%); the portfolio basis is always picks × price, and adjusting the offer re-prices the currently rolled roster in place. Narrow rank filters can cap the roster below 28 (P1–P10 has only 10 eligible players per year, and repeat prospects across deploy years are dropped); when that happens the fund scales to the capital actually deployed — picks × ≈$304K — and management fees and the return-of-capital hurdle are computed on that smaller basis, so returns stay comparable across filters. The full invested amount is wired upfront at fund inception (the selected start year) — there are no capital calls, even in 3-year mode where players are signed across the three deploy years. Fund life is a 12-year base term plus three 1-year extensions (15 years total). Management fees (2%/yr in years 1–3, 0.5%/yr in years 4–15 — $170K and $42.5K on the full $8.5M) are charged on the invested ISA portfolio basis from fund inception. The 15-year term is a hard stop on the schedule: ISA collections in years 1–15 are realized live, and every position still earning after the term (a player's career can run to 2044) is sold at the end of year 15 — to a successor Front Row fund or to private investors — for the present value of its remaining collections, discounted at a 12% secondary-buyer required return. Those sale proceeds are realized in year 15 and run through the same waterfall, so no LP cash flow falls outside the fund's life. Distributions follow a European whole-fund waterfall on the ISA portfolio: 100% to LPs until the invested ISA capital ($8.5M on a full roster) is returned, then 80% LP / 20% GP. Net LP IRR is computed via bisection on the LP's actual cash-flow stream (the full upfront investment in Year 1, then distributions in each fund-year through year 15). Backtest only — past performance is not indicative of future results. <i>Confidential. For accredited investor discussion only.</i></p>
   </footer>
 
 </div>
@@ -1283,23 +1321,35 @@ function poolForYear(yr, lo, hi) {
   return PLAYERS_BY_VINTAGE[yr].filter(p => p.rank >= lo && p.rank <= hi);
 }
 
-// Random cadence across the three deploy years: integers in [3, 18] summing to N_PLAYERS.
-function randomCadence(years) {
+// Random cadence across the three deploy years: integers in [3, 18] summing to
+// N_PLAYERS, with each year additionally capped at that year's eligible pool size
+// (matters for narrow rank filters like P1–P10, where only 10 players/year qualify).
+function randomCadence(years, caps) {
+  const capOf = y => Math.min(18, caps ? caps[y] : 18);
+  const target = Math.min(N_PLAYERS, years.reduce((s, y) => s + capOf(y), 0));
   for (let attempt = 0; attempt < 1000; attempt++) {
-    const a = 3 + Math.floor(Math.random() * 16);
-    const b = 3 + Math.floor(Math.random() * 16);
-    const c = N_PLAYERS - a - b;
-    if (c >= 3 && c <= 18) return { [years[0]]: a, [years[1]]: b, [years[2]]: c };
+    const a = 3 + Math.floor(Math.random() * (capOf(years[0]) - 2));
+    const b = 3 + Math.floor(Math.random() * (capOf(years[1]) - 2));
+    const c = target - a - b;
+    if (c >= 3 && c <= capOf(years[2])) return { [years[0]]: a, [years[1]]: b, [years[2]]: c };
   }
-  const base = Math.floor(N_PLAYERS / 3), rem = N_PLAYERS - base * 3;
-  return { [years[0]]: base + rem, [years[1]]: base, [years[2]]: base };
+  // Fallback: greedy even split clamped to each year's cap.
+  const out = {};
+  let left = target;
+  years.forEach((y, i) => {
+    const share = Math.min(capOf(y), Math.ceil(left / (years.length - i)));
+    out[y] = share; left -= share;
+  });
+  return out;
 }
 
 // Draw the deploy roster across `years` (three consecutive year strings): independent
 // random draws per year, then iterative dedupe (replace each cross-year duplicate in
 // the earlier year with a fresh random pick).
 function drawDeployRoster(years, lo, hi) {
-  const cadence = randomCadence(years);
+  const caps = {};
+  for (const y of years) caps[y] = poolForYear(y, lo, hi).length;
+  const cadence = randomCadence(years, caps);
   const picks = {};
   for (const y of years) {
     picks[y] = pickRandom(poolForYear(y, lo, hi), cadence[y]);
@@ -1331,18 +1381,30 @@ function drawDeployRoster(years, lo, hi) {
       const r = replacementPool[Math.floor(Math.random() * replacementPool.length)];
       picks[replaceYear].push(r);
     }
-    // (If pool is exhausted, slot is dropped; cadence may end up <30. Extremely rare.)
+    // (If pool is exhausted, slot is dropped — common with narrow filters like
+    // P1–P10, where the same player often makes multiple years' top 10.)
   }
-  // Flatten
+  // Flatten, and report the cadence actually signed (post-dedupe/drops).
   const flat = [];
-  for (const y of years) for (const p of picks[y]) flat.push(p);
+  for (const y of years) {
+    cadence[y] = picks[y].length;
+    for (const p of picks[y]) flat.push(p);
+  }
   return { selected: flat, cadence };
 }
 
-const FUND = 8_500_000;          // ISA portfolio capital base
-const PER_PICK_CAPITAL = FUND / N_PLAYERS; // ~$283,333 per slot
-const FEE_EARLY = FEE_EARLY_RATE * FUND;
-const FEE_LATE  = FEE_LATE_RATE  * FUND;
+const FUND = 8_500_000;          // ISA portfolio capital base (full 28-pick roster, default terms)
+const PER_PICK_CAPITAL = FUND / N_PLAYERS; // ~$303,571 per slot at default terms
+
+// Adjustable offer — price per signing ($) for a share of MLB career earnings (%).
+// Defaults reproduce the 2026 deal terms exactly (≈$304K for 4%).
+let dealPrice = PER_PICK_CAPITAL;
+let dealPct   = PCT;
+const fmtDealPct = p => {
+  const v = p * 100;
+  return (v % 1 ? v.toFixed(1) : String(Math.round(v))) + '%';
+};
+const fmtDeal = () => `${fmtMoneyShort(dealPrice)} / ${fmtDealPct(dealPct)}`;
 
 function fmtMoney(n) {
   if (!isFinite(n)) return '—';
@@ -1402,21 +1464,22 @@ function pickRandom(pool, n) {
 //   - LP capital is invested in full at fund inception (year 0). No capital calls —
 //     the entire $8.5M ISA commitment is wired upfront, regardless of when players sign.
 //   - Player earnings begin in their attribution year.
-//   - Mgmt fees (2% Y1-3, 0.5% Y4-15) charged from fund inception on $8.5M ISA basis.
-//   - European whole-fund waterfall: 100% to LPs until $8.5M of capital is returned, then 80/20.
+//   - Mgmt fees (2% Y1-3, 0.5% Y4-15) charged from fund inception on the invested ISA
+//     basis (picks × ≈$304K — $8.5M for a full 28-pick roster, smaller for narrow filters).
+//   - European whole-fund waterfall: 100% to LPs until the invested basis is returned, then 80/20.
 //   - LP IRR is computed on the LP's actual cash-flow stream (full investment negative at
 //     year 0, distributions positive) — an honest, conservative read with no call deferral.
 // European whole-fund waterfall over a per-year collection stream net of fees:
-// 100% to LPs until $8.5M of capital is returned, then 80% LP / 20% GP.
-function runWaterfall(annual, mgmt) {
+// 100% to LPs until `basis` (invested ISA capital) is returned, then 80% LP / 20% GP.
+function runWaterfall(annual, mgmt, basis) {
   const n = annual.length;
   const lpDist = new Array(n).fill(0);
   let cumLp = 0, totalGp = 0;
   for (let i = 0; i < n; i++) {
     let cf = annual[i] - mgmt[i];
     if (cf <= 0) { lpDist[i] = cf; cumLp += cf; continue; }
-    if (cumLp < FUND) {
-      const t = Math.min(cf, FUND - cumLp);
+    if (cumLp < basis) {
+      const t = Math.min(cf, basis - cumLp);
       lpDist[i] += t; cumLp += t; cf -= t;
     }
     if (cf > 0) {
@@ -1441,7 +1504,7 @@ function simulate(selected, fundStart, timelineLen) {
       const t = i + off;
       if (t >= timelineLen) break;
       // Convert each year's nominal salary to 2026 dollars (calendar year = p.vintage + i).
-      annualFull[t] += p.e[i] * inflFactor(p.vintage + i) * PCT;
+      annualFull[t] += p.e[i] * inflFactor(p.vintage + i) * dealPct;
     }
   }
 
@@ -1462,27 +1525,32 @@ function simulate(selected, fundStart, timelineLen) {
   annual[horizon - 1] += terminalValue;
 
   // Capital: entire commitment invested upfront at fund inception (year 0). No calls.
+  // The invested basis is picks × offer price — exactly $8.5M for a full 28-pick
+  // roster at default terms. When the rank filter can't fill 28 slots (e.g. P1–P10)
+  // or the offer price changes, the fund, fees, and waterfall hurdle all scale to
+  // the capital actually deployed.
+  const basis = dealPrice * selected.length;
   const calls = new Array(horizon).fill(0);
-  calls[0] = PER_PICK_CAPITAL * selected.length;
+  calls[0] = basis;
 
-  // Mgmt fees: 2% Y1-3, 0.5% Y4-15, on the $8.5M ISA basis.
+  // Mgmt fees: 2% Y1-3, 0.5% Y4-15, on the invested ISA basis.
   const mgmt = new Array(horizon).fill(0);
-  for (let i = 0; i < FEE_EARLY_YEARS && i < horizon; i++) mgmt[i] = FEE_EARLY;
-  for (let i = FEE_EARLY_YEARS; i < FEE_TOTAL_YEARS && i < horizon; i++) mgmt[i] = FEE_LATE;
+  for (let i = 0; i < FEE_EARLY_YEARS && i < horizon; i++) mgmt[i] = FEE_EARLY_RATE * basis;
+  for (let i = FEE_EARLY_YEARS; i < FEE_TOTAL_YEARS && i < horizon; i++) mgmt[i] = FEE_LATE_RATE * basis;
 
   const grossLive  = liveCollections.reduce((a,b) => a+b, 0);
   const grossTotal = grossLive + terminalValue;
   const totalFees  = mgmt.reduce((a,b) => a+b, 0);
   const totalCalled = calls.reduce((a,b) => a+b, 0);
 
-  const wf = runWaterfall(annual, mgmt);
+  const wf = runWaterfall(annual, mgmt, basis);
   const lpDist = wf.lpDist, totalGp = wf.totalGp, totalLp = wf.totalLp;
 
   // LP value attributable purely to the secondary sale (vs. abandoning the residual):
   // re-run the waterfall with the sale stripped out of the final year.
   const annualNoSale = annual.slice();
   annualNoSale[horizon - 1] -= terminalValue;
-  const lpNetFromSale = totalLp - runWaterfall(annualNoSale, mgmt).totalLp;
+  const lpNetFromSale = totalLp - runWaterfall(annualNoSale, mgmt, basis).totalLp;
 
   const moic = totalLp / totalCalled;
   // LP cash flow stream = distributions minus capital invested each year
@@ -1496,6 +1564,7 @@ function simulate(selected, fundStart, timelineLen) {
 // Rank-pool modes
 const MODES = {
   full:    { lo: 1,  hi: 100, label: '1–100' },
+  p1_10:   { lo: 1,  hi: 10,  label: '1–10' },
   p25_75:  { lo: 25, hi: 75,  label: '25–75' },
   p50_100: { lo: 50, hi: 100, label: '50–100' },
 };
@@ -1528,10 +1597,23 @@ const deckEl = document.querySelector('.almanac .deck');
 const DECK_BASE_2012 = 'Pick a commitment. Pull 30 random prospects from the FanGraphs 2012 Top 100. This view models the <b>$8.5M ISA portfolio</b> of the $10M fund—your LP cut after fees and 20% carry on actual MLB career earnings. The fund\'s separate $1.5M Finlete equity stake rides on top of these numbers, uncounted.';
 function deckTextFor(v) {
   const cfg = VINTAGES[v];
+  const poolSize = currentPool().length;
+  const constrained = poolSize < N_PLAYERS;
+  const defaultDeal = dealPrice === PER_PICK_CAPITAL && dealPct === PCT;
+  const dealTxt = `≈${fmtMoneyShort(dealPrice)} per pick for ${fmtDealPct(dealPct)} of career earnings`;
   if (cfg.single) {
-    return `Pick a commitment. Pull 28 random prospects from the FanGraphs ${cfg.label} Top 100. This view models the <b>$8.5M ISA portfolio</b> of the $10M fund—your LP cut after fees and 20% carry on MLB career earnings, <b>inflation-adjusted to 2026 dollars</b>. The fund's separate $1.5M Finlete equity stake rides on top of these numbers, uncounted.`;
+    const drawTxt = constrained
+      ? `Sign all ${poolSize} eligible prospects (ranks ${MODES[mode].label})`
+      : `Pull 28 random prospects`;
+    const basisTxt = (constrained || !defaultDeal)
+      ? `a scaled ISA portfolio — ${dealTxt}, with fees and the return hurdle on the capital actually deployed`
+      : `the <b>$8.5M ISA portfolio</b> of the $10M fund`;
+    return `Pick a commitment. ${drawTxt} from the FanGraphs ${cfg.label} Top 100. This view models ${basisTxt}—your LP cut after fees and 20% carry on MLB career earnings, <b>inflation-adjusted to 2026 dollars</b>. The fund's separate $1.5M Finlete equity stake rides on top of these numbers, uncounted.`;
   }
-  return `Pick a commitment. A ${cfg.start}-vintage fund deploys across ${cfg.deckYears} — three consecutive FanGraphs Top 100s. Each year, an independent random batch is drawn from that year's filtered pool — the per-year cadence is randomized in <b>3-18</b> per year and totals 28. Cross-year duplicates are auto-replaced from the earlier year's eligible pool. Your LP cut shown after fees and 20% carry on MLB career earnings, inflation-adjusted to 2026 dollars.`;
+  const deployNote = (constrained || !defaultDeal)
+    ? ` The fund scales to the capital actually deployed — ${dealTxt}${constrained ? '; each year caps at its eligible pool and repeat prospects are dropped' : ''}.`
+    : '';
+  return `Pick a commitment. A ${cfg.start}-vintage fund deploys across ${cfg.deckYears} — three consecutive FanGraphs Top 100s. Each year, an independent random batch is drawn from that year's filtered pool — the per-year cadence is randomized in <b>3-18</b> per year and totals 28. Cross-year duplicates are auto-replaced from the earlier year's eligible pool.${deployNote} Your LP cut shown after fees and 20% carry on MLB career earnings, inflation-adjusted to 2026 dollars.`;
 }
 
 // For 3-year mode, "pool size" displayed is the sum of unique-eligible players across all 3 years.
@@ -1679,6 +1761,7 @@ function refreshHeaderCopy() {
 
 function resetResultDisplay() {
   lastResult = null;
+  lastRoll = null;
   paybackSectionEl.hidden = true;
   document.getElementById('userReturn').textContent = '—';
   document.getElementById('netMoic').textContent = '—';
@@ -1711,7 +1794,7 @@ function renderResult(r, selected, cadence) {
 
   const pool = currentPool();
   const showVintageTags = !VINTAGES[vintage].single;
-  let subText = `${selected.length} of ${pool.length} drawn · ranks ${MODES[mode].label}`;
+  let subText = `${selected.length} of ${pool.length} drawn · ranks ${MODES[mode].label} · offer ${fmtDeal()}`;
   if (showVintageTags && cadence) {
     const yrs = deployYears();
     subText += ` · cadence ${cadence[yrs[0]]}/${cadence[yrs[1]]}/${cadence[yrs[2]]}`;
@@ -1741,14 +1824,16 @@ function renderResult(r, selected, cadence) {
           <span class="pc-stat-val${isBust ? ' bust' : ''}">${fmtMoneyShort(p.adjTotal)}</span>
         </div>
         <div class="pc-stat">
-          <span class="pc-stat-label">4% Cut</span>
-          <span class="pc-stat-val${isBust ? ' bust' : ''}">${fmtMoneyShort(p.adjTotal * PCT)}</span>
+          <span class="pc-stat-label">${fmtDealPct(dealPct)} Cut</span>
+          <span class="pc-stat-val${isBust ? ' bust' : ''}">${fmtMoneyShort(p.adjTotal * dealPct)}</span>
         </div>
       </div>
     `;
     rosterGrid.appendChild(col);
   });
 }
+
+let lastRoll = null; // { selected, cadence, tl } — kept so offer changes can re-price the same roster
 
 function roll() {
   let selected, cadence = null;
@@ -1761,9 +1846,17 @@ function roll() {
     selected = pickRandom(currentPool(), N_PLAYERS);
   }
   const tl = timelineForVintage(vintage, selected);
+  lastRoll = { selected, cadence, tl };
   const result = simulate(selected, tl.fundStart, tl.len);
   renderResult(result, selected, cadence);
   appendSimToLog(result);
+}
+
+// Re-price the current roster under the current offer (no new draw, no log entry).
+function resimulate() {
+  if (!lastRoll) return;
+  const { selected, cadence, tl } = lastRoll;
+  renderResult(simulate(selected, tl.fundStart, tl.len), selected, cadence);
 }
 
 function appendSimToLog(r) {
@@ -1775,6 +1868,7 @@ function appendSimToLog(r) {
     vlabel: VINTAGES[vintage].label,
     mode,
     commit,
+    deal: fmtDeal(),
     netDist: userNet,
     moic: r.moic,
     irr: r.irr,
@@ -1794,7 +1888,7 @@ function renderSimLog() {
   const ordered = simHistory.slice().reverse();
   simLogList.innerHTML = ordered.map(s => {
     const vlabel = s.vlabel || VINTAGES[s.vintage].label;
-    const tag = `${vlabel} · ${MODES[s.mode].label}`;
+    const tag = `${vlabel} · ${MODES[s.mode].label}${s.deal ? ' · ' + s.deal : ''}`;
     const irrTxt = isFinite(s.irr) ? (s.irr * 100).toFixed(1) + '%' : '—';
     return `
       <div class="sim-row">
@@ -1944,6 +2038,7 @@ async function runMonteCarlo() {
     vlabel:   VINTAGES[vintage].label,
     mode,
     commit,
+    deal:     fmtDeal(),
     median,
     avg:      { moic: avgMoic, irr: avgIrr },
     best,
@@ -1969,7 +2064,7 @@ function renderMCHistory() {
   mcHistoryEl.innerHTML = ordered.map(run => {
     const vLabel  = run.vlabel || VINTAGES[run.vintage].label;
     const mLabel  = MODES[run.mode].label;
-    const tag     = `${vLabel} · Ranks ${mLabel} · Commit ${fmtCommit(run.commit)}`;
+    const tag     = `${vLabel} · Ranks ${mLabel}${run.deal ? ' · ' + run.deal : ''} · Commit ${fmtCommit(run.commit)}`;
     const pctWin  = (100 - +run.pctLoss).toFixed(1);
     const winning = MC_RUNS - run.losing;
     return `
@@ -2023,11 +2118,29 @@ commitSlider.addEventListener('input', e => {
   updateUserReturn();
 });
 
+// ── Offer sliders ($ per signing / % of career earnings) ────────────────────
+const offerPriceSlider = document.getElementById('offerPriceSlider');
+const offerPctSlider   = document.getElementById('offerPctSlider');
+const offerPriceAmount = document.getElementById('offerPriceAmount');
+const offerPctAmount   = document.getElementById('offerPctAmount');
+const dealStatEl       = document.getElementById('dealStat');
+
+function onOfferChange() {
+  offerPriceAmount.textContent = fmtMoneyShort(dealPrice);
+  offerPctAmount.textContent   = fmtDealPct(dealPct);
+  if (dealStatEl) dealStatEl.textContent = fmtDeal();
+  refreshHeaderCopy();
+  resimulate(); // re-price the current roster live (no-op if nothing rolled yet)
+}
+offerPriceSlider.addEventListener('input', e => { dealPrice = +e.target.value; onOfferChange(); });
+offerPctSlider.addEventListener('input',   e => { dealPct = +e.target.value / 100; onOfferChange(); });
+
 modeBtns.forEach(btn => {
   btn.addEventListener('click', () => {
     modeBtns.forEach(b => b.classList.remove('active'));
     btn.classList.add('active');
     mode = btn.dataset.mode;
+    refreshHeaderCopy();
     if (lastResult) resetResultDisplay();
   });
 });
