@@ -1188,7 +1188,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
   <footer class="almanac-foot">
     <div class="meth">Methodology</div>
-    <p>Player earnings data covers the 2005–2016 FanGraphs Top 100 prospect lists (MLB salaries from baseball-reference / Spotrac), with each player's earnings aligned to his prospect year. Salaries flow through the model as raw <b>nominal, year-of-payment dollars</b> — the actual paychecks the player received — matching how a real-world investor of that vintage would have experienced the cash flows. Pick any single vintage (2005–2016) to draw 28 random prospects from that year's Top 100, or switch to <b>3-Year Deploy</b> and pick a start year to model a fund deploying across three consecutive lists (start year through start+2; start years run 2005–2014). In 3-year mode each year is treated as an independent draft. The per-year cadence is randomized each roll: three integers in [3, 18] summing to 28, with each year additionally capped at its eligible pool size. For each year the rank filter (Full 100 / P1–P50 / P25–P75 / P50–P100) is applied to that year's Top 100, then the per-year batch is drawn at random from that year's eligible pool. After all three drafts, the simulator scans for cross-year duplicates (same player on two or more lists). For each duplicate the earlier year's slot is replaced with a fresh random pick from that year's eligible pool — excluding everyone already on the combined roster — and the dedupe scan repeats until clean. Deal terms are quoted in <b>2026 dollars</b> — $300K per signing for 4% of MLB career earnings, spread evenly across 28 picks on the $8.4M sleeve — and then deflated to the fund's inception year using the Front Row CPI index. A 2005-vintage fund therefore invests ≈$4.9M nominal (28 picks × ≈$175K in 2005 dollars); a 2016 vintage invests ≈$6.0M; a hypothetical 2026 vintage invests the full $8.4M. Narrow rank filters can cap the roster below 28 (repeat prospects across deploy years are dropped); when that happens the fund scales to the capital actually deployed — picks × the vintage-year price — and management fees and the return-of-capital hurdle are computed on that smaller basis, so returns stay comparable across filters. The full invested amount is wired upfront at fund inception (the selected start year) — there are no capital calls, even in 3-year mode where players are signed across the three deploy years. Fund life is a 12-year base term plus three 1-year extensions (15 years total). Management fees (2%/yr in years 1–3, 0.5%/yr in years 4–15) are charged on the invested ISA basis from fund inception and are denominated in that vintage year's dollars. The 15-year term is a hard stop on the schedule: ISA collections in years 1–15 are realized live, and every position still earning after the term (a player's career can run to 2044) is sold at the end of year 15 — to a successor Front Row fund or to private investors — for the present value of its remaining collections, discounted at a 12% secondary-buyer required return. Those sale proceeds are realized in year 15 and run through the same waterfall, so no LP cash flow falls outside the fund's life. Distributions follow a European whole-fund waterfall on the ISA portfolio: 100% to LPs until the invested ISA capital is returned, then 80% LP / 20% GP. <b>Net LP MOIC and IRR are nominal</b> — computed on the actual year-by-year cash-flow stream (full upfront investment in Year 1, distributions in each fund-year through year 15), un-adjusted for inflation. For old vintages this includes inflation-driven return; a real (inflation-adjusted) IRR would run several points lower. Backtest only — past performance is not indicative of future results. <i>Confidential. For accredited investor discussion only.</i></p>
+    <p>Player earnings data covers the 2005–2016 FanGraphs Top 100 prospect lists (MLB salaries from baseball-reference / Spotrac), with each player's earnings aligned to his prospect year. Salaries flow through the model as raw <b>nominal, year-of-payment dollars</b> — the actual paychecks the player received — matching how a real-world investor of that vintage would have experienced the cash flows. Pick any single vintage (2005–2016) to draw 28 random prospects from that year's Top 100, or switch to <b>3-Year Deploy</b> and pick a start year to model a fund deploying across three consecutive lists (start year through start+2; start years run 2005–2014). In 3-year mode each year is treated as an independent draft. The per-year cadence is randomized each roll: three integers in [3, 18] summing to 28, with each year additionally capped at its eligible pool size. For each year the rank filter (Full 100 / P1–P50 / P25–P75 / P50–P100) is applied to that year's Top 100, then the per-year batch is drawn at random from that year's eligible pool. After all three drafts, the simulator scans for cross-year duplicates (same player on two or more lists). For each duplicate the earlier year's slot is replaced with a fresh random pick from that year's eligible pool — excluding everyone already on the combined roster — and the dedupe scan repeats until clean. Deal terms are quoted in <b>2026 dollars</b> — $300K per signing for 4% of MLB career earnings, spread evenly across 28 picks on the $8.4M sleeve — and then deflated to the fund's inception year using the Front Row CPI index. A 2005-vintage fund therefore invests ≈$4.9M nominal (28 picks × ≈$175K in 2005 dollars); a 2016 vintage invests ≈$6.0M; a hypothetical 2026 vintage invests the full $8.4M. In 3-year deploy mode signings are spread across the three vintage years, so the basis uses the simple average of those years' deflators (a 2005–2007 deploy invests ≈$5.05M nominal). Your commitment slider is quoted in 2026 dollars and likewise deflated to the fund's vintage year — a $1M commitment to a 2005 fund represents ≈$583K of 2005 purchasing power and buys the corresponding share of that vintage's nominal cash flows. Narrow rank filters can cap the roster below 28 (repeat prospects across deploy years are dropped); when that happens the fund scales to the capital actually deployed — picks × the vintage-year price — and management fees and the return-of-capital hurdle are computed on that smaller basis, so returns stay comparable across filters. The full invested amount is wired upfront at fund inception (the selected start year) — there are no capital calls, even in 3-year mode where players are signed across the three deploy years. Fund life is a 12-year base term plus three 1-year extensions (15 years total). Management fees (2%/yr in years 1–3, 0.5%/yr in years 4–15) are charged on the invested ISA basis from fund inception and are denominated in that vintage year's dollars. The 15-year term is a hard stop on the schedule: ISA collections in years 1–15 are realized live, and every position still earning after the term (a player's career can run to 2044) is sold at the end of year 15 — to a successor Front Row fund or to private investors — for the present value of its remaining collections, discounted at a 12% secondary-buyer required return. Those sale proceeds are realized in year 15 and run through the same waterfall, so no LP cash flow falls outside the fund's life. Distributions follow a European whole-fund waterfall on the ISA portfolio: 100% to LPs until the invested ISA capital is returned, then 80% LP / 20% GP. <b>Net LP MOIC and IRR are nominal</b> — computed on the actual year-by-year cash-flow stream (full upfront investment in Year 1, distributions in each fund-year through year 15), un-adjusted for inflation. For old vintages this includes inflation-driven return; a real (inflation-adjusted) IRR would run several points lower. Backtest only — past performance is not indicative of future results. <i>Confidential. For accredited investor discussion only.</i></p>
   </footer>
 
 </div>
@@ -1465,7 +1465,7 @@ function runWaterfall(annual, mgmt, basis) {
   return { lpDist, totalLp, totalGp };
 }
 
-function simulate(selected, fundStart, timelineLen) {
+function simulate(selected, fundStart, timelineLen, basisDeflator = vintageDeflator(fundStart)) {
   // Full earnings stream — we compute beyond the fund term only to value the
   // residual that gets sold at term end.
   const annualFull = new Array(timelineLen).fill(0);
@@ -1498,11 +1498,12 @@ function simulate(selected, fundStart, timelineLen) {
   annual[horizon - 1] += terminalValue;
 
   // Capital: entire commitment invested upfront at fund inception (year 0). No calls.
-  // The invested basis is picks × dealPrice, deflated to the fund's vintage year —
-  // $8.4M for a full 28-pick 2026 fund; roughly $4.9M for a 2005 vintage (same 28 picks,
-  // priced in that year's nominal dollars). When the rank filter can't fill 28 slots,
+  // The invested basis is picks × dealPrice, deflated by basisDeflator — either the
+  // fund's vintage-year deflator (single) or the simple average across the three deploy
+  // years (3-year mode, since signings are spread across A/B/C). $8.4M for a full 28-pick
+  // 2026 fund; roughly $4.9M for a 2005 vintage. When the rank filter can't fill 28 slots,
   // the fund, fees, and waterfall hurdle all scale to the capital actually deployed.
-  const basis = dealPrice * vintageDeflator(fundStart) * selected.length;
+  const basis = dealPrice * basisDeflator * selected.length;
   const calls = new Array(horizon).fill(0);
   calls[0] = basis;
 
@@ -1610,11 +1611,14 @@ function timelineForVintage(v, selected) {
   const cfg = VINTAGES[v];
   if (cfg.single) {
     // 31-year timeline: vintage..vintage+30
-    return { fundStart: cfg.start, len: 31 };
+    return { fundStart: cfg.start, len: 31, basisDeflator: vintageDeflator(cfg.start) };
   }
   // Deploy mode: fund inception = deployStart. Latest player's e ends at (deployStart+2)+30,
-  // so a 33-year timeline covers every pick's full earnings window.
-  return { fundStart: deployStart, len: 33 };
+  // so a 33-year timeline covers every pick's full earnings window. Basis deflator is the
+  // simple average of the three deploy years' deflators — signings are spread across A, B, C.
+  const a = deployStart, b = deployStart + 1, c = deployStart + 2;
+  const blended = (vintageDeflator(a) + vintageDeflator(b) + vintageDeflator(c)) / 3;
+  return { fundStart: deployStart, len: 33, basisDeflator: blended };
 }
 
 function updateUserReturn() {
@@ -1623,7 +1627,10 @@ function updateUserReturn() {
     if (paybackSectionEl) paybackSectionEl.hidden = true;
     return;
   }
-  const userNet = lastResult.moic * commit;
+  // The commitment slider is in 2026 dollars; deflate to the fund's vintage year
+  // so the LP's share of a historical fund matches their real purchasing power then.
+  const deflatedCommit = commit * vintageDeflator(lastResult.fundStart);
+  const userNet = lastResult.moic * deflatedCommit;
   document.getElementById('userReturn').textContent =
     userNet >= 1_000_000
       ? (userNet/1_000_000).toFixed(2) + 'M'
@@ -1651,7 +1658,10 @@ function renderPayback() {
     return;
   }
   const r = lastResult;
-  const scale = commit / r.totalCalled;
+  // Deflate the LP's 2026-dollar commitment to the fund's vintage year, so their
+  // share of the (nominal, vintage-year) fund reflects real purchasing power.
+  const deflatedCommit = commit * vintageDeflator(r.fundStart);
+  const scale = deflatedCommit / r.totalCalled;
   const n = r.lpDist.length;
 
   // Trim the trailing tail of years with no meaningful LP cash flow.
@@ -1822,7 +1832,7 @@ function roll() {
   }
   const tl = timelineForVintage(vintage, selected);
   lastRoll = { selected, cadence, tl };
-  const result = simulate(selected, tl.fundStart, tl.len);
+  const result = simulate(selected, tl.fundStart, tl.len, tl.basisDeflator);
   renderResult(result, selected, cadence);
   appendSimToLog(result);
 }
@@ -1831,7 +1841,7 @@ function roll() {
 function resimulate() {
   if (!lastRoll) return;
   const { selected, cadence, tl } = lastRoll;
-  renderResult(simulate(selected, tl.fundStart, tl.len), selected, cadence);
+  renderResult(simulate(selected, tl.fundStart, tl.len, tl.basisDeflator), selected, cadence);
 }
 
 function appendSimToLog(r) {
@@ -1951,7 +1961,7 @@ function runOnce() {
     selected = pickRandom(currentPool(), N_PLAYERS);
   }
   const tl = timelineForVintage(vintage, selected);
-  return simulate(selected, tl.fundStart, tl.len);
+  return simulate(selected, tl.fundStart, tl.len, tl.basisDeflator);
 }
 
 function fmtMCDist(moic) {
