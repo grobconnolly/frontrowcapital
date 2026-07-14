@@ -252,6 +252,10 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     font-family: 'Oswald', sans-serif; font-size: 10px; letter-spacing: 0.24em;
     color: var(--ink-soft); text-transform: uppercase;
   }
+  .hero-translate-note {
+    margin-top: 12px; font-family: 'Lora', Georgia, serif; font-style: italic;
+    font-size: 11.5px; line-height: 1.45; color: var(--ink-soft);
+  }
   .meta-stat .meta-value {
     font-family: 'Big Shoulders Display', sans-serif; font-weight: 800;
     font-size: 32px; color: var(--field); line-height: 1; margin-top: 4px;
@@ -269,6 +273,11 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   .breakdown-panel::after {
     content: ''; position: absolute; inset: 4px;
     border: 1px solid rgba(255,255,255,0.18); pointer-events: none;
+  }
+  .breakdown-note {
+    font-family: 'Lora', Georgia, serif; font-style: italic;
+    font-size: 11.5px; line-height: 1.45; color: rgba(255,255,255,0.6);
+    margin: -6px 0 12px;
   }
   .breakdown-title {
     font-family: 'Big Shoulders Display', sans-serif; font-weight: 900;
@@ -346,6 +355,46 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     .cherry-badge-amt { font-size: 24px; }
     .cherry-badge-label { margin-top: 0; }
   }
+
+  /* THE DEAL, IN THREE MOVES (plain-English orientation band) */
+  .deal-band {
+    background: var(--field); color: var(--paper);
+    border: 3px solid var(--field);
+    padding: 20px 18px; margin-bottom: 18px; position: relative;
+  }
+  .deal-band::after {
+    content: ''; position: absolute; inset: 4px;
+    border: 1px solid rgba(255,255,255,0.18); pointer-events: none;
+  }
+  @media (min-width: 768px) { .deal-band { padding: 24px 28px; margin-bottom: 22px; } }
+  .deal-band-eyebrow {
+    font-family: 'Oswald', sans-serif; font-weight: 500;
+    font-size: 10px; letter-spacing: 0.32em; text-transform: uppercase;
+    color: rgba(255,255,255,0.6); margin-bottom: 16px;
+  }
+  .deal-moves { display: grid; grid-template-columns: 1fr; gap: 16px; }
+  @media (min-width: 768px) { .deal-moves { grid-template-columns: repeat(3, 1fr); gap: 26px; } }
+  .deal-move-num {
+    font-family: 'Big Shoulders Display', sans-serif; font-weight: 900;
+    font-size: 26px; line-height: 1; color: var(--paper); opacity: 0.45;
+  }
+  .deal-move-title {
+    font-family: 'Oswald', sans-serif; font-size: 12px; font-weight: 600;
+    letter-spacing: 0.22em; text-transform: uppercase;
+    color: var(--paper); margin: 5px 0 6px;
+  }
+  .deal-move-text {
+    font-family: 'Lora', Georgia, serif; font-size: 13px; line-height: 1.5;
+    color: rgba(255,255,255,0.78); margin: 0;
+  }
+  .deal-move-text b { color: var(--paper); font-weight: 700; }
+  .deal-band-kicker {
+    margin-top: 16px; padding-top: 13px;
+    border-top: 1px solid rgba(255,255,255,0.18);
+    font-family: 'Lora', Georgia, serif; font-style: italic;
+    font-size: 13px; line-height: 1.5; color: rgba(255,255,255,0.85);
+  }
+  .deal-band-kicker b { color: var(--paper); font-weight: 700; font-style: normal; }
 
   /* PAYBACK SCHEDULE */
   .payback-section {
@@ -680,6 +729,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     background: var(--field-bright); transform: scale(1.12); outline: none;
     box-shadow: 0 0 0 2px rgba(18,42,79,0.25);
   }
+  /* Inverted variant for tips sitting on the navy controls panel */
+  .info-tip.inv { background: var(--paper); color: var(--field); }
+  .info-tip.inv:hover, .info-tip.inv:focus { background: var(--paper-dim); }
   /* Override Bootstrap tooltip defaults to match vintage palette */
   .tooltip { font-family: 'Lora', serif; }
   .tooltip-inner {
@@ -705,6 +757,31 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   @media (min-width: 768px) {
     footer.almanac-foot { padding: 20px 24px; margin-top: 30px; }
   }
+  footer.almanac-foot .meth-brief {
+    list-style: none; margin: 0 0 12px; padding: 0;
+    font-size: 12px; line-height: 1.55; color: var(--ink);
+  }
+  footer.almanac-foot .meth-brief li {
+    padding-left: 16px; position: relative; margin-bottom: 7px; max-width: 860px;
+  }
+  footer.almanac-foot .meth-brief li::before {
+    content: '·'; position: absolute; left: 2px; color: var(--field); font-weight: 700;
+  }
+  footer.almanac-foot .meth-brief b { color: var(--field); }
+  footer.almanac-foot .meth-signoff {
+    font-family: 'Lora', Georgia, serif; font-style: italic;
+    font-size: 12.5px; color: var(--field); margin: 2px 0 14px;
+  }
+  footer.almanac-foot details.meth-full summary {
+    cursor: pointer; list-style: none;
+    font-family: 'Oswald', sans-serif; font-size: 10px; letter-spacing: 0.22em;
+    color: var(--field); text-transform: uppercase; font-weight: 600;
+    padding: 6px 0; user-select: none;
+  }
+  footer.almanac-foot details.meth-full summary::-webkit-details-marker { display: none; }
+  footer.almanac-foot details.meth-full summary::after { content: ' ▸'; }
+  footer.almanac-foot details.meth-full[open] summary::after { content: ' ▾'; }
+  footer.almanac-foot details.meth-full p { margin-top: 8px; }
   footer.almanac-foot .meth {
     font-family: 'Oswald', sans-serif; font-size: 10px; letter-spacing: 0.22em;
     color: var(--field); text-transform: uppercase; font-weight: 600;
@@ -734,6 +811,11 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   .sim-mode-toggle .btn.active { background: var(--field); color: var(--paper); }
   .sim-mode-toggle .btn:not(.active):hover { background: rgba(18,42,79,0.08); }
   .sim-mode-toggle .btn:focus { box-shadow: none; outline: none; }
+  .sim-mode-toggle .btn small {
+    display: block; white-space: nowrap; font-size: 9px;
+    letter-spacing: 0.1em; margin-top: 3px; font-weight: 400;
+    text-transform: none; color: inherit; opacity: 0.6;
+  }
   .mc-mode-note {
     font-family: 'JetBrains Mono', monospace; font-size: 10px;
     letter-spacing: 0.08em; text-transform: uppercase;
@@ -859,6 +941,11 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   }
   @media (min-width: 768px) { .mc-panel { padding: 28px 32px; margin-bottom: 28px; } }
   .mc-head { margin-bottom: 16px; }
+  .mc-explain {
+    font-family: 'Lora', Georgia, serif; font-style: italic;
+    font-size: 12.5px; line-height: 1.45; color: var(--ink-soft);
+    margin-top: 4px; max-width: 640px;
+  }
   .mc-title {
     font-family: 'Big Shoulders Display', sans-serif; font-weight: 900;
     font-size: clamp(20px, 4vw, 28px); letter-spacing: 0.04em;
@@ -889,6 +976,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   .mc-card-badge.median { color: var(--field); opacity: 1; }
   .mc-card-badge.best   { color: #15803d; opacity: 1; }
   .mc-card-badge.avg    { color: var(--field); opacity: 1; }
+  .mc-card-badge.p10    { color: #b91c1c; opacity: 1; }
   .mc-card-moic {
     font-family: 'Big Shoulders Display', sans-serif; font-weight: 900;
     font-size: clamp(28px, 5vw, 42px); letter-spacing: 0.02em;
@@ -1004,31 +1092,54 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <div class="frame">
 
   <header class="almanac">
-    <div class="eyebrow">Baseball ISA Fund Backtest · 2012–2014 · 3-Year Investment Period</div>
+    <div class="eyebrow">Fund I · Baseball Income-Share Agreements · Backtest · 2012–2014 · 3-Year Investment Period</div>
     <h1 class="bigtitle">Front Row Capital<br><span class="h1-line2">Simulator</span></h1>
-    <div class="deck">Pick a commitment. A 2012-vintage fund deploys across the 2012–2014 FanGraphs Top 100s. Each year, an independent random batch is drawn from that year's filtered pool — the per-year cadence is randomized in <b>3-18</b> per year and totals 28. Cross-year duplicates are auto-replaced from the earlier year's eligible pool. Your LP cut shown after fees and 20% carry on the players' actual nominal MLB career earnings, on a cost basis deflated to the fund's vintage year.</div>
+    <div class="deck">Twenty-eight names, drawn at random from three consecutive FanGraphs Top 100s — 2012–2014 — and signed on the fund's terms: $300K a player, his to keep, for 4% of every MLB paycheck his career produces. The terms are quoted in 2026 dollars and translated to the era; the salaries are the ones actually paid, in the dollars of the day, run through the fund's waterfall. Set a commitment and roll. What comes back to you is net — fees and the manager's carry already out. The fine print lives in the Methodology below.</div>
     <div class="terms-strip">
       <span><b>TOTAL FUND</b> $10M</span>
-      <span><b>ISA PORTFOLIO (this view)</b> $8.4M</span>
-      <span><b>ISA DEAL</b> <span id="dealStat">$300K / 4%</span><span class="info-tip" tabindex="0" role="button" aria-label="Pricing methodology" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Deal terms priced in 2026 dollars: $300K per signing for 4% of MLB career earnings, spread across 28 picks on the $8.4M ISA sleeve. Historical vintages deflate this cost to the fund's inception year (e.g. ≈$4.9M for a 2005-vintage fund) and use the players' actual nominal salaries — so MOIC and IRR reflect what a real-world investor of that era would have experienced.">i</span></span>
-      <span><b>FEES</b> 2% Y1-3 · 0.5% Y4-15</span>
-      <span><b>CARRY</b> 20%</span>
+      <span><b>ISA SLEEVE (shown here)</b> $8.4M<span class="info-tip" tabindex="0" role="button" aria-label="What the ISA sleeve is" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="The slice of the $10M fund that signs players — every number on this page is this sleeve alone. Quoted in 2026 dollars; historical vintages deflate it to the fund's launch year (≈$4.9M for a 2005 fund). The fund separately holds a $1.5M Finlete equity stake, uncounted here; the ~$0.1M balance covers fund formation costs.">i</span></span>
+      <span><b>THE DEAL</b> <span id="dealStat">$300K / 4%</span><span class="info-tip" tabindex="0" role="button" aria-label="What the deal is" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="An income-share agreement: the player takes $300K today, his to keep, and the fund collects 4% of every MLB paycheck he ever earns. If he never reaches the majors he owes nothing. Priced in 2026 dollars and deflated to each vintage year, with the players' actual salaries of the day.">i</span></span>
+      <span><b>WATERFALL</b> LPs repaid first, then 80/20<span class="info-tip" tabindex="0" role="button" aria-label="How the waterfall works" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="The payout order: 100% of distributions go to investors until every invested dollar is back, then profits split 80% to investors, 20% to the manager.">i</span></span>
+      <span><b>FEES</b> 2% Y1-3 · 0.5% Y4-15<span class="info-tip" tabindex="0" role="button" aria-label="Fee detail" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="The annual management charge: 2% of invested capital in years 1–3 while the roster is built, 0.5% for the remaining twelve.">i</span></span>
+      <span><b>CARRY</b> 20%<span class="info-tip" tabindex="0" role="button" aria-label="What carry is" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="The manager's share of profits — taken only after investors have received 100% of their capital back.">i</span></span>
     </div>
   </header>
+
+  <section class="deal-band" aria-label="How the fund works, in plain English">
+    <div class="deal-band-eyebrow">One Deal, Three Moves</div>
+    <div class="deal-moves">
+      <div class="deal-move">
+        <div class="deal-move-num">1</div>
+        <div class="deal-move-title">Sign</div>
+        <p class="deal-move-text">The fund pays <b>28 top prospects $300K apiece</b>, theirs to keep regardless. Each owes back <b>4% of every major-league paycheck</b> for the length of his career. A player who never reaches the majors owes nothing — the fund wears the miss.</p>
+      </div>
+      <div class="deal-move">
+        <div class="deal-move-num">2</div>
+        <div class="deal-move-title">Collect</div>
+        <p class="deal-move-text">Paychecks arrive for <b>15 years</b>, and you stand first in line: <b>100% of distributions until your capital is returned</b>, then 80% of everything after. At year 15, positions still paying are sold to a successor fund and the proceeds distributed. One wire upfront; no capital calls, ever.</p>
+      </div>
+      <div class="deal-move">
+        <div class="deal-move-num">3</div>
+        <div class="deal-move-title">Replay</div>
+        <p class="deal-move-text">A <b>backtest, not a forecast</b>. Pick a draft era and roll — a random roster from the actual FanGraphs lists, the careers that followed, run through the fund's terms. Every bust counted, every fee out. Deal another hand whenever you doubt one.</p>
+      </div>
+    </div>
+    <div class="deal-band-kicker">Most prospects never collect a major-league paycheck. The stars pay for everyone who didn't. <b>That asymmetry is the entire trade.</b></div>
+  </section>
 
   <div class="sim-mode-strip">
     <div class="sim-mode-label">Mode</div>
     <div class="btn-group sim-mode-toggle" role="group" aria-label="Simulation mode">
-      <button type="button" class="btn active" data-simmode="single">Single Roll</button>
-      <button type="button" class="btn" data-simmode="monte">Monte Carlo</button>
+      <button type="button" class="btn active" data-simmode="single">Single Roll<small>one fund, full detail</small></button>
+      <button type="button" class="btn" data-simmode="monte">Monte Carlo<small>10,000 funds, the odds</small></button>
     </div>
     <span class="mc-mode-note" id="mcModeNote" hidden>10,000 run simulation</span>
   </div>
 
   <div class="vintage-strip">
-    <div class="vintage-label">Vintage</div>
+    <div class="vintage-label">Vintage<span class="info-tip" tabindex="0" role="button" aria-label="What a vintage is" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="A fund's vintage is the year it starts investing. Pick an era and the simulator replays those drafts with the careers that actually followed.">i</span></div>
     <div class="btn-group vmode-toggle" role="group" aria-label="Vintage mode">
-      <button type="button" class="btn" data-vmode="single">Single</button>
+      <button type="button" class="btn" data-vmode="single">Single Year</button>
       <button type="button" class="btn active" data-vmode="deploy">3-Year Deploy</button>
     </div>
     <div class="year-chips" id="yearChips" role="group" aria-label="Prospect year">
@@ -1052,7 +1163,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <div class="row g-3 g-lg-4 align-items-end">
 
       <div class="col-12 col-lg-4">
-        <div class="ctrl-label">Your LP Commitment</div>
+        <div class="ctrl-label">Your Commitment<span class="info-tip inv" tabindex="0" role="button" aria-label="What committing means" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="You would be a Limited Partner — an LP: one of the investors whose money signs the players. Wired once, upfront. The fund never asks for more.">i</span></div>
         <div class="slider-row">
           <span class="commit-amount" id="commitAmount">$1M</span>
           <span class="commit-suffix">into the fund</span>
@@ -1087,37 +1198,39 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     </div>
     <div class="cherry-copy">
       <div class="cherry-eyebrow">Not counted in a single number below</div>
-      <p class="cherry-text">Everything on this page is the <b>$8.4M ISA sleeve</b> alone. The $10M fund also holds <b>$1.5M of equity in Finlete</b> — the platform that sources and services these deals. It earns nothing in this backtest and never touches your MOIC, IRR, or payback. Pure upside, sitting on top of every result you see. <b>The cherry.</b></p>
+      <p class="cherry-text">Every number on this page is the <b>$8.4M ISA sleeve</b> working alone. The fund separately holds <b>$1.5M of equity in Finlete</b>, the platform that sources and services these agreements — roughly fifteen cents of every committed dollar, <b>carried here at zero</b>. Whatever it turns out to be worth, no figure below ever counted it.</p>
     </div>
   </div>
 
   <div id="singleRollResults" class="row g-3 mb-3 mb-md-4">
     <div class="col-12 col-lg-7">
       <div class="hero-panel">
-        <div class="hero-label">Your Net Distribution · ISA Portfolio</div>
+        <div class="hero-label">Your Net Distribution · ISA Sleeve</div>
         <div class="hero-amount"><span class="currency">$</span><span id="userReturn">—</span></div>
         <div class="hero-meta">
           <div class="row g-3">
             <div class="col-6 meta-stat">
-              <div class="meta-label">Net LP MOIC (nominal)</div>
+              <div class="meta-label">Net MOIC<span class="info-tip" tabindex="0" role="button" aria-label="What MOIC means" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Multiple on invested capital: dollars back per dollar in, after fees and carry. 2.00× means your money doubled; below 1.00× is a loss. Nominal — actual dollars of the years they were paid, not inflation-adjusted.">i</span></div>
               <div class="meta-value gold" id="netMoic">—</div>
             </div>
             <div class="col-6 meta-stat">
-              <div class="meta-label">Net LP IRR (nominal)</div>
+              <div class="meta-label">Net IRR<span class="info-tip" tabindex="0" role="button" aria-label="What IRR means" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Your annualized rate of return, weighing when cash went in against when it came back — read it like an interest rate, after fees and carry. Nominal: for older vintages part of this is inflation; a real, inflation-adjusted IRR runs several points lower.">i</span></div>
               <div class="meta-value gold" id="netIrr">—</div>
             </div>
           </div>
+          <div class="hero-translate-note">Stated in today's dollars. Your commitment times the multiple above equals the figure shown — fees and carry already out.</div>
         </div>
       </div>
     </div>
     <div class="col-12 col-lg-5">
       <div class="breakdown-panel">
         <div class="breakdown-title">ISA Portfolio Waterfall</div>
-        <div class="br-row"><span class="label">ISA Capital Deployed</span><span class="value" id="bBasis">$8,400,000</span></div>
+        <div class="breakdown-note">Whole-fund dollars, in payout order: live collections plus the year-15 sale, less fees and carry, equals net to LPs — your distribution is your share.</div>
+        <div class="br-row"><span class="label">ISA Capital Deployed</span><span class="value" id="bBasis">—</span></div>
         <div class="br-row"><span class="label">Live Collections (Yrs 1–15)</span><span class="value" id="bGross">—</span></div>
-        <div class="br-row"><span class="label">Secondary Sale, Yr 15 (PV)</span><span class="value" id="bSale">—</span></div>
-        <div class="br-row"><span class="label">Mgmt Fees (15 yrs)</span><span class="value" id="bFees">—</span></div>
-        <div class="br-row"><span class="label">GP Carry (20%)</span><span class="value" id="bCarry">—</span></div>
+        <div class="br-row"><span class="label">Yr-15 Sale of Remaining Contracts<span class="info-tip inv" tabindex="0" role="button" aria-label="How the year-15 sale works" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="The fund closes at year 15. Players still being paid are sold to a successor fund or private buyers for a lump sum — the present value of their remaining paychecks, marked down at a 12% buyer's return — so no investor waits out a 20-year career.">i</span></span><span class="value" id="bSale">—</span></div>
+        <div class="br-row"><span class="label">Mgmt Fees (15 yrs)<span class="info-tip inv" tabindex="0" role="button" aria-label="Fee detail" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="2% of invested capital per year in years 1–3, 0.5% per year for the remaining twelve.">i</span></span><span class="value" id="bFees">—</span></div>
+        <div class="br-row"><span class="label">Manager's Carry (20%)<span class="info-tip inv" tabindex="0" role="button" aria-label="What carry is" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="The manager's share of profits — taken only after investors have received 100% of their capital back.">i</span></span><span class="value" id="bCarry">—</span></div>
         <div class="br-row total"><span class="label">Net to LPs</span><span class="value" id="bNetLp">—</span></div>
       </div>
     </div>
@@ -1143,7 +1256,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <tbody id="paybackBody"></tbody>
       </table>
     </div>
-    <div class="payback-note">Your full commitment is invested upfront in Year 1 — there are no capital calls. Distributions are your net cash after management fees and 20% carry. Early-year negatives are fee drag before drafted players reach the majors. The fund's 15-year life is a hard stop: positions still earning after the term are sold to a successor Front Row fund or private buyers, valued at the present value of their remaining collections at a 12% buyer's discount — so LPs are never asked to wait two decades for a single career to finish. Scales linearly with your commitment. Backtest only — not a projection.</div>
+    <div class="payback-note">One wire, upfront — the fund never calls again. The red early years are fees accruing while the roster climbs the minors; they are netted from later distributions, not billed to you. At year 15 the fund closes and sells whatever is still paying — that lump sum is the final-year row. Backtest, not projection.</div>
   </section>
 
   <!-- Monte Carlo Panel -->
@@ -1153,6 +1266,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <div class="mc-title">Monte Carlo · 10,000 Runs</div>
         <button class="sim-log-clear" id="mcClear" aria-label="Clear Monte Carlo history" hidden>Clear</button>
       </div>
+      <div class="mc-explain">One roll is one fund. This deals 10,000 of them — same era, same terms, different rosters — and shows the whole distribution, bottom decile first, losing runs counted.</div>
     </div>
     <div class="mc-progress" id="mcProgress">
       <div class="mc-progress-bar-wrap">
@@ -1179,16 +1293,27 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-cols-xxl-5 g-2 g-md-3" id="rosterGrid">
       <div class="col-12">
         <div class="empty-state">
-          <div class="big">Spin Up</div>
-          <div class="small">Click "Roll Roster" To Begin</div>
+          <div class="big">First Pitch</div>
+          <div class="small">Roll the roster — 28 real careers, dealt at random</div>
         </div>
       </div>
     </div>
   </div>
 
   <footer class="almanac-foot">
-    <div class="meth">Methodology</div>
-    <p>Player earnings data covers the 2005–2016 FanGraphs Top 100 prospect lists (MLB salaries from baseball-reference / Spotrac), with each player's earnings aligned to his prospect year. Salaries flow through the model as raw <b>nominal, year-of-payment dollars</b> — the actual paychecks the player received — matching how a real-world investor of that vintage would have experienced the cash flows. Pick any single vintage (2005–2016) to draw 28 random prospects from that year's Top 100, or switch to <b>3-Year Deploy</b> and pick a start year to model a fund deploying across three consecutive lists (start year through start+2; start years run 2005–2014). In 3-year mode each year is treated as an independent draft. The per-year cadence is randomized each roll: three integers in [3, 18] summing to 28, with each year additionally capped at its eligible pool size. For each year the rank filter (Full 100 / P1–P50 / P25–P75 / P50–P100) is applied to that year's Top 100, then the per-year batch is drawn at random from that year's eligible pool. After all three drafts, the simulator scans for cross-year duplicates (same player on two or more lists). For each duplicate the earlier year's slot is replaced with a fresh random pick from that year's eligible pool — excluding everyone already on the combined roster — and the dedupe scan repeats until clean. Deal terms are quoted in <b>2026 dollars</b> — $300K per signing for 4% of MLB career earnings, spread evenly across 28 picks on the $8.4M sleeve — and then deflated to the fund's inception year using the Front Row CPI index. A 2005-vintage fund therefore invests ≈$4.9M nominal (28 picks × ≈$175K in 2005 dollars); a 2016 vintage invests ≈$6.0M; a hypothetical 2026 vintage invests the full $8.4M. In 3-year deploy mode signings are spread across the three vintage years, so the basis uses the simple average of those years' deflators (a 2005–2007 deploy invests ≈$5.05M nominal). Your commitment slider is quoted in 2026 dollars and likewise deflated to the fund's vintage year — a $1M commitment to a 2005 fund represents ≈$583K of 2005 purchasing power and buys the corresponding share of that vintage's nominal cash flows. Narrow rank filters can cap the roster below 28 (repeat prospects across deploy years are dropped); when that happens the fund scales to the capital actually deployed — picks × the vintage-year price — and management fees and the return-of-capital hurdle are computed on that smaller basis, so returns stay comparable across filters. The full invested amount is wired upfront at fund inception (the selected start year) — there are no capital calls, even in 3-year mode where players are signed across the three deploy years. Fund life is a 12-year base term plus three 1-year extensions (15 years total). Management fees (2%/yr in years 1–3, 0.5%/yr in years 4–15) are charged on the invested ISA basis from fund inception and are denominated in that vintage year's dollars. The 15-year term is a hard stop on the schedule: ISA collections in years 1–15 are realized live, and every position still earning after the term (a player's career can run to 2044) is sold at the end of year 15 — to a successor Front Row fund or to private investors — for the present value of its remaining collections, discounted at a 12% secondary-buyer required return. Those sale proceeds are realized in year 15 and run through the same waterfall, so no LP cash flow falls outside the fund's life. Distributions follow a European whole-fund waterfall on the ISA portfolio: 100% to LPs until the invested ISA capital is returned, then 80% LP / 20% GP. <b>Net LP MOIC and IRR are nominal</b> — computed on the actual year-by-year cash-flow stream (full upfront investment in Year 1, distributions in each fund-year through year 15), un-adjusted for inflation. For old vintages this includes inflation-driven return; a real (inflation-adjusted) IRR would run several points lower. Backtest only — past performance is not indicative of future results. <i>Confidential. For accredited investor discussion only.</i></p>
+    <div class="meth">Methodology, in Brief</div>
+    <ul class="meth-brief">
+      <li><b>Real players, real paychecks.</b> Rosters draw from the 2005–2016 FanGraphs Top 100s; collections are the salaries actually paid, per Baseball-Reference and Spotrac, in the dollars of the day.</li>
+      <li><b>Era-honest pricing.</b> The $300K / 4% deal is quoted in 2026 dollars and deflated to each vintage — roughly $175K a pick for a 2005 fund — so results are what that era's investor would have seen. Your own numbers are shown in today's dollars: commitment × multiple, the translation netted out.</li>
+      <li><b>Fifteen years, hard stop.</b> Collections end at year 15; positions still paying are sold to a successor fund for a discounted lump sum. No LP waits on a career that outruns the fund.</li>
+      <li><b>LPs are paid first.</b> 100% of distributions until capital is returned, then 80/20. Fees run 2% in years 1–3 and 0.5% thereafter; your outcome above is net of both.</li>
+      <li><b>A backtest, not a forecast.</b> Past performance is not indicative of future results. Confidential — for discussion with accredited investors only.</li>
+    </ul>
+    <div class="meth-signoff">No pro forma survives contact with the dice, so we handed you the dice.</div>
+    <details class="meth-full">
+    <summary>Full Methodology</summary>
+    <p>Player earnings data covers the 2005–2016 FanGraphs Top 100 prospect lists (MLB salaries from baseball-reference / Spotrac), with each player's earnings aligned to his prospect year. Salaries flow through the model as raw <b>nominal, year-of-payment dollars</b> — the actual paychecks the player received — matching how a real-world investor of that vintage would have experienced the cash flows. Pick any single vintage (2005–2016) to draw 28 random prospects from that year's Top 100, or switch to <b>3-Year Deploy</b> and pick a start year to model a fund deploying across three consecutive lists (start year through start+2; start years run 2005–2014). In 3-year mode each year is treated as an independent draft. The per-year cadence is randomized each roll: three integers in [3, 18] summing to 28, with each year additionally capped at its eligible pool size. For each year the rank filter (Full 100 / P1–P50 / P25–P75 / P50–P100) is applied to that year's Top 100, then the per-year batch is drawn at random from that year's eligible pool. After all three drafts, the simulator scans for cross-year duplicates (same player on two or more lists). For each duplicate the earlier year's slot is replaced with a fresh random pick from that year's eligible pool — excluding everyone already on the combined roster — and the dedupe scan repeats until clean. Deal terms are quoted in <b>2026 dollars</b> — $300K per signing for 4% of MLB career earnings, spread evenly across 28 picks on the $8.4M sleeve — and then deflated to the fund's inception year using the Front Row CPI index. A 2005-vintage fund therefore invests ≈$4.9M nominal (28 picks × ≈$175K in 2005 dollars); a 2016 vintage invests ≈$6.0M; a hypothetical 2026 vintage invests the full $8.4M. In 3-year deploy mode signings are spread across the three vintage years, so the basis uses the simple average of those years' deflators (a 2005–2007 deploy invests ≈$5.05M nominal). Your commitment is quoted in today's dollars: it buys the share of the fund that an era-equivalent commitment would have bought, and your displayed distributions are expressed back in today's dollars at the same rate — the translation nets out, so commitment × MOIC equals your displayed distribution. Fund-level waterfall figures remain in the vintage's nominal dollars. Narrow rank filters can cap the roster below 28 (repeat prospects across deploy years are dropped); when that happens the fund scales to the capital actually deployed — picks × the vintage-year price — and management fees and the return-of-capital hurdle are computed on that smaller basis, so returns stay comparable across filters. The full invested amount is wired upfront at fund inception (the selected start year) — there are no capital calls, even in 3-year mode where players are signed across the three deploy years. Fund life is a 12-year base term plus three 1-year extensions (15 years total). Management fees (2%/yr in years 1–3, 0.5%/yr in years 4–15) are charged on the invested ISA basis from fund inception and are denominated in that vintage year's dollars. The 15-year term is a hard stop on the schedule: ISA collections in years 1–15 are realized live, and every position still earning after the term (a player's career can run to 2044) is sold at the end of year 15 — to a successor Front Row fund or to private investors — for the present value of its remaining collections, discounted at a 12% secondary-buyer required return. Those sale proceeds are realized in year 15 and run through the same waterfall, so no LP cash flow falls outside the fund's life. Distributions follow a European whole-fund waterfall on the ISA portfolio: 100% to LPs until the invested ISA capital is returned, then 80% LP / 20% GP. <b>Net LP MOIC and IRR are nominal</b> — computed on the actual year-by-year cash-flow stream (full upfront investment in Year 1, distributions in each fund-year through year 15), un-adjusted for inflation. For old vintages this includes inflation-driven return; a real (inflation-adjusted) IRR would run several points lower. Backtest only — past performance is not indicative of future results. <i>Confidential. For accredited investor discussion only.</i></p>
+    </details>
   </footer>
 
 </div>
@@ -1196,12 +1321,12 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <aside class="cta-bar" role="complementary" aria-label="Investor interest call to action">
   <div class="cta-bar-inner">
     <div class="cta-bar-msg">
-      <span class="cta-eyebrow">Front Row Capital, Fund I</span>
-      <span class="cta-headline">Ready to talk?</span>
+      <span class="cta-eyebrow">Front Row Capital · Fund I</span>
+      <span class="cta-headline">The next roster won't be a backtest.</span>
     </div>
     <button type="button" class="cta-bar-btn"
             data-bs-toggle="modal" data-bs-target="#lpModal">
-      Express LP Interest <span class="arrow">→</span>
+      Indicate LP Interest <span class="arrow">→</span>
     </button>
   </div>
 </aside>
@@ -1568,7 +1693,6 @@ const simLogClearBtn = document.getElementById('simLogClear');
 const eyebrowEl = document.querySelector('.almanac .eyebrow');
 const deckEl = document.querySelector('.almanac .deck');
 
-const DECK_BASE_2012 = 'Pick a commitment. Pull 28 random prospects from the FanGraphs 2012 Top 100. This view models the <b>$8.4M ISA portfolio</b> of the $10M fund—your LP cut after fees and 20% carry on actual MLB career earnings. The fund\'s separate $1.5M Finlete equity stake rides on top of these numbers, uncounted.';
 function deckTextFor(v) {
   const cfg = VINTAGES[v];
   const poolSize = currentPool().length;
@@ -1577,17 +1701,17 @@ function deckTextFor(v) {
   const dealTxt = `${fmtMoneyShort(dealPrice)} per pick for ${fmtDealPct(dealPct)} of career earnings`;
   if (cfg.single) {
     const drawTxt = constrained
-      ? `Sign all ${poolSize} eligible prospects (ranks ${MODES[mode].label})`
-      : `Pull 28 random prospects`;
-    const basisTxt = (constrained || !defaultDeal)
-      ? `a scaled ISA portfolio — ${dealTxt}, with fees and the return hurdle on the capital actually deployed`
-      : `the <b>$8.4M ISA portfolio</b> of the $10M fund`;
-    return `Pick a commitment. ${drawTxt} from the FanGraphs ${cfg.label} Top 100. This view models ${basisTxt}—your LP cut after fees and 20% carry on the players' actual nominal MLB career earnings, on a cost basis deflated to the vintage year. The fund's separate $1.5M Finlete equity stake rides on top of these numbers, uncounted.`;
+      ? `signs all ${poolSize} eligible prospects (ranks ${MODES[mode].label})`
+      : `signs 28 of them at random`;
+    const scaleNote = (constrained || !defaultDeal)
+      ? ` With a narrowed pool the fund scales to the capital actually deployed — ${dealTxt}.`
+      : '';
+    return `In ${cfg.start}, FanGraphs ranked the hundred best prospects in baseball. The fund ${drawTxt} — $300K apiece, in 2026 dollars translated to ${cfg.start}, for 4% of every MLB paycheck that followed.${scaleNote} Pick a commitment and roll. The careers are real, the terms are the fund's, and your outcome arrives net of fees and carry.`;
   }
   const deployNote = (constrained || !defaultDeal)
-    ? ` The fund scales to the capital actually deployed — ${dealTxt}${constrained ? '; each year caps at its eligible pool and repeat prospects are dropped' : ''}.`
+    ? ` With a narrowed pool the fund scales to the capital actually deployed — ${dealTxt}${constrained ? '; each year caps at its eligible pool and repeat prospects are dropped' : ''}.`
     : '';
-  return `Pick a commitment. A ${cfg.start}-vintage fund deploys across ${cfg.deckYears} — three consecutive FanGraphs Top 100s. Each year, an independent random batch is drawn from that year's filtered pool — the per-year cadence is randomized in <b>3-18</b> per year and totals 28. Cross-year duplicates are auto-replaced from the earlier year's eligible pool.${deployNote} Your LP cut shown after fees and 20% carry on the players' actual nominal MLB career earnings, on a cost basis deflated to the ${cfg.start} vintage year.`;
+  return `Twenty-eight names, drawn at random from three consecutive FanGraphs Top 100s — ${cfg.deckYears} — and signed on the fund's terms: $300K a player, his to keep, for 4% of every MLB paycheck his career produces. The terms are quoted in 2026 dollars and translated to the era; the salaries are the ones actually paid, in the dollars of the day, run through the fund's waterfall.${deployNote} Set a commitment and roll. What comes back to you is net — fees and the manager's carry already out. The fine print lives in the Methodology below.`;
 }
 
 // For 3-year mode, "pool size" displayed is the sum of unique-eligible players across all 3 years.
@@ -1627,10 +1751,10 @@ function updateUserReturn() {
     if (paybackSectionEl) paybackSectionEl.hidden = true;
     return;
   }
-  // The commitment slider is in 2026 dollars; deflate to the fund's vintage year
-  // so the LP's share of a historical fund matches their real purchasing power then.
-  const deflatedCommit = commit * vintageDeflator(lastResult.fundStart);
-  const userNet = lastResult.moic * deflatedCommit;
+  // The LP's personal view is expressed in today's dollars: the commitment buys the
+  // share an era-equivalent commitment bought then, and distributions translate back
+  // out at the same rate — the deflation nets out, so commitment × MOIC reconciles.
+  const userNet = lastResult.moic * commit;
   document.getElementById('userReturn').textContent =
     userNet >= 1_000_000
       ? (userNet/1_000_000).toFixed(2) + 'M'
@@ -1658,10 +1782,10 @@ function renderPayback() {
     return;
   }
   const r = lastResult;
-  // Deflate the LP's 2026-dollar commitment to the fund's vintage year, so their
-  // share of the (nominal, vintage-year) fund reflects real purchasing power.
-  const deflatedCommit = commit * vintageDeflator(r.fundStart);
-  const scale = deflatedCommit / r.totalCalled;
+  // Today's-dollar view: the commitment deflates into the fund and its distributions
+  // translate back out at the same rate, so the scale reduces to commit / totalCalled.
+  // Payback timing is scale-invariant; commitment × MOIC = total distribution.
+  const scale = commit / r.totalCalled;
   const n = r.lpDist.length;
 
   // Trim the trailing tail of years with no meaningful LP cash flow.
@@ -1719,26 +1843,29 @@ function renderPayback() {
     ? ` The fund closes in <b>${saleYr}</b> (Year ${r.saleYearIndex + 1}): any positions still earning are sold to a successor fund or private buyers, adding <b>${fmtSigned(saleToLp)}</b> to your final-year distribution. That's why the schedule stops at Year ${r.saleYearIndex + 1} instead of running to 2044.`
     : '';
 
+  const commitTxt = fmtCommit(commit);
+
   if (paybackIdx >= 0) {
     const yrsToPayback = paybackIdx; // years after the upfront investment (Year 1)
     paybackCalloutEl.className = 'payback-callout';
     paybackCalloutEl.innerHTML =
-      `You invest <b>${fmtCommit(commit)}</b> upfront and have it fully back by <b>${r.fundStart + paybackIdx}</b> ` +
+      `You invest <b>${commitTxt}</b> upfront and have it fully back by <b>${r.fundStart + paybackIdx}</b> ` +
       `(fund Year ${paybackIdx + 1}${yrsToPayback === 0 ? '' : `, ~${yrsToPayback} ${yrsToPayback === 1 ? 'year' : 'years'} in`}). ` +
       `Everything after is profit — this draw nets <b>${fmtSigned(profit)}</b> on a <b>${r.moic.toFixed(2)}×</b> return.` +
       saleSentence;
   } else {
     paybackCalloutEl.className = 'payback-callout miss';
     paybackCalloutEl.innerHTML =
-      `In this draw your <b>${fmtCommit(commit)}</b> is <b>not fully recovered</b> over the fund's life — ` +
-      `ending at <b>${fmtSigned(profit)}</b> (${r.moic.toFixed(2)}×). Roll again or widen the player pool.`;
+      `This one loses. Your <b>${commitTxt}</b> ends at <b>${fmtSigned(profit)}</b> (${r.moic.toFixed(2)}×) — ` +
+      `a roster that never produced a star cannot pay for its misses. Draws like this are in the deck; ` +
+      `run <b>Monte Carlo</b> and count them across 10,000 runs.`;
   }
 
   paybackSectionEl.hidden = false;
 }
 
 function refreshHeaderCopy() {
-  if (eyebrowEl) eyebrowEl.textContent = `Baseball ISA Fund Backtest · ${VINTAGES[vintage].eyebrow}`;
+  if (eyebrowEl) eyebrowEl.textContent = `Fund I · Baseball Income-Share Agreements · Backtest · ${VINTAGES[vintage].eyebrow}`;
   if (deckEl) deckEl.innerHTML = deckTextFor(vintage);
 }
 
@@ -1759,8 +1886,8 @@ function resetResultDisplay() {
   rosterGrid.innerHTML = `
     <div class="col-12">
       <div class="empty-state">
-        <div class="big">Spin Up</div>
-        <div class="small">Click "Roll Roster" To Begin</div>
+        <div class="big">First Pitch</div>
+        <div class="small">Roll the roster — 28 real careers, dealt at random</div>
       </div>
     </div>`;
 }
@@ -1845,6 +1972,7 @@ function resimulate() {
 }
 
 function appendSimToLog(r) {
+  // Today's-dollar view, same as the hero panel — commitment × MOIC everywhere.
   const userNet = r.moic * commit;
   simCounter++;
   simHistory.push({
@@ -1888,11 +2016,11 @@ function renderSimLog() {
           <span class="sim-stat-val">${fmtMoneyShort(s.netDist)}</span>
         </div>
         <div class="sim-stat">
-          <span class="sim-stat-label">Net LP MOIC</span>
+          <span class="sim-stat-label">Net MOIC</span>
           <span class="sim-stat-val gold">${s.moic.toFixed(2)}x</span>
         </div>
         <div class="sim-stat">
-          <span class="sim-stat-label">Net LP IRR</span>
+          <span class="sim-stat-label">Net IRR</span>
           <span class="sim-stat-val gold">${irrTxt}</span>
         </div>
       </div>
@@ -1964,14 +2092,14 @@ function runOnce() {
   return simulate(selected, tl.fundStart, tl.len, tl.basisDeflator);
 }
 
-function fmtMCDist(moic) {
-  const net = moic * commit;
+function fmtMCDist(moic, commitAmt) {
+  const net = moic * commitAmt;
   return net >= 1_000_000
     ? '$' + (net / 1_000_000).toFixed(2) + 'M'
     : '$' + Math.round(net / 1000).toLocaleString() + 'K';
 }
 
-function renderMCCard(r, label, cls) {
+function renderMCCard(r, label, cls, run) {
   const irrTxt = isFinite(r.irr) ? (r.irr * 100).toFixed(1) + '%' : '—';
   return `
     <div class="col-12 col-md-4">
@@ -1979,7 +2107,7 @@ function renderMCCard(r, label, cls) {
         <div class="mc-card-badge ${cls}">${label}</div>
         <div class="mc-card-moic">${r.moic.toFixed(2)}x</div>
         <div class="mc-card-irr">${irrTxt} Net IRR</div>
-        <div class="mc-card-dist">Your ${fmtCommit(commit)} commitment →<strong>${fmtMCDist(r.moic)}</strong></div>
+        <div class="mc-card-dist">Your ${fmtCommit(run.commit)} commitment →<strong>${fmtMCDist(r.moic, run.commit)}</strong></div>
       </div>
     </div>`;
 }
@@ -2010,9 +2138,12 @@ async function runMonteCarlo() {
 
   const best   = results[MC_RUNS - 1];
   const median = results[Math.floor(MC_RUNS / 2)];
+  const p10    = results[Math.floor(MC_RUNS * 0.10)]; // bottom decile — the honest downside card
 
   const avgMoic = results.reduce((s, r) => s + r.moic, 0) / MC_RUNS;
-  const avgIrr  = results.reduce((s, r) => s + (isFinite(r.irr) ? r.irr : 0), 0) / MC_RUNS;
+  // A run whose cash flows never turn positive has no computable IRR — count it as
+  // −100%, not 0%, so the average isn't flattered in exactly the tail we claim to show.
+  const avgIrr  = results.reduce((s, r) => s + (isFinite(r.irr) ? r.irr : -1), 0) / MC_RUNS;
   const losing  = results.filter(r => r.moic < 1.0).length;
   const pctLoss = ((losing / MC_RUNS) * 100).toFixed(1);
 
@@ -2027,6 +2158,7 @@ async function runMonteCarlo() {
     median,
     avg:      { moic: avgMoic, irr: avgIrr },
     best,
+    p10,
     losing,
     pctLoss,
     avgIrr,
@@ -2059,14 +2191,18 @@ function renderMCHistory() {
           <span class="mc-run-tag">${tag}</span>
         </div>
         <div class="row g-3">
-          ${renderMCCard(run.median, 'Median Simulation',  'median')}
-          ${renderMCCard(run.avg,    'Average Simulation', 'avg')}
-          ${renderMCCard(run.best,   'Best Simulation',    'best')}
+          ${run.p10 ? renderMCCard(run.p10, 'Bottom Decile · P10', 'p10', run) : ''}
+          ${renderMCCard(run.median, 'Median Simulation',  'median', run)}
+          ${renderMCCard(run.avg,    'Average Simulation', 'avg', run)}
         </div>
         <div class="mc-summary">
           <div class="mc-sum-stat">
             <span class="mc-sum-label">Total Runs</span>
             <span class="mc-sum-val">${MC_RUNS.toLocaleString()}</span>
+          </div>
+          <div class="mc-sum-stat">
+            <span class="mc-sum-label">Best Run</span>
+            <span class="mc-sum-val gain">${run.best.moic.toFixed(2)}x</span>
           </div>
           <div class="mc-sum-stat">
             <span class="mc-sum-label">Losing Sims (MOIC &lt; 1×)</span>
