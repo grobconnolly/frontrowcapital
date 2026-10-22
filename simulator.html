@@ -348,6 +348,26 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     color: var(--ink); margin: 0;
   }
   @media (min-width: 768px) { .cherry-text { font-size: 14px; } }
+  .exit-row { margin-top: 12px; padding-top: 12px; border-top: 1px dashed rgba(18,42,79,0.3); }
+  .exit-label {
+    font-family: 'Oswald', sans-serif; font-weight: 600; font-size: 9.5px;
+    letter-spacing: 0.22em; text-transform: uppercase; color: var(--field);
+    margin-bottom: 8px;
+  }
+  .exit-chips { display: flex; flex-wrap: wrap; gap: 6px; }
+  .exit-chip {
+    background: transparent; border: 1px solid var(--field); color: var(--field);
+    font-family: 'Oswald', sans-serif; font-weight: 600; font-size: 12px;
+    letter-spacing: 0.06em; padding: 7px 13px; cursor: pointer;
+    border-radius: 0; transition: all 0.15s;
+  }
+  .exit-chip.active { background: var(--field); color: var(--paper); }
+  .exit-chip:not(.active):hover { background: rgba(18,42,79,0.08); }
+  .exit-result { margin-top: 10px; font-family: 'Lora', Georgia, serif; font-size: 13.5px; line-height: 1.55; color: var(--ink); }
+  .exit-result b {
+    font-family: 'Big Shoulders Display', sans-serif; font-weight: 900;
+    font-size: 16px; color: var(--field); letter-spacing: 0.01em;
+  }
   .cherry-text b { color: var(--field); font-weight: 700; }
   @media (max-width: 575px) {
     .cherry-band { flex-direction: column; border-left-width: 2px; border-top: 6px solid var(--field); }
@@ -553,6 +573,39 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   .player-card.high::before { background: var(--field-bright); }
   .player-card.bust::before { background: var(--ink-soft); opacity: 0.4; }
   .pc-row1 { display: flex; justify-content: space-between; align-items: baseline; }
+  /* Player hover popover — year-by-year paychecks */
+  .player-card { cursor: pointer; }
+  .player-pop {
+    position: fixed; z-index: 10000; width: 300px; max-height: 340px; overflow-y: auto;
+    background: var(--field); color: var(--paper);
+    border: 1px solid rgba(255,255,255,0.3); box-shadow: 0 10px 30px rgba(0,0,0,0.35);
+    padding: 12px 14px; display: none;
+  }
+  .player-pop.show { display: block; }
+  .pp-name { font-family: 'Big Shoulders Display', sans-serif; font-weight: 900; font-size: 18px; line-height: 1.1; }
+  .pp-sub {
+    font-family: 'Oswald', sans-serif; font-size: 9.5px; font-weight: 500;
+    letter-spacing: 0.14em; text-transform: uppercase;
+    color: rgba(255,255,255,0.6); margin: 3px 0 8px;
+  }
+  .pp-table { width: 100%; border-collapse: collapse; font-family: 'JetBrains Mono', monospace; font-size: 11px; }
+  .pp-table th {
+    font-family: 'Oswald', sans-serif; font-size: 8.5px; font-weight: 600;
+    letter-spacing: 0.14em; text-transform: uppercase; color: rgba(255,255,255,0.55);
+    text-align: right; padding: 2px 0 4px; border-bottom: 1px solid rgba(255,255,255,0.25);
+  }
+  .pp-table th:first-child, .pp-table td:first-child { text-align: left; }
+  .pp-table td { padding: 2px 0; text-align: right; color: rgba(255,255,255,0.9); }
+  .pp-table td.neg { color: #ff9b9b; }
+  .pp-table tr.pp-total td { border-top: 1px solid rgba(255,255,255,0.3); font-weight: 700; color: var(--gold); padding-top: 4px; }
+  .pp-links {
+    margin-top: 9px; font-family: 'Oswald', sans-serif; font-size: 9.5px; font-weight: 600;
+    letter-spacing: 0.12em; text-transform: uppercase;
+  }
+  .pp-links a { color: var(--gold); text-decoration: none; margin-right: 14px; }
+  .pp-links a:hover { text-decoration: underline; }
+  .pp-note { margin-top: 7px; font-family: 'Lora', Georgia, serif; font-style: italic; font-size: 10.5px; color: rgba(255,255,255,0.55); }
+
   .pc-rank {
     font-family: 'JetBrains Mono', monospace; font-size: 10px; font-weight: 700;
     color: var(--ink-soft); letter-spacing: 0.04em;
@@ -1288,6 +1341,18 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <div class="cherry-copy">
       <div class="cherry-eyebrow">Not counted in a single number below</div>
       <p class="cherry-text">Every number on this page is the <b>$8.4M ISA sleeve</b> working alone. The fund separately holds <b>$1.5M of equity in Finlete</b>, the platform behind these deals — carried here at zero. Pure upside, never counted.</p>
+      <div class="exit-row">
+        <div class="exit-label">What if Finlete is acquired?<span class="info-tip" tabindex="0" role="button" aria-label="Exit scenario assumptions" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Assumes the fund's full $1.5M converts at its $15M post-money SAFE cap (10% of Finlete), then is diluted ~20% in each of two future financing rounds — ≈6.4% at exit. Your figure is pro-rata on the $10M fund, net of 20% carry on the gain. Hypothetical, illustrative only — not counted anywhere else on this page.">i</span></div>
+        <div class="exit-chips" role="group" aria-label="Finlete exit scenario">
+          <button type="button" class="exit-chip active" data-exit="0">$0</button>
+          <button type="button" class="exit-chip" data-exit="50000000">$50M</button>
+          <button type="button" class="exit-chip" data-exit="150000000">$150M</button>
+          <button type="button" class="exit-chip" data-exit="300000000">$300M</button>
+          <button type="button" class="exit-chip" data-exit="500000000">$500M</button>
+          <button type="button" class="exit-chip" data-exit="1000000000">$1B</button>
+        </div>
+        <div class="exit-result" id="exitResult" hidden></div>
+      </div>
     </div>
   </div>
 
@@ -1977,6 +2042,8 @@ function renderResult(r, selected, cadence) {
   rosterSub.textContent = subText;
 
   const sorted = selected.slice().sort((a,b) => b.adjTotal - a.adjTotal);
+  lastSorted = sorted;
+  hidePop();
   rosterGrid.innerHTML = '';
   sorted.forEach((p, idx) => {
     const isHigh = p.adjTotal >= 50_000_000;
@@ -1988,7 +2055,7 @@ function renderResult(r, selected, cadence) {
       ? `<span class="pc-vintage">'${String(p.vintage).slice(2)}</span>`
       : '';
     col.innerHTML = `
-      <div class="${cls}" style="animation-delay: ${idx * 18}ms">
+      <div class="${cls}" data-pi="${idx}" style="animation-delay: ${idx * 18}ms">
         <div class="pc-row1">
           <span class="pc-rank">#${String(p.rank).padStart(2,'0')}${vintageTag}</span>
           <span class="pc-pos">${p.pos || '—'}</span>
@@ -2381,6 +2448,124 @@ rollBtn.addEventListener('click', () => {
     }, 150);
   }
 });
+
+// ── Player popover: year-by-year paychecks and the 4% return ─────────────────
+// Hover (or tap) a roster card → his actual salary each season, the fund's cut,
+// the Year-1 signing cost netted in, and source links. Data: p.e, nominal.
+let lastSorted = [];
+let popPinned = false, popIdx = -1;
+const playerPop = document.createElement('div');
+playerPop.className = 'player-pop';
+document.body.appendChild(playerPop);
+
+function buildPop(p) {
+  const cost = dealPrice * vintageDeflator(p.vintage);
+  let lastEarn = -1;
+  for (let i = 0; i < p.e.length; i++) if (p.e[i] > 0) lastEarn = i;
+  let rows = '';
+  const fmtRet = v => v < 0 ? `−${fmtMoneyShort(-v)}` : (v > 0 ? `+${fmtMoneyShort(v)}` : '$0');
+  if (lastEarn < 0) {
+    rows = `<tr><td>${p.vintage}</td><td>$0</td><td class="neg">−${fmtMoneyShort(cost)}</td></tr>` +
+           `<tr><td colspan="3" style="text-align:left;color:rgba(255,255,255,0.6)">Never collected an MLB paycheck.</td></tr>`;
+  } else {
+    for (let i = 0; i <= lastEarn; i++) {
+      const ret = p.e[i] * dealPct - (i === 0 ? cost : 0);
+      rows += `<tr><td>${p.vintage + i}</td><td>${p.e[i] > 0 ? fmtMoneyShort(p.e[i]) : '$0'}</td>` +
+              `<td class="${ret < 0 ? 'neg' : ''}">${fmtRet(ret)}</td></tr>`;
+    }
+  }
+  const totRet = p.adjTotal * dealPct - cost;
+  const mult = (p.adjTotal * dealPct) / cost;
+  const q = encodeURIComponent(p.name);
+  playerPop.innerHTML =
+    `<div class="pp-name">${p.name}</div>` +
+    `<div class="pp-sub">#${p.rank} · ${p.vintage} list · signed ${fmtMoneyShort(cost)} (${p.vintage}$) for ${fmtDealPct(dealPct)}</div>` +
+    `<table class="pp-table"><tr><th>Year</th><th>Earnings</th><th>Return (${fmtDealPct(dealPct)})</th></tr>${rows}` +
+    `<tr class="pp-total"><td>Total</td><td>${fmtMoneyShort(p.adjTotal)}</td><td>${fmtRet(totRet)} · ${mult.toFixed(1)}×</td></tr></table>` +
+    `<div class="pp-links">` +
+    `<a href="https://www.baseball-reference.com/search/search.fcgi?search=${q}" target="_blank" rel="noopener">Baseball-Reference ↗</a>` +
+    `<a href="https://www.google.com/search?q=site%3Aspotrac.com+${q}" target="_blank" rel="noopener">Spotrac ↗</a></div>` +
+    `<div class="pp-note">Nominal dollars of each year. Return nets the signing cost in Year 1.</div>`;
+}
+
+function showPopFor(card) {
+  const idx = +card.dataset.pi;
+  if (!(idx >= 0) || !lastSorted[idx]) return;
+  popIdx = idx;
+  buildPop(lastSorted[idx]);
+  playerPop.classList.add('show');
+  const r = card.getBoundingClientRect(), pw = 300;
+  let x = r.right + 10;
+  if (x + pw > window.innerWidth - 8) x = r.left - pw - 10;
+  if (x < 8) x = Math.min(Math.max(8, r.left), Math.max(8, window.innerWidth - pw - 8));
+  playerPop.style.left = x + 'px';
+  playerPop.style.top = Math.max(8, Math.min(r.top, window.innerHeight - 350)) + 'px';
+}
+function hidePop() { playerPop.classList.remove('show'); popPinned = false; popIdx = -1; }
+
+rosterGrid.addEventListener('mouseover', e => {
+  const card = e.target.closest('.player-card');
+  if (card && !popPinned) showPopFor(card);
+});
+rosterGrid.addEventListener('mouseout', e => {
+  if (popPinned) return;
+  const card = e.target.closest('.player-card');
+  if (card && !card.contains(e.relatedTarget) && !playerPop.contains(e.relatedTarget)) hidePop();
+});
+playerPop.addEventListener('mouseleave', () => { if (!popPinned) hidePop(); });
+rosterGrid.addEventListener('click', e => {
+  const card = e.target.closest('.player-card');
+  if (!card) return;
+  const idx = +card.dataset.pi;
+  if (popPinned && idx === popIdx) { hidePop(); return; }
+  showPopFor(card);
+  popPinned = true;
+});
+document.addEventListener('click', e => {
+  if (popPinned && !e.target.closest('.player-card') && !playerPop.contains(e.target)) hidePop();
+});
+window.addEventListener('scroll', () => { if (!popPinned) hidePop(); }, { passive: true });
+
+// ── Finlete exit what-if (the cherry) ────────────────────────────────────────
+// The fund's $1.5M converts at its $15M post-money SAFE cap (10%), then is
+// diluted by two future priced rounds (~20% each) → ≈6.4% at exit. Pro-rata on
+// the $10M fund, net of 20% carry on the gain. Illustrative only — never mixed
+// into the backtest numbers.
+const FINLETE_COST     = 1_500_000;
+const FINLETE_CAP      = 15_000_000;
+const FINLETE_ROUNDS   = 2;
+const FINLETE_DILUTION = 0.20;
+const FUND_TOTAL       = 10_000_000;
+const FINLETE_OWN_AT_EXIT =
+  (FINLETE_COST / FINLETE_CAP) * Math.pow(1 - FINLETE_DILUTION, FINLETE_ROUNDS);
+
+const exitChips    = Array.from(document.querySelectorAll('.exit-chip'));
+const exitResultEl = document.getElementById('exitResult');
+let exitValue = 0, exitLabel = '$0';
+
+function renderExit() {
+  if (!exitResultEl) return;
+  if (exitValue <= 0) { exitResultEl.hidden = true; return; }
+  const proceeds = FINLETE_OWN_AT_EXIT * exitValue;
+  const multiple = proceeds / FINLETE_COST;
+  const netToLPs = proceeds > FINLETE_COST
+    ? FINLETE_COST + (1 - CARRY) * (proceeds - FINLETE_COST)
+    : proceeds;
+  const yourCut = (commit / FUND_TOTAL) * netToLPs;
+  exitResultEl.hidden = false;
+  exitResultEl.innerHTML =
+    `A <b>${exitLabel}</b> acquisition returns <b>${fmtMoneyShort(proceeds)}</b> to the fund ` +
+    `(${multiple.toFixed(1)}× its $1.5M) — <b>+${fmtMoneyShort(yourCut)}</b> to you on your ` +
+    `${fmtCommit(commit)} commitment, on top of every number above. Hypothetical, illustrative only.`;
+}
+exitChips.forEach(chip => chip.addEventListener('click', () => {
+  exitChips.forEach(b => b.classList.remove('active'));
+  chip.classList.add('active');
+  exitValue = +chip.dataset.exit;
+  exitLabel = chip.textContent.trim();
+  renderExit();
+}));
+if (commitSlider) commitSlider.addEventListener('input', renderExit);
 
 // Advanced options toggle — Mode / Vintage / Player Pool live behind it.
 const advancedToggle = document.getElementById('advancedToggle');
