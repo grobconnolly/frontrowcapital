@@ -348,6 +348,26 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     color: var(--ink); margin: 0;
   }
   @media (min-width: 768px) { .cherry-text { font-size: 14px; } }
+  .exit-row { margin-top: 12px; padding-top: 12px; border-top: 1px dashed rgba(18,42,79,0.3); }
+  .exit-label {
+    font-family: 'Oswald', sans-serif; font-weight: 600; font-size: 9.5px;
+    letter-spacing: 0.22em; text-transform: uppercase; color: var(--field);
+    margin-bottom: 8px;
+  }
+  .exit-chips { display: flex; flex-wrap: wrap; gap: 6px; }
+  .exit-chip {
+    background: transparent; border: 1px solid var(--field); color: var(--field);
+    font-family: 'Oswald', sans-serif; font-weight: 600; font-size: 12px;
+    letter-spacing: 0.06em; padding: 7px 13px; cursor: pointer;
+    border-radius: 0; transition: all 0.15s;
+  }
+  .exit-chip.active { background: var(--field); color: var(--paper); }
+  .exit-chip:not(.active):hover { background: rgba(18,42,79,0.08); }
+  .exit-result { margin-top: 10px; font-family: 'Lora', Georgia, serif; font-size: 13.5px; line-height: 1.55; color: var(--ink); }
+  .exit-result b {
+    font-family: 'Big Shoulders Display', sans-serif; font-weight: 900;
+    font-size: 16px; color: var(--field); letter-spacing: 0.01em;
+  }
   .cherry-text b { color: var(--field); font-weight: 700; }
   @media (max-width: 575px) {
     .cherry-band { flex-direction: column; border-left-width: 2px; border-top: 6px solid var(--field); }
@@ -431,6 +451,22 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     color: var(--field); letter-spacing: 0.01em;
   }
   .payback-callout.miss { border-left-color: var(--ink-soft); }
+  .payback-stats { display: flex; flex-wrap: wrap; gap: 10px 40px; }
+  .pb-stat { display: flex; flex-direction: column; gap: 1px; }
+  .pb-label {
+    font-family: 'Oswald', sans-serif; font-weight: 600; font-size: 9.5px;
+    letter-spacing: 0.2em; text-transform: uppercase; color: var(--ink-soft);
+  }
+  .pb-value {
+    font-family: 'Big Shoulders Display', sans-serif; font-weight: 900;
+    font-size: 19px; color: var(--field); letter-spacing: 0.01em; line-height: 1.2;
+  }
+  .pb-value small {
+    font-family: 'Lora', Georgia, serif; font-weight: 400; font-size: 12px;
+    color: var(--ink-soft); letter-spacing: 0;
+  }
+  .payback-callout.miss .pb-value { color: var(--ink); }
+  .pb-footnote { margin-top: 9px; font-size: 12.5px; color: var(--ink-soft); }
   .payback-table-wrap { overflow-x: auto; }
   .payback-table {
     width: 100%; border-collapse: collapse;
@@ -537,6 +573,39 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   .player-card.high::before { background: var(--field-bright); }
   .player-card.bust::before { background: var(--ink-soft); opacity: 0.4; }
   .pc-row1 { display: flex; justify-content: space-between; align-items: baseline; }
+  /* Player hover popover — year-by-year paychecks */
+  .player-card { cursor: pointer; }
+  .player-pop {
+    position: fixed; z-index: 10000; width: 300px; max-height: 340px; overflow-y: auto;
+    background: var(--field); color: var(--paper);
+    border: 1px solid rgba(255,255,255,0.3); box-shadow: 0 10px 30px rgba(0,0,0,0.35);
+    padding: 12px 14px; display: none;
+  }
+  .player-pop.show { display: block; }
+  .pp-name { font-family: 'Big Shoulders Display', sans-serif; font-weight: 900; font-size: 18px; line-height: 1.1; }
+  .pp-sub {
+    font-family: 'Oswald', sans-serif; font-size: 9.5px; font-weight: 500;
+    letter-spacing: 0.14em; text-transform: uppercase;
+    color: rgba(255,255,255,0.6); margin: 3px 0 8px;
+  }
+  .pp-table { width: 100%; border-collapse: collapse; font-family: 'JetBrains Mono', monospace; font-size: 11px; }
+  .pp-table th {
+    font-family: 'Oswald', sans-serif; font-size: 8.5px; font-weight: 600;
+    letter-spacing: 0.14em; text-transform: uppercase; color: rgba(255,255,255,0.55);
+    text-align: right; padding: 2px 0 4px; border-bottom: 1px solid rgba(255,255,255,0.25);
+  }
+  .pp-table th:first-child, .pp-table td:first-child { text-align: left; }
+  .pp-table td { padding: 2px 0; text-align: right; color: rgba(255,255,255,0.9); }
+  .pp-table td.neg { color: #ff9b9b; }
+  .pp-table tr.pp-total td { border-top: 1px solid rgba(255,255,255,0.3); font-weight: 700; color: var(--gold); padding-top: 4px; }
+  .pp-links {
+    margin-top: 9px; font-family: 'Oswald', sans-serif; font-size: 9.5px; font-weight: 600;
+    letter-spacing: 0.12em; text-transform: uppercase;
+  }
+  .pp-links a { color: var(--gold); text-decoration: none; margin-right: 14px; }
+  .pp-links a:hover { text-decoration: underline; }
+  .pp-note { margin-top: 7px; font-family: 'Lora', Georgia, serif; font-style: italic; font-size: 10.5px; color: rgba(255,255,255,0.55); }
+
   .pc-rank {
     font-family: 'JetBrains Mono', monospace; font-size: 10px; font-weight: 700;
     color: var(--ink-soft); letter-spacing: 0.04em;
@@ -789,6 +858,41 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   }
   footer.almanac-foot i { color: var(--field); font-style: italic; }
   /* SIM MODE TOGGLE */
+  /* Net-of-fees badge on the hero result */
+  .net-badge {
+    display: inline-block; margin-left: 10px; padding: 3px 9px 2px;
+    background: var(--gold); color: var(--field);
+    font-family: 'Oswald', sans-serif; font-weight: 600; font-size: 10px;
+    letter-spacing: 0.14em; text-transform: uppercase; vertical-align: middle;
+    border-radius: 2px; white-space: nowrap;
+  }
+
+  /* Advanced options toggle + panel */
+  .advanced-toggle {
+    margin-top: 14px; padding: 0; background: none; border: none; cursor: pointer;
+    font-family: 'Oswald', sans-serif; font-weight: 600; font-size: 11px;
+    letter-spacing: 0.22em; text-transform: uppercase;
+    color: rgba(255,255,255,0.55); transition: color 0.15s;
+  }
+  .advanced-toggle:hover { color: #fff; }
+  .advanced-toggle .adv-caret { display: inline-block; margin-left: 6px; transition: transform 0.15s; }
+  .advanced-toggle.open .adv-caret { transform: rotate(180deg); }
+  .advanced-panel { margin-bottom: 0; }
+  .pool-strip {
+    display: flex; align-items: center; gap: 14px; flex-wrap: wrap;
+    padding: 14px 16px; margin-bottom: 18px;
+    background: var(--paper-dim); border: 2px solid var(--field);
+  }
+  @media (min-width: 768px) { .pool-strip { padding: 16px 22px; margin-bottom: 22px; } }
+  .vintage-strip + .pool-strip { border-top: none; margin-top: -18px; }
+  @media (min-width: 768px) { .vintage-strip + .pool-strip { margin-top: -22px; } }
+  .pool-strip .mode-toggle.btn-group { flex: 1 1 auto; width: auto; min-width: 240px; }
+  .pool-strip .mode-toggle .btn { background: transparent; border: 1px solid var(--field); color: var(--field); }
+  .pool-strip .mode-toggle .btn small { color: rgba(18,42,79,0.55); }
+  .pool-strip .mode-toggle .btn.active { background: var(--field); color: var(--paper); }
+  .pool-strip .mode-toggle .btn.active small { color: rgba(255,255,255,0.72); }
+  .pool-strip .mode-toggle .btn:not(.active):hover { background: rgba(18,42,79,0.08); }
+
   .sim-mode-strip {
     display: flex; align-items: center; gap: 14px; flex-wrap: wrap;
     padding: 14px 16px; margin-bottom: 6px;
@@ -1094,7 +1198,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <header class="almanac">
     <div class="eyebrow">Fund I · Baseball Income-Share Agreements · Backtest · 2012–2014 · 3-Year Investment Period</div>
     <h1 class="bigtitle">Front Row Capital<br><span class="h1-line2">Simulator</span></h1>
-    <div class="deck">Twenty-eight names, drawn at random from three consecutive FanGraphs Top 100s — 2012–2014 — and signed on the fund's terms: $300K a player, his to keep, for 4% of every MLB paycheck his career produces. The terms are quoted in 2026 dollars and translated to the era; the salaries are the ones actually paid, in the dollars of the day, run through the fund's waterfall. Set a commitment and roll. What comes back to you is net — fees and the manager's carry already out. The fine print lives in the Methodology below.</div>
+    <div class="deck">We built this simulator to show what we believe our fund can produce — using the <b>actual MLB earnings</b> of past top-100 prospects. Each roll signs 28 of them from the 2012–2014 FanGraphs Top 100s on our real terms: $300K a player for 4% of every MLB paycheck. Set your commitment and roll. Every figure is <b>net of fees and carry</b>.</div>
     <div class="terms-strip">
       <span><b>TOTAL FUND</b> $10M</span>
       <span><b>ISA SLEEVE (shown here)</b> $8.4M<span class="info-tip" tabindex="0" role="button" aria-label="What the ISA sleeve is" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="The slice of the $10M fund that signs players — every number on this page is this sleeve alone. Quoted in 2026 dollars; historical vintages deflate it to the fund's launch year (≈$4.9M for a 2005 fund). The fund separately holds a $1.5M Finlete equity stake, uncounted here; the ~$0.1M balance covers fund formation costs.">i</span></span>
@@ -1105,28 +1209,31 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     </div>
   </header>
 
-  <section class="deal-band" aria-label="How the fund works, in plain English">
-    <div class="deal-band-eyebrow">One Deal, Three Moves</div>
-    <div class="deal-moves">
-      <div class="deal-move">
-        <div class="deal-move-num">1</div>
-        <div class="deal-move-title">Sign</div>
-        <p class="deal-move-text">The fund pays <b>28 top prospects $300K apiece</b>, theirs to keep regardless. Each owes back <b>4% of every major-league paycheck</b> for the length of his career. A player who never reaches the majors owes nothing — the fund wears the miss.</p>
-      </div>
-      <div class="deal-move">
-        <div class="deal-move-num">2</div>
-        <div class="deal-move-title">Collect</div>
-        <p class="deal-move-text">Paychecks arrive for <b>15 years</b>, and you stand first in line: <b>100% of distributions until your capital is returned</b>, then 80% of everything after. At year 15, positions still paying are sold to a successor fund and the proceeds distributed. One wire upfront; no capital calls, ever.</p>
-      </div>
-      <div class="deal-move">
-        <div class="deal-move-num">3</div>
-        <div class="deal-move-title">Replay</div>
-        <p class="deal-move-text">A <b>backtest, not a forecast</b>. Pick a draft era and roll — a random roster from the actual FanGraphs lists, the careers that followed, run through the fund's terms. Every bust counted, every fee out. Deal another hand whenever you doubt one.</p>
-      </div>
-    </div>
-    <div class="deal-band-kicker">Most prospects never collect a major-league paycheck. The stars pay for everyone who didn't. <b>That asymmetry is the entire trade.</b></div>
-  </section>
+  <div class="controls-panel">
+    <div class="row g-3 g-lg-4 align-items-end">
 
+      <div class="col-12 col-lg-7">
+        <div class="ctrl-label">Your Commitment<span class="info-tip inv" tabindex="0" role="button" aria-label="What committing means" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="You would be a Limited Partner — an LP: one of the investors whose money signs the players. Wired once, upfront. The fund never asks for more.">i</span></div>
+        <div class="slider-row">
+          <span class="commit-amount" id="commitAmount">$1M</span>
+          <span class="commit-suffix">into the fund</span>
+        </div>
+        <input type="range" class="form-range field-slider" id="commitSlider"
+               min="100000" max="5000000" step="25000" value="1000000">
+        <div class="slider-ticks"><span>$100K</span><span>$1M</span><span>$2.5M</span><span>$5M</span></div>
+      </div>
+
+      <div class="col-12 col-md-5 col-lg-5">
+        <button class="roll-btn" id="rollBtn">Roll Roster<span class="arrow">→</span></button>
+      </div>
+
+    </div>
+
+    <button type="button" class="advanced-toggle" id="advancedToggle" aria-expanded="false" aria-controls="advancedPanel">Advanced Options <span class="adv-caret">▾</span></button>
+
+  </div>
+
+  <div class="advanced-panel" id="advancedPanel" hidden>
   <div class="sim-mode-strip">
     <div class="sim-mode-label">Mode</div>
     <div class="btn-group sim-mode-toggle" role="group" aria-label="Simulation mode">
@@ -1158,54 +1265,21 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     </div>
     <div class="deploy-hint" id="deployHint" hidden>Pick a start year — the fund deploys across it and the next two seasons.</div>
   </div>
-
-  <div class="controls-panel">
-    <div class="row g-3 g-lg-4 align-items-end">
-
-      <div class="col-12 col-lg-4">
-        <div class="ctrl-label">Your Commitment<span class="info-tip inv" tabindex="0" role="button" aria-label="What committing means" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="You would be a Limited Partner — an LP: one of the investors whose money signs the players. Wired once, upfront. The fund never asks for more.">i</span></div>
-        <div class="slider-row">
-          <span class="commit-amount" id="commitAmount">$1M</span>
-          <span class="commit-suffix">into the fund</span>
-        </div>
-        <input type="range" class="form-range field-slider" id="commitSlider"
-               min="100000" max="5000000" step="25000" value="1000000">
-        <div class="slider-ticks"><span>$100K</span><span>$1M</span><span>$2.5M</span><span>$5M</span></div>
-      </div>
-
-      <div class="col-12 col-md-7 col-lg-5">
-        <div class="ctrl-label">Player Pool</div>
-        <div class="btn-group mode-toggle" role="group" aria-label="Player pool">
+    <div class="pool-strip">
+      <div class="vintage-label">Player Pool</div>
+      <div class="btn-group mode-toggle" role="group" aria-label="Player pool">
           <button type="button" class="btn active" data-mode="full">Full 100<small>Ranks 1–100</small></button>
           <button type="button" class="btn" data-mode="p1_50">P1–P50<small>Ranks 1–50</small></button>
           <button type="button" class="btn" data-mode="p25_75">P25–P75<small>Ranks 25–75</small></button>
           <button type="button" class="btn" data-mode="p50_100">P50–P100<small>Ranks 50–100</small></button>
         </div>
-      </div>
-
-      <div class="col-12 col-md-5 col-lg-3">
-        <button class="roll-btn" id="rollBtn">Roll Roster<span class="arrow">→</span></button>
-      </div>
-
-    </div>
-
-  </div>
-
-  <div class="cherry-band" id="cherryBand">
-    <div class="cherry-badge">
-      <span class="cherry-badge-amt">+$1.5M</span>
-      <span class="cherry-badge-label">Finlete equity</span>
-    </div>
-    <div class="cherry-copy">
-      <div class="cherry-eyebrow">Not counted in a single number below</div>
-      <p class="cherry-text">Every number on this page is the <b>$8.4M ISA sleeve</b> working alone. The fund separately holds <b>$1.5M of equity in Finlete</b>, the platform that sources and services these agreements — roughly fifteen cents of every committed dollar, <b>carried here at zero</b>. Whatever it turns out to be worth, no figure below ever counted it.</p>
     </div>
   </div>
 
   <div id="singleRollResults" class="row g-3 mb-3 mb-md-4">
     <div class="col-12 col-lg-7">
       <div class="hero-panel">
-        <div class="hero-label">Your Net Distribution · ISA Sleeve</div>
+        <div class="hero-label">What You'd Get Back <span class="net-badge">Net — after all fees &amp; 20% carry</span></div>
         <div class="hero-amount"><span class="currency">$</span><span id="userReturn">—</span></div>
         <div class="hero-meta">
           <div class="row g-3">
@@ -1218,7 +1292,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
               <div class="meta-value gold" id="netIrr">—</div>
             </div>
           </div>
-          <div class="hero-translate-note">Stated in today's dollars. Your commitment times the multiple above equals the figure shown — fees and carry already out.</div>
+          <div class="hero-translate-note">In today's dollars. Nothing left to subtract — management fees and the manager's 20% carry are already out of every figure on this page.</div>
         </div>
       </div>
     </div>
@@ -1256,7 +1330,52 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <tbody id="paybackBody"></tbody>
       </table>
     </div>
-    <div class="payback-note">The schedule runs in the vintage's own dollars — the cash an investor of that era actually wired and received; the headline above restates the same outcome in today's dollars. One wire, upfront — the fund never calls again. The red early years are fees accruing while the roster climbs the minors; they are netted from later distributions, not billed to you. At year 15 the fund closes and sells whatever is still paying — that lump sum is the final-year row. Backtest, not projection.</div>
+    <div class="payback-note">Figures in the vintage’s own dollars — the headline above restates the result in today’s. Red early years are fee drag before the roster reaches the majors. One wire upfront, no capital calls. Backtest, not projection.</div>
+  </section>
+
+  <div class="cherry-band" id="cherryBand">
+    <div class="cherry-badge">
+      <span class="cherry-badge-amt">+$1.5M</span>
+      <span class="cherry-badge-label">Finlete equity</span>
+    </div>
+    <div class="cherry-copy">
+      <div class="cherry-eyebrow">Not counted in a single number below</div>
+      <p class="cherry-text">Every number on this page is the <b>$8.4M ISA sleeve</b> working alone. The fund separately holds <b>$1.5M of equity in Finlete</b>, the platform behind these deals — carried here at zero. Pure upside, never counted.</p>
+      <div class="exit-row">
+        <div class="exit-label">What if Finlete is acquired?<span class="info-tip" tabindex="0" role="button" aria-label="Exit scenario assumptions" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Assumes the fund's full $1.5M converts at its $15M post-money SAFE cap (10% of Finlete), then is diluted ~20% in each of two future financing rounds — ≈6.4% at exit. Your figure is pro-rata on the $10M fund, net of 20% carry on the gain. Hypothetical, illustrative only — not counted anywhere else on this page.">i</span></div>
+        <div class="exit-chips" role="group" aria-label="Finlete exit scenario">
+          <button type="button" class="exit-chip active" data-exit="0">$0</button>
+          <button type="button" class="exit-chip" data-exit="50000000">$50M</button>
+          <button type="button" class="exit-chip" data-exit="150000000">$150M</button>
+          <button type="button" class="exit-chip" data-exit="300000000">$300M</button>
+          <button type="button" class="exit-chip" data-exit="500000000">$500M</button>
+          <button type="button" class="exit-chip" data-exit="1000000000">$1B</button>
+        </div>
+        <div class="exit-result" id="exitResult" hidden></div>
+      </div>
+    </div>
+  </div>
+
+  <section class="deal-band" aria-label="How the fund works, in plain English">
+    <div class="deal-band-eyebrow">One Deal, Three Moves</div>
+    <div class="deal-moves">
+      <div class="deal-move">
+        <div class="deal-move-num">1</div>
+        <div class="deal-move-title">Sign</div>
+        <p class="deal-move-text">The fund pays <b>28 top prospects $300K apiece</b>, theirs to keep regardless. Each owes back <b>4% of every major-league paycheck</b> for the length of his career. A player who never reaches the majors owes nothing — the fund wears the miss.</p>
+      </div>
+      <div class="deal-move">
+        <div class="deal-move-num">2</div>
+        <div class="deal-move-title">Collect</div>
+        <p class="deal-move-text">Paychecks arrive for <b>15 years</b>, and you stand first in line: <b>100% of distributions until your capital is returned</b>, then 80% of everything after. At year 15, positions still paying are sold to a successor fund and the proceeds distributed. One wire upfront; no capital calls, ever.</p>
+      </div>
+      <div class="deal-move">
+        <div class="deal-move-num">3</div>
+        <div class="deal-move-title">Replay</div>
+        <p class="deal-move-text">A <b>backtest, not a forecast</b>. Pick a draft era and roll — a random roster from the actual FanGraphs lists, the careers that followed, run through the fund's terms. Every bust counted, every fee out. Deal another hand whenever you doubt one.</p>
+      </div>
+    </div>
+    <div class="deal-band-kicker">Most prospects never collect a major-league paycheck. The stars pay for everyone who didn't. <b>That asymmetry is the entire trade.</b></div>
   </section>
 
   <!-- Monte Carlo Panel -->
@@ -1699,19 +1818,13 @@ function deckTextFor(v) {
   const constrained = poolSize < N_PLAYERS;
   const defaultDeal = dealPrice === PER_PICK_CAPITAL && dealPct === PCT;
   const dealTxt = `${fmtMoneyShort(dealPrice)} per pick for ${fmtDealPct(dealPct)} of career earnings`;
-  if (cfg.single) {
-    const drawTxt = constrained
-      ? `signs all ${poolSize} eligible prospects (ranks ${MODES[mode].label})`
-      : `signs 28 of them at random`;
-    const scaleNote = (constrained || !defaultDeal)
-      ? ` With a narrowed pool the fund scales to the capital actually deployed — ${dealTxt}.`
-      : '';
-    return `In ${cfg.start}, FanGraphs ranked the hundred best prospects in baseball. The fund ${drawTxt} — $300K apiece, in 2026 dollars translated to ${cfg.start}, for 4% of every MLB paycheck that followed.${scaleNote} Pick a commitment and roll. The careers are real, the terms are the fund's, and your outcome arrives net of fees and carry.`;
-  }
-  const deployNote = (constrained || !defaultDeal)
-    ? ` With a narrowed pool the fund scales to the capital actually deployed — ${dealTxt}${constrained ? '; each year caps at its eligible pool and repeat prospects are dropped' : ''}.`
+  const scaleNote = (constrained || !defaultDeal)
+    ? ` Narrowed pool: the fund signs ${constrained ? `all ${poolSize} eligible prospects (ranks ${MODES[mode].label})` : '28 prospects'} and scales to the capital actually deployed — ${dealTxt}.`
     : '';
-  return `Twenty-eight names, drawn at random from three consecutive FanGraphs Top 100s — ${cfg.deckYears} — and signed on the fund's terms: $300K a player, his to keep, for 4% of every MLB paycheck his career produces. The terms are quoted in 2026 dollars and translated to the era; the salaries are the ones actually paid, in the dollars of the day, run through the fund's waterfall.${deployNote} Set a commitment and roll. What comes back to you is net — fees and the manager's carry already out. The fine print lives in the Methodology below.`;
+  if (cfg.single) {
+    return `We built this simulator to show what we believe our fund can produce — using the <b>actual MLB earnings</b> of past top-100 prospects. This roll signs 28 from the ${cfg.start} FanGraphs Top 100 on our real terms: $300K a player for 4% of every MLB paycheck. Set your commitment and roll. Every figure is <b>net of fees and carry</b>.${scaleNote}`;
+  }
+  return `We built this simulator to show what we believe our fund can produce — using the <b>actual MLB earnings</b> of past top-100 prospects. Each roll signs 28 of them from the ${cfg.deckYears} FanGraphs Top 100s on our real terms: $300K a player for 4% of every MLB paycheck. Set your commitment and roll. Every figure is <b>net of fees and carry</b>.${scaleNote}`;
 }
 
 // For 3-year mode, "pool size" displayed is the sum of unique-eligible players across all 3 years.
@@ -1845,30 +1958,35 @@ function renderPayback() {
 
   const saleYr = r.fundStart + r.saleYearIndex;
   const saleToLp = r.lpNetFromSale * scale;
-  const saleSentence = (r.terminalValue * scale) > 0.5
-    ? ` The fund closes in <b>${saleYr}</b> (Year ${r.saleYearIndex + 1}): any positions still earning are sold to a successor fund or private buyers, adding <b>${fmtSigned(saleToLp)}</b> to your final-year distribution. That's why the schedule stops at Year ${r.saleYearIndex + 1} instead of running to 2044.`
+  const saleNote = (r.terminalValue * scale) > 0.5
+    ? `<div class="pb-footnote">Fund closes in ${saleYr} (Year ${r.saleYearIndex + 1}) — contracts still paying are sold to a successor fund, ${fmtSigned(saleToLp)} in the final-year row.</div>`
     : '';
 
   // Name both frames wherever the commitment is quoted, so the table's Capital
   // Invested row never looks like it dropped money.
-  const commitTxt = deflator < 1
-    ? `${fmtCommit(commit)} (${fmtMoneyShort(deflatedCommit)} in ${r.fundStart} dollars)`
+  const commitStat = deflator < 1
+    ? `${fmtCommit(commit)} <small>(${fmtMoneyShort(deflatedCommit)} in ${r.fundStart} dollars)</small>`
     : fmtCommit(commit);
+  const stat = (label, value) =>
+    `<div class="pb-stat"><span class="pb-label">${label}</span><span class="pb-value">${value}</span></div>`;
 
   if (paybackIdx >= 0) {
-    const yrsToPayback = paybackIdx; // years after the upfront investment (Year 1)
     paybackCalloutEl.className = 'payback-callout';
     paybackCalloutEl.innerHTML =
-      `You invest <b>${commitTxt}</b> upfront and have it fully back by <b>${r.fundStart + paybackIdx}</b> ` +
-      `(fund Year ${paybackIdx + 1}${yrsToPayback === 0 ? '' : `, ~${yrsToPayback} ${yrsToPayback === 1 ? 'year' : 'years'} in`}). ` +
-      `Everything after is profit — this draw nets <b>${fmtSigned(profit)}</b> on a <b>${r.moic.toFixed(2)}×</b> return.` +
-      saleSentence;
+      `<div class="payback-stats">` +
+      stat('You invest', commitStat) +
+      stat('Money back by', `${r.fundStart + paybackIdx} · Year ${paybackIdx + 1}`) +
+      stat('Net profit', `${fmtSigned(profit)} · ${r.moic.toFixed(2)}×`) +
+      `</div>` + saleNote;
   } else {
     paybackCalloutEl.className = 'payback-callout miss';
     paybackCalloutEl.innerHTML =
-      `This one loses. Your <b>${commitTxt}</b> ends at <b>${fmtSigned(profit)}</b> (${r.moic.toFixed(2)}×) — ` +
-      `a roster that never produced a star cannot pay for its misses. Draws like this are in the deck; ` +
-      `run <b>Monte Carlo</b> and count them across 10,000 runs.`;
+      `<div class="payback-stats">` +
+      stat('You invest', commitStat) +
+      stat('Money back by', 'Never — not recovered') +
+      stat('Net result', `${fmtSigned(profit)} · ${r.moic.toFixed(2)}×`) +
+      `</div>` +
+      `<div class="pb-footnote">A roster that never produced a star can't pay for its misses. Draws like this are in the deck — run Monte Carlo to count them across 10,000 runs.</div>`;
   }
 
   paybackSectionEl.hidden = false;
@@ -1924,6 +2042,8 @@ function renderResult(r, selected, cadence) {
   rosterSub.textContent = subText;
 
   const sorted = selected.slice().sort((a,b) => b.adjTotal - a.adjTotal);
+  lastSorted = sorted;
+  hidePop();
   rosterGrid.innerHTML = '';
   sorted.forEach((p, idx) => {
     const isHigh = p.adjTotal >= 50_000_000;
@@ -1935,7 +2055,7 @@ function renderResult(r, selected, cadence) {
       ? `<span class="pc-vintage">'${String(p.vintage).slice(2)}</span>`
       : '';
     col.innerHTML = `
-      <div class="${cls}" style="animation-delay: ${idx * 18}ms">
+      <div class="${cls}" data-pi="${idx}" style="animation-delay: ${idx * 18}ms">
         <div class="pc-row1">
           <span class="pc-rank">#${String(p.rank).padStart(2,'0')}${vintageTag}</span>
           <span class="pc-pos">${p.pos || '—'}</span>
@@ -2329,11 +2449,142 @@ rollBtn.addEventListener('click', () => {
   }
 });
 
+// ── Player popover: year-by-year paychecks and the 4% return ─────────────────
+// Hover (or tap) a roster card → his actual salary each season, the fund's cut,
+// the Year-1 signing cost netted in, and source links. Data: p.e, nominal.
+let lastSorted = [];
+let popPinned = false, popIdx = -1;
+const playerPop = document.createElement('div');
+playerPop.className = 'player-pop';
+document.body.appendChild(playerPop);
+
+function buildPop(p) {
+  const cost = dealPrice * vintageDeflator(p.vintage);
+  let lastEarn = -1;
+  for (let i = 0; i < p.e.length; i++) if (p.e[i] > 0) lastEarn = i;
+  let rows = '';
+  const fmtRet = v => v < 0 ? `−${fmtMoneyShort(-v)}` : (v > 0 ? `+${fmtMoneyShort(v)}` : '$0');
+  if (lastEarn < 0) {
+    rows = `<tr><td>${p.vintage}</td><td>$0</td><td class="neg">−${fmtMoneyShort(cost)}</td></tr>` +
+           `<tr><td colspan="3" style="text-align:left;color:rgba(255,255,255,0.6)">Never collected an MLB paycheck.</td></tr>`;
+  } else {
+    for (let i = 0; i <= lastEarn; i++) {
+      const ret = p.e[i] * dealPct - (i === 0 ? cost : 0);
+      rows += `<tr><td>${p.vintage + i}</td><td>${p.e[i] > 0 ? fmtMoneyShort(p.e[i]) : '$0'}</td>` +
+              `<td class="${ret < 0 ? 'neg' : ''}">${fmtRet(ret)}</td></tr>`;
+    }
+  }
+  const totRet = p.adjTotal * dealPct - cost;
+  const mult = (p.adjTotal * dealPct) / cost;
+  const q = encodeURIComponent(p.name);
+  playerPop.innerHTML =
+    `<div class="pp-name">${p.name}</div>` +
+    `<div class="pp-sub">#${p.rank} · ${p.vintage} list · signed ${fmtMoneyShort(cost)} (${p.vintage}$) for ${fmtDealPct(dealPct)}</div>` +
+    `<table class="pp-table"><tr><th>Year</th><th>Earnings</th><th>Return (${fmtDealPct(dealPct)})</th></tr>${rows}` +
+    `<tr class="pp-total"><td>Total</td><td>${fmtMoneyShort(p.adjTotal)}</td><td>${fmtRet(totRet)} · ${mult.toFixed(1)}×</td></tr></table>` +
+    `<div class="pp-links">` +
+    `<a href="https://www.baseball-reference.com/search/search.fcgi?search=${q}" target="_blank" rel="noopener">Baseball-Reference ↗</a>` +
+    `<a href="https://www.google.com/search?q=site%3Aspotrac.com+${q}" target="_blank" rel="noopener">Spotrac ↗</a></div>` +
+    `<div class="pp-note">Nominal dollars of each year. Return nets the signing cost in Year 1.</div>`;
+}
+
+function showPopFor(card) {
+  const idx = +card.dataset.pi;
+  if (!(idx >= 0) || !lastSorted[idx]) return;
+  popIdx = idx;
+  buildPop(lastSorted[idx]);
+  playerPop.classList.add('show');
+  const r = card.getBoundingClientRect(), pw = 300;
+  let x = r.right + 10;
+  if (x + pw > window.innerWidth - 8) x = r.left - pw - 10;
+  if (x < 8) x = Math.min(Math.max(8, r.left), Math.max(8, window.innerWidth - pw - 8));
+  playerPop.style.left = x + 'px';
+  playerPop.style.top = Math.max(8, Math.min(r.top, window.innerHeight - 350)) + 'px';
+}
+function hidePop() { playerPop.classList.remove('show'); popPinned = false; popIdx = -1; }
+
+rosterGrid.addEventListener('mouseover', e => {
+  const card = e.target.closest('.player-card');
+  if (card && !popPinned) showPopFor(card);
+});
+rosterGrid.addEventListener('mouseout', e => {
+  if (popPinned) return;
+  const card = e.target.closest('.player-card');
+  if (card && !card.contains(e.relatedTarget) && !playerPop.contains(e.relatedTarget)) hidePop();
+});
+playerPop.addEventListener('mouseleave', () => { if (!popPinned) hidePop(); });
+rosterGrid.addEventListener('click', e => {
+  const card = e.target.closest('.player-card');
+  if (!card) return;
+  const idx = +card.dataset.pi;
+  if (popPinned && idx === popIdx) { hidePop(); return; }
+  showPopFor(card);
+  popPinned = true;
+});
+document.addEventListener('click', e => {
+  if (popPinned && !e.target.closest('.player-card') && !playerPop.contains(e.target)) hidePop();
+});
+window.addEventListener('scroll', () => { if (!popPinned) hidePop(); }, { passive: true });
+
+// ── Finlete exit what-if (the cherry) ────────────────────────────────────────
+// The fund's $1.5M converts at its $15M post-money SAFE cap (10%), then is
+// diluted by two future priced rounds (~20% each) → ≈6.4% at exit. Pro-rata on
+// the $10M fund, net of 20% carry on the gain. Illustrative only — never mixed
+// into the backtest numbers.
+const FINLETE_COST     = 1_500_000;
+const FINLETE_CAP      = 15_000_000;
+const FINLETE_ROUNDS   = 2;
+const FINLETE_DILUTION = 0.20;
+const FUND_TOTAL       = 10_000_000;
+const FINLETE_OWN_AT_EXIT =
+  (FINLETE_COST / FINLETE_CAP) * Math.pow(1 - FINLETE_DILUTION, FINLETE_ROUNDS);
+
+const exitChips    = Array.from(document.querySelectorAll('.exit-chip'));
+const exitResultEl = document.getElementById('exitResult');
+let exitValue = 0, exitLabel = '$0';
+
+function renderExit() {
+  if (!exitResultEl) return;
+  if (exitValue <= 0) { exitResultEl.hidden = true; return; }
+  const proceeds = FINLETE_OWN_AT_EXIT * exitValue;
+  const multiple = proceeds / FINLETE_COST;
+  const netToLPs = proceeds > FINLETE_COST
+    ? FINLETE_COST + (1 - CARRY) * (proceeds - FINLETE_COST)
+    : proceeds;
+  const yourCut = (commit / FUND_TOTAL) * netToLPs;
+  exitResultEl.hidden = false;
+  exitResultEl.innerHTML =
+    `A <b>${exitLabel}</b> acquisition returns <b>${fmtMoneyShort(proceeds)}</b> to the fund ` +
+    `(${multiple.toFixed(1)}× its $1.5M) — <b>+${fmtMoneyShort(yourCut)}</b> to you on your ` +
+    `${fmtCommit(commit)} commitment, on top of every number above. Hypothetical, illustrative only.`;
+}
+exitChips.forEach(chip => chip.addEventListener('click', () => {
+  exitChips.forEach(b => b.classList.remove('active'));
+  chip.classList.add('active');
+  exitValue = +chip.dataset.exit;
+  exitLabel = chip.textContent.trim();
+  renderExit();
+}));
+if (commitSlider) commitSlider.addEventListener('input', renderExit);
+
+// Advanced options toggle — Mode / Vintage / Player Pool live behind it.
+const advancedToggle = document.getElementById('advancedToggle');
+const advancedPanel  = document.getElementById('advancedPanel');
+if (advancedToggle && advancedPanel) {
+  advancedToggle.addEventListener('click', () => {
+    const open = advancedPanel.hidden;
+    advancedPanel.hidden = !open;
+    advancedToggle.classList.toggle('open', open);
+    advancedToggle.setAttribute('aria-expanded', String(open));
+  });
+}
+
 // Init
 setDeployStart(2012);
 renderYearSelection();
 refreshHeaderCopy();
 resetResultDisplay();
+roll(); // land on an answer, not an empty state
 </script>
 
 <!-- LP Interest Modal -->
