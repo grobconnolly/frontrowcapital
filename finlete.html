@@ -11,7 +11,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 })(window,document,'script','dataLayer','GTM-N85J6S9J');</script>
 <!-- End Google Tag Manager -->
 <title>Finlete vs The Fund | Front Row Capital</title>
-<meta name="description" content="The same check, two ways: 10 one-off Finlete deals or Front Row Capital Fund I. Same players, same pay — every fee itemized." />
+<meta name="description" content="The same check, two ways: 10 one-off Finlete deals or Front Row Capital Fund I. Same average pay per player, three times the players — every fee itemized." />
 <link rel="icon" href="favicon.ico" />
 <style>
 :root{--ink:#0d1d35;--muted:#5b6a84;--line:#dfe4ec;--bg:#f5f7fa;--white:#fff;--navy:#0d1d35;--blue:#1a5dbf;--bluesoft:#e8f1fb;--soft:#f0f3f7;--neg:#c23b3b;--radius:16px}
@@ -125,7 +125,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- ───────── Verdict ───────── -->
 <section class="panel" aria-labelledby="verdictH1">
 <h1 id="verdictH1"></h1>
-<p class="sub">10 Finlete deals you pick vs. Fund I (~30 top-100 prospects, $100K minimum). Same players, same pay — collected over their careers across the fund's 15-year life, not as a lump sum.</p>
+<p class="sub">10 Finlete deals you pick vs. Fund I (~30 top-100 prospects, $100K minimum). Same average pay per player — collected over their careers across the fund's 15-year life, not as a lump sum.</p>
 
 <div class="score">
   <div class="tile fin">
@@ -235,7 +235,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <details class="fine">
 <summary>The fine print</summary>
 <p><b>Illustration only.</b> Illustrative scenario calculator only — not a forecast, not an offer to sell securities, and not investment advice. An investor can lose all invested capital.</p>
-<p><b>Same players, same pay.</b> The average career earnings you select is applied to the earnings rights each side actually owns. Picking skill is not modeled; the same average career applies to both. For reference, the FanGraphs top-100 lists of 2005–2016 averaged $58M in career earnings when each season's salary is inflation-adjusted to 2026 dollars — consistent with the 2026 contract pricing used here; a $58M career returns $2.32M on a $300K contract before any fees.</p>
+<p><b>Same pay per player.</b> The average career earnings you select is applied to the earnings rights each side actually owns. Picking skill is not modeled; the same average career applies to both. For reference, the FanGraphs top-100 lists of 2005–2016 averaged $58M in career earnings when each season's salary is inflation-adjusted to 2026 dollars — consistent with the 2026 contract pricing used here; a $58M career returns $2.32M on a $300K contract before any fees.</p>
 <p><b>Why the fund pays $300K for what costs $375K on Finlete.</b> Player economics differ by design: the average Finlete deal acquires 4% of a career for $375K, while the average Fund I deal acquires 4% for $300K — a fund writing one up-front check negotiates better terms than capital raised deal-by-deal.</p>
 <p><b>Terms.</b> Finlete: 25% front-end markup on the check, 8.5% deal maker fee on the remainder, 10% back-end take on gross collections — on top of the higher per-deal price above. Fund I: management fees of 2% of committed capital in each of the first three years; of deployed capital, 15% buys the fund's Finlete equity stake and 85% signs athletes; 20% carry on gains above the athlete-deployed basis. Finlete stake proceeds are included in the Front Row figures at the outcome you select (0× by default), with carry computed per sleeve — 20% of each sleeve's gain above its own basis. Fund terms per the term sheet and operating agreement; Finlete pricing per current platform terms.</p>
 <p><b>Not counted here.</b> Diversification is not modeled — ten picks ride ten careers while Fund I spreads ~30 top-100 prospects plus the Finlete stake; for what that difference does to outcomes, run the <a href="/simulator">full backtest simulator</a>.</p>
@@ -303,7 +303,7 @@ function update() {
 
   // ── Verdict ──
   $('verdictH1').innerHTML = (E > 0)
-    ? 'Same ' + fmt(C) + '. Same players.<br>Fund I returns ' + fmt(diff) + ' more.'
+    ? 'Same ' + fmt(C) + '. More players.<br>Fund I returns ' + fmt(diff) + ' more.'
     : 'At $0 career earnings nobody gets paid — raise the career slider.';
   $('v_f').textContent  = fmt(fNet);
   $('v_fx').textContent = (fNet / C).toFixed(2) + '× your money';
@@ -332,7 +332,7 @@ function update() {
   $('s_net_f').textContent   = fmt(fNet);
   $('s_net_r').textContent   = fmt(rNet);
   $('walk_gap').innerHTML = fNet > 0
-    ? '<b>+' + fmt(diff) + ' more with Fund I</b> — ' + pct + '% more, same money, same players. The fund takes more on the back end, but more of your money reaches players at a better price, so it pays out more.'
+    ? '<b>+' + fmt(diff) + ' more with Fund I</b> — ' + pct + '% more, same money, three times the players. The fund takes more on the back end, but more of your money reaches players at a better price, so it pays out more.'
     : '';
 
   // ── Sliders ──
