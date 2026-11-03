@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-N85J6S9J');</script>
+<!-- End Google Tag Manager -->
+<title>Finlete vs The Fund | Front Row Capital</title>
+<meta name="description" content="The same check, two ways: 10 one-off Finlete deals or Front Row Capital Fund I. Same players, same pay — every fee itemized." />
+<link rel="icon" href="favicon.ico" />
+<style>
+:root{--ink:#0d1d35;--muted:#5b6a84;--line:#dfe4ec;--bg:#f5f7fa;--white:#fff;--navy:#0d1d35;--blue:#1a5dbf;--bluesoft:#e8f1fb;--soft:#f0f3f7;--neg:#c23b3b;--radius:16px}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif}
+.container{max-width:1000px;margin:auto;padding:28px 22px 70px}
+.top{display:flex;justify-content:space-between;align-items:center;gap:18px;margin-bottom:22px}
+.brand{font-size:13px;letter-spacing:.16em;font-weight:800;color:var(--navy)}
+.brand a{color:inherit;text-decoration:none}
+.tag{font-size:12px;color:var(--muted);border:1px solid var(--line);border-radius:50px;padding:6px 12px;background:#fff;white-space:nowrap}
+h1{font-size:clamp(26px,3.6vw,38px);line-height:1.15;margin:0 0 8px;letter-spacing:-.03em}
+.sub{color:var(--muted);font-size:16px;margin:0 0 18px}
+.panel{background:var(--white);border:1px solid var(--line);border-radius:var(--radius);padding:24px;margin:18px 0;box-shadow:0 7px 26px rgba(26,45,70,.035)}
+.panel-title{font-size:18px;font-weight:750;margin:0 0 4px}
+.panel-sub{font-size:13px;color:var(--muted);margin:0 0 16px}
+
+/* Scoreboard */
+.score{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.tile{border-radius:14px;padding:18px 16px;min-width:0}
+.tile .t-label{font-size:12px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;opacity:.75}
+.tile .t-value{font-size:clamp(26px,4.2vw,36px);font-weight:800;letter-spacing:-.035em;margin-top:6px;font-variant-numeric:tabular-nums;overflow-wrap:anywhere}
+.tile .t-sub{font-size:13px;margin-top:4px;opacity:.9}
+.tile.fin{background:var(--soft);color:var(--ink)}
+.tile.frc{background:var(--navy);color:#fff}
+.bonus{margin-top:14px;padding-top:12px;border-top:1px solid rgba(255,255,255,.22)}
+.bonus .b-label{font-size:12px;font-weight:700;opacity:.85}
+.chips{display:flex;flex-wrap:wrap;gap:5px;margin:8px 0 6px}
+.chips label{cursor:pointer}
+.chips input{position:absolute;opacity:0;width:0;height:0}
+.chips span{display:inline-block;border:1px solid rgba(255,255,255,.55);border-radius:50px;padding:3px 9px;font-size:12px;font-weight:700;color:#fff;font-variant-numeric:tabular-nums}
+.chips input:checked+span{background:#fff;color:var(--navy);border-color:#fff}
+.chips input:focus-visible+span{outline:2px solid #fff;outline-offset:2px}
+.bonus .b-status{font-size:12.5px;opacity:.9}
+.caption{font-size:12.5px;color:var(--muted);margin:10px 0 0;line-height:1.55}
+
+/* Ledgers (one per tile, aligned under it) */
+.ledgers{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:8px}
+details.math summary{cursor:pointer;font-weight:650;font-size:13px;color:var(--blue);padding:6px 4px}
+details.math .ledger{padding:4px 4px 8px}
+.l-sub{font-size:12px;color:var(--muted);margin:0 0 4px}
+.li{display:flex;justify-content:space-between;gap:10px;align-items:baseline;padding:7px 0;border-bottom:1px solid var(--line);font-size:13px}
+.li .lbl{color:var(--muted)}
+.li .lbl.strong,.li .val.strong{color:var(--ink);font-weight:700}
+.li .val{font-variant-numeric:tabular-nums;white-space:nowrap;text-align:right}
+.li .val.neg{color:var(--neg)}
+.li.gap{border-bottom:none;padding:3px 0}
+.li.allin{border-top:2px solid var(--line);margin-top:4px;padding-top:10px}
+.pill{display:inline-block;margin-left:6px;background:var(--bluesoft);color:var(--blue);border-radius:50px;padding:1px 8px;font-size:11px;font-weight:800;vertical-align:middle}
+.feenote{font-size:11.5px;color:var(--muted);line-height:1.5;padding:6px 0 8px;border-bottom:1px solid var(--line)}
+
+/* Why table */
+.why-title{font-size:15px;font-weight:750;margin:22px 0 8px}
+.walk{display:flex;gap:12px;align-items:flex-start;border-radius:12px;padding:12px 14px;margin:0 0 8px;font-size:14px;line-height:1.5}
+.walk.fin{background:var(--soft);color:var(--ink)}
+.walk.frc{background:#eef3fb;color:var(--ink);border:1px solid #b9cdea}
+.walk .w-who{flex:0 0 76px;font-size:12px;font-weight:800;letter-spacing:.04em;text-transform:uppercase;color:var(--muted);padding-top:2px}
+.walk.frc .w-who{color:var(--blue)}
+.walk b{font-variant-numeric:tabular-nums}
+.walk-gap{font-size:15px;font-weight:750;margin:4px 0 0}
+.walk-gap b{color:var(--blue)}
+.why{width:100%;border-collapse:collapse;font-size:14px}
+.why th,.why td{padding:10px 8px;border-bottom:1px solid var(--line);vertical-align:top}
+.why th{text-align:right;font-size:11.5px;letter-spacing:.06em;color:var(--muted);text-transform:uppercase;font-weight:800}
+.why th:first-child{text-align:left}
+.why th:first-child,.why td:first-child{width:48%}
+.why td{text-align:right;font-variant-numeric:tabular-nums;font-weight:700}
+.why td:first-child{text-align:left;font-weight:500}
+.why td.fin{color:var(--muted);font-weight:600}
+.why td.frc{background:#fcfdff;border-left:1px solid #b9cdea;border-right:1px solid #b9cdea}
+.why tr:last-child td{border-bottom:0}
+.why tr.total td{font-size:16px;font-weight:800;border-top:2px solid var(--ink)}
+.why tr.total td.frc{color:var(--blue)}
+.why .cellnote{display:block;font-size:11.5px;color:var(--muted);font-weight:500;margin-top:2px}
+.note{padding:12px 15px;border-left:3px solid #8495a7;background:var(--soft);border-radius:5px;font-size:13px;color:#415169;margin-top:14px;line-height:1.5}
+
+/* Sliders */
+.controls{display:grid;grid-template-columns:1fr 1fr;gap:28px}
+.control{min-width:0}
+.labelrow{display:flex;justify-content:space-between;gap:12px;align-items:center;margin-bottom:10px}
+.labelrow label{font-weight:650}
+.amount{font-size:23px;font-weight:750;white-space:nowrap;font-variant-numeric:tabular-nums}
+.slider{width:100%;accent-color:var(--navy);cursor:pointer}
+.ticks{display:flex;justify-content:space-between;font-size:12px;color:var(--muted);margin-top:4px}
+.bench{font-size:12.5px;color:var(--muted);margin-top:8px;line-height:1.5}
+
+/* Buttons + fine print */
+.buttons{display:flex;gap:10px;justify-content:flex-end;flex-wrap:wrap;margin-top:6px}
+.btn{border:1px solid var(--line);border-radius:10px;padding:10px 16px;background:#fff;font:inherit;font-weight:650;cursor:pointer;color:var(--ink);text-decoration:none}
+.btn:hover{border-color:#a9b8c7}
+.btn.primary{background:var(--navy);color:#fff;border-color:var(--navy)}
+details.fine{margin-top:24px;color:var(--muted);font-size:12.5px;line-height:1.65}
+details.fine summary{cursor:pointer;font-weight:650;color:var(--ink);font-size:13px}
+details.fine p{margin:10px 0 0}
+details.fine b{color:#415169}
+
+@media(max-width:720px){.container{padding:20px 13px 44px}.panel{padding:17px}.controls,.ledgers{grid-template-columns:1fr}.top{align-items:flex-start}.score{gap:8px}.tile{padding:14px 12px}.chips span{padding:3px 7px;font-size:11.5px}.why th,.why td{padding:9px 6px}.why td{font-size:13.5px}.why .pill{display:block;width:max-content;margin:3px 0 0 auto}}
+@media print{body{background:#fff}.container{max-width:100%;padding:0}.panel{box-shadow:none;break-inside:avoid}.buttons{display:none}}
+</style>
+</head>
+<body>
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-N85J6S9J"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+<main class="container">
+
+<header class="top"><div class="brand"><a href="/">FRONT ROW CAPITAL</a></div><div class="tag">Worked example, not a forecast</div></header>
+
+<!-- ───────── Verdict ───────── -->
+<section class="panel" aria-labelledby="verdictH1">
+<h1 id="verdictH1"></h1>
+<p class="sub">10 Finlete deals you pick vs. Fund I (~30 top-100 prospects, $100K minimum). Same players, same pay — collected over their careers across the fund's 15-year life, not as a lump sum.</p>
+
+<div class="score">
+  <div class="tile fin">
+    <div class="t-label">10 Finlete deals</div>
+    <div class="t-value" id="v_f"></div>
+    <div class="t-sub" id="v_fx"></div>
+  </div>
+  <div class="tile frc">
+    <div class="t-label">Fund I</div>
+    <div class="t-value" id="v_r"></div>
+    <div class="t-sub" id="v_rx"></div>
+    <div class="bonus">
+      <div class="b-label" id="b_label"></div>
+      <div class="chips" role="radiogroup" aria-label="What the fund's Finlete stake ends up worth">
+        <label><input type="radio" name="safe" value="0" checked><span class="chip-t"></span></label>
+        <label><input type="radio" name="safe" value="1"><span class="chip-t"></span></label>
+        <label><input type="radio" name="safe" value="2"><span class="chip-t"></span></label>
+        <label><input type="radio" name="safe" value="3"><span class="chip-t"></span></label>
+        <label><input type="radio" name="safe" value="4"><span class="chip-t"></span></label>
+        <label><input type="radio" name="safe" value="5"><span class="chip-t"></span></label>
+      </div>
+      <div class="b-status" id="v_note"></div>
+    </div>
+  </div>
+</div>
+
+<div class="ledgers">
+  <details class="math" id="f_math">
+    <summary>See the Finlete math</summary>
+    <div class="ledger">
+      <p class="l-sub" id="f_sub"></p>
+      <div class="li"><span class="lbl strong">Your check</span><span class="val strong" id="f_check"></span></div>
+      <div class="li"><span class="lbl">Finlete markup (25%)</span><span class="val neg" id="f_markup"></span></div>
+      <div class="li"><span class="lbl">Deal fee (8.5%)</span><span class="val neg" id="f_bd"></span></div>
+      <div class="li"><span class="lbl strong">Invested in 10 players</span><span class="val strong" id="f_deployed"></span></div>
+      <div class="li"><span class="lbl">Career share you own</span><span class="val" id="f_pct"></span></div>
+      <div class="li gap"></div>
+      <div class="li"><span class="lbl strong">Players pay out (<span class="mAt"></span>)</span><span class="val strong" id="f_gross"></span></div>
+      <div class="li"><span class="lbl">Finlete's cut of payouts (10%)</span><span class="val neg" id="f_backend"></span></div>
+      <div class="li"><span class="lbl strong">You get back</span><span class="val strong" id="f_net"></span></div>
+      <div class="li"><span class="lbl">Total fees</span><span class="val" id="f_fees"></span></div>
+      <div class="li allin"><span class="lbl strong">Your all-in cost per 1%</span><span class="val strong" id="f_allin"></span></div>
+    </div>
+  </details>
+  <details class="math" id="r_math">
+    <summary>See the Fund I math</summary>
+    <div class="ledger">
+      <p class="l-sub">~30 prospects + a stake in Finlete</p>
+      <div class="li"><span class="lbl strong">Your check</span><span class="val strong" id="r_check"></span></div>
+      <div class="li"><span class="lbl">Management fee (2% × 3 years)</span><span class="val neg" id="r_mgmt"></span></div>
+      <div class="li"><span class="lbl strong">Invested</span><span class="val strong" id="r_deployed"></span></div>
+      <div class="li"><span class="lbl">…in Finlete the company (15%)</span><span class="val" id="r_safe"></span></div>
+      <div class="li"><span class="lbl">…in ~30 players (85%)</span><span class="val" id="r_ath"></span></div>
+      <div class="li"><span class="lbl">Career share the fund owns</span><span class="val" id="r_pct"></span></div>
+      <div class="li gap"></div>
+      <div class="li"><span class="lbl strong">Players pay out (<span class="mAt"></span>)</span><span class="val strong" id="r_gross"></span></div>
+      <div class="li"><span class="lbl strong">From the Finlete stake (<span id="r_safeAt"></span>)</span><span class="val strong" id="r_safeGross"></span></div>
+      <div class="li"><span class="lbl">Profit after your money's back</span><span class="val" id="r_gains"></span></div>
+      <div class="li"><span class="lbl">Fund's share of profit (20%)</span><span class="val neg" id="r_carry"></span></div>
+      <div class="li"><span class="lbl strong">You get back</span><span class="val strong" id="r_net"></span></div>
+      <div class="li"><span class="lbl">Total fees (incl. 20% of profit)</span><span class="val" id="r_fees"></span></div>
+      <div class="feenote" id="r_feenote"></div>
+      <div class="li allin"><span class="lbl strong">Your all-in cost per 1%</span><span class="val strong"><span id="r_allin"></span><span class="pill" id="r_edge"></span></span></div>
+    </div>
+  </details>
+</div>
+<div class="why-title" id="walkTitle">Where your $100,000 goes</div>
+<table class="why">
+<thead><tr><th></th><th>Finlete</th><th>Fund I</th></tr></thead>
+<tbody>
+<tr><td>Taken up front</td><td class="fin"><span id="s_up_f"></span><span class="cellnote">25% markup + 8.5% deal fee</span></td><td class="frc"><span id="s_up_r"></span><span class="cellnote">2% a year, first 3 years only</span></td></tr>
+<tr><td>Goes to players</td><td class="fin"><span id="s_pl_f"></span><span class="cellnote">10 players you pick</span></td><td class="frc"><span id="s_pl_r"></span><span class="cellnote">~30 top-100 prospects · +<span id="s_safe_r"></span> into Finlete the company</span></td></tr>
+<tr><td>Price of 4% of a player</td><td class="fin">$375K</td><td class="frc">$300K<span class="cellnote">players take less for one big up-front check</span></td></tr>
+<tr><td>Players pay out over 15 years</td><td class="fin" id="s_gross_f"></td><td class="frc"><span id="s_gross_r"></span><span class="cellnote" id="s_gross_note"></span></td></tr>
+<tr><td>Taken as money comes back</td><td class="fin"><span id="s_back_f"></span><span class="cellnote">10% of every dollar</span></td><td class="frc"><span id="s_back_r"></span><span class="cellnote">20% of the gains only — nothing on your money back</span></td></tr>
+<tr class="total"><td>Left for you</td><td class="fin" id="s_net_f"></td><td class="frc" id="s_net_r"></td></tr>
+</tbody>
+</table>
+<p class="walk-gap" id="walk_gap"></p>
+<div class="note"><b>Disclosure:</b> the same person runs Fund I and founded Finlete. Finlete's terms cover small, deal-by-deal investing; the fund's cover one large up-front check. That structural difference — not a discount — is why the numbers differ. The fund's Finlete stake counts as $0 unless you set it.</div>
+</section>
+
+<!-- ───────── Sliders ───────── -->
+<section class="panel" aria-labelledby="controlTitle">
+<h2 class="panel-title" id="controlTitle">Try your own numbers</h2>
+<p class="panel-sub">Assumes your 10 picks earn the same, on average, as the fund's ~30.</p>
+<div class="controls">
+ <div class="control">
+   <div class="labelrow"><label for="check">Your check</label><span id="checkVal" class="amount"></span></div>
+   <input class="slider" type="range" id="check" min="100000" max="1000000" step="25000" value="100000">
+   <div class="ticks"><span>$100K</span><span>$400K</span><span>$700K</span><span>$1M</span></div>
+   <div class="bench">Fund I minimum: $100,000.</div>
+ </div>
+ <div class="control">
+   <div class="labelrow"><label for="earn">Average MLB career earnings</label><span class="amount" id="earnVal"></span></div>
+   <input class="slider" type="range" id="earn" min="0" max="150000000" step="1000000" value="58000000">
+   <div class="ticks"><span>$0</span><span>$50M</span><span>$100M</span><span>$150M</span></div>
+   <div class="bench">$58M is the real average career for all 1,198 top-100 prospects, 2005–2016, busts included, in 2026 dollars (see the <a href="/simulator">backtest</a>). Drag it down: Fund I breaks even at a <b id="be_r"></b> average, Finlete at <b id="be_f"></b>.</div>
+ </div>
+</div>
+</section>
+
+<div class="buttons"><button class="btn" id="reset" type="button">Reset</button><a class="btn" href="/simulator">Backtest: ~30 players vs 10</a><a class="btn primary" href="/fund">Fund I terms</a><button class="btn" id="print" type="button">Print</button></div>
+
+<details class="fine">
+<summary>The fine print</summary>
+<p><b>Illustration only.</b> Illustrative scenario calculator only — not a forecast, not an offer to sell securities, and not investment advice. An investor can lose all invested capital.</p>
+<p><b>Same players, same pay.</b> The average career earnings you select is applied to the earnings rights each side actually owns. Picking skill is not modeled; the same average career applies to both. For reference, the FanGraphs top-100 lists of 2005–2016 averaged $58M in career earnings when each season's salary is inflation-adjusted to 2026 dollars — consistent with the 2026 contract pricing used here; a $58M career returns $2.32M on a $300K contract before any fees.</p>
+<p><b>Why the fund pays $300K for what costs $375K on Finlete.</b> Player economics differ by design: the average Finlete deal acquires 4% of a career for $375K, while the average Fund I deal acquires 4% for $300K — a fund writing one up-front check negotiates better terms than capital raised deal-by-deal.</p>
+<p><b>Terms.</b> Finlete: 25% front-end markup on the check, 8.5% deal maker fee on the remainder, 10% back-end take on gross collections — on top of the higher per-deal price above. Fund I: management fees of 2% of committed capital in each of the first three years; of deployed capital, 15% buys the fund's Finlete equity stake and 85% signs athletes; 20% carry on gains above the athlete-deployed basis. Finlete stake proceeds are included in the Front Row figures at the outcome you select (0× by default), with carry computed per sleeve — 20% of each sleeve's gain above its own basis. Fund terms per the term sheet and operating agreement; Finlete pricing per current platform terms.</p>
+<p><b>Not counted here.</b> Diversification is not modeled — ten picks ride ten careers while Fund I spreads ~30 top-100 prospects plus the Finlete stake; for what that difference does to outcomes, run the <a href="/simulator">full backtest simulator</a>.</p>
+<p><b>Disclosure.</b> Front Row Capital's manager also founded and operates Finlete.</p>
+</details>
+
+</main>
+<script>
+'use strict';
+const $ = id => document.getElementById(id);
+const fmt = n => '$' + Math.round(n).toLocaleString('en-US');
+const fmtM = n => '$' + (n / 1e6).toFixed(1) + 'M';
+const SAFE_STOPS = [0, 1, 3, 5, 10, 50];
+const safeIdx = () => +document.querySelector('input[name="safe"]:checked').value;
+
+function update() {
+  const C = +$('check').value;
+  const E = +$('earn').value;           // avg MLB career earnings per athlete (2026 $)
+  // Player economics: average deal price for 4% of a career's earnings.
+  // One up-front fund check buys better terms than retail-raised capital.
+  const F_PER_1PCT = 375_000 / 4;       // Finlete: $375K per 4% ⇒ $93,750 per 1%
+  const R_PER_1PCT = 300_000 / 4;       // Fund I:  $300K per 4% ⇒ $75,000 per 1%
+  const mF = E / (F_PER_1PCT * 100);
+  const mR = E / (R_PER_1PCT * 100);
+  const s = SAFE_STOPS[safeIdx()];
+
+  // ── Finlete side ──
+  const fMarkup   = Math.round(C * 0.25);
+  const fBd       = Math.round((C - fMarkup) * 0.085);
+  const fDeployed = C - fMarkup - fBd;
+  const fGross    = Math.round(fDeployed * mF);
+  const fBackend  = Math.round(fGross * 0.10);
+  const fNet      = fGross - fBackend;
+  const fFees     = fMarkup + fBd + fBackend;
+
+  // ── Front Row side (carry per sleeve: 20% of each sleeve's gain above its basis) ──
+  const rMgmt     = Math.round(C * 0.02 * 3);
+  const rDeployed = C - rMgmt;
+  const rSafe     = Math.round(rDeployed * 0.15);
+  const rAth      = rDeployed - rSafe;
+  const rGross    = Math.round(rAth * mR);
+  const rGains    = Math.max(0, rGross - rAth);
+  const rCarry    = Math.round(rGains * 0.20);
+  const sGross    = Math.round(rSafe * s);
+  const sGains    = Math.max(0, sGross - rSafe);
+  const sCarry    = Math.round(sGains * 0.20);
+  const allGross  = rGross + sGross;
+  const allGains  = rGains + sGains;
+  const allCarry  = rCarry + sCarry;
+  const rNet      = allGross - allCarry;
+  const rFees     = rMgmt + allCarry;
+
+  // Apples-to-apples: the all-in check it takes to own 1% of career earnings.
+  const fAllIn = F_PER_1PCT * C / fDeployed;
+  const rAllIn = R_PER_1PCT * C / rAth;
+  const edge   = Math.round(100 * (1 - rAllIn / fAllIn));
+
+  // Break-even average career (stake at 0×): where each side returns exactly your check.
+  const beF = C * F_PER_1PCT * 100 / (0.9 * fDeployed);
+  const beR = (C - 0.2 * rAth) * R_PER_1PCT * 100 / (0.8 * rAth);
+
+  const diff = rNet - fNet;
+  const pct  = fNet > 0 ? Math.round(100 * diff / fNet) : 0;
+  const EM   = '$' + Math.round(E / 1_000_000) + 'M';
+
+  // ── Verdict ──
+  $('verdictH1').textContent = (E > 0)
+    ? 'Same ' + fmt(C) + '. Same players. Fund I returns ' + fmt(diff) + ' more.'
+    : 'At $0 career earnings nobody gets paid — raise the career slider.';
+  $('v_f').textContent  = fmt(fNet);
+  $('v_fx').textContent = (fNet / C).toFixed(2) + '× your money';
+  $('v_r').textContent  = fmt(rNet);
+  $('v_rx').textContent = (rNet / C).toFixed(2) + '× your money' + (fNet > 0 ? ' · ' + pct + '% more' : '');
+  $('b_label').textContent = 'Bonus: Fund I also owns a slice of Finlete the company (' + fmt(rSafe) + ' of your check buys it). If Finlete ends up worth…';
+  const shortK = n => n >= 1e6 ? '$' + (n / 1e6).toFixed(n % 1e6 ? 1 : 0) + 'M' : '$' + Math.round(n / 1e3) + 'K';
+  document.querySelectorAll('.chip-t').forEach((el, i) =>
+    el.textContent = SAFE_STOPS[i] === 0 ? '$0' : SAFE_STOPS[i] + '× ' + shortK(rSafe * SAFE_STOPS[i]));
+  $('v_note').textContent = s > 0
+    ? 'Worth ' + fmt(sGross) + ' → adds +' + fmt(sGross - sCarry) + ' to you after the fund’s 20% of the gain.'
+    : 'Counted at $0 — the fund wins without it. Tap to add what it might be worth.';
+
+  // ── Where your money goes: the whole story in six dollar rows ──
+  $('walkTitle').textContent = 'Where your ' + fmt(C) + ' goes';
+  $('s_up_f').textContent    = '−' + fmt(fMarkup + fBd);
+  $('s_up_r').textContent    = '−' + fmt(rMgmt);
+  $('s_pl_f').textContent    = fmt(fDeployed);
+  $('s_pl_r').textContent    = fmt(rAth);
+  $('s_safe_r').textContent  = fmt(rSafe);
+  $('s_gross_f').textContent = fmt(fGross);
+  $('s_gross_r').textContent = fmt(allGross);
+  $('s_gross_note').textContent = sGross > 0 ? 'includes the Finlete slice at ' + s + '× = ' + fmt(sGross) : '';
+  $('s_back_f').textContent  = '−' + fmt(fBackend);
+  $('s_back_r').textContent  = '−' + fmt(allCarry);
+  $('s_net_f').textContent   = fmt(fNet);
+  $('s_net_r').textContent   = fmt(rNet);
+  $('walk_gap').innerHTML = fNet > 0
+    ? '<b>+' + fmt(diff) + ' more with Fund I</b> — ' + pct + '% more, same money, same players. The fund takes more on the back end, but more of your money reaches players at a better price, so it pays out more.'
+    : '';
+
+  // ── Sliders ──
+  $('checkVal').textContent = fmt(C);
+  $('earnVal').textContent  = EM;
+  $('be_f').textContent = fmtM(beF);
+  $('be_r').textContent = fmtM(beR);
+  document.querySelectorAll('.mAt').forEach(el => el.textContent = 'careers avg ' + EM);
+
+  // ── Finlete ledger ──
+  $('f_sub').textContent      = '10 players you pick, ' + fmt(C / 10) + ' each';
+  $('f_check').textContent    = fmt(C);
+  $('f_markup').textContent   = '−' + fmt(fMarkup);
+  $('f_bd').textContent       = '−' + fmt(fBd);
+  $('f_deployed').textContent = fmt(fDeployed);
+  $('f_pct').textContent      = (fDeployed / F_PER_1PCT).toFixed(2) + '% of combined careers';
+  $('f_gross').textContent    = fmt(fGross);
+  $('f_backend').textContent  = '−' + fmt(fBackend);
+  $('f_net').textContent      = fmt(fNet);
+  $('f_fees').textContent     = fmt(fFees);
+  $('f_allin').textContent    = fmt(fAllIn);
+
+  // ── Fund ledger ──
+  $('r_check').textContent    = fmt(C);
+  $('r_mgmt').textContent     = '−' + fmt(rMgmt);
+  $('r_deployed').textContent = fmt(rDeployed);
+  $('r_safe').textContent     = fmt(rSafe);
+  $('r_ath').textContent      = fmt(rAth);
+  $('r_pct').textContent      = (rAth / R_PER_1PCT).toFixed(2) + '% of combined careers';
+  $('r_gross').textContent    = fmt(rGross);
+  $('r_safeAt').textContent   = 'at ' + s + '×';
+  $('r_safeGross').textContent = sGross > 0 ? '+' + fmt(sGross) : '$0';
+  $('r_gains').textContent    = fmt(allGains);
+  $('r_carry').textContent    = '−' + fmt(allCarry);
+  $('r_net').textContent      = fmt(rNet);
+  $('r_fees').textContent     = fmt(rFees);
+  $('r_feenote').textContent  = 'Bigger only because profit is bigger: 20% of profit, after your money’s back. If careers disappoint, fund fees shrink toward ' +
+    fmt(rMgmt) + '; Finlete’s ' + fmt(fMarkup + fBd) + ' is taken first.';
+  $('r_allin').textContent    = fmt(rAllIn);
+  $('r_edge').textContent     = edge + '% less';
+}
+
+['check', 'earn'].forEach(id => $(id).addEventListener('input', update));
+document.querySelectorAll('input[name="safe"]').forEach(r => r.addEventListener('change', update));
+$('reset').addEventListener('click', () => {
+  $('check').value = 100000; $('earn').value = 58000000;
+  document.querySelector('input[name="safe"][value="0"]').checked = true;
+  update();
+});
+$('print').addEventListener('click', () => window.print());
+window.addEventListener('beforeprint', () => document.querySelectorAll('details').forEach(d => d.open = true));
+update();
+</script>
+</body>
+</html>
