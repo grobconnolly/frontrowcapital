@@ -22,6 +22,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 .brand a{color:inherit;text-decoration:none}
 .tag{font-size:12px;color:var(--muted);border:1px solid var(--line);border-radius:50px;padding:6px 12px;background:#fff;white-space:nowrap}
 h1{font-size:clamp(26px,3.6vw,38px);line-height:1.15;margin:0 0 8px;letter-spacing:-.03em}
+h1 .h1b{display:block}
 .sub{color:var(--muted);font-size:16px;margin:0 0 18px}
 .panel{background:var(--white);border:1px solid var(--line);border-radius:var(--radius);padding:24px;margin:18px 0;box-shadow:0 7px 26px rgba(26,45,70,.035)}
 .panel-title{font-size:18px;font-weight:750;margin:0 0 4px}
@@ -109,7 +110,24 @@ details.fine summary{cursor:pointer;font-weight:650;color:var(--ink);font-size:1
 details.fine p{margin:10px 0 0}
 details.fine b{color:#415169}
 
-@media(max-width:720px){.container{padding:20px 13px 44px}.panel{padding:17px}.controls,.ledgers{grid-template-columns:1fr}.top{align-items:flex-start}.score{gap:8px}.tile{padding:14px 12px}.bonus{padding:12px 13px;grid-template-columns:1fr;grid-template-areas:"eye" "label" "chips" "status";row-gap:6px}.bonus .b-label{font-size:13.5px}.chips span{padding:4px 9px;font-size:12.5px}.why th,.why td{padding:9px 6px}.why td{font-size:13.5px}.why .pill{display:block;width:max-content;margin:3px 0 0 auto}}
+@media(max-width:720px){
+.container{padding:16px 16px 44px}.panel{padding:20px 18px}.controls,.ledgers{grid-template-columns:1fr}.top{align-items:flex-start}
+.sub{font-size:15px}
+h1{font-size:22px;line-height:1.2}h1 .h1a{display:block}
+.brand{font-size:12px;letter-spacing:.12em;white-space:nowrap}.tag{font-size:11px;padding:5px 10px}
+.score{grid-template-columns:1fr;gap:10px}.tile{padding:18px 18px}.tile .t-value{font-size:34px}.tile .t-sub{font-size:14px}
+.bonus{padding:14px 16px;grid-template-columns:1fr;grid-template-areas:"eye" "label" "chips" "status";row-gap:8px}.chips span{padding:5px 11px;font-size:13px}
+.why,.why thead,.why tbody{display:block}
+.why tr{display:flex;flex-wrap:wrap;padding:12px 0;border-bottom:1px solid var(--line)}
+.why th,.why td{padding:0;border:0;width:auto}
+.why thead tr{padding:0 0 8px}.why th:first-child{display:none}.why th{flex:0 0 50%;text-align:left}.why th:last-child{padding-left:12px;color:var(--blue)}
+.why td:first-child{flex:0 0 100%;width:100%;font-size:14px;font-weight:600;margin-bottom:6px}
+.why td.fin,.why td.frc{flex:0 0 50%;width:50%;text-align:left;font-size:17px}
+.why td.frc{background:none;border-left:1px solid #b9cdea;border-right:0;padding-left:12px}
+.why .cellnote{font-size:12px;line-height:1.35;margin-top:3px}
+.why tr:last-child{border-bottom:0}.why tr.total{border-top:2px solid var(--ink)}.why tr.total td{border-top:0;font-size:15px}.why tr.total td.fin,.why tr.total td.frc{font-size:20px}
+.why .pill{display:block;width:max-content;margin:3px 0 0 auto}
+}
 @media print{body{background:#fff}.container{max-width:100%;padding:0}.panel{box-shadow:none;break-inside:avoid}.buttons{display:none}}
 </style>
 </head>
@@ -303,7 +321,7 @@ function update() {
 
   // ── Verdict ──
   $('verdictH1').innerHTML = (E > 0)
-    ? 'Same ' + fmt(C) + '. More players.<br>Fund I returns ' + fmt(diff) + ' more.'
+    ? '<span class="h1a">Same ' + fmt(C) + '.</span> <span class="h1a">More players.</span> <span class="h1b">Fund I returns ' + fmt(diff) + ' more.</span>'
     : 'At $0 career earnings nobody gets paid — raise the career slider.';
   $('v_f').textContent  = fmt(fNet);
   $('v_fx').textContent = (fNet / C).toFixed(2) + '× your money';
