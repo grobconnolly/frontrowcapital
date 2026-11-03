@@ -302,8 +302,8 @@ function update() {
   const EM   = '$' + Math.round(E / 1_000_000) + 'M';
 
   // ── Verdict ──
-  $('verdictH1').textContent = (E > 0)
-    ? 'Same ' + fmt(C) + '. Same players. Fund I returns ' + fmt(diff) + ' more.'
+  $('verdictH1').innerHTML = (E > 0)
+    ? 'Same ' + fmt(C) + '. Same players.<br>Fund I returns ' + fmt(diff) + ' more.'
     : 'At $0 career earnings nobody gets paid — raise the career slider.';
   $('v_f').textContent  = fmt(fNet);
   $('v_fx').textContent = (fNet / C).toFixed(2) + '× your money';
