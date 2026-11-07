@@ -910,6 +910,15 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   .cta-bar-btn:active { transform: translateY(0); }
   .cta-bar-btn .arrow { display: inline-block; transition: transform 0.18s; font-size: 18px; }
   .cta-bar-btn:hover .arrow { transform: translateX(4px); }
+  .cta-bar-actions { display: inline-flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+  .cta-bar-roll {
+    background: transparent; color: var(--paper);
+    box-shadow: inset 0 0 0 2px rgba(255,255,255,0.55);
+  }
+  .cta-bar-roll:hover, .cta-bar-roll:focus {
+    background: rgba(255,255,255,0.10); color: var(--paper);
+    box-shadow: inset 0 0 0 2px rgba(255,255,255,0.85);
+  }
 
   /* Reserve space at the bottom of body so footer/content isn't hidden */
   body { padding-bottom: 100px; }
@@ -1633,9 +1642,19 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   .wiz-next .arrow, .wiz-nav .roll-btn-standalone .arrow { margin-left: 8px; }
 
   /* Header results-only actions */
-  .nav-right { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
-  .nav-actions { display: none; align-items: center; gap: 16px; }
-  body[data-screen="results"] .nav-actions { display: flex; }
+  /* Two groups — text links + CTA buttons — wrap as whole units, so a narrow
+     width collapses them cleanly two-over-two (links row above buttons row). */
+  .nav-right { display: flex; align-items: center; justify-content: flex-end; gap: 12px 16px; flex-wrap: wrap; }
+  .nav-actions { display: flex; align-items: center; gap: 16px; }
+  .nav-ctas { display: flex; align-items: center; gap: 12px; }
+  /* Phone: stack the brand above the controls, then give each button its own
+     full-width level — brand / links / Roll Again / I'm Interested. */
+  @media (max-width: 599.98px) {
+    .site-nav-inner { flex-direction: column; align-items: stretch; gap: 12px; }
+    .nav-right { justify-content: flex-end; gap: 10px; }
+    .nav-ctas { flex-direction: column; align-items: stretch; width: 100%; gap: 10px; }
+    .nav-ctas .nav-cta { width: 100%; text-align: center; padding: 13px 18px; }
+  }
   .nav-action {
     background: none; border: 0; cursor: pointer; color: rgba(255,255,255,0.8);
     font-family: 'Oswald', sans-serif; font-weight: 600; font-size: 11px;
@@ -1684,13 +1703,35 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     .cover-deck { font-size: 17px; }
     .cover-eyebrow { font-size: 12px; }
   }
+
+  /* ===== Mobile-only refinements (phones / small screens) ===== */
+  @media (max-width: 767.98px) {
+    /* Eyebrow reads just "Sports Royalty Fund" */
+    .eyebrow-pre { display: none; }
+
+    /* Intro: drop the forced height + bottom-pinning so the whole card fits one screen */
+    .stage-body { min-height: 0; }
+    #screenIntro { justify-content: flex-start; }
+    .cover-inner { padding: 22px var(--cover-pad-x) 26px; }
+    .cover-eyebrow { margin-bottom: 12px; }
+    .cover-sim { margin: 18px calc(-1 * var(--cover-pad-x)) 6px; padding: 12px 0; }
+    .cover-deck { margin-top: 12px; line-height: 1.42; }
+    .cover-meta { margin-top: 14px; padding-top: 12px; }
+    .cover-start { margin-top: 16px; padding: 13px 24px; }
+
+    /* Hero: Net MOIC + Net IRR side by side, dollar card full width below */
+    .hero-card { padding: 16px 16px; }
+    .hc-value { font-size: clamp(30px, 8.5vw, 44px); }
+    .hero-card-dollar .hc-value { font-size: clamp(38px, 12vw, 54px); }
+    .hc-label { font-size: 10px; letter-spacing: 0.14em; }
+  }
 </style>
 
 <!-- ============ WIZARD STAGE (cover box = persistent shell) ============ -->
 <div class="cover-gate" id="coverGate">
   <div class="cover-inner">
     <div class="cover-head">
-      <div class="cover-eyebrow">Private Capital · Sports Royalty Fund</div>
+      <div class="cover-eyebrow"><span class="eyebrow-pre">Private Capital · </span>Sports Royalty Fund</div>
       <h1 class="cover-title">Front Row Capital<span class="line2">Baseball Fund I</span></h1>
       <div class="cover-sim"><span class="cover-sim-word">Simulator</span></div>
     </div>
@@ -1777,8 +1818,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           <button type="button" class="nav-action" id="navMonteCarlo">Monte Carlo</button>
           <button type="button" class="nav-action" id="navCustomize">Customize</button>
         </nav>
-        <button type="button" class="nav-cta nav-cta-alt" id="navAgain">Roll Again</button>
-        <button type="button" class="nav-cta" data-bs-toggle="modal" data-bs-target="#lpModal">I'm Interested</button>
+        <div class="nav-ctas">
+          <button type="button" class="nav-cta nav-cta-alt" id="navAgain">Roll Again</button>
+          <button type="button" class="nav-cta" data-bs-toggle="modal" data-bs-target="#lpModal">I'm Interested</button>
+        </div>
       </div>
     </div>
     <div class="site-nav-terms">
@@ -1799,12 +1842,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <div class="advanced-panel" id="advancedPanel">
 
       <div class="vintage-strip">
-        <div class="vintage-label">Vintage<span class="info-tip" tabindex="0" role="button" aria-label="What a vintage is" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="A fund's vintage is the year it starts investing. Pick an era and the simulator replays those drafts with the careers that actually followed.">i</span></div>
-        <div class="btn-group vmode-toggle" role="group" aria-label="Vintage mode">
-          <button type="button" class="btn" data-vmode="single">Single Year</button>
-          <button type="button" class="btn active" data-vmode="deploy">3-Year Deploy</button>
-        </div>
-        <div class="year-chips" id="yearChips" role="group" aria-label="Prospect year">
+        <div class="vintage-label">Investment Period</div>
+        <div class="year-chips" id="yearChips" role="group" aria-label="Investment period start year">
           <button type="button" class="year-chip" data-year="2005">2005</button>
           <button type="button" class="year-chip" data-year="2006">2006</button>
           <button type="button" class="year-chip" data-year="2007">2007</button>
@@ -1838,13 +1877,13 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <div id="singleRollResults" class="row g-3 mb-3 mb-md-4">
     <div class="col-12">
       <div class="row g-2 g-md-3 hero-cards">
-        <div class="col-12 col-md-4">
+        <div class="col-6 col-md-4">
           <div class="hero-card">
             <div class="hc-value" id="netMoic">—</div>
             <div class="hc-label">Net MOIC</div>
           </div>
         </div>
-        <div class="col-12 col-md-4">
+        <div class="col-6 col-md-4">
           <div class="hero-card">
             <div class="hc-value" id="netIrr">—</div>
             <div class="hc-label">Net IRR</div>
@@ -1903,7 +1942,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <tbody id="paybackBody"></tbody>
       </table>
     </div>
-    <div class="payback-note">Figures in today’s dollars. Fund comes out of the red as the athletes earn at the MLB level. Backtest, not projection.</div>
+    <div class="payback-note">Figures in today’s dollars. Fund comes out of the red as the athletes earn at the MLB level. The fund runs 15 years. Contracts still earning are sold to a successor fund – that lump sum is the final-year row. Backtest, not projection.</div>
   </section>
 
 
@@ -1964,10 +2003,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <li><b>LPs are paid first.</b> 100% of distributions until capital is returned, then 80/20. Fees run 2% in years 1–3 and 0 thereafter (Fund 2 takes over); your outcome above is net of fees and carry.</li>
       <li><b>A backtest, not a forecast.</b> Past performance is not indicative of future results. Confidential — for discussion with accredited investors only.</li>
     </ul>
-    <details class="meth-full">
-    <summary>Full Methodology</summary>
-    <p>Player earnings data covers the 2005–2016 FanGraphs Top 100 prospect lists (MLB salaries from baseball-reference / Spotrac), with each player's earnings aligned to his prospect year. Salaries flow through the model as raw <b>nominal, year-of-payment dollars</b> — the actual paychecks the player received — matching how a real-world investor of that vintage would have experienced the cash flows. Pick any single vintage (2005–2016) to draw 25 random prospects from that year's Top 100, or switch to <b>3-Year Deploy</b> and pick a start year to model a fund deploying across three consecutive lists (start year through start+2; start years run 2005–2014). In 3-year mode each year is treated as an independent draft. The per-year cadence is randomized each roll: three integers in [3, 18] summing to 25, with each year additionally capped at its eligible pool size. For each year the rank filter (All 100 / P1–P50 / P25–P75 / P50–P100) is applied to that year's Top 100, then the per-year batch is drawn at random from that year's eligible pool. After all three drafts, the simulator scans for cross-year duplicates (same player on two or more lists). For each duplicate the earlier year's slot is replaced with a fresh random pick from that year's eligible pool — excluding everyone already on the combined roster — and the dedupe scan repeats until clean. Deal terms are quoted in <b>2026 dollars</b> — each athlete's career is valued at $7.5M, with the fund investing $320K per athlete for a 4.27% share of MLB career earnings, spread evenly across 25 picks on the $8.0M sleeve — and then deflated to the fund's inception year using the Front Row CPI index. A 2005-vintage fund therefore invests ≈$4.7M nominal (25 picks × ≈$187K in 2005 dollars); a 2016 vintage invests ≈$5.7M; a hypothetical 2026 vintage invests the full $8.0M. In 3-year deploy mode signings are spread across the three vintage years, so the basis uses the simple average of those years' deflators (a 2005–2007 deploy invests ≈$4.8M nominal). Your commitment is quoted in today's dollars and translated to the fund's vintage year on entry (a $1M commitment to a 2005 fund wires ≈$583K of 2005 money). The payback schedule runs in those vintage-year dollars — the cash flows an investor of that era actually experienced — while the headline distribution restates the same outcome in today's dollars at the entry rate, so commitment × MOIC equals the headline figure. MOIC, IRR, and payback timing are identical in both frames. Fund-level waterfall figures remain in the vintage's nominal dollars. Narrow rank filters can cap the roster below 25 (repeat prospects across deploy years are dropped); when that happens the fund scales to the capital actually deployed — picks × the vintage-year price — and the return-of-capital hurdle is computed on that smaller basis (the management fee stays 2% of the full $10M fund), so returns stay comparable across filters. The full invested amount is wired upfront at fund inception (the selected start year) — there are no capital calls, even in 3-year mode where players are signed across the three deploy years. Fund life is a 12-year base term plus three 1-year extensions (15 years total). Management fees (2%/yr in years 1–3, then 0 — Fund 2 takes over) are charged on the full $10M fund from inception and are denominated in that vintage year's dollars. The 15-year term is a hard stop on the schedule: ISA collections in years 1–15 are realized live, and every position still earning after the term (a player's career can run to 2044) is sold at the end of year 15 — to a successor Front Row fund or to private investors — for the present value of its remaining collections, discounted at a 12% secondary-buyer required return. Those sale proceeds are realized in year 15 and run through the same waterfall, so no LP cash flow falls outside the fund's life. Distributions follow a European whole-fund waterfall on the ISA portfolio: 100% to LPs until the invested ISA capital is returned, then 80% LP / 20% GP. <b>Net LP MOIC and IRR are nominal</b> — computed on the actual year-by-year cash-flow stream (full upfront investment in Year 1, distributions in each fund-year through year 15), un-adjusted for inflation. For old vintages this includes inflation-driven return; a real (inflation-adjusted) IRR would run several points lower. Backtest only — past performance is not indicative of future results. <i>Confidential. For accredited investor discussion only.</i></p>
-    </details>
   </footer>
 
 </div>
@@ -1978,10 +2013,13 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <span class="nav-brand-name">Front Row Capital</span>
       <span class="nav-brand-tag">Baseball Fund I · Simulator</span>
     </div>
-    <button type="button" class="cta-bar-btn"
-            data-bs-toggle="modal" data-bs-target="#lpModal">
-      I'm Interested <span class="arrow">→</span>
-    </button>
+    <div class="cta-bar-actions">
+      <button type="button" class="cta-bar-btn cta-bar-roll" id="ctaRoll">Roll Again</button>
+      <button type="button" class="cta-bar-btn"
+              data-bs-toggle="modal" data-bs-target="#lpModal">
+        I'm Interested <span class="arrow">→</span>
+      </button>
+    </div>
   </div>
 </aside>
 
@@ -2013,7 +2051,7 @@ const VINTAGES = {};
 for (const y of VINTAGE_YEARS) {
   VINTAGES[y] = { label: y, start: +y, single: true, eyebrow: `${y} Vintage`, deckYears: y };
 }
-VINTAGES['deploy'] = { label: '2012–2014 Deploy', start: 2012, single: false,
+VINTAGES['deploy'] = { label: '2012–2014', start: 2012, single: false,
   eyebrow: '2012–2014 · 3-Year Investment Period', deckYears: '2012–2014' };
 
 const LAST_DEPLOY_START = LAST_VINTAGE - 2; // need start+2 within range
@@ -2027,7 +2065,7 @@ function setDeployStart(y) {
   const range = `${yrs[0]}–${yrs[2]}`;
   const d = VINTAGES['deploy'];
   d.start = deployStart;
-  d.label = `${range} Deploy`;
+  d.label = range;
   d.eyebrow = `${range} · 3-Year Investment Period`;
   d.deckYears = range;
 }
@@ -2492,12 +2530,7 @@ function renderPayback() {
   paybackBodyEl.innerHTML = rows;
 
   const vintageYrs = (vmode === 'deploy') ? `${r.fundStart}–${r.fundStart + 2}` : String(r.fundStart);
-  paybackSubEl.textContent = `${vintageYrs} vintage · 15-year fund`;
-
-  const saleYr = r.fundStart + r.saleYearIndex;
-  const saleNote = (r.terminalValue * scale) > 0.5
-    ? `<div class="pb-footnote">The fund runs 15 years (closes ${saleYr}). Players still earning at the close are sold to a successor fund — that lump sum is the final-year row.</div>`
-    : '';
+  paybackSubEl.textContent = `${vintageYrs} investment period`;
 
   const stat = (label, value) =>
     `<div class="pb-stat"><span class="pb-label">${label}</span><span class="pb-value">${value}</span></div>`;
@@ -2506,15 +2539,15 @@ function renderPayback() {
     paybackCalloutEl.className = 'payback-callout';
     paybackCalloutEl.innerHTML =
       `<div class="payback-stats">` +
-      stat('You invest', fmtCommit(commit)) +
-      stat('Money back by', `Year ${paybackIdx + 1} · ${r.fundStart + paybackIdx}`) +
+      stat('Investment', fmtCommit(commit)) +
+      stat('Money back by', `Year ${paybackIdx + 1}`) +
       stat('Net profit', fmtSigned(profit)) +
-      `</div>` + saleNote;
+      `</div>`;
   } else {
     paybackCalloutEl.className = 'payback-callout miss';
     paybackCalloutEl.innerHTML =
       `<div class="payback-stats">` +
-      stat('You invest', fmtCommit(commit)) +
+      stat('Investment', fmtCommit(commit)) +
       stat('Money back by', 'Never — not recovered') +
       stat('Net result', fmtSigned(profit)) +
       `</div>` +
@@ -2998,6 +3031,7 @@ document.getElementById('navMonteCarlo')?.addEventListener('click', () => {
 });
 document.getElementById('navCustomize') ?.addEventListener('click', openCustomize);
 document.getElementById('navAgain')     ?.addEventListener('click', () => { runSim(); }); // Roll Again — new single example; the odds hold
+document.getElementById('ctaRoll')       ?.addEventListener('click', () => { runSim(); window.scrollTo({ top: 0, behavior: 'smooth' }); }); // sticky-footer Roll Again — jump to the top
 document.getElementById('customizeClose')?.addEventListener('click', closeCustomize);
 if (customizeOverlay) customizeOverlay.addEventListener('click', e => { if (e.target === customizeOverlay) closeCustomize(); });
 
