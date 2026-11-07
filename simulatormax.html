@@ -371,19 +371,16 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     font-family: 'Lora', Georgia, serif; font-style: italic; font-size: 11.5px;
     color: var(--ink-soft); margin-top: 3px;
   }
-  /* Mobile hero action buttons (fill the dollar card's neighbour cell) */
-  .hero-actions { display: flex; flex-direction: column; gap: 8px; height: 100%; }
+  /* Mobile hero Roll Again — white-outline button filling the dollar card's neighbour cell */
+  .hero-actions-cell { display: flex; }
   .hero-act-btn {
-    flex: 1 1 0; display: flex; align-items: center; justify-content: center;
-    font-family: 'Oswald', sans-serif; font-weight: 600; font-size: 12.5px;
-    letter-spacing: 0.1em; text-transform: uppercase; white-space: nowrap;
-    cursor: pointer; border: 1.5px solid var(--field); padding: 10px 8px;
-    transition: all 0.16s;
+    flex: 1 1 auto; display: flex; align-items: center; justify-content: center;
+    font-family: 'Oswald', sans-serif; font-weight: 700; font-size: 13px;
+    letter-spacing: 0.12em; text-transform: uppercase; white-space: nowrap;
+    cursor: pointer; padding: 10px 8px; transition: all 0.16s;
   }
-  .hero-act-roll { background: var(--field); color: var(--paper); }
-  .hero-act-roll:hover { background: var(--field-bright); border-color: var(--field-bright); }
-  .hero-act-interested { background: var(--paper-dim); color: var(--field); }
-  .hero-act-interested:hover { background: var(--field); color: var(--paper); }
+  .hero-act-roll { background: transparent; color: var(--paper); border: 1.5px solid rgba(255,255,255,0.65); }
+  .hero-act-roll:hover { background: var(--paper); color: var(--field); border-color: var(--paper); }
   .hero-amount .currency {
     font-size: 0.55em; vertical-align: top; line-height: 1;
     color: var(--ink-soft); margin-right: 4px;
@@ -880,7 +877,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     position: fixed; bottom: 0; left: 0; right: 0;
     background: var(--field); color: var(--paper);
     border-top: 3px solid var(--gold);
-    padding: 14px 18px; z-index: 1040;
+    padding: 14px 18px;
+    padding-bottom: calc(14px + env(safe-area-inset-bottom)); /* clear the home indicator / curved corners */
+    z-index: 1040;
     box-shadow: 0 -6px 24px rgba(18,42,79,0.28);
     transition: transform 0.3s ease;
   }
@@ -935,14 +934,14 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   }
 
   /* Reserve space at the bottom of body so footer/content isn't hidden */
-  body { padding-bottom: 100px; }
+  body { padding-bottom: calc(100px + env(safe-area-inset-bottom)); }
   @media (min-width: 768px) { body { padding-bottom: 88px; } }
   @media (max-width: 575px) {
-    .cta-bar { padding: 10px 12px; }
+    .cta-bar { padding: 10px 12px; padding-bottom: calc(10px + env(safe-area-inset-bottom)); }
     .cta-headline { font-size: 17px; }
     .cta-eyebrow { display: none; }
     .cta-bar-btn { padding: 10px 14px; font-size: 13px; letter-spacing: 0.10em; }
-    body { padding-bottom: 90px; }
+    body { padding-bottom: calc(96px + env(safe-area-inset-bottom)); }
   }
 
   /* LP INTEREST MODAL */
@@ -1304,6 +1303,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     font-size: clamp(20px, 4vw, 28px); letter-spacing: 0.04em;
     text-transform: uppercase; color: var(--field); line-height: 1; margin-bottom: 5px;
   }
+  .mc-t2::before { content: " · "; }   /* desktop: inline with a dot */
   .mc-settings {
     font-family: 'JetBrains Mono', monospace; font-size: 10px;
     color: var(--field); opacity: 0.5; letter-spacing: 0.06em; text-transform: uppercase;
@@ -1495,8 +1495,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     gap: 16px; padding: 14px 20px;
   }
   /* Settings gear — hidden on desktop (text links used); shown top-right on mobile */
-  .nav-settings { display: none; background: none; border: 0; color: var(--paper); cursor: pointer; padding: 6px; line-height: 0; }
-  .nav-settings:hover { color: var(--gold-bright); }
+  .nav-icons { display: none; align-items: center; gap: 4px; }
+  .nav-iconbtn { background: none; border: 0; color: var(--paper); cursor: pointer; padding: 6px; line-height: 0; }
+  .nav-iconbtn:hover { color: var(--gold-bright); }
   .btn-short { display: none; }
   @media (min-width: 768px) { .site-nav-inner { padding: 16px 28px; } }
   .nav-brand { display: flex; flex-direction: column; line-height: 1.05; }
@@ -1540,7 +1541,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     min-height: 475px;
     display: flex; flex-direction: column;
   }
-  @media (min-width: 768px) { .stage-body { min-height: 320px; } }
+  @media (min-width: 768px) { .stage-body { min-height: 362px; } }
 
   .stage-panel { display: none; flex: 1; flex-direction: column; }
   body[data-screen="intro"]    #screenIntro,
@@ -1669,7 +1670,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
      right. Monte Carlo/Customize links and the CTA buttons move into the hero. */
   @media (max-width: 767.98px) {
     .nav-right { display: none; }
-    .nav-settings { display: inline-flex; }
+    .nav-icons { display: inline-flex; }
   }
   .nav-action {
     background: none; border: 0; cursor: pointer; color: rgba(255,255,255,0.8);
@@ -1683,6 +1684,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     font-family: 'Lora', Georgia, serif; font-size: 15px; line-height: 1.6;
     color: var(--ink-soft); margin: 0;
   }
+  .sim-intro-text + .sim-intro-text { margin-top: 1.4em; }  /* clear space between the intended line breaks */
   @media (min-width: 768px) { .sim-intro-text { font-size: 16px; } }
 
   /* How It Works — Purpose / What It Does / Fund Allocation sections */
@@ -1725,12 +1727,16 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     /* Eyebrow reads just "Sports Royalty Fund" */
     .eyebrow-pre { display: none; }
 
+    /* Results page: solid navy (the stadium barely reads behind the cards anyway) */
+    body[data-screen="results"] { background-image: none; }
+
     /* Shorter primary button label so it never wraps */
     .btn-full { display: none; }
     .btn-short { display: inline; }
 
-    /* Wizard: every step the same size, with the progress dots clearly below the button */
-    .stage-body { min-height: 400px; }
+    /* Wizard: every step the same size; button pinned to the bottom so it stays
+       in one spot for click-click-click, with the progress dots below it */
+    .stage-body { min-height: 418px; }
     #screenIntro { justify-content: flex-start; }
     .cover-inner { padding: 22px var(--cover-pad-x) 44px; }
     .wiz-progress { bottom: 15px; }
@@ -1738,9 +1744,11 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     .cover-sim { margin: 18px calc(-1 * var(--cover-pad-x)) 6px; padding: 12px 0; }
     .cover-deck { margin-top: 12px; line-height: 1.42; }
     .cover-meta { margin-top: 14px; padding-top: 12px; }
-    .cover-start { margin-top: 16px; padding: 13px 24px; }
+    .cover-start { margin-top: auto; padding: 14px 24px; }   /* pin to bottom, same spot as the step buttons */
+    .sim-intro-text { font-size: 14px; line-height: 1.5; }
+    .sim-intro-text + .sim-intro-text { margin-top: 1em; }
 
-    /* Hero: uniform 2×2 grid — MOIC | IRR over $ | action buttons, all same size */
+    /* Hero: uniform 2×2 grid — MOIC | IRR over $ | Roll Again, all same size */
     .hero-card { padding: 14px 14px; min-height: 98px; }
     .hc-value, .hero-card-dollar .hc-value { font-size: clamp(30px, 8.5vw, 44px); }
     .hc-label { font-size: 10px; letter-spacing: 0.14em; }
@@ -1748,15 +1756,28 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
     /* Cash Flow: fit all four columns with no horizontal scroll */
     .payback-table-wrap { overflow-x: hidden; }
-    .payback-section { padding: 18px 12px; }
+    .payback-section { padding: 18px 8px; }
     .payback-table { font-size: 11px; }
-    .payback-table thead th { white-space: normal; padding: 5px 5px; font-size: 9px; letter-spacing: 0.05em; line-height: 1.15; }
-    .payback-table tbody td { padding: 6px 5px; }
+    .payback-table thead th { white-space: normal; padding: 5px 4px; font-size: 9px; letter-spacing: 0.04em; line-height: 1.15; }
+    .payback-table tbody td { padding: 6px 4px; }
     .payback-table .yr small { margin-left: 4px; font-size: 0.76em; }
     .payback-table .yr-full { display: none; }
     .payback-table .yr-short { display: inline; }
-    .payback-table tbody tr.payback-row .yr::after { display: none; }   /* no "Paid Back" tag */
-    .payback-table .sale-badge { display: none; }                       /* no "Secondary Sale" tag */
+    /* Keep the tags, but drop them to their own line so they don't widen the column */
+    .payback-table tbody tr.payback-row .yr::after { display: block; width: max-content; margin: 3px 0 0; padding: 1px 4px; font-size: 8px; }
+    .payback-table .sale-badge { display: block; width: max-content; margin: 3px 0 0; padding: 1px 4px; font-size: 8px; }
+    /* Callout: Investment / Money Back / Net Profit side by side */
+    .payback-stats { flex-wrap: nowrap; gap: 8px 12px; }
+
+    /* Monte Carlo: stacked title frees the Re-run button to one line; bold navy IRRs */
+    .mc-title-row { align-items: center; }
+    .mc-t1 { display: block; }
+    .mc-t2 { display: block; font-size: 0.6em; opacity: 0.6; letter-spacing: 0.12em; margin-top: 3px; }
+    .mc-t2::before { content: none; }
+    #mcRun { white-space: nowrap; flex-shrink: 0; }
+    .mc-card-moic { display: none; }   /* was white-on-white (invisible); IRR is the headline now */
+    .mc-card-irr { opacity: 1; margin-top: 2px; }
+    .mc-irr-val { font-family: 'Big Shoulders Display', sans-serif; font-weight: 800; font-size: 18px; color: var(--field); }
 
     /* Sticky footer: two equal-width buttons, single line each */
     .cta-bar-actions { width: 100%; }
@@ -1789,7 +1810,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <div class="wiz-head">
     <h2 class="wiz-title">Purpose</h2>
   </div>
-  <p class="sim-intro-text">We built this simulator to answer one question: what if we had been investing in top-100 ranked MLB prospects over the past 20 years — what would the returns have looked like? It's our best educated guess at how the fund will perform.</p>
+  <p class="sim-intro-text">We built this simulator to answer:</p>
+  <p class="sim-intro-text">What if we had been investing in top 100 ranked MLB prospects over the past 20 years – what would the returns have looked like?</p>
+  <p class="sim-intro-text">It's our best educated guess at how our fund will perform.</p>
   <div class="wiz-nav"><button type="button" class="wiz-next" id="purposeNext">Next <span class="arrow">→</span></button></div>
   </div></div>
 
@@ -1797,7 +1820,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <div class="wiz-head">
     <h2 class="wiz-title">How It Works</h2>
   </div>
-  <p class="sim-intro-text">It randomly picks 25 players ranked in the top 100 during a 3-year period between 2005 and 2016 — three years because that's the length of our fund's investment period. It defaults to 2012–2014, but you can change that under Customize, along with other assumptions: removing players ranked 1–25 and 76–100, looking only at the bottom 50, or running a 10,000-run Monte Carlo simulation.</p>
+  <p class="sim-intro-text">The simulator blindly selects 25 players ranked in the top 100 during a three-year period between 2005 and 2016 – three years because that's the length of our fund's investment period.</p>
+  <p class="sim-intro-text">It defaults to 2012-2014, but you can modify that. You can also get specific within the top 100, such as removing top 25 and bottom 25, and looking only at the bottom 50.</p>
+  <p class="sim-intro-text">You can also execute 10,000-run Monte Carlo simulations.</p>
   <div class="wiz-nav"><button type="button" class="wiz-next" id="howNext">Next <span class="arrow">→</span></button></div>
   </div></div>
 
@@ -1805,7 +1830,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <div class="wiz-head">
     <h2 class="wiz-title">What It Covers</h2>
   </div>
-  <p class="sim-intro-text">85% of the investable capital secures income-share agreements with top-100 ranked MLB prospects. The other 15% goes into Finlete, the market-leading sports investment platform managed by Front Row Capital's managing partners, Max &amp; Rob. This simulator only concerns the former — it does not project an ROI on the Finlete investment.</p>
+  <p class="sim-intro-text">85% of our fund's investable capital secures income-share agreements with top 100 ranked MLB prospects.</p>
+  <p class="sim-intro-text">15% gets invested in Finlete, Inc., the market-leading sports investment platform managed by the fund's managing partners, Max &amp; Rob.</p>
+  <p class="sim-intro-text">This simulator only concerns the former – it does not project an ROI on the Finlete investment.</p>
   <div class="wiz-nav"><button type="button" class="wiz-next" id="coversNext"><span class="btn-full">Simulate Portfolio</span><span class="btn-short">Simulate</span><span class="arrow">→</span></button></div>
   </div></div>
 
@@ -1851,9 +1878,14 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <span class="nav-brand-name">Front Row Capital</span>
         <span class="nav-brand-tag">Baseball Fund I · Simulator</span>
       </div>
-      <button type="button" class="nav-settings" id="navSettings" aria-label="Settings" title="Settings">
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
-      </button>
+      <div class="nav-icons">
+        <button type="button" class="nav-iconbtn" id="navChat" aria-label="I'm interested" title="I'm interested" data-bs-toggle="modal" data-bs-target="#lpModal">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
+        </button>
+        <button type="button" class="nav-iconbtn nav-settings" id="navSettings" aria-label="Settings" title="Settings">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+        </button>
+      </div>
       <div class="nav-right">
         <nav class="nav-actions" aria-label="Results navigation">
           <button type="button" class="nav-action" id="navMonteCarlo">Monte Carlo</button>
@@ -1936,12 +1968,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             <div class="hc-note">Today's dollars, net of fees &amp; carry</div>
           </div>
         </div>
-        <!-- Mobile only: Roll Again / I'm Interested live here (header stays compact) -->
+        <!-- Mobile only: Roll Again fills this square (I'm Interested is the chat icon in the header) -->
         <div class="col-6 d-md-none hero-actions-cell">
-          <div class="hero-actions">
-            <button type="button" class="hero-act-btn hero-act-roll" id="heroAgain">Roll Again</button>
-            <button type="button" class="hero-act-btn hero-act-interested" data-bs-toggle="modal" data-bs-target="#lpModal">I'm Interested</button>
-          </div>
+          <button type="button" class="hero-act-btn hero-act-roll" id="heroAgain">Roll Again</button>
         </div>
       </div>
     </div>
@@ -2018,7 +2047,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <section class="mc-panel" id="mcPanel">
     <div class="mc-head">
       <div class="mc-title-row">
-        <div class="mc-title">Monte Carlo · 10,000 Runs</div>
+        <div class="mc-title"><span class="mc-t1">Monte Carlo</span><span class="mc-t2">10,000 Runs</span></div>
         <button class="sim-log-clear" id="mcRun" aria-label="Re-run Monte Carlo">Re-run</button>
       </div>
       <div class="mc-explain">The single roll above is one fund. This deals 10,000 of them — same era, same terms, different rosters — and shows the whole distribution, bottom decile first, losing runs counted.</div>
@@ -2587,7 +2616,7 @@ function renderPayback() {
     paybackCalloutEl.innerHTML =
       `<div class="payback-stats">` +
       stat('Investment', fmtCommit(commit)) +
-      stat('Money back by', `Year ${paybackIdx + 1}`) +
+      stat('Money back', `Year ${paybackIdx + 1}`) +
       stat('Net profit', fmtSigned(profit)) +
       `</div>`;
   } else {
@@ -2840,7 +2869,7 @@ function renderMCCard(r, label, cls, run) {
       <div class="mc-card">
         <div class="mc-card-badge ${cls}">${label}</div>
         <div class="mc-card-moic">${r.moic.toFixed(2)}x</div>
-        <div class="mc-card-irr">${irrTxt} Net IRR</div>
+        <div class="mc-card-irr"><span class="mc-irr-val">${irrTxt}</span> Net IRR</div>
         <div class="mc-card-dist">Your ${fmtCommit(run.commit)} commitment →<strong>${fmtMCDist(r.moic, run.commit)}</strong></div>
       </div>
     </div>`;
