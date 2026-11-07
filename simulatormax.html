@@ -371,6 +371,19 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     font-family: 'Lora', Georgia, serif; font-style: italic; font-size: 11.5px;
     color: var(--ink-soft); margin-top: 3px;
   }
+  /* Mobile hero action buttons (fill the dollar card's neighbour cell) */
+  .hero-actions { display: flex; flex-direction: column; gap: 8px; height: 100%; }
+  .hero-act-btn {
+    flex: 1 1 0; display: flex; align-items: center; justify-content: center;
+    font-family: 'Oswald', sans-serif; font-weight: 600; font-size: 12.5px;
+    letter-spacing: 0.1em; text-transform: uppercase; white-space: nowrap;
+    cursor: pointer; border: 1.5px solid var(--field); padding: 10px 8px;
+    transition: all 0.16s;
+  }
+  .hero-act-roll { background: var(--field); color: var(--paper); }
+  .hero-act-roll:hover { background: var(--field-bright); border-color: var(--field-bright); }
+  .hero-act-interested { background: var(--paper-dim); color: var(--field); }
+  .hero-act-interested:hover { background: var(--field); color: var(--paper); }
   .hero-amount .currency {
     font-size: 0.55em; vertical-align: top; line-height: 1;
     color: var(--ink-soft); margin-right: 4px;
@@ -1652,15 +1665,11 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   .nav-right { display: flex; align-items: center; justify-content: flex-end; gap: 12px 16px; flex-wrap: wrap; }
   .nav-actions { display: flex; align-items: center; gap: 16px; }
   .nav-ctas { display: flex; align-items: center; gap: 12px; }
-  /* Phone/tablet-portrait: brand with a settings gear top-right, Monte Carlo and
-     Customize links removed, then each button on its own full-width level. */
+  /* Phone/tablet-portrait: compact header — just brand + a settings gear on the
+     right. Monte Carlo/Customize links and the CTA buttons move into the hero. */
   @media (max-width: 767.98px) {
-    .site-nav-inner { flex-direction: column; align-items: stretch; gap: 12px; }
-    .nav-actions { display: none; }
-    .nav-settings { display: inline-flex; position: absolute; top: 12px; right: 14px; }
-    .nav-right { justify-content: flex-end; gap: 10px; }
-    .nav-ctas { flex-direction: column; align-items: stretch; width: 100%; gap: 10px; }
-    .nav-ctas .nav-cta { width: 100%; text-align: center; padding: 13px 18px; }
+    .nav-right { display: none; }
+    .nav-settings { display: inline-flex; }
   }
   .nav-action {
     background: none; border: 0; cursor: pointer; color: rgba(255,255,255,0.8);
@@ -1731,10 +1740,11 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     .cover-meta { margin-top: 14px; padding-top: 12px; }
     .cover-start { margin-top: 16px; padding: 13px 24px; }
 
-    /* Hero: Net MOIC + Net IRR side by side; dollar card same font size as them */
-    .hero-card { padding: 16px 16px; }
+    /* Hero: uniform 2×2 grid — MOIC | IRR over $ | action buttons, all same size */
+    .hero-card { padding: 14px 14px; min-height: 98px; }
     .hc-value, .hero-card-dollar .hc-value { font-size: clamp(30px, 8.5vw, 44px); }
     .hc-label { font-size: 10px; letter-spacing: 0.14em; }
+    .hero-card-dollar .hc-note { display: none; }   /* keep the $ card as short as the others */
 
     /* Cash Flow: fit all four columns with no horizontal scroll */
     .payback-table-wrap { overflow-x: hidden; }
@@ -1919,11 +1929,18 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             <div class="hc-label">Net IRR</div>
           </div>
         </div>
-        <div class="col-12 col-md-4">
+        <div class="col-6 col-md-4">
           <div class="hero-card hero-card-dollar">
             <div class="hc-value">$<span id="userReturn">—</span></div>
             <div class="hc-label">On a $250K commitment</div>
             <div class="hc-note">Today's dollars, net of fees &amp; carry</div>
+          </div>
+        </div>
+        <!-- Mobile only: Roll Again / I'm Interested live here (header stays compact) -->
+        <div class="col-6 d-md-none hero-actions-cell">
+          <div class="hero-actions">
+            <button type="button" class="hero-act-btn hero-act-roll" id="heroAgain">Roll Again</button>
+            <button type="button" class="hero-act-btn hero-act-interested" data-bs-toggle="modal" data-bs-target="#lpModal">I'm Interested</button>
           </div>
         </div>
       </div>
@@ -3061,6 +3078,7 @@ document.getElementById('navMonteCarlo')?.addEventListener('click', () => {
 });
 document.getElementById('navCustomize') ?.addEventListener('click', openCustomize);
 document.getElementById('navSettings')  ?.addEventListener('click', openCustomize);
+document.getElementById('heroAgain')     ?.addEventListener('click', () => { runSim(); }); // mobile hero Roll Again
 document.getElementById('navAgain')     ?.addEventListener('click', () => { runSim(); }); // Roll Again — new single example; the odds hold
 document.getElementById('ctaRoll')       ?.addEventListener('click', () => { runSim(); window.scrollTo({ top: 0, behavior: 'smooth' }); }); // sticky-footer Roll Again — jump to the top
 document.getElementById('customizeClose')?.addEventListener('click', closeCustomize);
