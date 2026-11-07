@@ -40,10 +40,19 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   body *:not(.bi):not([class*="bi-"]){
     font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif !important;
   }
+  html { background: var(--field); }
   html, body {
-    background: var(--paper);
     color: var(--ink);
     font-family: 'Lora', Georgia, serif;
+  }
+  /* Cinematic stadium backdrop — matches the frontrow.capital homepage */
+  body {
+    background-color: var(--field);
+    background-image:
+      linear-gradient(to bottom, rgba(13,29,53,0.58), rgba(13,29,53,0.82)),
+      url('stadium.jpg');
+    background-size: cover; background-position: center;
+    background-repeat: no-repeat; background-attachment: fixed;
   }
   body {
     min-height: 100vh;
@@ -304,7 +313,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
   /* RESULTS */
   .hero-panel {
-    background: var(--paper-dim); border: 2px solid var(--field);
+    background: var(--paper-dim); border: 0;
     padding: 22px 22px; position: relative; height: 100%;
   }
   @media (min-width: 768px) {
@@ -322,6 +331,45 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     font-family: 'Big Shoulders Display', sans-serif; font-weight: 900;
     font-size: clamp(48px, 11vw, 96px); color: var(--field); line-height: 0.92;
     letter-spacing: -0.02em;
+  }
+  /* Hero leads with the two metrics (MOIC + IRR) */
+  .hero-metrics { display: flex; gap: 40px; flex-wrap: wrap; align-items: flex-end; margin-top: 6px; }
+  .hm-value {
+    font-family: 'Big Shoulders Display', sans-serif; font-weight: 900;
+    font-size: clamp(46px, 9.5vw, 80px); color: var(--field); line-height: 0.9; letter-spacing: -0.01em;
+  }
+  .hm-label {
+    font-family: 'Oswald', sans-serif; font-size: 10px; letter-spacing: 0.24em;
+    color: var(--ink-soft); text-transform: uppercase; margin-top: 4px;
+  }
+  @media (min-width: 768px) { .hm-label { font-size: 11px; } }
+  .hero-dollar {
+    margin-top: 18px; padding-top: 14px; border-top: 1px solid var(--paper-shadow);
+    font-family: 'Lora', Georgia, serif; font-size: 14px; line-height: 1.5; color: var(--ink-soft);
+  }
+  @media (min-width: 768px) { .hero-dollar { font-size: 15px; } }
+  .hero-dollar b { color: var(--field); font-weight: 700; font-style: normal; }
+
+  /* Net Return — three stat cards in a row (MOIC · IRR · $ return) */
+  .hero-head { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin-bottom: 10px; }
+  .hero-head .hero-label { margin: 0; color: var(--paper); }
+  .hero-card {
+    background: var(--paper-dim); border: 0;
+    padding: 22px 24px; height: 100%;
+    display: flex; flex-direction: column; justify-content: center;
+    position: relative;
+  }
+  .hc-value {
+    font-family: 'Big Shoulders Display', sans-serif; font-weight: 900;
+    font-size: clamp(42px, 6.5vw, 62px); color: var(--field); line-height: 0.95; letter-spacing: -0.01em;
+  }
+  .hc-label {
+    font-family: 'Oswald', sans-serif; font-size: 11px; letter-spacing: 0.2em;
+    text-transform: uppercase; color: var(--ink-soft); margin-top: 8px;
+  }
+  .hc-note {
+    font-family: 'Lora', Georgia, serif; font-style: italic; font-size: 11.5px;
+    color: var(--ink-soft); margin-top: 3px;
   }
   .hero-amount .currency {
     font-size: 0.55em; vertical-align: top; line-height: 1;
@@ -362,6 +410,25 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     letter-spacing: 0.16em; text-transform: uppercase; color: rgba(255,255,255,0.5);
     margin: -10px 0 10px;
   }
+  /* Waterfall expander — collapsed by default (optional diligence detail) */
+  .wf-details { border: 1px solid rgba(250,246,236,0.4); }
+  .wf-summary {
+    list-style: none; cursor: pointer; user-select: none;
+    display: flex; align-items: center; justify-content: space-between; gap: 12px;
+    padding: 13px 18px; background: var(--field); color: var(--paper);
+    font-family: 'Oswald', sans-serif; font-weight: 600; font-size: 11px;
+    letter-spacing: 0.14em; text-transform: uppercase;
+  }
+  @media (min-width: 768px) { .wf-summary { font-size: 12px; } }
+  .wf-summary::-webkit-details-marker { display: none; }
+  .wf-caret { transition: transform 0.2s ease; font-size: 11px; opacity: 0.7; }
+  .wf-details[open] .wf-caret { transform: rotate(90deg); }
+  .wf-details .breakdown-panel { border: 0; }
+  .br-finlete-note {
+    margin-top: 14px; padding-top: 12px; border-top: 1px solid rgba(255,255,255,0.15);
+    font-family: 'Lora', Georgia, serif; font-style: italic; font-size: 11.5px;
+    line-height: 1.45; color: rgba(255,255,255,0.6);
+  }
   .breakdown-note {
     font-family: 'Lora', Georgia, serif; font-style: italic;
     font-size: 11.5px; line-height: 1.45; color: rgba(255,255,255,0.6);
@@ -384,6 +451,16 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     text-transform: uppercase; font-weight: 400; color: rgba(255,255,255,0.7);
   }
   .br-row .value { font-weight: 500; color: var(--paper); }
+  .br-section {
+    font-family: 'Oswald', sans-serif; font-weight: 600; font-size: 10px;
+    letter-spacing: 0.26em; text-transform: uppercase; color: rgba(255,255,255,0.5);
+    margin: 18px 0 6px;
+  }
+  .br-section:first-of-type { margin-top: 2px; }
+  .br-section small { letter-spacing: 0.04em; text-transform: none; font-weight: 400; opacity: 0.75; }
+  .br-row.subtotal { border-bottom: 0; margin-top: 2px; padding-top: 10px; border-top: 1px solid rgba(255,255,255,0.28); }
+  .br-row.subtotal .label { color: var(--paper); font-weight: 600; }
+  .br-row.subtotal .value { font-weight: 700; color: var(--paper); font-size: 14px; }
   .br-row.total {
     margin-top: 8px; padding-top: 14px;
     border-top: 2px solid var(--gold); border-bottom: 0;
@@ -438,7 +515,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   @media (min-width: 768px) { .cherry-text { font-size: 14px; } }
   /* Finlete equity — promoted "second sleeve" section (same card as the hero/How It Works) */
   .finlete-section {
-    background: var(--paper-dim); border: 2px solid var(--field);
+    background: var(--paper-dim); border: 0;
     padding: 22px 22px; margin-bottom: 18px;
   }
   @media (min-width: 768px) { .finlete-section { padding: 28px 32px; margin-bottom: 22px; } }
@@ -531,7 +608,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
   /* PAYBACK SCHEDULE */
   .payback-section {
-    background: var(--paper-dim); border: 2px solid var(--field);
+    background: var(--paper-dim); border: 0;
     padding: 20px 18px; margin-bottom: 18px; position: relative;
   }
   @media (min-width: 768px) {
@@ -646,7 +723,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
   /* ROSTER */
   .roster-section {
-    background: var(--paper-dim); border: 2px solid var(--field);
+    background: var(--paper-dim); border: 0;
     padding: 18px 18px; margin-bottom: 18px;
   }
   @media (min-width: 768px) {
@@ -849,7 +926,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   .lp-modal .modal-dialog { max-width: 460px; }
   .lp-modal-content {
     background: var(--paper-dim);
-    border: 2px solid var(--field);
+    border: 0;
     border-top: 6px solid var(--field);
     border-radius: 0;
     padding: 32px 26px 26px;
@@ -941,7 +1018,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   .info-tip.inv { background: var(--paper); color: var(--field); }
   .info-tip.inv:hover, .info-tip.inv:focus { background: var(--paper-dim); }
   /* Override Bootstrap tooltip defaults to match vintage palette */
-  .tooltip { font-family: 'Lora', serif; }
+  .tooltip { font-family: 'Lora', serif; z-index: 10050; }
   .tooltip-inner {
     background: var(--field); color: var(--paper);
     font-size: 12px; line-height: 1.5;
@@ -996,6 +1073,16 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     margin-bottom: 6px;
   }
   footer.almanac-foot i { color: var(--field); font-style: italic; }
+
+  /* Footer sits directly on the dark stadium backdrop — light text + champagne divider */
+  footer.almanac-foot { color: rgba(255,255,255,0.62); border-top-color: rgba(250,246,236,0.35); }
+  footer.almanac-foot .meth-brief { color: rgba(255,255,255,0.74); }
+  footer.almanac-foot .meth-brief li::before,
+  footer.almanac-foot .meth-signoff,
+  footer.almanac-foot details.meth-full summary,
+  footer.almanac-foot .meth,
+  footer.almanac-foot i { color: rgba(255,255,255,0.68); }
+  footer.almanac-foot .meth-brief b { color: #ffffff; }
   /* SIM MODE TOGGLE */
   /* Net-of-fees badge on the hero result */
   .net-badge {
@@ -1120,9 +1207,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   .vmode-toggle .btn:focus { box-shadow: none; outline: none; }
 
   /* Year chips — 2005..2016 selectable grid */
-  .year-chips { flex: 1 1 100%; display: flex; flex-wrap: wrap; gap: 6px; margin-top: 4px; }
+  .year-chips { flex: 1 1 100%; display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 6px; margin-top: 4px; }
   .year-chip {
-    flex: 1 1 auto; min-width: 52px; text-align: center;
+    text-align: center;
     background: transparent; border: 1px solid var(--field); color: var(--field);
     font-family: 'Oswald', sans-serif; font-weight: 600; font-size: 12px;
     letter-spacing: 0.06em; padding: 9px 4px; border-radius: 0; cursor: pointer;
@@ -1140,7 +1227,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   /* SIMULATION LOG */
   .sim-log {
     background: var(--paper-dim);
-    border: 2px solid var(--field);
+    border: 0;
     padding: 16px 18px;
     margin-bottom: 18px;
     position: relative;
@@ -1179,7 +1266,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
   /* MONTE CARLO PANEL */
   .mc-panel {
-    background: var(--paper-dim); border: 2px solid var(--field);
+    background: var(--paper-dim); border: 0;
     padding: 22px 22px; margin-bottom: 22px;
   }
   @media (min-width: 768px) { .mc-panel { padding: 28px 32px; margin-bottom: 28px; } }
@@ -1337,7 +1424,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   html.cover-active, html.cover-active body { overflow: hidden; }
   .cover-gate {
     position: fixed; inset: 0; z-index: 9999;
-    background: var(--champagne-solid);
+    background: transparent;
     display: flex; padding: 28px 20px; overflow-y: auto;
   }
   body[data-screen="results"] .cover-gate { display: none; }
@@ -1346,7 +1433,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     position: relative;
     max-width: 760px; width: 100%; text-align: center; margin: auto;
     display: flex; flex-direction: column; align-items: stretch;
-    background: var(--champagne-solid); border: 4px solid var(--field);
+    background: var(--champagne-solid); border: 0;
     padding: 40px var(--cover-pad-x) 54px;
     overflow: hidden;
   }
@@ -1379,7 +1466,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   }
 
   /* Site nav — strong brand bar above the terms reference */
-  .site-nav { background: var(--field); color: var(--paper); }
+  .site-nav { background: var(--field); color: var(--paper); border: 1px solid rgba(250,246,236,0.4); }
   .site-nav-inner {
     display: flex; align-items: center; justify-content: space-between;
     gap: 16px; padding: 14px 20px;
@@ -1522,7 +1609,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   .customize-overlay.open { display: flex; }
   .customize-card {
     position: relative; margin: auto; width: 100%; max-width: 760px;
-    background: var(--paper-dim); border: 2px solid var(--field);
+    background: var(--paper-dim); border: 0;
     padding: 26px 22px; box-shadow: 0 24px 60px rgba(0,0,0,0.4);
   }
   @media (min-width: 768px) { .customize-card { padding: 30px 34px; } }
@@ -1640,7 +1727,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <h2 class="wiz-title">What It Covers</h2>
   </div>
   <p class="sim-intro-text">85% of the investable capital secures income-share agreements with top-100 ranked MLB prospects. The other 15% goes into Finlete, the market-leading sports investment platform managed by Front Row Capital's managing partners, Max &amp; Rob. This simulator only concerns the former — it does not project an ROI on the Finlete investment.</p>
-  <div class="wiz-nav"><button type="button" class="wiz-next" id="coversNext">Next <span class="arrow">→</span></button></div>
+  <div class="wiz-nav"><button type="button" class="wiz-next" id="coversNext">Simulate Portfolio <span class="arrow">→</span></button></div>
   </div></div>
 
   <div class="wiz-screen stage-panel" data-panel="amount" id="screenAmount"><div class="wiz-col">
@@ -1666,7 +1753,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <span class="wiz-dot"></span>
         <span class="wiz-dot"></span>
         <span class="wiz-dot"></span>
-        <span class="wiz-dot"></span>
       </div>
     </div><!-- /.stage-body -->
   </div><!-- /.cover-inner -->
@@ -1688,6 +1774,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       </div>
       <div class="nav-right">
         <nav class="nav-actions" aria-label="Results navigation">
+          <button type="button" class="nav-action" id="navMonteCarlo">Monte Carlo</button>
           <button type="button" class="nav-action" id="navCustomize">Customize</button>
         </nav>
         <button type="button" class="nav-cta nav-cta-alt" id="navAgain">Roll Again</button>
@@ -1710,14 +1797,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <h2 class="wiz-title">Adjust Your Assumptions</h2>
       </div>
       <div class="advanced-panel" id="advancedPanel">
-      <div class="sim-mode-strip">
-        <div class="sim-mode-label">Mode</div>
-        <div class="btn-group sim-mode-toggle" role="group" aria-label="Simulation mode">
-          <button type="button" class="btn active" data-simmode="single">Single Roll<small>one fund, full detail</small></button>
-          <button type="button" class="btn" data-simmode="monte">Monte Carlo<small>10,000 funds, the odds</small></button>
-        </div>
-        <span class="mc-mode-note" id="mcModeNote" hidden>10,000 run simulation</span>
-      </div>
 
       <div class="vintage-strip">
         <div class="vintage-label">Vintage<span class="info-tip" tabindex="0" role="button" aria-label="What a vintage is" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="A fund's vintage is the year it starts investing. Pick an era and the simulator replays those drafts with the careers that actually followed.">i</span></div>
@@ -1739,7 +1818,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           <button type="button" class="year-chip" data-year="2015">2015</button>
           <button type="button" class="year-chip" data-year="2016">2016</button>
         </div>
-        <div class="deploy-hint" id="deployHint" hidden>Pick a start year — the fund deploys across it and the next two seasons.</div>
       </div>
         <div class="pool-strip">
           <div class="vintage-label">Player Pool</div>
@@ -1758,37 +1836,50 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <div id="screenResults">
 
   <div id="singleRollResults" class="row g-3 mb-3 mb-md-4">
-    <div class="col-12 col-lg-7">
-      <div class="hero-panel">
-        <div class="hero-label">What You'd Get Back <span class="net-badge">Net — after all fees &amp; carried interest</span></div>
-        <div class="hero-amount"><span class="currency">$</span><span id="userReturn">—</span></div>
-        <div class="hero-meta">
-          <div class="row g-3">
-            <div class="col-6 meta-stat">
-              <div class="meta-label">Net MOIC<span class="info-tip" tabindex="0" role="button" aria-label="What MOIC means" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Multiple on invested capital: dollars back per dollar in, after fees and carry. 2.00× means your money doubled; below 1.00× is a loss. Nominal — actual dollars of the years they were paid, not inflation-adjusted.">i</span></div>
-              <div class="meta-value gold" id="netMoic">—</div>
-            </div>
-            <div class="col-6 meta-stat">
-              <div class="meta-label">Net IRR<span class="info-tip" tabindex="0" role="button" aria-label="What IRR means" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Your annualized rate of return, weighing when cash went in against when it came back — read it like an interest rate, after fees and carry. Nominal: for older vintages part of this is inflation; a real, inflation-adjusted IRR runs several points lower.">i</span></div>
-              <div class="meta-value gold" id="netIrr">—</div>
-            </div>
+    <div class="col-12">
+      <div class="row g-2 g-md-3 hero-cards">
+        <div class="col-12 col-md-4">
+          <div class="hero-card">
+            <div class="hc-value" id="netMoic">—</div>
+            <div class="hc-label">Net MOIC</div>
           </div>
-          <div class="hero-translate-note">In today's dollars. Nothing left to subtract — management fees and the manager's 20% carried interest are already out of every figure on this page.</div>
+        </div>
+        <div class="col-12 col-md-4">
+          <div class="hero-card">
+            <div class="hc-value" id="netIrr">—</div>
+            <div class="hc-label">Net IRR</div>
+          </div>
+        </div>
+        <div class="col-12 col-md-4">
+          <div class="hero-card hero-card-dollar">
+            <div class="hc-value">$<span id="userReturn">—</span></div>
+            <div class="hc-label">On a $250K commitment</div>
+            <div class="hc-note">Today's dollars, net of fees &amp; carry</div>
+          </div>
         </div>
       </div>
     </div>
-    <div class="col-12 col-lg-5">
+    <div class="col-12">
+      <details class="wf-details">
+        <summary class="wf-summary"><span>See the fund-level waterfall</span><span class="wf-caret" aria-hidden="true">▸</span></summary>
       <div class="breakdown-panel">
         <div class="breakdown-title">Waterfall</div>
-        <div class="breakdown-frame" id="bFrame">Whole fund</div>
-        <div class="breakdown-note">In payout order: paychecks collected plus the year-15 contract sale, less fees and carried interest, equals the total paid to investors — your distribution is your share.</div>
-        <div class="br-row"><span class="label">Capital Invested in Athletes<span class="info-tip inv" tabindex="0" role="button" aria-label="What capital invested means" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="The then-year cost of all 25 athlete signings — $320K each in 2026 terms, deflated to the fund's vintage. It totals the full $8M sleeve only for a present-day fund; earlier vintages wired less.">i</span></span><span class="value" id="bBasis">—</span></div>
-        <div class="br-row"><span class="label">Paychecks Collected (Yrs 1–15)</span><span class="value" id="bGross">—</span></div>
-        <div class="br-row"><span class="label">Remaining Contracts Sold (Yr 15)<span class="info-tip inv" tabindex="0" role="button" aria-label="How the year-15 sale works" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="The fund closes at year 15. Players still being paid are sold to a successor fund or private buyers for a lump sum — the present value of their remaining paychecks, marked down at a 12% buyer's return — so no investor waits out a 20-year career.">i</span></span><span class="value" id="bSale">—</span></div>
-        <div class="br-row"><span class="label">Management Fees<span class="info-tip inv" tabindex="0" role="button" aria-label="Fee detail" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="2% of the full $10M fund per year in years 1–3, then 0 (Fund 2 takes over).">i</span></span><span class="value" id="bFees">—</span></div>
-        <div class="br-row"><span class="label">Carried Interest<span class="info-tip inv" tabindex="0" role="button" aria-label="What carried interest is" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="The manager's 20% cut of the profits — taken only after investors have received 100% of their capital back.">i</span></span><span class="value" id="bCarry">—</span></div>
+        <div class="breakdown-frame" id="bFrame">Whole fund · today's dollars</div>
+
+        <div class="br-section">The Fund</div>
+        <div class="br-row"><span class="label">Capital raised</span><span class="value">$10.0M</span></div>
+        <div class="br-row"><span class="label">Finlete stake</span><span class="value">−$1.4M</span></div>
+        <div class="br-row"><span class="label">Management fees</span><span class="value">−$0.6M</span></div>
+        <div class="br-row subtotal"><span class="label">Invested in athletes</span><span class="value" id="bBasis">—</span></div>
+
+        <div class="br-section">The Return <small>on that capital</small></div>
+        <div class="br-row"><span class="label">Paychecks collected (Yrs 1–15)</span><span class="value" id="bGross">—</span></div>
+        <div class="br-row"><span class="label">Year-15 contract sale</span><span class="value" id="bSale">—</span></div>
+        <div class="br-row"><span class="label">Carried interest (20%)</span><span class="value" id="bCarry">—</span></div>
         <div class="br-row total"><span class="label">Total Paid to Investors</span><span class="value" id="bNetLp">—</span></div>
+        <div class="br-finlete-note">This is the athlete sleeve only. Any return on the fund's stake in Finlete — carried at zero here — would be on top of this.</div>
       </div>
+      </details>
     </div>
   </div>
 
@@ -1812,27 +1903,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <tbody id="paybackBody"></tbody>
       </table>
     </div>
-    <div class="payback-note">Figures in the vintage’s own dollars — the headline above restates the result in today’s. Red early years are fee drag before the roster reaches the majors. One wire upfront, no capital calls. Backtest, not projection.</div>
+    <div class="payback-note">Figures in today’s dollars. Fund comes out of the red as the athletes earn at the MLB level. Backtest, not projection.</div>
   </section>
 
-
-  <!-- Monte Carlo Panel -->
-  <section class="mc-panel" id="mcPanel" hidden>
-    <div class="mc-head">
-      <div class="mc-title-row">
-        <div class="mc-title">Monte Carlo · 10,000 Runs</div>
-        <button class="sim-log-clear" id="mcClear" aria-label="Clear Monte Carlo history" hidden>Clear</button>
-      </div>
-      <div class="mc-explain">One roll is one fund. This deals 10,000 of them — same era, same terms, different rosters — and shows the whole distribution, bottom decile first, losing runs counted.</div>
-    </div>
-    <div class="mc-progress" id="mcProgress">
-      <div class="mc-progress-bar-wrap">
-        <div class="mc-progress-bar" id="mcProgressBar" style="width: 0%"></div>
-      </div>
-      <div class="mc-progress-text" id="mcProgressText">0 / 10,000</div>
-    </div>
-    <div id="mcHistory"></div>
-  </section>
 
   <div class="roster-section" id="rosterSection">
     <div class="roster-head">
@@ -1855,6 +1928,24 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     </div>
   </div>
 
+  <!-- Monte Carlo Panel — permanent, the odds behind the single roll -->
+  <section class="mc-panel" id="mcPanel">
+    <div class="mc-head">
+      <div class="mc-title-row">
+        <div class="mc-title">Monte Carlo · 10,000 Runs</div>
+        <button class="sim-log-clear" id="mcRun" aria-label="Re-run Monte Carlo">Re-run</button>
+      </div>
+      <div class="mc-explain">The single roll above is one fund. This deals 10,000 of them — same era, same terms, different rosters — and shows the whole distribution, bottom decile first, losing runs counted.</div>
+    </div>
+    <div class="mc-progress" id="mcProgress">
+      <div class="mc-progress-bar-wrap">
+        <div class="mc-progress-bar" id="mcProgressBar" style="width: 0%"></div>
+      </div>
+      <div class="mc-progress-text" id="mcProgressText">0 / 10,000</div>
+    </div>
+    <div id="mcHistory"></div>
+  </section>
+
   <section class="sim-log" id="simLog" hidden>
     <div class="sim-log-head">
       <div class="sim-log-title">Simulation Log</div>
@@ -1873,7 +1964,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <li><b>LPs are paid first.</b> 100% of distributions until capital is returned, then 80/20. Fees run 2% in years 1–3 and 0 thereafter (Fund 2 takes over); your outcome above is net of fees and carry.</li>
       <li><b>A backtest, not a forecast.</b> Past performance is not indicative of future results. Confidential — for discussion with accredited investors only.</li>
     </ul>
-    <div class="meth-signoff">No pro forma survives contact with the dice, so we handed you the dice.</div>
     <details class="meth-full">
     <summary>Full Methodology</summary>
     <p>Player earnings data covers the 2005–2016 FanGraphs Top 100 prospect lists (MLB salaries from baseball-reference / Spotrac), with each player's earnings aligned to his prospect year. Salaries flow through the model as raw <b>nominal, year-of-payment dollars</b> — the actual paychecks the player received — matching how a real-world investor of that vintage would have experienced the cash flows. Pick any single vintage (2005–2016) to draw 25 random prospects from that year's Top 100, or switch to <b>3-Year Deploy</b> and pick a start year to model a fund deploying across three consecutive lists (start year through start+2; start years run 2005–2014). In 3-year mode each year is treated as an independent draft. The per-year cadence is randomized each roll: three integers in [3, 18] summing to 25, with each year additionally capped at its eligible pool size. For each year the rank filter (All 100 / P1–P50 / P25–P75 / P50–P100) is applied to that year's Top 100, then the per-year batch is drawn at random from that year's eligible pool. After all three drafts, the simulator scans for cross-year duplicates (same player on two or more lists). For each duplicate the earlier year's slot is replaced with a fresh random pick from that year's eligible pool — excluding everyone already on the combined roster — and the dedupe scan repeats until clean. Deal terms are quoted in <b>2026 dollars</b> — each athlete's career is valued at $7.5M, with the fund investing $320K per athlete for a 4.27% share of MLB career earnings, spread evenly across 25 picks on the $8.0M sleeve — and then deflated to the fund's inception year using the Front Row CPI index. A 2005-vintage fund therefore invests ≈$4.7M nominal (25 picks × ≈$187K in 2005 dollars); a 2016 vintage invests ≈$5.7M; a hypothetical 2026 vintage invests the full $8.0M. In 3-year deploy mode signings are spread across the three vintage years, so the basis uses the simple average of those years' deflators (a 2005–2007 deploy invests ≈$4.8M nominal). Your commitment is quoted in today's dollars and translated to the fund's vintage year on entry (a $1M commitment to a 2005 fund wires ≈$583K of 2005 money). The payback schedule runs in those vintage-year dollars — the cash flows an investor of that era actually experienced — while the headline distribution restates the same outcome in today's dollars at the entry rate, so commitment × MOIC equals the headline figure. MOIC, IRR, and payback timing are identical in both frames. Fund-level waterfall figures remain in the vintage's nominal dollars. Narrow rank filters can cap the roster below 25 (repeat prospects across deploy years are dropped); when that happens the fund scales to the capital actually deployed — picks × the vintage-year price — and the return-of-capital hurdle is computed on that smaller basis (the management fee stays 2% of the full $10M fund), so returns stay comparable across filters. The full invested amount is wired upfront at fund inception (the selected start year) — there are no capital calls, even in 3-year mode where players are signed across the three deploy years. Fund life is a 12-year base term plus three 1-year extensions (15 years total). Management fees (2%/yr in years 1–3, then 0 — Fund 2 takes over) are charged on the full $10M fund from inception and are denominated in that vintage year's dollars. The 15-year term is a hard stop on the schedule: ISA collections in years 1–15 are realized live, and every position still earning after the term (a player's career can run to 2044) is sold at the end of year 15 — to a successor Front Row fund or to private investors — for the present value of its remaining collections, discounted at a 12% secondary-buyer required return. Those sale proceeds are realized in year 15 and run through the same waterfall, so no LP cash flow falls outside the fund's life. Distributions follow a European whole-fund waterfall on the ISA portfolio: 100% to LPs until the invested ISA capital is returned, then 80% LP / 20% GP. <b>Net LP MOIC and IRR are nominal</b> — computed on the actual year-by-year cash-flow stream (full upfront investment in Year 1, distributions in each fund-year through year 15), un-adjusted for inflation. For old vintages this includes inflation-driven return; a real (inflation-adjusted) IRR would run several points lower. Backtest only — past performance is not indicative of future results. <i>Confidential. For accredited investor discussion only.</i></p>
@@ -2210,14 +2300,17 @@ function simulate(selected, fundStart, timelineLen, basisDeflator = vintageDefla
   const totalFees  = mgmt.reduce((a,b) => a+b, 0);
   const totalCalled = calls.reduce((a,b) => a+b, 0);
 
-  const wf = runWaterfall(annual, mgmt, basis);
+  // Fees are a use of the $10M fund (the $10M → $8M construction), not an extra drag on
+  // the sleeve's collections — so the sleeve waterfall runs fee-free (counts fees once).
+  const noFees = new Array(annual.length).fill(0);
+  const wf = runWaterfall(annual, noFees, basis);
   const lpDist = wf.lpDist, totalGp = wf.totalGp, totalLp = wf.totalLp;
 
   // LP value attributable purely to the secondary sale (vs. abandoning the residual):
   // re-run the waterfall with the sale stripped out of the final year.
   const annualNoSale = annual.slice();
   annualNoSale[horizon - 1] -= terminalValue;
-  const lpNetFromSale = totalLp - runWaterfall(annualNoSale, mgmt, basis).totalLp;
+  const lpNetFromSale = totalLp - runWaterfall(annualNoSale, noFees, basis).totalLp;
 
   const moic = totalLp / totalCalled;
   // LP cash flow stream = distributions minus capital invested each year
@@ -2225,7 +2318,7 @@ function simulate(selected, fundStart, timelineLen, basisDeflator = vintageDefla
   for (let i = 0; i < horizon; i++) lpCf[i] = lpDist[i] - calls[i];
   const ir = irr(lpCf);
   return { grossTotal, grossLive, terminalValue, lpNetFromSale, saleYearIndex: horizon - 1,
-           totalFees, totalGp, totalLp, totalCalled, moic, irr: ir, calls, lpDist, fundStart };
+           totalFees, totalGp, totalLp, totalCalled, moic, irr: ir, calls, lpDist, fundStart, basisDeflator };
 }
 
 // Rank-pool modes
@@ -2240,7 +2333,7 @@ let mode = 'full';
 let vintage = 'deploy';   // a year string ('2005'..'2016') when single, or 'deploy'
 let vmode = 'deploy';     // 'single' | 'deploy'
 let singleYear = '2012';  // last-selected single vintage year
-let commit = null; // no amount selected until the user picks one
+let commit = 250000; // fixed illustrative commitment (today's dollars); amount selector removed
 let lastResult = null;
 let simHistory = []; // chronological list of completed simulations
 let simCounter = 0;   // monotonic — only resets on Clear
@@ -2348,9 +2441,7 @@ function renderPayback() {
   // cash flow below runs in the dollars of the day — what that era's investor
   // actually experienced. The hero panel restates the outcome in today's dollars;
   // MOIC, IRR, and payback timing are identical in both frames.
-  const deflator = vintageDeflator(r.fundStart);
-  const deflatedCommit = commit * deflator;
-  const scale = deflatedCommit / r.totalCalled;
+  const scale = commit / r.totalCalled; // today's dollars throughout — the deflator cancels in commit × MOIC
   const n = r.lpDist.length;
 
   // Trim the trailing tail of years with no meaningful LP cash flow.
@@ -2400,21 +2491,14 @@ function renderPayback() {
   </tr>`;
   paybackBodyEl.innerHTML = rows;
 
-  paybackSubEl.textContent = deflator < 1
-    ? `On a ${fmtCommit(commit)} commitment · ${fmtMoneyShort(deflatedCommit)} in ${r.fundStart} dollars · ${VINTAGES[vintage].eyebrow}`
-    : `On a ${fmtCommit(commit)} commitment · ${VINTAGES[vintage].eyebrow}`;
+  const vintageYrs = (vmode === 'deploy') ? `${r.fundStart}–${r.fundStart + 2}` : String(r.fundStart);
+  paybackSubEl.textContent = `${vintageYrs} vintage · 15-year fund`;
 
   const saleYr = r.fundStart + r.saleYearIndex;
-  const saleToLp = r.lpNetFromSale * scale;
   const saleNote = (r.terminalValue * scale) > 0.5
-    ? `<div class="pb-footnote">Fund closes in ${saleYr} (Year ${r.saleYearIndex + 1}) — contracts still paying are sold to a successor fund, ${fmtSigned(saleToLp)} in the final-year row.</div>`
+    ? `<div class="pb-footnote">The fund runs 15 years (closes ${saleYr}). Players still earning at the close are sold to a successor fund — that lump sum is the final-year row.</div>`
     : '';
 
-  // Name both frames wherever the commitment is quoted, so the table's Capital
-  // Invested row never looks like it dropped money.
-  const commitStat = deflator < 1
-    ? `${fmtCommit(commit)} <small>(${fmtMoneyShort(deflatedCommit)} in ${r.fundStart} dollars)</small>`
-    : fmtCommit(commit);
   const stat = (label, value) =>
     `<div class="pb-stat"><span class="pb-label">${label}</span><span class="pb-value">${value}</span></div>`;
 
@@ -2422,17 +2506,17 @@ function renderPayback() {
     paybackCalloutEl.className = 'payback-callout';
     paybackCalloutEl.innerHTML =
       `<div class="payback-stats">` +
-      stat('You invest', commitStat) +
-      stat('Money back by', `${r.fundStart + paybackIdx} · Year ${paybackIdx + 1}`) +
-      stat('Net profit', `${fmtSigned(profit)} · ${r.moic.toFixed(2)}×`) +
+      stat('You invest', fmtCommit(commit)) +
+      stat('Money back by', `Year ${paybackIdx + 1} · ${r.fundStart + paybackIdx}`) +
+      stat('Net profit', fmtSigned(profit)) +
       `</div>` + saleNote;
   } else {
     paybackCalloutEl.className = 'payback-callout miss';
     paybackCalloutEl.innerHTML =
       `<div class="payback-stats">` +
-      stat('You invest', commitStat) +
+      stat('You invest', fmtCommit(commit)) +
       stat('Money back by', 'Never — not recovered') +
-      stat('Net result', `${fmtSigned(profit)} · ${r.moic.toFixed(2)}×`) +
+      stat('Net result', fmtSigned(profit)) +
       `</div>` +
       `<div class="pb-footnote">A roster that never produced a star can't pay for its misses. Draws like this are in the deck — run Monte Carlo to count them across 10,000 runs.</div>`;
   }
@@ -2468,7 +2552,6 @@ function resetResultDisplay() {
   document.getElementById('bBasis').textContent  = '—';
   document.getElementById('bGross').textContent  = '—';
   document.getElementById('bSale').textContent   = '—';
-  document.getElementById('bFees').textContent   = '—';
   document.getElementById('bCarry').textContent  = '—';
   document.getElementById('bNetLp').textContent  = '—';
   if (rosterSub) rosterSub.textContent = `${currentPool().length} players in pool`;
@@ -2485,18 +2568,14 @@ function renderResult(r, selected, cadence) {
   lastResult = r;
   document.getElementById('netMoic').textContent = r.moic.toFixed(2) + 'x';
   document.getElementById('netIrr').textContent  = (r.irr*100).toFixed(1) + '%';
-  document.getElementById('bBasis').textContent  = fmtMoney(r.totalCalled);
-  document.getElementById('bGross').textContent  = fmtMoney(r.grossLive);
-  document.getElementById('bSale').textContent   = '+' + fmtMoney(r.terminalValue);
-  document.getElementById('bFees').textContent   = '−' + fmtMoney(r.totalFees);
-  document.getElementById('bCarry').textContent  = '−' + fmtMoney(r.totalGp);
-  document.getElementById('bNetLp').textContent  = fmtMoney(r.totalLp);
+  const tdy = 1 / r.basisDeflator; // restate whole-fund figures in today's dollars
+  document.getElementById('bBasis').textContent  = fmtMoney(r.totalCalled * tdy);
+  document.getElementById('bGross').textContent  = fmtMoney(r.grossLive * tdy);
+  document.getElementById('bSale').textContent   = '+' + fmtMoney(r.terminalValue * tdy);
+  document.getElementById('bCarry').textContent  = '−' + fmtMoney(r.totalGp * tdy);
+  document.getElementById('bNetLp').textContent  = fmtMoney(r.totalLp * tdy);
   const wfFrame = document.getElementById('bFrame');
-  if (wfFrame) {
-    wfFrame.textContent = vintageDeflator(r.fundStart) < 1
-      ? `Whole fund · in ${r.fundStart} dollars`
-      : `Whole fund · today's dollars`;
-  }
+  if (wfFrame) wfFrame.textContent = "Whole fund · today's dollars";
   updateUserReturn();
 
   const pool = currentPool();
@@ -2638,30 +2717,7 @@ const mcModeNoteEl        = document.getElementById('mcModeNote');
 const singleRollResultsEl = document.getElementById('singleRollResults');
 const rosterSectionEl     = document.getElementById('rosterSection');
 
-simModeBtns.forEach(btn => {
-  btn.addEventListener('click', () => {
-    simModeBtns.forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
-    simMode = btn.dataset.simmode;
-    renderSetupSummary();
-    if (simMode === 'monte') {
-      mcModeNoteEl.hidden = false;
-      setRollBtnLabel();
-      singleRollResultsEl.hidden = true;
-      paybackSectionEl.hidden = true;
-      simLogEl.hidden = true;
-      rosterSectionEl.hidden = true;
-    } else {
-      mcModeNoteEl.hidden = true;
-      setRollBtnLabel();
-      singleRollResultsEl.hidden = false;
-      rosterSectionEl.hidden = false;
-      renderSimLog(); // restore sim log state
-      renderPayback(); // restore payback schedule if a roll exists
-      mcPanel.hidden = true;
-    }
-  });
-});
+// Mode toggle removed — the single roll and the Monte Carlo panel are both always shown.
 
 // ── Monte Carlo ──────────────────────────────────────────────────────────────
 const MC_RUNS  = 10_000;
@@ -2672,7 +2728,7 @@ const mcProgress     = document.getElementById('mcProgress');
 const mcProgressBar  = document.getElementById('mcProgressBar');
 const mcProgressText = document.getElementById('mcProgressText');
 const mcHistoryEl    = document.getElementById('mcHistory');
-const mcClearBtn     = document.getElementById('mcClear');
+const mcRunBtn       = document.getElementById('mcRun');
 
 let mcRunHistory = [];
 let mcRunCounter = 0;
@@ -2713,14 +2769,11 @@ function renderMCCard(r, label, cls, run) {
 async function runMonteCarlo() {
   rollBtn.disabled = true;
 
-  // Show panel + progress bar
+  // Show progress bar (panel is always visible on the results page now)
   mcPanel.hidden            = false;
   mcProgress.hidden         = false;
   mcProgressBar.style.width = '0%';
   mcProgressText.textContent = `0 / ${MC_RUNS.toLocaleString()}`;
-
-  // Scroll panel into view
-  mcPanel.scrollIntoView({ behavior: 'smooth', block: 'start' });
 
   const results = [];
   for (let i = 0; i < MC_RUNS; i += MC_CHUNK) {
@@ -2745,9 +2798,8 @@ async function runMonteCarlo() {
   const losing  = results.filter(r => r.moic < 1.0).length;
   const pctLoss = ((losing / MC_RUNS) * 100).toFixed(1);
 
-  mcRunCounter++;
-  mcRunHistory.push({
-    n:        mcRunCounter,
+  // Keep only the latest distribution — "Re-run" replaces it, not stacks.
+  mcRunHistory = [{
     vintage,
     vlabel:   VINTAGES[vintage].label,
     mode,
@@ -2760,7 +2812,7 @@ async function runMonteCarlo() {
     losing,
     pctLoss,
     avgIrr,
-  });
+  }];
 
   mcProgress.hidden = true;
   renderMCHistory();
@@ -2768,15 +2820,8 @@ async function runMonteCarlo() {
 }
 
 function renderMCHistory() {
-  if (mcRunHistory.length === 0) {
-    mcHistoryEl.innerHTML = '';
-    mcClearBtn.hidden = true;
-    return;
-  }
-  mcClearBtn.hidden = false;
-  // Newest first
-  const ordered = mcRunHistory.slice().reverse();
-  mcHistoryEl.innerHTML = ordered.map(run => {
+  if (mcRunHistory.length === 0) { mcHistoryEl.innerHTML = ''; return; }
+  mcHistoryEl.innerHTML = mcRunHistory.map(run => {
     const vLabel  = run.vlabel || VINTAGES[run.vintage].label;
     const mLabel  = MODES[run.mode].label;
     const tag     = `${vLabel} · Ranks ${mLabel}${run.deal ? ' · ' + run.deal : ''} · Commit ${fmtCommit(run.commit)}`;
@@ -2785,7 +2830,6 @@ function renderMCHistory() {
     return `
       <div class="mc-run">
         <div class="mc-run-head">
-          <span class="mc-run-n">Run #${String(run.n).padStart(2,'0')}</span>
           <span class="mc-run-tag">${tag}</span>
         </div>
         <div class="row g-3">
@@ -2823,13 +2867,8 @@ function renderMCHistory() {
   }).join('');
 }
 
-function clearMCHistory() {
-  mcRunHistory = [];
-  mcRunCounter = 0;
-  renderMCHistory();
-}
-
-mcClearBtn.addEventListener('click', clearMCHistory);
+// "Re-run" deals a fresh 10,000-run distribution (replaces the current one).
+mcRunBtn.addEventListener('click', () => runMonteCarlo());
 
 const commitBtns = document.getElementById('commitBtns');
 const commitError = document.getElementById('commitError');
@@ -2918,7 +2957,7 @@ const coversNextBtn  = document.getElementById('coversNext');
 const amountNextBtn  = document.getElementById('amountNext');
 const coverStartBtn  = document.getElementById('coverStart');
 const wizProgress    = document.getElementById('wizProgress');
-const STEP_INDEX     = { purpose: 1, how: 2, covers: 3, amount: 4 };
+const STEP_INDEX     = { purpose: 1, how: 2, covers: 3 };
 
 function setScreen(name) {
   document.body.dataset.screen = name;
@@ -2931,37 +2970,34 @@ function setScreen(name) {
   window.scrollTo(0, 0);
 }
 function setRollBtnLabel() {
-  const label = (simMode === 'monte' ? 'Run Monte Carlo' : 'Simulate Portfolio') + '<span class="arrow">→</span>';
+  const label = 'Simulate Portfolio<span class="arrow">→</span>';
   rollBtn.innerHTML = label;
-  if (amountNextBtn) amountNextBtn.innerHTML = label;  // Amount step shares the simulate label
+  if (amountNextBtn) amountNextBtn.innerHTML = label;
 }
-function runSim() {
-  if (simMode === 'monte') runMonteCarlo();
-  else roll();
-}
+function runSim() { roll(); }                        // one fresh single-roll example
+function runWithOdds() { roll(); runMonteCarlo(); }  // single roll + recompute the 10,000-run distribution
 
 // One-way wizard flow.
 if (coverStartBtn)  coverStartBtn.addEventListener('click',  () => setScreen('purpose'));
 if (purposeNextBtn) purposeNextBtn.addEventListener('click', () => setScreen('how'));
 if (howNextBtn)     howNextBtn.addEventListener('click',     () => setScreen('covers'));
-if (coversNextBtn)  coversNextBtn.addEventListener('click',  () => setScreen('amount'));
-// Amount is the final step — its button runs the sim straight to results.
-if (amountNextBtn)  amountNextBtn.addEventListener('click',  () => {
-  if (commit == null) { if (commitError) commitError.hidden = false; return; }
-  runSim(); setScreen('results');
-});
+// "What It Covers" is the final step — first roll + the odds, then show results.
+if (coversNextBtn)  coversNextBtn.addEventListener('click',  () => { runWithOdds(); setScreen('results'); });
 
 // Customize overlay — assumptions as a modal over the results.
 const customizeOverlay = document.getElementById('customizeOverlay');
 function openCustomize()  { if (customizeOverlay) { customizeOverlay.classList.add('open');    customizeOverlay.setAttribute('aria-hidden', 'false'); } }
 function closeCustomize() { if (customizeOverlay) { customizeOverlay.classList.remove('open'); customizeOverlay.setAttribute('aria-hidden', 'true');  } }
 
-// Apply assumptions — re-run and close, staying on results.
-rollBtn.addEventListener('click', () => { runSim(); closeCustomize(); });
+// Apply assumptions — settings changed, so re-roll AND recompute the odds, then close.
+rollBtn.addEventListener('click', () => { closeCustomize(); runWithOdds(); });
 
 // Results-header actions.
+document.getElementById('navMonteCarlo')?.addEventListener('click', () => {
+  document.getElementById('mcPanel')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+});
 document.getElementById('navCustomize') ?.addEventListener('click', openCustomize);
-document.getElementById('navAgain')     ?.addEventListener('click', () => { runSim(); });
+document.getElementById('navAgain')     ?.addEventListener('click', () => { runSim(); }); // Roll Again — new single example; the odds hold
 document.getElementById('customizeClose')?.addEventListener('click', closeCustomize);
 if (customizeOverlay) customizeOverlay.addEventListener('click', e => { if (e.target === customizeOverlay) closeCustomize(); });
 
