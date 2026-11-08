@@ -354,10 +354,10 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   .hero-head { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin-bottom: 10px; }
   .hero-head .hero-label { margin: 0; color: var(--paper); }
   .hero-card {
-    background: var(--paper-dim); border: 0;
+    background: var(--paper); border: 1px solid var(--field);
     padding: 22px 24px; height: 100%;
-    display: flex; flex-direction: column; justify-content: center;
-    position: relative;
+    display: flex; flex-direction: column; justify-content: center; align-items: center;
+    text-align: center; position: relative;
   }
   .hc-value {
     font-family: 'Big Shoulders Display', sans-serif; font-weight: 900;
@@ -371,6 +371,52 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     font-family: 'Lora', Georgia, serif; font-style: italic; font-size: 11.5px;
     color: var(--ink-soft); margin-top: 3px;
   }
+  /* Desktop: give cards room and float the $ note to the bottom so every value/label
+     sits at the exact same spot across the three boxes. */
+  @media (min-width: 768px) {
+    .hero-card { min-height: 152px; }
+    .hero-card-dollar .hc-note {
+      position: absolute; left: 24px; right: 24px; bottom: 18px; margin-top: 0;
+    }
+  }
+  /* Results — champagne section wrapping the three stat cards (matches Cash Flow) */
+  .results-section {
+    background: var(--paper-dim); border: 0;
+    padding: 20px 18px; margin-bottom: 0;
+  }
+  @media (min-width: 768px) { .results-section { padding: 24px 26px; } }
+  .results-head {
+    display: flex; flex-wrap: wrap; justify-content: space-between;
+    align-items: baseline; gap: 8px;
+    margin-bottom: 16px; padding-bottom: 12px;
+    border-bottom: 2px solid var(--field);
+  }
+  .results-title {
+    font-family: 'Big Shoulders Display', sans-serif; font-weight: 900;
+    font-size: 22px; color: var(--field); text-transform: uppercase; letter-spacing: 0.02em;
+  }
+  @media (min-width: 768px) { .results-title { font-size: 26px; } }
+  .results-controls { display: flex; align-items: center; gap: 12px; }
+  .results-roll {
+    display: inline-flex; align-items: center; gap: 8px; cursor: pointer;
+    font-family: 'Oswald', sans-serif; font-weight: 600; font-size: 12px;
+    letter-spacing: 0.12em; text-transform: uppercase; white-space: nowrap;
+    background: var(--field); color: var(--paper); border: 0;
+    padding: 10px 18px; transition: background 0.16s;
+  }
+  .results-roll:hover { background: var(--field-bright); }
+  .results-gear {
+    display: inline-flex; align-items: center; justify-content: center;
+    background: none; border: 0; color: var(--field); cursor: pointer; padding: 4px; line-height: 0;
+    transition: color 0.16s;
+  }
+  .results-gear:hover { color: var(--field-bright); }
+  .results-explainer {
+    font-family: 'Lora', Georgia, serif; font-size: 14px; line-height: 1.55;
+    color: var(--ink-soft); margin: 16px 0 0; max-width: 940px;
+  }
+  .results-explainer b { color: var(--field); font-weight: 700; }
+  @media (min-width: 768px) { .results-explainer { font-size: 15px; } }
   /* Mobile hero Roll Again — white-outline button filling the dollar card's neighbour cell */
   .hero-actions-cell { display: flex; }
   .hero-act-btn {
@@ -382,10 +428,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     -webkit-tap-highlight-color: transparent;
   }
   .hero-act-icon { flex: 0 0 auto; }
-  .hero-act-roll { background: transparent; color: var(--paper); border: 1.5px solid rgba(255,255,255,0.65); }
-  /* Hover fill only on real pointers — avoids the "tap then stays white" bug on touch */
-  @media (hover: hover) { .hero-act-roll:hover { background: var(--paper); color: var(--field); border-color: var(--paper); } }
-  .hero-act-roll:active { background: rgba(255,255,255,0.16); transform: scale(0.99); }
+  .hero-act-roll { background: var(--field); color: var(--paper); border: 1px solid var(--field); }
+  @media (hover: hover) { .hero-act-roll:hover { background: var(--field-bright); border-color: var(--field-bright); } }
+  .hero-act-roll:active { transform: scale(0.99); }
   .hero-act-roll:focus { outline: none; }
   .hero-amount .currency {
     font-size: 0.55em; vertical-align: top; line-height: 1;
@@ -473,7 +518,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     margin: 18px 0 6px;
   }
   .br-section:first-of-type { margin-top: 2px; }
-  .br-section small { letter-spacing: 0.04em; text-transform: none; font-weight: 400; opacity: 0.75; }
+  .br-section small { font-size: 12px; letter-spacing: 0.02em; text-transform: none; font-weight: 400; opacity: 0.8; }
   .br-row.subtotal { border-bottom: 0; margin-top: 2px; padding-top: 10px; border-top: 1px solid rgba(255,255,255,0.28); }
   .br-row.subtotal .label { color: var(--paper); font-weight: 600; }
   .br-row.subtotal .value { font-weight: 700; color: var(--paper); font-size: 14px; }
@@ -1722,12 +1767,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   .nav-right { display: flex; align-items: center; justify-content: flex-end; gap: 12px 16px; flex-wrap: wrap; }
   .nav-actions { display: flex; align-items: center; gap: 16px; }
   .nav-ctas { display: flex; align-items: center; gap: 12px; }
-  /* Phone/tablet-portrait: compact header — just brand + a settings gear on the
-     right. Monte Carlo/Customize links and the CTA buttons move into the hero. */
-  @media (max-width: 767.98px) {
-    .nav-right { display: none; }
-    .nav-icons { display: inline-flex; }
-  }
+  /* Nav shows the "I'm Interested" button at every width; the icon set is retired. */
   .nav-action {
     background: none; border: 0; cursor: pointer; color: rgba(255,255,255,0.8);
     font-family: 'Oswald', sans-serif; font-weight: 600; font-size: 11px;
@@ -1812,6 +1852,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     .hc-value, .hero-card-dollar .hc-value { font-size: clamp(30px, 8.5vw, 44px); }
     .hc-label { font-size: 10px; letter-spacing: 0.14em; }
     .hero-card-dollar .hc-note { display: none; }   /* keep the $ card as short as the others */
+    .results-roll { display: none; }   /* Roll Again lives in the grid on mobile; only the gear shows in the ROI header */
 
     /* Cash Flow: table shares the same margins as the title/callout above it */
     .payback-table-wrap { overflow-x: hidden; margin: 0; }
@@ -1957,12 +1998,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         </button>
       </div>
       <div class="nav-right">
-        <nav class="nav-actions" aria-label="Results navigation">
-          <button type="button" class="nav-action" id="navMonteCarlo">Monte Carlo</button>
-          <button type="button" class="nav-action" id="navCustomize">Customize</button>
-        </nav>
         <div class="nav-ctas">
-          <button type="button" class="nav-cta nav-cta-alt" id="navAgain">Roll Again</button>
           <button type="button" class="nav-cta" data-bs-toggle="modal" data-bs-target="#lpModal">I'm Interested</button>
         </div>
       </div>
@@ -2018,6 +2054,16 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
   <div id="singleRollResults" class="row g-3 mb-3 mb-md-4">
     <div class="col-12">
+      <section class="results-section">
+      <div class="results-head">
+        <div class="results-title">Return on Investment</div>
+        <div class="results-controls">
+          <button type="button" class="results-roll" id="resultsRoll"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="23 4 23 10 17 10"></polyline><polyline points="1 20 1 14 7 14"></polyline><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path></svg>Roll Again</button>
+          <button type="button" class="results-gear" id="resultsGear" aria-label="Customize assumptions" title="Customize">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+          </button>
+        </div>
+      </div>
       <div class="row g-2 g-md-3 hero-cards">
         <div class="col-6 col-md-4">
           <div class="hero-card">
@@ -2034,8 +2080,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <div class="col-6 col-md-4">
           <div class="hero-card hero-card-dollar">
             <div class="hc-value">$<span id="userReturn">—</span></div>
-            <div class="hc-label">On a $250K commitment</div>
-            <div class="hc-note">Today's dollars, net of fees &amp; carry</div>
+            <div class="hc-label">Net Return</div>
+            <div class="hc-note">On a $250K commitment</div>
           </div>
         </div>
         <!-- Mobile only: Roll Again fills this square (I'm Interested is the chat icon in the header) -->
@@ -2043,6 +2089,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           <button type="button" class="hero-act-btn hero-act-roll" id="heroAgain"><svg class="hero-act-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="23 4 23 10 17 10"></polyline><polyline points="1 20 1 14 7 14"></polyline><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path></svg>Roll Again</button>
         </div>
       </div>
+      <p class="results-explainer" id="resultsExplainer"></p>
+      </section>
     </div>
     <div class="col-12">
       <details class="wf-details">
@@ -2057,7 +2105,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <div class="br-row"><span class="label">Management fees (2% Yrs 1–3)</span><span class="value">−$0.6M</span></div>
         <div class="br-row subtotal"><span class="label">Invested in athletes</span><span class="value" id="bBasis">—</span></div>
 
-        <div class="br-section">The Return <small>on that capital</small></div>
+        <div class="br-section">The Return <small>on that $8M</small></div>
         <div class="br-row"><span class="label">Paychecks collected (Yrs 1–15)</span><span class="value" id="bGross">—</span></div>
         <div class="br-row"><span class="label">Year-15 contract sale</span><span class="value" id="bSale">—</span></div>
         <div class="br-row"><span class="label">Carried interest (20%)</span><span class="value" id="bCarry">—</span></div>
@@ -2529,6 +2577,7 @@ let commit = 250000; // fixed illustrative commitment (today's dollars); amount 
 let lastResult = null;
 let simHistory = []; // chronological list of completed simulations
 let simCounter = 0;   // monotonic — only resets on Clear
+let rollNum = 0;      // "Results — Simulation #N"; increments on each fresh roll
 const SIM_HISTORY_MAX = 25;
 
 const commitSlider = document.getElementById('commitSlider');
@@ -2765,6 +2814,17 @@ function renderResult(r, selected, cadence) {
   if (wfFrame) wfFrame.textContent = "Whole fund · today's dollars";
   updateUserReturn();
 
+  // Results header: simulation number + plain-language explainer of what just happened
+  const rt = document.getElementById('resultsSub');
+  if (rt) rt.textContent = `Simulation #${rollNum || 1}`;
+  const rx = document.getElementById('resultsExplainer');
+  if (rx) {
+    const yrs = deployYears();
+    const years = `${yrs[0]}–${yrs[2]}`;
+    const rankTxt = (mode === 'full') ? 'in the <b>top 100</b>' : `ranked <b>${MODES[mode].label}</b>`;
+    rx.innerHTML = `The simulator blindly selected <b>${selected.length} players</b> ${rankTxt} from the <b>${years}</b> MLB seasons. Had we invested in them with our Fund 1 underwriting methodologies applied, the fund would've generated a ${r.moic.toFixed(2)}x net multiple on invested capital (MOIC) and a ${(r.irr * 100).toFixed(1)}% net internal rate of return (IRR).`;
+  }
+
   const pool = currentPool();
   const showVintageTags = !VINTAGES[vintage].single;
   let subText = `${selected.length} of ${pool.length} drawn · ranks ${MODES[mode].label} · ${fmtDeal()}`;
@@ -2811,6 +2871,7 @@ function renderResult(r, selected, cadence) {
 let lastRoll = null; // { selected, cadence, tl } — kept so offer changes can re-price the same roster
 
 function roll() {
+  rollNum++;   // this is a fresh simulation
   let selected, cadence = null;
   if (vintage === 'deploy') {
     const m = MODES[mode];
@@ -3197,6 +3258,8 @@ document.getElementById('navMonteCarlo')?.addEventListener('click', () => {
 document.getElementById('navCustomize') ?.addEventListener('click', openCustomize);
 document.getElementById('navSettings')  ?.addEventListener('click', openCustomize);
 document.getElementById('heroAgain')     ?.addEventListener('click', () => { runSim(); }); // mobile hero Roll Again
+document.getElementById('resultsRoll')   ?.addEventListener('click', () => { runSim(); }); // Results-box Roll Again
+document.getElementById('resultsGear')   ?.addEventListener('click', openCustomize);        // Results-box Customize gear
 document.getElementById('navAgain')     ?.addEventListener('click', () => { runSim(); }); // Roll Again — new single example; the odds hold
 document.getElementById('ctaRoll')       ?.addEventListener('click', () => { runSim(); window.scrollTo({ top: 0, behavior: 'smooth' }); }); // sticky-footer Roll Again — jump to the top
 document.getElementById('customizeClose')?.addEventListener('click', closeCustomize);
