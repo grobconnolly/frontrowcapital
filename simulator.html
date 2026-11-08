@@ -397,6 +397,11 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   }
   @media (min-width: 768px) { .results-title { font-size: 26px; } }
   .results-controls { display: flex; align-items: center; gap: 12px; }
+  /* Simulation counter — mobile only, in the gear's old top-right spot */
+  .results-sub {
+    display: none; font-family: 'Oswald', sans-serif; font-weight: 600; font-size: 11px;
+    letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-soft); white-space: nowrap;
+  }
   .results-roll {
     display: inline-flex; align-items: center; gap: 8px; cursor: pointer;
     font-family: 'Oswald', sans-serif; font-weight: 600; font-size: 12px;
@@ -432,7 +437,15 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   @media (hover: hover) { .hero-act-roll:hover { background: var(--field-bright); border-color: var(--field-bright); } }
   .hero-act-roll:active { transform: scale(0.99); }
   .hero-act-roll:focus { outline: none; }
-  .roi-roll { display: none; }   /* bottom-of-box Roll Again: mobile only (shown in the mobile block) */
+  .roi-actions { display: none; }   /* bottom-of-box Roll Again + gear: mobile only (shown in the mobile block) */
+  .roi-actions .hero-act-roll { flex: 1 1 auto; }
+  .roi-gear {
+    flex: 0 0 46px; width: 46px; padding: 0;   /* square: matches Roll Again's height */
+    background: transparent; color: var(--field); border: 1px solid var(--field);
+  }
+  @media (hover: hover) { .roi-gear:hover { background: rgba(13,29,53,0.06); } }
+  .roi-gear:active { transform: scale(0.97); }
+  .roi-gear:focus { outline: none; }
   .hero-amount .currency {
     font-size: 0.55em; vertical-align: top; line-height: 1;
     color: var(--ink-soft); margin-right: 4px;
@@ -1351,6 +1364,18 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   .year-chip.in-window { background: rgba(18,42,79,0.20); color: var(--field); }
   .year-chip:disabled { opacity: 0.28; cursor: not-allowed; }
   .year-chip:not(.active):not(:disabled):hover { background: rgba(18,42,79,0.08); }
+  /* Investment amount chips (Customize) — same look as the year chips */
+  .amt-chips { flex: 1 1 100%; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 6px; margin-top: 4px; }
+  .amt-chip {
+    text-align: center;
+    background: transparent; border: 1px solid var(--field); color: var(--field);
+    font-family: 'Oswald', sans-serif; font-weight: 600; font-size: 12px;
+    letter-spacing: 0.06em; padding: 9px 4px; border-radius: 0; cursor: pointer;
+    transition: all 0.15s;
+  }
+  .amt-chip.active { background: var(--field); color: var(--paper); }
+  @media (hover: hover) { .amt-chip:not(.active):hover { background: rgba(18,42,79,0.08); } }
+  .amt-chip:focus { outline: none; }
   .deploy-hint {
     flex: 1 1 100%; margin-top: 2px;
     font-family: 'Lora', serif; font-style: italic; font-size: 11px; color: rgba(18,42,79,0.7);
@@ -1895,7 +1920,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     .hc-label { font-size: 10px; letter-spacing: 0.14em; }
     .hero-col-dollar { order: -1; }   /* Net Return on top, then MOIC | IRR */
     .results-roll { display: none; }   /* Roll Again is the full-width button at the box bottom on mobile */
-    .roi-roll { display: flex; width: 100%; margin-top: 16px; }
+    .roi-actions { display: flex; gap: 10px; margin-top: 16px; }
+    .results-gear { display: none; }   /* gear moves down beside Roll Again on mobile */
+    .results-sub { display: inline; }  /* Simulation #N takes its place */
 
     /* Cash Flow: table shares the same margins as the title/callout above it */
     .payback-table-wrap { overflow-x: hidden; margin: 0; }
@@ -1923,11 +1950,14 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     /* Callout: Investment / Money Back / Net Profit side by side */
     .payback-stats { flex-wrap: nowrap; gap: 8px 12px; }
 
-    /* Monte Carlo: stacked title frees the Re-run button to one line; bold navy IRRs */
-    .mc-title-row { align-items: center; }
-    .mc-t1 { display: block; }
-    .mc-t2 { display: block; font-size: 0.6em; opacity: 0.6; letter-spacing: 0.12em; margin-top: 3px; }
-    .mc-t2::before { content: none; }
+    /* Monte Carlo: header built like Simulation Log's — one-line title (the explainer
+       already says 10,000), Re-run on the same baseline, navy rule underneath */
+    .mc-title-row {
+      align-items: baseline; gap: 12px;
+      margin-bottom: 10px; padding-bottom: 10px; border-bottom: 2px solid var(--field);
+    }
+    .mc-title { line-height: normal; margin-bottom: 0; letter-spacing: 0.02em; }
+    .mc-t2 { display: none; }
     #mcRun { white-space: nowrap; flex-shrink: 0; }
     .mc-card-irr { opacity: 1; margin-top: 2px; }
     .mc-irr-val { font-family: 'Big Shoulders Display', sans-serif; font-weight: 800; font-size: 18px; color: var(--field); }
@@ -1944,7 +1974,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
     /* Portfolio: label sits to the left of the On/Off toggle, top-right */
     .roster-head { align-items: center; flex-wrap: nowrap; gap: 10px; }
-    .roster-title { font-size: 18px; }
+    /* One section-title size on mobile (Return on Investment, Cash Flow, Portfolio, Monte Carlo, Simulation Log) */
+    .roster-title, .results-title, .payback-title, .sim-log-title, .mc-title { font-size: 18px; }
     .roster-head-tools { gap: 7px; flex-shrink: 0; }
     .hover-toggle-label { font-size: 9px; letter-spacing: 0.08em; }
     .hover-opt { padding: 5px 10px; }
@@ -2077,6 +2108,15 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <div class="advanced-panel" id="advancedPanel">
 
       <div class="vintage-strip">
+        <div class="vintage-label">Investment Amount</div>
+        <div class="amt-chips" id="amtChips" role="group" aria-label="Investment amount">
+          <button type="button" class="amt-chip" data-commit="100000">$100K</button>
+          <button type="button" class="amt-chip active" data-commit="250000">$250K</button>
+          <button type="button" class="amt-chip" data-commit="500000">$500K</button>
+          <button type="button" class="amt-chip" data-commit="1000000">$1M</button>
+        </div>
+      </div>
+      <div class="vintage-strip">
         <div class="vintage-label">Investment Period</div>
         <div class="year-chips" id="yearChips" role="group" aria-label="Investment period start year">
           <button type="button" class="year-chip" data-year="2005">2005</button>
@@ -2118,6 +2158,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <div class="results-head">
         <div class="results-title">Return on Investment</div>
         <div class="results-controls">
+          <span class="results-sub" id="resultsSub" aria-live="polite">Roll #1</span>
           <button type="button" class="results-roll" id="resultsRoll"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="23 4 23 10 17 10"></polyline><polyline points="1 20 1 14 7 14"></polyline><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path></svg>Roll Again</button>
           <button type="button" class="results-gear" id="resultsGear" aria-label="Customize assumptions" title="Customize">
             <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
@@ -2141,13 +2182,18 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           <div class="hero-card hero-card-dollar">
             <div class="hc-value">$<span id="userReturn">—</span></div>
             <div class="hc-label">Net Return</div>
-            <div class="hc-note">On a $250K investment</div>
+            <div class="hc-note">On a <span id="userCommit">$250K</span> investment</div>
           </div>
         </div>
       </div>
       <p class="results-explainer" id="resultsExplainer"></p>
-      <!-- Mobile only: Roll Again spans the bottom of the box -->
-      <button type="button" class="hero-act-btn hero-act-roll roi-roll" id="heroAgain"><svg class="hero-act-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="23 4 23 10 17 10"></polyline><polyline points="1 20 1 14 7 14"></polyline><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path></svg>Roll Again</button>
+      <!-- Mobile only: Roll Again spans the bottom of the box, Customize gear beside it -->
+      <div class="roi-actions">
+      <button type="button" class="hero-act-btn hero-act-roll" id="heroAgain"><svg class="hero-act-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="23 4 23 10 17 10"></polyline><polyline points="1 20 1 14 7 14"></polyline><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path></svg>Roll Again</button>
+      <button type="button" class="hero-act-btn roi-gear" id="heroGear" aria-label="Customize assumptions" title="Customize">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+      </button>
+      </div>
       </section>
     </div>
     <div class="col-12">
@@ -2712,6 +2758,8 @@ function updateUserReturn() {
   // share an era-equivalent commitment bought then, and distributions translate back
   // out at the same rate — the deflation nets out, so commitment × MOIC reconciles.
   const userNet = lastResult.moic * commit;
+  const uc = document.getElementById('userCommit');
+  if (uc) uc.textContent = fmtCommit(commit);
   document.getElementById('userReturn').textContent =
     userNet >= 1_000_000
       ? (userNet/1_000_000).toFixed(2) + 'M'
@@ -2878,7 +2926,7 @@ function renderResult(r, selected, cadence) {
 
   // Results header: simulation number + plain-language explainer of what just happened
   const rt = document.getElementById('resultsSub');
-  if (rt) rt.textContent = `Simulation #${rollNum || 1}`;
+  if (rt) rt.textContent = `Roll #${rollNum || 1}`;
   const rx = document.getElementById('resultsExplainer');
   if (rx) {
     const yrs = deployYears();
@@ -3315,14 +3363,37 @@ document.getElementById('resultsGateStart')?.addEventListener('click', () => {
 // Customize overlay — assumptions as a modal over the results, with Save / Discard.
 const customizeOverlay = document.getElementById('customizeOverlay');
 let customizeSnapshot = null;   // settings captured when the modal opens, restored on Discard
+const amtChipEls = Array.from(document.querySelectorAll('.amt-chip'));
+function syncAmtChips() { amtChipEls.forEach(b => b.classList.toggle('active', +b.dataset.commit === commit)); }
+amtChipEls.forEach(b => b.addEventListener('click', () => { commit = +b.dataset.commit; syncAmtChips(); }));   // preview until Save
+
 function openCustomize()  {
-  customizeSnapshot = { deployStart, mode, vintage, singleYear };   // chips only preview until Save
+  customizeSnapshot = { deployStart, mode, vintage, singleYear, commit };   // chips only preview until Save
+  syncAmtChips();
   if (customizeOverlay) { customizeOverlay.classList.add('open'); customizeOverlay.setAttribute('aria-hidden', 'false'); }
 }
 function closeCustomize() { if (customizeOverlay) { customizeOverlay.classList.remove('open'); customizeOverlay.setAttribute('aria-hidden', 'true');  } }
-function saveCustomize()  { closeCustomize(); runWithOdds(); }   // apply the previewed settings: new roll + odds
+// Re-express the current simulation at the new amount: same players, same MOIC/IRR,
+// dollars scale linearly — no new roll, so the Simulation # stays put.
+function rescaleToCommit() {
+  updateUserReturn();                                   // Net Return, "On a $X investment", Cash Flow
+  const last = simHistory[simHistory.length - 1];
+  if (last) { last.commit = commit; last.netDist = last.moic * commit; renderSimLog(); }
+  mcRunHistory.forEach(run => { run.commit = commit; });
+  renderMCHistory();
+}
+function saveCustomize() {
+  const s = customizeSnapshot;
+  const onlyAmount = s && s.deployStart === deployStart && s.mode === mode &&
+                     s.vintage === vintage && s.singleYear === singleYear;
+  closeCustomize();
+  if (onlyAmount && lastResult) { if (s.commit !== commit) rescaleToCommit(); }
+  else runWithOdds();   // other assumptions changed: new roll + odds
+}
 function discardCustomize() {
   if (customizeSnapshot) {
+    commit = customizeSnapshot.commit;
+    syncAmtChips();
     setDeployStart(customizeSnapshot.deployStart);
     mode       = customizeSnapshot.mode;
     vintage    = customizeSnapshot.vintage;
@@ -3346,6 +3417,7 @@ document.getElementById('navSettings')  ?.addEventListener('click', openCustomiz
 document.getElementById('heroAgain')     ?.addEventListener('click', () => { runSim(); }); // mobile hero Roll Again
 document.getElementById('resultsRoll')   ?.addEventListener('click', () => { runSim(); }); // Results-box Roll Again
 document.getElementById('resultsGear')   ?.addEventListener('click', openCustomize);        // Results-box Customize gear
+document.getElementById('heroGear')      ?.addEventListener('click', openCustomize);        // mobile gear beside Roll Again
 document.getElementById('navAgain')     ?.addEventListener('click', () => { runSim(); }); // Roll Again — new single example; the odds hold
 document.getElementById('ctaRoll')       ?.addEventListener('click', () => { runSim(); window.scrollTo({ top: 0, behavior: 'smooth' }); }); // sticky-footer Roll Again — jump to the top
 document.getElementById('customizeClose')?.addEventListener('click', discardCustomize);
