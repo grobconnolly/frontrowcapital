@@ -3401,11 +3401,10 @@ function openCustomize()  {
 }
 function closeCustomize() { if (customizeOverlay) { customizeOverlay.classList.remove('open'); customizeOverlay.setAttribute('aria-hidden', 'true');  } }
 // Re-express the current simulation at the new amount: same players, same MOIC/IRR,
-// dollars scale linearly — no new roll, so the Simulation # stays put.
+// dollars scale linearly — no new roll, so the Roll # stays put. The Simulation Log is a
+// record of rolls as they happened, so its entries are left untouched.
 function rescaleToCommit() {
   updateUserReturn();                                   // Net Return, "On a $X investment", Cash Flow
-  const last = simHistory[simHistory.length - 1];
-  if (last) { last.commit = commit; last.netDist = last.moic * commit; renderSimLog(); }
   mcRunHistory.forEach(run => { run.commit = commit; });
   renderMCHistory();
 }
