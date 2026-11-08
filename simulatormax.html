@@ -1358,15 +1358,17 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   .mc-card-badge.best   { color: #15803d; opacity: 1; }
   .mc-card-badge.avg    { color: var(--field); opacity: 1; }
   .mc-card-badge.p10    { color: #b91c1c; opacity: 1; }
-  .mc-card-moic {
-    font-family: 'Big Shoulders Display', sans-serif; font-weight: 900;
-    font-size: clamp(28px, 5vw, 42px); letter-spacing: 0.02em;
-    color: var(--field); line-height: 1; margin-bottom: 4px;   /* --gold is white here, so navy keeps it visible */
-  }
-  .mc-card-irr {
+  /* Net MOIC and Net IRR — identical stat lines */
+  .mc-card-stat {
     font-family: 'JetBrains Mono', monospace; font-size: 12px;
-    color: var(--field); opacity: 0.65; margin-bottom: 12px;
+    color: var(--field); margin-bottom: 8px;
   }
+  .mc-card-stat:last-of-type { margin-bottom: 12px; }
+  .mc-stat-val {
+    font-family: 'Big Shoulders Display', sans-serif; font-weight: 800;
+    font-size: 20px; color: var(--field); letter-spacing: 0.01em; margin-right: 3px;
+  }
+  @media (min-width: 768px) { .mc-stat-val { font-size: 26px; } }
   .mc-card-dist {
     font-family: 'JetBrains Mono', monospace; font-size: 10px;
     color: var(--field); opacity: 0.55; border-top: 1px solid rgba(13,29,53,0.12);
@@ -1815,6 +1817,13 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     .lp-modal .modal-dialog { margin-left: 16px; margin-right: 16px; }
     .lp-modal-content { padding: 26px 22px 22px; }
     .customize-card { padding: 26px 22px; }
+
+    /* Portfolio: label sits to the left of the On/Off toggle, top-right */
+    .roster-head { align-items: center; flex-wrap: nowrap; gap: 10px; }
+    .roster-title { font-size: 18px; }
+    .roster-head-tools { gap: 7px; flex-shrink: 0; }
+    .hover-toggle-label { font-size: 9px; letter-spacing: 0.08em; }
+    .hover-opt { padding: 5px 10px; }
   }
 </style>
 
@@ -2904,8 +2913,8 @@ function renderMCCard(r, label, cls, run) {
     <div class="col-12 col-md-4">
       <div class="mc-card">
         <div class="mc-card-badge ${cls}">${label}</div>
-        <div class="mc-card-moic">${r.moic.toFixed(2)}x</div>
-        <div class="mc-card-irr"><span class="mc-irr-val">${irrTxt}</span> Net IRR</div>
+        <div class="mc-card-stat"><span class="mc-stat-val">${r.moic.toFixed(2)}x</span> Net MOIC</div>
+        <div class="mc-card-stat"><span class="mc-stat-val">${irrTxt}</span> Net IRR</div>
         <div class="mc-card-dist">Your ${fmtCommit(run.commit)} commitment →<strong>${fmtMCDist(r.moic, run.commit)}</strong></div>
       </div>
     </div>`;
