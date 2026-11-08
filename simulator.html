@@ -1008,6 +1008,11 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   }
   .scroll-top.show { opacity: 1; transform: translateY(0); pointer-events: auto; }
   .scroll-top:active { transform: scale(0.94); }
+  /* Scroll hint — same button as back-to-top, chevron down, shown on arrival at the
+     results until the first scroll so people know there's more below Roll Again */
+  .scroll-hint.show svg { animation: hint-bob 1.1s ease-in-out 0.6s 3; }
+  @keyframes hint-bob { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(4px); } }
+  @media (prefers-reduced-motion: reduce) { .scroll-hint.show svg { animation: none; } }
 
   /* Results reveal gate — blurs the results until the viewer hits Start */
   .results-gate {
@@ -1905,11 +1910,17 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     /* Tags overflow the Fund Year cell (bleeding into Capital Invested) instead of
        widening the column, which would squeeze and clip the Cumulative column. */
     .payback-table tbody td.yr { position: relative; }
+    /* Fund Year shrinks to its content (YR15 / Total), so the tags sit right beside
+       the year and the freed width goes to the number columns' headers. */
+    .payback-table thead th:first-child, .payback-table tbody td.yr { width: 1%; }
     .payback-table tbody tr.payback-row .yr::after,
     .payback-table .sale-badge {
-      position: absolute; left: 100%; top: 50%; transform: translateY(-50%);
+      position: absolute; left: auto; top: 50%; transform: translateY(-50%);   /* left:auto = sits right after the YR label */
       margin-left: 6px; padding: 1px 4px; letter-spacing: 0.06em; white-space: nowrap;
     }
+    /* The tag covers that row's Capital Invested cell, which is always an empty dash there */
+    .payback-table tbody tr.payback-row td.zero:nth-child(2),
+    .payback-table tbody tr.sale-row td.zero:nth-child(2) { color: transparent; }
     /* Callout: Investment / Money Back / Net Profit side by side */
     .payback-stats { flex-wrap: nowrap; gap: 8px 12px; }
 
@@ -2267,6 +2278,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 <button type="button" class="scroll-top scroll-top-hidden" id="scrollTop" aria-label="Back to top">
   <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="18 15 12 9 6 15"></polyline></svg>
+</button>
+
+<button type="button" class="scroll-top scroll-hint" id="scrollHint" aria-label="Scroll to more results">
+  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>
 </button>
 
 <div class="results-gate" id="resultsGate" hidden>
@@ -3457,6 +3472,29 @@ function updateCtaBar() {
 window.addEventListener('scroll', updateCtaBar, { passive: true });
 scrollTopBtn?.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
 updateCtaBar();
+
+// Mobile scroll hint — on the results screen (after Launch), while there's content
+// below the fold; disappears for good after the first real scroll.
+const scrollHintBtn = document.getElementById('scrollHint');
+let scrollHintDone = false;
+function updateScrollHint() {
+  if (!scrollHintBtn) return;
+  if (window.scrollY > 40) scrollHintDone = true;
+  const b = document.body;
+  const onResults = b.dataset.screen === 'results' && !b.classList.contains('gate-open');
+  const moreBelow = document.documentElement.scrollHeight - window.innerHeight - window.scrollY > 80;
+  scrollHintBtn.classList.toggle('show', onResults && !scrollHintDone && moreBelow);
+}
+window.addEventListener('scroll', updateScrollHint, { passive: true });
+window.addEventListener('resize', updateScrollHint);
+document.getElementById('resultsGateStart')?.addEventListener('click', () => setTimeout(updateScrollHint, 50));
+scrollHintBtn?.addEventListener('click', () => {
+  scrollHintDone = true;
+  const next = document.querySelector('#singleRollResults > .col-12:nth-child(2)');
+  const top = next ? next.getBoundingClientRect().top + window.scrollY - 12 : window.innerHeight * 0.8;
+  window.scrollTo({ top, behavior: 'smooth' });
+  updateScrollHint();
+});
 
 // Init
 setDeployStart(2012);
