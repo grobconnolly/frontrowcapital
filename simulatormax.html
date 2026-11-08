@@ -1587,7 +1587,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   .stage-panel .wiz-nav { margin-top: auto; padding-top: 24px; }
 
   /* Intro panel — content pinned to the bottom so START lines up with the step buttons */
-  #screenIntro { align-items: center; justify-content: flex-end; text-align: center; }
+  #screenIntro { align-items: center; justify-content: center; text-align: center; }
 
   /* "Back to results" — only shown once results exist (entered via the header) */
   .stage-back {
@@ -1737,8 +1737,11 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     border-top: 1px solid var(--paper-shadow);
     width: 100%; max-width: 420px;
   }
+  /* First deck line + the Start button both take auto margins, so the intro text
+     centers in the open space while Start pins to the bottom like the step buttons. */
+  #screenIntro > .cover-deck:first-child { margin-top: auto; }
   .cover-start {
-    width: 100%; align-self: stretch; margin-top: 28px;
+    width: 100%; align-self: stretch; margin-top: auto;
     font-family: 'Big Shoulders Display', sans-serif; font-weight: 900;
     font-size: 19px; letter-spacing: 0.14em; text-transform: uppercase;
     background: var(--field); color: var(--paper); border: 0;
@@ -1767,14 +1770,14 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     /* Wizard: every step the same size; button pinned to the bottom so it stays
        in one spot for click-click-click, with the progress dots below it */
     .stage-body { min-height: 418px; }
-    #screenIntro { justify-content: flex-start; }
+    #screenIntro { justify-content: center; }   /* center the intro so it isn't jammed under the banner with a big gap */
     .cover-inner { padding: 22px var(--cover-pad-x) 44px; }
     .wiz-progress { bottom: 15px; }
     .cover-eyebrow { margin-bottom: 12px; }
     .cover-sim { margin: 18px calc(-1 * var(--cover-pad-x)) 6px; padding: 12px 0; }
     .cover-deck { margin-top: 12px; line-height: 1.42; }
     .cover-meta { margin-top: 14px; padding-top: 12px; }
-    .cover-start { margin-top: auto; padding: 14px 24px; }   /* pin to bottom, same spot as the step buttons */
+    .cover-start { margin-top: auto; padding: 14px 24px; }
     .sim-intro-text { font-size: 14px; line-height: 1.5; }
     .sim-intro-text + .sim-intro-text { margin-top: 1em; }
 
