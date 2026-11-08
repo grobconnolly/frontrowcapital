@@ -376,7 +376,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   @media (min-width: 768px) {
     .hero-card { min-height: 152px; }
     .hero-card-dollar .hc-note {
-      position: absolute; left: 24px; right: 24px; bottom: 18px; margin-top: 0;
+      position: absolute; left: 24px; right: 24px; bottom: 14px; margin-top: 0;
     }
   }
   /* Results — champagne section wrapping the three stat cards (matches Cash Flow) */
@@ -417,13 +417,13 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   }
   .results-explainer b { color: var(--field); font-weight: 700; }
   @media (min-width: 768px) { .results-explainer { font-size: 15px; } }
-  /* Mobile hero Roll Again — white-outline button filling the dollar card's neighbour cell */
+  /* Mobile hero Roll Again — full-width button at the bottom of the ROI box (hidden on desktop) */
   .hero-actions-cell { display: flex; }
   .hero-act-btn {
     flex: 1 1 auto; display: flex; align-items: center; justify-content: center; gap: 8px;
     font-family: 'Oswald', sans-serif; font-weight: 700; font-size: 13px;
     letter-spacing: 0.12em; text-transform: uppercase; white-space: nowrap;
-    cursor: pointer; padding: 10px 8px;
+    cursor: pointer; padding: 12px 8px;
     transition: background 0.16s, color 0.16s, border-color 0.16s, transform 0.08s;
     -webkit-tap-highlight-color: transparent;
   }
@@ -432,6 +432,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   @media (hover: hover) { .hero-act-roll:hover { background: var(--field-bright); border-color: var(--field-bright); } }
   .hero-act-roll:active { transform: scale(0.99); }
   .hero-act-roll:focus { outline: none; }
+  .roi-roll { display: none; }   /* bottom-of-box Roll Again: mobile only (shown in the mobile block) */
   .hero-amount .currency {
     font-size: 0.55em; vertical-align: top; line-height: 1;
     color: var(--ink-soft); margin-right: 4px;
@@ -724,22 +725,21 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   .payback-table-wrap { overflow-x: auto; }
   .payback-table {
     width: 100%; border-collapse: collapse;
-    font-family: 'JetBrains Mono', monospace; font-size: 12px;
+    font-family: 'JetBrains Mono', monospace; font-size: 13px;
   }
   /* Desktop: size the table to its content (left-aligned with the header) so the
      Fund Year column stays snug and the table doesn't stretch to the far edge. */
   @media (min-width: 768px) {
-    .payback-table { font-size: 13px; width: auto; }
+    .payback-table { font-size: 13.5px; width: auto; }
     .payback-table thead th:not(:first-child),
     .payback-table tbody td:not(:first-child) { padding-left: 48px; }
   }
   .payback-table thead th {
-    font-family: 'Oswald', sans-serif; font-size: 9.5px; font-weight: 600;
+    font-family: 'Oswald', sans-serif; font-size: 11px; font-weight: 600;
     letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-soft);
     text-align: left; padding: 6px 10px; border-bottom: 2px solid var(--field);
     white-space: nowrap;
   }
-  @media (min-width: 768px) { .payback-table thead th { font-size: 10px; } }
   .payback-table th.num, .payback-table td.num { text-align: right; }
   .payback-table tbody td {
     padding: 7px 10px; border-bottom: 1px dashed var(--paper-shadow);
@@ -756,14 +756,14 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   }
   .payback-table .yr-short { display: none; }
   .payback-table td.neg { color: #b91c1c; }
-  .payback-table td.zero { color: var(--ink-soft); opacity: 0.5; }
+  .payback-table td.zero { color: rgba(13,29,53,0.38); }   /* mute the dash via color only — opacity would dim the row highlight behind it */
   .payback-table tbody tr.payback-row td {
     background: rgba(13,29,53,0.06); font-weight: 700;
     border-bottom: 1px solid var(--field);
   }
   .payback-table tbody tr.payback-row .yr::after {
     content: 'PAID BACK'; display: inline-block; margin-left: 8px;
-    font-family: 'Oswald', sans-serif; font-size: 8.5px; font-weight: 600;
+    font-family: 'Oswald', sans-serif; font-size: 10px; font-weight: 600;
     letter-spacing: 0.12em; color: var(--paper); background: var(--field);
     padding: 1px 6px; vertical-align: 1px;
   }
@@ -773,7 +773,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   }
   .payback-table .sale-badge {
     display: inline-block; margin-left: 8px;
-    font-family: 'Oswald', sans-serif; font-size: 8.5px; font-weight: 600;
+    font-family: 'Oswald', sans-serif; font-size: 10px; font-weight: 600;
     letter-spacing: 0.12em; text-transform: uppercase;
     color: var(--field); background: var(--paper);
     border: 1px solid var(--field); padding: 1px 6px; vertical-align: 1px;
@@ -1641,6 +1641,18 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   .site-nav-terms b { color: var(--paper); font-weight: 700; }
   /* ===== Wizard stage — the cover box IS the shell; steps swap inside it ===== */
   .cover-head { text-align: center; }
+  /* Wizard back arrow — navy outlined circle, top-left, shown after the intro */
+  .wiz-back {
+    position: absolute; top: 16px; left: 16px; z-index: 3;
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 38px; height: 38px; border-radius: 50%;
+    background: transparent; border: 1.5px solid var(--field); color: var(--field);
+    cursor: pointer; padding: 0; line-height: 0;
+    transition: background 0.15s, color 0.15s;
+  }
+  @media (min-width: 768px) { .wiz-back { top: 22px; left: 22px; } }
+  .wiz-back:hover { background: var(--field); color: var(--paper); }
+  .wiz-back[hidden] { display: none; }
 
   /* Body region that swaps panels — a fixed min-height (= the tallest step,
      Settings) keeps the box exactly one size as the steps cycle through it. */
@@ -1855,9 +1867,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
     /* Wizard: every step the same size; button pinned to the bottom so it stays
        in one spot for click-click-click, with the progress dots below it */
-    .stage-body { min-height: 418px; }
+    .stage-body { min-height: 406px; }   /* 12px less to offset the cover-head nudge below (card height unchanged) */
     #screenIntro { justify-content: center; }   /* center the intro so it isn't jammed under the banner with a big gap */
     .cover-inner { padding: 22px var(--cover-pad-x) 44px; }
+    .cover-head { margin-top: 12px; }   /* nudge content down so the back arrow has room to breathe */
     .wiz-progress { bottom: 15px; }
     .cover-eyebrow { margin-bottom: 12px; }
     .cover-sim { margin: 18px calc(-1 * var(--cover-pad-x)) 6px; padding: 12px 0; }
@@ -1867,25 +1880,32 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     .sim-intro-text { font-size: 14px; line-height: 1.5; }
     .sim-intro-text + .sim-intro-text { margin-top: 1em; }
 
-    /* Hero: uniform 2×2 grid — MOIC | IRR over $ | Roll Again, all same size */
+    /* Hero: MOIC | IRR on top, Net Return full-width below, Roll Again at the box bottom */
     .hero-card { padding: 14px 14px; min-height: 98px; }
     .hc-value, .hero-card-dollar .hc-value { font-size: clamp(30px, 8.5vw, 44px); }
     .hc-label { font-size: 10px; letter-spacing: 0.14em; }
-    .hero-card-dollar .hc-note { display: none; }   /* keep the $ card as short as the others */
-    .results-roll { display: none; }   /* Roll Again lives in the grid on mobile; only the gear shows in the ROI header */
+    .hero-col-dollar { order: -1; }   /* Net Return on top, then MOIC | IRR */
+    .results-roll { display: none; }   /* Roll Again is the full-width button at the box bottom on mobile */
+    .roi-roll { display: flex; width: 100%; margin-top: 16px; }
 
     /* Cash Flow: table shares the same margins as the title/callout above it */
     .payback-table-wrap { overflow-x: hidden; margin: 0; }
     .payback-section { padding: 18px 18px; }
-    .payback-table { font-size: 10.5px; }
-    .payback-table thead th { white-space: normal; padding: 5px 2px; font-size: 8.5px; letter-spacing: 0.02em; line-height: 1.15; }
-    .payback-table tbody td { padding: 6px 2px; }
-    .payback-table .yr small { display: none; }   /* drop the calendar year so the inline tags fit (period is in the subtitle) */
+    /* Match the Waterfall's type scale here too; headers wrap to two lines and the
+       tags may bleed into the next column — there's slack in the Fund Year column. */
+    .payback-table thead th { white-space: normal; padding: 5px 3px; letter-spacing: 0.04em; line-height: 1.15; }
+    .payback-table tbody td { padding: 6px 3px; }
+    .payback-table .yr small { display: none; }   /* drop the calendar year (period is in the subtitle) */
     .payback-table .yr-full { display: none; }
     .payback-table .yr-short { display: inline; }
-    /* Keep the tags inline, compact enough to fit on the row */
-    .payback-table tbody tr.payback-row .yr::after { margin-left: 4px; padding: 1px 3px; font-size: 7px; letter-spacing: 0.04em; }
-    .payback-table .sale-badge { margin-left: 4px; padding: 1px 3px; font-size: 7px; letter-spacing: 0.04em; }
+    /* Tags overflow the Fund Year cell (bleeding into Capital Invested) instead of
+       widening the column, which would squeeze and clip the Cumulative column. */
+    .payback-table tbody td.yr { position: relative; }
+    .payback-table tbody tr.payback-row .yr::after,
+    .payback-table .sale-badge {
+      position: absolute; left: 100%; top: 50%; transform: translateY(-50%);
+      margin-left: 6px; padding: 1px 4px; letter-spacing: 0.06em; white-space: nowrap;
+    }
     /* Callout: Investment / Money Back / Net Profit side by side */
     .payback-stats { flex-wrap: nowrap; gap: 8px 12px; }
 
@@ -1920,6 +1940,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- ============ WIZARD STAGE (cover box = persistent shell) ============ -->
 <div class="cover-gate" id="coverGate">
   <div class="cover-inner">
+    <button type="button" class="wiz-back" id="wizBack" aria-label="Go back" hidden>
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+    </button>
     <div class="cover-head">
       <div class="cover-eyebrow"><span class="eyebrow-pre">Private Capital · </span>Sports Royalty Fund</div>
       <h1 class="cover-title">Front Row Capital<span class="line2">Baseball Fund I</span></h1>
@@ -2100,19 +2123,17 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             <div class="hc-label">Net IRR</div>
           </div>
         </div>
-        <div class="col-6 col-md-4">
+        <div class="col-12 col-md-4 hero-col-dollar">
           <div class="hero-card hero-card-dollar">
             <div class="hc-value">$<span id="userReturn">—</span></div>
             <div class="hc-label">Net Return</div>
-            <div class="hc-note">On a $250K commitment</div>
+            <div class="hc-note">On a $250K investment</div>
           </div>
-        </div>
-        <!-- Mobile only: Roll Again fills this square (I'm Interested is the chat icon in the header) -->
-        <div class="col-6 d-md-none hero-actions-cell">
-          <button type="button" class="hero-act-btn hero-act-roll" id="heroAgain"><svg class="hero-act-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="23 4 23 10 17 10"></polyline><polyline points="1 20 1 14 7 14"></polyline><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path></svg>Roll Again</button>
         </div>
       </div>
       <p class="results-explainer" id="resultsExplainer"></p>
+      <!-- Mobile only: Roll Again spans the bottom of the box -->
+      <button type="button" class="hero-act-btn hero-act-roll roi-roll" id="heroAgain"><svg class="hero-act-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="23 4 23 10 17 10"></polyline><polyline points="1 20 1 14 7 14"></polyline><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path></svg>Roll Again</button>
       </section>
     </div>
     <div class="col-12">
@@ -3228,7 +3249,9 @@ const coversNextBtn  = document.getElementById('coversNext');
 const amountNextBtn  = document.getElementById('amountNext');
 const coverStartBtn  = document.getElementById('coverStart');
 const wizProgress    = document.getElementById('wizProgress');
+const wizBackBtn     = document.getElementById('wizBack');
 const STEP_INDEX     = { purpose: 1, how: 2, covers: 3 };
+const WIZ_ORDER      = ['intro', 'purpose', 'how', 'covers'];
 
 function setScreen(name) {
   document.body.dataset.screen = name;
@@ -3238,8 +3261,13 @@ function setScreen(name) {
     wizProgress.hidden = idx === 0;
     wizProgress.querySelectorAll('.wiz-dot').forEach((d, i) => d.classList.toggle('filled', i < idx));
   }
+  if (wizBackBtn) wizBackBtn.hidden = WIZ_ORDER.indexOf(name) < 1;   // hidden on intro (and results)
   window.scrollTo(0, 0);
 }
+if (wizBackBtn) wizBackBtn.addEventListener('click', () => {
+  const i = WIZ_ORDER.indexOf(document.body.dataset.screen);
+  if (i > 0) setScreen(WIZ_ORDER[i - 1]);
+});
 function setRollBtnLabel() {
   const label = '<span class="btn-full">Simulate Portfolio</span><span class="btn-short">Simulate</span><span class="arrow">→</span>';
   if (rollBtn) rollBtn.innerHTML = label;
