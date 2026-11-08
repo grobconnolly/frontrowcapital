@@ -1651,7 +1651,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     transition: background 0.15s, color 0.15s;
   }
   @media (min-width: 768px) { .wiz-back { top: 22px; left: 22px; } }
-  .wiz-back:hover { background: var(--field); color: var(--paper); }
+  /* Fill only on real hover (mouse) or while pressed — touch browsers keep :hover
+     stuck on the last-tapped element, which left the arrow filled after going back */
+  @media (hover: hover) { .wiz-back:hover { background: var(--field); color: var(--paper); } }
+  .wiz-back:active { background: var(--field); color: var(--paper); }
   .wiz-back[hidden] { display: none; }
 
   /* Body region that swaps panels — a fixed min-height (= the tallest step,
