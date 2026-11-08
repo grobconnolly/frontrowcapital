@@ -1416,6 +1416,10 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     background: var(--field); color: var(--paper);
   }
   .sim-log-clear:focus { outline: none; box-shadow: 0 0 0 3px rgba(255,255,255,0.28); }
+  .sim-log-empty {
+    font-family: 'Lora', Georgia, serif; font-style: italic;
+    font-size: 12.5px; color: var(--ink-soft); padding: 4px 0;
+  }
   .sim-log-list {
     display: grid;
     gap: 8px;
@@ -1505,13 +1509,19 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     border-bottom: 2px solid var(--field);   /* navy rule, like the other box titles */
   }
   .mc-title-row .mc-title { margin-bottom: 0; }
-  /* Header buttons: lift so their bottom edge lines up with the bottom of the title
-     letters — the display font leaves ~11px of empty space under the caps, so buttons
-     on the row's baseline otherwise sit closer to the navy rule than the titles do. */
-  .mc-title-row #mcRun, .sim-log-head .sim-log-clear,
-  .results-controls .results-roll, .results-controls .results-gear { position: relative; top: -11px; }
-  .roster-head-tools { position: relative; top: -10px; }
-  @media (max-width: 767.98px) { .roster-head-tools { top: -7px; } }
+  /* Box titles: nudge down so the capital letters are vertically centered on the header
+     button (baseline alignment left the tall caps riding high above it). Small labels that
+     share a title's baseline move with it. Visual offset only — rows keep their height.
+     Titles with no button use the same nudge as their neighbors. */
+  .results-title, .payback-title, .roster-title, .mc-title, .sim-log-title,
+  .results-sub, .payback-sub { position: relative; top: 6px; }
+  /* Desktop Roll Again is a taller button: move it (and the gear) down to center on the
+     title, rather than lifting the title out of line with the other boxes */
+  .results-controls .results-roll, .results-controls .results-gear { position: relative; top: 5px; }
+  @media (max-width: 767.98px) {
+    .results-title, .payback-title, .roster-title, .results-sub, .payback-sub { top: 0; }  /* Portfolio row already centers */
+    .mc-title, .sim-log-title { top: 3px; }
+  }
   .mc-run { padding-top: 24px; margin-top: 24px; border-top: 2px solid var(--field); }
   .mc-run:first-child { padding-top: 0; margin-top: 0; border-top: none; }
   .mc-run-head {
@@ -3042,8 +3052,9 @@ function appendSimToLog(r) {
 
 function renderSimLog() {
   if (simHistory.length === 0) {
-    simLogEl.hidden = true;
-    simLogList.innerHTML = '';
+    // Keep the section (Clear shouldn't make it vanish) — just say it's empty
+    simLogEl.hidden = false;
+    simLogList.innerHTML = '<div class="sim-log-empty">Log cleared. Your next roll will appear here.</div>';
     return;
   }
   simLogEl.hidden = false;
