@@ -1867,7 +1867,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
     /* Wizard: every step the same size; button pinned to the bottom so it stays
        in one spot for click-click-click, with the progress dots below it */
-    .stage-body { min-height: 406px; }   /* 12px less to offset the cover-head nudge below (card height unchanged) */
+    .stage-body { min-height: 430px; }   /* fits the tallest step (What It Covers) at 16px body text, so every step is the same size */
     #screenIntro { justify-content: center; }   /* center the intro so it isn't jammed under the banner with a big gap */
     .cover-inner { padding: 22px var(--cover-pad-x) 44px; }
     .cover-head { margin-top: 12px; }   /* nudge content down so the back arrow has room to breathe */
@@ -1877,7 +1877,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     .cover-deck { margin-top: 12px; line-height: 1.42; }
     .cover-meta { margin-top: 14px; padding-top: 12px; }
     .cover-start { margin-top: auto; padding: 14px 24px; }
-    .sim-intro-text { font-size: 14px; line-height: 1.5; }
+    .wiz-next, .wiz-nav .roll-btn-standalone { padding: 14px 24px; }   /* same size as Start */
+    .sim-intro-text { font-size: 16px; line-height: 1.5; }   /* match the intro's .cover-deck size */
     .sim-intro-text + .sim-intro-text { margin-top: 1em; }
 
     /* Hero: MOIC | IRR on top, Net Return full-width below, Roll Again at the box bottom */
