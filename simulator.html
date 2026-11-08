@@ -1775,9 +1775,12 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     background: transparent; border: 0; padding: 0; margin: 0 0 16px;
   }
   .stage-panel .sim-mode-strip + .vintage-strip, .stage-panel .vintage-strip + .pool-strip,
-  .customize-card .sim-mode-strip + .vintage-strip, .customize-card .vintage-strip + .pool-strip {
+  .customize-card .sim-mode-strip + .vintage-strip, .customize-card .vintage-strip + .pool-strip,
+  .customize-card .vintage-strip + .vintage-strip {   /* Investment Amount → Investment Period */
     margin-top: 0; padding-top: 16px; border-top: 1px solid rgba(13,29,53,0.14);
   }
+  /* Label-to-buttons distance the same in every section (Player Pool's 14px gap) */
+  .customize-card .year-chips, .customize-card .amt-chips { margin-top: 0; }
 
   /* Customize overlay — assumptions as a modal over the results */
   .customize-overlay {
