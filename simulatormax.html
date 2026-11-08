@@ -456,20 +456,16 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   .meta-stat .meta-value.gold { color: var(--field); }
 
   .breakdown-panel {
-    background: var(--field); color: var(--paper); padding: 20px 22px;
+    background: var(--paper-dim); color: var(--ink); padding: 20px 22px;
     position: relative; height: 100%;
   }
   @media (min-width: 768px) {
     .breakdown-panel { padding: 24px 26px; }
   }
-  .breakdown-panel::after {
-    content: ''; position: absolute; inset: 4px;
-    border: 1px solid rgba(255,255,255,0.18); pointer-events: none;
-  }
   .breakdown-frame {
     font-family: 'Oswald', sans-serif; font-weight: 600; font-size: 10px;
-    letter-spacing: 0.16em; text-transform: uppercase; color: rgba(255,255,255,0.5);
-    margin: -10px 0 10px;
+    letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-soft);
+    margin: -4px 0 14px;
   }
   /* Waterfall expander — collapsed by default (optional diligence detail) */
   .wf-details { border: 1px solid rgba(250,246,236,0.4); }
@@ -486,52 +482,59 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   .wf-details[open] .wf-caret { transform: rotate(90deg); }
   .wf-details .breakdown-panel { border: 0; }
   .br-finlete-note {
-    margin-top: 14px; padding-top: 12px; border-top: 1px solid rgba(255,255,255,0.15);
-    font-family: 'Lora', Georgia, serif; font-style: italic; font-size: 11.5px;
-    line-height: 1.45; color: rgba(255,255,255,0.6);
+    margin-top: 14px; padding-top: 12px; border-top: 1px solid rgba(13,29,53,0.15);
+    font-family: 'Lora', Georgia, serif; font-style: italic; font-size: 12px;
+    line-height: 1.5; color: var(--ink-soft);
   }
   .breakdown-note {
     font-family: 'Lora', Georgia, serif; font-style: italic;
-    font-size: 11.5px; line-height: 1.45; color: rgba(255,255,255,0.6);
+    font-size: 12px; line-height: 1.5; color: var(--ink-soft);
     margin: -6px 0 12px;
   }
   .breakdown-title {
     font-family: 'Big Shoulders Display', sans-serif; font-weight: 900;
-    font-size: 22px; letter-spacing: 0.04em; text-transform: uppercase;
-    margin-bottom: 16px; color: var(--gold-bright);
+    font-size: 22px; letter-spacing: 0.02em; text-transform: uppercase;
+    margin-bottom: 14px; color: var(--field);
   }
   .br-row {
     display: flex; justify-content: space-between; align-items: baseline;
-    padding: 8px 0; border-bottom: 1px dashed rgba(255,255,255,0.18);
-    font-family: 'JetBrains Mono', monospace; font-size: 12px;
+    padding: 9px 0; border-bottom: 1px dashed rgba(13,29,53,0.15);
+    font-family: 'JetBrains Mono', monospace; font-size: 13px;
   }
-  @media (min-width: 768px) { .br-row { font-size: 13px; } }
   .br-row:last-child { border-bottom: 0; padding-bottom: 0; }
+  /* Line-item labels read as a plain statement — sentence case, no heavy tracking */
   .br-row .label {
-    font-family: 'Oswald', sans-serif; font-size: 11px; letter-spacing: 0.16em;
-    text-transform: uppercase; font-weight: 400; color: rgba(255,255,255,0.7);
+    font-family: 'Lora', Georgia, serif; font-size: 14px; letter-spacing: 0;
+    text-transform: none; font-weight: 400; color: var(--ink);
   }
-  .br-row .value { font-weight: 500; color: var(--paper); }
+  .br-row .value { font-weight: 600; color: var(--field); }
   .br-section {
-    font-family: 'Oswald', sans-serif; font-weight: 600; font-size: 10px;
-    letter-spacing: 0.26em; text-transform: uppercase; color: rgba(255,255,255,0.5);
-    margin: 18px 0 6px;
+    font-family: 'Oswald', sans-serif; font-weight: 700; font-size: 11px;
+    letter-spacing: 0.14em; text-transform: uppercase; color: var(--field);
+    margin: 20px 0 8px; padding-bottom: 5px; border-bottom: 1px solid rgba(13,29,53,0.2);
   }
   .br-section:first-of-type { margin-top: 2px; }
-  .br-section small { font-size: 12px; letter-spacing: 0.02em; text-transform: none; font-weight: 400; opacity: 0.8; }
-  .br-row.subtotal { border-bottom: 0; margin-top: 2px; padding-top: 10px; border-top: 1px solid rgba(255,255,255,0.28); }
-  .br-row.subtotal .label { color: var(--paper); font-weight: 600; }
-  .br-row.subtotal .value { font-weight: 700; color: var(--paper); font-size: 14px; }
-  .br-row.total {
-    margin-top: 8px; padding-top: 14px;
-    border-top: 2px solid var(--gold); border-bottom: 0;
+  .br-section small {
+    font-family: 'Lora', Georgia, serif; font-size: 12px; letter-spacing: 0;
+    text-transform: none; font-weight: 400; font-style: italic; opacity: 0.75;
   }
-  .br-row.total .label { color: var(--gold-bright); font-weight: 600; font-size: 12px; }
+  .br-row.subtotal { border-bottom: 0; margin-top: 2px; padding-top: 10px; border-top: 1px solid rgba(13,29,53,0.3); }
+  .br-row.subtotal .label { color: var(--field); font-weight: 700; }
+  .br-row.subtotal .value { font-weight: 700; color: var(--field); font-size: 15px; }
+  .br-row.total {
+    margin-top: 10px; padding-top: 14px;
+    border-top: 2px solid var(--field); border-bottom: 0;
+  }
+  .br-row.total .label {
+    font-family: 'Oswald', sans-serif; color: var(--field); font-weight: 700;
+    font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase;
+  }
   .br-row.total .value {
     font-family: 'Big Shoulders Display', sans-serif; font-weight: 900;
-    font-size: 26px; color: var(--gold-bright); letter-spacing: -0.01em;
+    font-size: 26px; color: var(--field); letter-spacing: -0.01em;
   }
   @media (min-width: 768px) {
+    .br-row { font-size: 13.5px; }
     .br-row.total .value { font-size: 28px; }
   }
 
@@ -2121,12 +2124,12 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
         <div class="br-section">The Fund</div>
         <div class="br-row"><span class="label">Capital raised</span><span class="value">$10.0M</span></div>
-        <div class="br-row"><span class="label">Finlete stake</span><span class="value">−$1.4M</span></div>
-        <div class="br-row"><span class="label">Management fees (2% Yrs 1–3)</span><span class="value">−$0.6M</span></div>
+        <div class="br-row"><span class="label">Management fees (2% years 1-3)</span><span class="value">−$0.6M</span></div>
+        <div class="br-row"><span class="label">Invested in Finlete, Inc.</span><span class="value">−$1.4M</span></div>
         <div class="br-row subtotal"><span class="label">Invested in athletes</span><span class="value" id="bBasis">—</span></div>
 
         <div class="br-section">The Return <small>on that $8M</small></div>
-        <div class="br-row"><span class="label">Paychecks collected (Yrs 1–15)</span><span class="value" id="bGross">—</span></div>
+        <div class="br-row"><span class="label">Paychecks collected (years 1-15)</span><span class="value" id="bGross">—</span></div>
         <div class="br-row"><span class="label">Year-15 contract sale</span><span class="value" id="bSale">—</span></div>
         <div class="br-row"><span class="label">Carried interest (20%)</span><span class="value" id="bCarry">—</span></div>
         <div class="br-row total"><span class="label">Total Paid to Investors</span><span class="value" id="bNetLp">—</span></div>
@@ -2181,14 +2184,14 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     </div>
   </div>
 
-  <!-- Monte Carlo Panel — permanent, the odds behind the single roll -->
+  <!-- Monte Carlo Panel — the 10,000-run distribution, after the single-roll sections -->
   <section class="mc-panel" id="mcPanel">
     <div class="mc-head">
       <div class="mc-title-row">
         <div class="mc-title"><span class="mc-t1">Monte Carlo</span><span class="mc-t2">10,000 Runs</span></div>
         <button class="sim-log-clear" id="mcRun" aria-label="Re-run Monte Carlo">Re-run</button>
       </div>
-      <div class="mc-explain">The single roll above is one fund. This deals 10,000 of them — same era, same terms, different rosters — and shows the whole distribution, bottom decile first, losing runs counted.</div>
+      <div class="mc-explain">Here we run 10,000 simulations at once. You can see the whole distribution, bottom decile first.</div>
     </div>
     <div class="mc-progress" id="mcProgress">
       <div class="mc-progress-bar-wrap">
