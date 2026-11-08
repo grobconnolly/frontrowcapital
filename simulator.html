@@ -1918,8 +1918,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       position: absolute; left: auto; top: 50%; transform: translateY(-50%);   /* left:auto = sits right after the YR label */
       margin-left: 6px; padding: 1px 4px; letter-spacing: 0.06em; white-space: nowrap;
     }
-    /* The tag covers that row's Capital Invested cell, which is always an empty dash there */
-    .payback-table tbody tr.payback-row td.zero:nth-child(2),
+    /* The wide SECONDARY SALE tag covers that row's Capital Invested dash (PAID BACK is narrow enough to keep it) */
     .payback-table tbody tr.sale-row td.zero:nth-child(2) { color: transparent; }
     /* Callout: Investment / Money Back / Net Profit side by side */
     .payback-stats { flex-wrap: nowrap; gap: 8px 12px; }
@@ -3467,7 +3466,9 @@ const scrollTopBtn = document.getElementById('scrollTop');
 function updateCtaBar() {
   const show = window.scrollY > 120;
   if (ctaBar) ctaBar.classList.toggle('cta-hidden', !show);          // desktop sticky footer
-  if (scrollTopBtn) scrollTopBtn.classList.toggle('show', show);     // mobile back-to-top
+  // mobile back-to-top: only once well down the page (1.5 screens), so tapping the
+  // scroll hint doesn't instantly flip the down arrow into an up arrow
+  if (scrollTopBtn) scrollTopBtn.classList.toggle('show', window.scrollY > window.innerHeight * 1.5);
 }
 window.addEventListener('scroll', updateCtaBar, { passive: true });
 scrollTopBtn?.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
