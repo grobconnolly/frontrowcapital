@@ -1438,7 +1438,11 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     font-size: clamp(20px, 4vw, 28px); letter-spacing: 0.04em;
     text-transform: uppercase; color: var(--field); line-height: 1; margin-bottom: 5px;
   }
-  .mc-t2::before { content: " · "; }   /* desktop: inline with a dot */
+  /* "10,000 Runs" — small charcoal label beside the title, same style as Cash Flow's period label */
+  .mc-t2 {
+    font-family: 'Oswald', sans-serif; font-weight: 400; font-size: 11px; letter-spacing: 0.16em;
+    color: var(--ink-soft); margin-left: 14px; vertical-align: 0.15em;
+  }
   .mc-settings {
     font-family: 'JetBrains Mono', monospace; font-size: 10px;
     color: var(--field); opacity: 0.5; letter-spacing: 0.06em; text-transform: uppercase;
@@ -1497,8 +1501,17 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
   .mc-title-row {
     display: flex; justify-content: space-between; align-items: baseline;
-    margin-bottom: 4px;
+    margin-bottom: 14px; padding-bottom: 12px;
+    border-bottom: 2px solid var(--field);   /* navy rule, like the other box titles */
   }
+  .mc-title-row .mc-title { margin-bottom: 0; }
+  /* Header buttons: lift so their bottom edge lines up with the bottom of the title
+     letters — the display font leaves ~11px of empty space under the caps, so buttons
+     on the row's baseline otherwise sit closer to the navy rule than the titles do. */
+  .mc-title-row #mcRun, .sim-log-head .sim-log-clear,
+  .results-controls .results-roll, .results-controls .results-gear { position: relative; top: -11px; }
+  .roster-head-tools { position: relative; top: -10px; }
+  @media (max-width: 767.98px) { .roster-head-tools { top: -7px; } }
   .mc-run { padding-top: 24px; margin-top: 24px; border-top: 2px solid var(--field); }
   .mc-run:first-child { padding-top: 0; margin-top: 0; border-top: none; }
   .mc-run-head {
